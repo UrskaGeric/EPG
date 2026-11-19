@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="sl" xml:lang="sl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto – Evolucijska in populacijska genetika</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" rel="next">
+<link href="../uvod_SL.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ef4d8e9faa04af36b84e1866e7343808.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ni rezultatov",
+    "search-matching-documents-text": "ujemajoči se dokumenti",
+    "search-copy-link-title": "Kopiraj povezavo do iskanja",
+    "search-hide-matches-text": "Skrij dodatne zadetke",
+    "search-more-match-text": "več zadetkov v tem dokumentu",
+    "search-more-matches-text": "več zadetkov v tem dokumentu",
+    "search-clear-button-title": "Počisti",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Prekliči",
+    "search-submit-button-title": "Pošlji",
+    "search-label": "Iskanje"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E0_uvod_R/E0_uvod_R.html"><span class="chapter-title">Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Iskanje" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Evolucijska in populacijska genetika</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Iskanje"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dobrodošli / Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slovenščina</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../uvod_SL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uvod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E0_uvod_R/E0_uvod_R.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">English</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../uvod_EN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E0_intro_R_EN/E0_intro_R_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 0: Setting up your system – R, RStudio and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_version_control_EN/E1_version_control_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../literatura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literatura / Literature</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej strani</h2>
+   
+  <ul>
+  <li><a href="#pred-prvo-vajo" id="toc-pred-prvo-vajo" class="nav-link active" data-scroll-target="#pred-prvo-vajo">Pred prvo vajo</a></li>
+  <li><a href="#sec-e0-namestitev" id="toc-sec-e0-namestitev" class="nav-link" data-scroll-target="#sec-e0-namestitev">Namestitev</a>
+  <ul class="collapse">
+  <li><a href="#sec-e0-r" id="toc-sec-e0-r" class="nav-link" data-scroll-target="#sec-e0-r">R</a></li>
+  <li><a href="#sec-e0-rstudio" id="toc-sec-e0-rstudio" class="nav-link" data-scroll-target="#sec-e0-rstudio">RStudio</a></li>
+  <li><a href="#sec-e0-nastavitve" id="toc-sec-e0-nastavitve" class="nav-link" data-scroll-target="#sec-e0-nastavitve">Nastavitve RStudia</a></li>
+  <li><a href="#sec-e0-paketi" id="toc-sec-e0-paketi" class="nav-link" data-scroll-target="#sec-e0-paketi">Paketi za predmet</a></li>
+  <li><a href="#sec-e0-preizkus" id="toc-sec-e0-preizkus" class="nav-link" data-scroll-target="#sec-e0-preizkus">Preizkus: prvi Quarto dokument</a></li>
+  </ul></li>
+  <li><a href="#sec-e0-tezave" id="toc-sec-e0-tezave" class="nav-link" data-scroll-target="#sec-e0-tezave">Ko gre kaj narobe</a>
+  <ul class="collapse">
+  <li><a href="#sec-e0-sumniki" id="toc-sec-e0-sumniki" class="nav-link" data-scroll-target="#sec-e0-sumniki">Šumniki v uporabniškem imenu (Windows)</a></li>
+  </ul></li>
+  <li><a href="#sec-e0-r-rstudio" id="toc-sec-e0-r-rstudio" class="nav-link" data-scroll-target="#sec-e0-r-rstudio">Priročnik: R in RStudio</a>
+  <ul class="collapse">
+  <li><a href="#kaj-je-r" id="toc-kaj-je-r" class="nav-link" data-scroll-target="#kaj-je-r">Kaj je R</a></li>
+  <li><a href="#kako-r-deluje" id="toc-kako-r-deluje" class="nav-link" data-scroll-target="#kako-r-deluje">Kako R deluje</a></li>
+  <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio">RStudio</a></li>
+  <li><a href="#konzola-ali-skripta" id="toc-konzola-ali-skripta" class="nav-link" data-scroll-target="#konzola-ali-skripta">Konzola ali skripta</a></li>
+  </ul></li>
+  <li><a href="#sec-e0-osnove" id="toc-sec-e0-osnove" class="nav-link" data-scroll-target="#sec-e0-osnove">Priročnik: osnove R</a>
+  <ul class="collapse">
+  <li><a href="#računanje" id="toc-računanje" class="nav-link" data-scroll-target="#računanje">Računanje</a></li>
+  <li><a href="#primerjave-in-logični-operatorji" id="toc-primerjave-in-logični-operatorji" class="nav-link" data-scroll-target="#primerjave-in-logični-operatorji">Primerjave in logični operatorji</a></li>
+  <li><a href="#spremenljivke-in-objekti" id="toc-spremenljivke-in-objekti" class="nav-link" data-scroll-target="#spremenljivke-in-objekti">Spremenljivke in objekti</a></li>
+  <li><a href="#funkcije" id="toc-funkcije" class="nav-link" data-scroll-target="#funkcije">Funkcije</a></li>
+  <li><a href="#paketi" id="toc-paketi" class="nav-link" data-scroll-target="#paketi">Paketi</a></li>
+  <li><a href="#podatkovne-strukture" id="toc-podatkovne-strukture" class="nav-link" data-scroll-target="#podatkovne-strukture">Podatkovne strukture</a></li>
+  <li><a href="#primer-podatki-o-perunikah" id="toc-primer-podatki-o-perunikah" class="nav-link" data-scroll-target="#primer-podatki-o-perunikah">Primer: podatki o perunikah</a></li>
+  </ul></li>
+  <li><a href="#sec-e0-quarto" id="toc-sec-e0-quarto" class="nav-link" data-scroll-target="#sec-e0-quarto">Priročnik: Quarto</a>
+  <ul class="collapse">
+  <li><a href="#zgradba-dokumenta-.qmd" id="toc-zgradba-dokumenta-.qmd" class="nav-link" data-scroll-target="#zgradba-dokumenta-.qmd">Zgradba dokumenta <code>.qmd</code></a></li>
+  <li><a href="#markdown-oblikovanje-besedila" id="toc-markdown-oblikovanje-besedila" class="nav-link" data-scroll-target="#markdown-oblikovanje-besedila">Markdown: oblikovanje besedila</a></li>
+  <li><a href="#možnosti-blokov-kode" id="toc-možnosti-blokov-kode" class="nav-link" data-scroll-target="#možnosti-blokov-kode">Možnosti blokov kode</a></li>
+  <li><a href="#render" id="toc-render" class="nav-link" data-scroll-target="#render">Render</a></li>
+  <li><a href="#oblike-izhoda" id="toc-oblike-izhoda" class="nav-link" data-scroll-target="#oblike-izhoda">Oblike izhoda</a></li>
+  </ul></li>
+  <li><a href="#sec-e0-rmarkdown" id="toc-sec-e0-rmarkdown" class="nav-link" data-scroll-target="#sec-e0-rmarkdown">Za primerjavo: Rmarkdown</a></li>
+  <li><a href="#kontrolni-seznam-za-vajo-1" id="toc-kontrolni-seznam-za-vajo-1" class="nav-link" data-scroll-target="#kontrolni-seznam-za-vajo-1">Kontrolni seznam za vajo 1</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E0_uvod_R/E0_uvod_R.html"><span class="chapter-title">Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-E0_uvod_R" class="quarto-section-identifier"><span class="chapter-title">Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>🌐 <a href="../E0_intro_R_EN/E0_intro_R_EN.html">English version</a></p>
+</div>
+</div>
+</div>
+<section id="pred-prvo-vajo" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="pred-prvo-vajo">Pred prvo vajo</h2>
+<p>To vajo naredite <strong>sami doma, pred vajo 1</strong>. Časovne omejitve ni. Namestili boste programe, ki jih bomo uporabljali na vseh vajah, in preverili, da delujejo.</p>
+<p>Vaja ima dva dela:</p>
+<ol type="1">
+<li><strong>Vzpostavitev sistema</strong> (<a href="#sec-e0-namestitev" class="quarto-xref"><span>Namestitev</span></a> do <a href="#sec-e0-preizkus" class="quarto-xref"><span>Preizkus: prvi Quarto dokument</span></a>): <strong>obvezno</strong>. Na vajo 1 pridite z delujočim sistemom.</li>
+<li><strong>Priročnik</strong> (<a href="#sec-e0-r-rstudio" class="quarto-xref"><span>Priročnik: R in RStudio</span></a> do <a href="#sec-e0-rmarkdown" class="quarto-xref"><span>Za primerjavo: Rmarkdown</span></a>): kratek uvod v R, RStudio in Quarto. Preberite ga in poskusite primere; kasneje se k njemu vračajte, ko boste kaj potrebovali.</li>
+</ol>
+<p><strong>Kontrolni seznam za vajo 1:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">nameščen R (<a href="#sec-e0-r" class="quarto-xref"><span>R</span></a>),</label></li>
+<li><label><input type="checkbox">nameščen RStudio (<a href="#sec-e0-rstudio" class="quarto-xref"><span>RStudio</span></a>),</label></li>
+<li><label><input type="checkbox">nastavljen RStudio (<a href="#sec-e0-nastavitve" class="quarto-xref"><span>Nastavitve RStudia</span></a>),</label></li>
+<li><label><input type="checkbox">nameščeni paketi za predmet (<a href="#sec-e0-paketi" class="quarto-xref"><span>Paketi za predmet</span></a>),</label></li>
+<li><label><input type="checkbox">renderiran preizkusni Quarto dokument (<a href="#sec-e0-preizkus" class="quarto-xref"><span>Preizkus: prvi Quarto dokument</span></a>).</label></li>
+</ul>
+</section>
+<section id="sec-e0-namestitev" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0-namestitev">Namestitev</h2>
+<p>Namestiti morate dva programa, <strong>v tem vrstnem redu</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Program</th>
+<th>Kaj je</th>
+<th>Od kod</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>R</strong></td>
+<td>programski jezik in okolje za statistiko in grafe</td>
+<td><a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a></td>
+</tr>
+<tr class="even">
+<td><strong>RStudio</strong></td>
+<td>razvojno okolje (<em>IDE</em>): urejevalnik, konzola, grafi in pomoč v enem oknu</td>
+<td><a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quarto</strong> je že vključen v RStudio, zato ga posebej ne nameščate. <strong>Git</strong> bomo skupaj namestili na vaji 1.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Pomembno</span>Najprej R, nato RStudio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>RStudio je samo „okno“ za R. Brez nameščenega R ne deluje. Če ste R ali RStudio namestili že prej, preverite, da sta <strong>novejša od enega leta</strong>, sicer ju posodobite (namestite novo različico čez staro).</p>
+</div>
+</div>
+<section id="sec-e0-r" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0-r">R</h3>
+<ol type="1">
+<li>Odprite <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a>.</li>
+<li>Izberite svoj operacijski sistem:
+<ul>
+<li><strong>Windows:</strong> <em>Download R for Windows</em> → <em>base</em> → <em>Download R-4.x.x for Windows</em>. Zaženite preneseno datoteko in namestite s privzetimi nastavitvami.</li>
+<li><strong>macOS:</strong> <em>Download R for macOS</em>. Izberite paket za svoj procesor: <strong>arm64</strong> za novejše Mace (Apple M1, M2, M3, M4) ali <strong>x86_64</strong> za starejše Mace z Intelovim procesorjem (<em>Apple meni → About This Mac</em>). Namestite s privzetimi nastavitvami.</li>
+<li><strong>Linux (Ubuntu):</strong> v terminalu <code>sudo apt install r-base</code>.</li>
+</ul></li>
+</ol>
+</section>
+<section id="sec-e0-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0-rstudio">RStudio</h3>
+<ol type="1">
+<li>Odprite <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a>.</li>
+<li>Prenesite <strong>RStudio Desktop</strong> za svoj operacijski sistem (stran ga običajno prepozna sama).</li>
+<li>Namestite s privzetimi nastavitvami.</li>
+<li>Zaženite <strong>RStudio</strong> (ne R). Spodaj levo, v konzoli, mora pisati različica R, npr. <code>R version 4.5.1</code>.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Rstudio_interface.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="RStudio ima štiri okna: urejevalnik skript (levo zgoraj), okolje (desno zgoraj), konzolo (levo spodaj) ter datoteke, grafe, pakete in pomoč (desno spodaj)."><img src="images/Rstudio_interface.png" class="img-fluid figure-img" style="width:100.0%" alt="RStudio ima štiri okna: urejevalnik skript (levo zgoraj), okolje (desno zgoraj), konzolo (levo spodaj) ter datoteke, grafe, pakete in pomoč (desno spodaj)."></a></p>
+<figcaption>RStudio ima štiri okna: urejevalnik skript (levo zgoraj), okolje (desno zgoraj), konzolo (levo spodaj) ter datoteke, grafe, pakete in pomoč (desno spodaj).</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-e0-nastavitve" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0-nastavitve">Nastavitve RStudia</h3>
+<p>V RStudiu odprite <strong>Tools → Global Options → General</strong> in nastavite:</p>
+<ul>
+<li>odkljukajte <em>Restore .RData into workspace at startup</em>,</li>
+<li><em>Save workspace to .RData on exit</em>: <strong>Never</strong>.</li>
+</ul>
+<p>Tako RStudio ob vsakem zagonu začne s praznim okoljem. Vse, kar potrebujete, naj nastane iz vaše skripte, ne iz shranjenega spomina prejšnje seje. To je osnova <strong>ponovljivosti</strong> (<em>reproducibility</em>): skripta mora delovati tudi na drugem računalniku in čez eno leto.</p>
+<p>Po želji: <em>Appearance</em> (temna tema, velikost pisave).</p>
+</section>
+<section id="sec-e0-paketi" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0-paketi">Paketi za predmet</h3>
+<p>R ima osnovne funkcije, dodatne pa prinesejo <strong>paketi</strong> (<em>packages</em>). Na vajah jih bomo potrebovali nekaj, zato jih namestite že zdaj, ker namestitev lahko traja nekaj minut.</p>
+<p>V RStudiu v <strong>konzolo</strong> (levo spodaj) prilepite in poženite (Enter):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"rmarkdown"</span>, <span class="st">"quarto"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"usethis"</span>, <span class="st">"gitcreds"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"adegenet"</span>, <span class="st">"hierfstat"</span>, <span class="st">"detectRUNS"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paket</th>
+<th>Za kaj ga bomo uporabljali</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>tidyverse</code></td>
+<td>delo s tabelami in grafi (<code>ggplot2</code>, <code>dplyr</code> …)</td>
+</tr>
+<tr class="even">
+<td><code>rmarkdown</code>, <code>quarto</code></td>
+<td>poročila</td>
+</tr>
+<tr class="odd">
+<td><code>usethis</code>, <code>gitcreds</code></td>
+<td>povezava z GitHubom (vaja 1)</td>
+</tr>
+<tr class="even">
+<td><code>adegenet</code>, <code>hierfstat</code></td>
+<td>populacijska genetika (vaje 3 in 4)</td>
+</tr>
+<tr class="odd">
+<td><code>detectRUNS</code></td>
+<td>homozigotni odseki (vaja 5)</td>
+</tr>
+</tbody>
+</table>
+<p>Če vas R vpraša <em>Do you want to install from sources the packages which need compilation?</em>, odgovorite <strong>No</strong>.</p>
+<p>Preverite, da se paketi naložijo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(adegenet)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hierfstat)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(detectRUNS)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sporočila v rdeči barvi ob <code>library()</code> so običajno samo obvestila. Težava je le, če piše <code>Error: there is no package called …</code>; v tem primeru glejte <a href="#sec-e0-tezave" class="quarto-xref"><span>Ko gre kaj narobe</span></a>.</p>
+</section>
+<section id="sec-e0-preizkus" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0-preizkus">Preizkus: prvi Quarto dokument</h3>
+<p>S tem preizkusom preverite, da R, RStudio in Quarto delujejo skupaj.</p>
+<ol type="1">
+<li><strong>File → New File → Quarto Document…</strong>, vpišite naslov <code>Preizkus</code> in kliknite <strong>Create</strong>.</li>
+<li>Celotno vsebino nove datoteke zamenjajte s tem besedilom:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Preizkus sistema"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Ime Priimek"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Moj prvi Quarto dokument</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>To je **besedilo** v Markdownu. Spodaj je blok R kode.</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(x, <span class="at">col =</span> <span class="st">"steelblue"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="1">
+<li>Shranite (Ctrl + S) kot <code>preizkus.qmd</code>, npr. v mapo <em>Dokumenti</em>.</li>
+<li>Kliknite gumb <strong>Render</strong> (modra puščica nad urejevalnikom).</li>
+</ol>
+<p>Odpre se HTML dokument z naslovom, besedilom, rezultatom <code>[1] 4.5</code> in stolpčnim grafom. <strong>Če ga vidite, je vaš sistem pripravljen za vaje.</strong> Datoteko lahko nato izbrišete.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Mapa za repozitorije
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Na vaji 1 bomo ustvarili vaš repozitorij za vaje. Že zdaj si v domači mapi ustvarite mapo <code>GitHub</code> (npr. <code>C:/Users/ime/GitHub</code>), <strong>ne v OneDrive</strong> ali drugi mapi, ki se sinhronizira v oblak.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e0-tezave" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0-tezave">Ko gre kaj narobe</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Težava</th>
+<th>Rešitev</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RStudio ob zagonu javi, da ne najde R</td>
+<td>najprej namestite R (<a href="#sec-e0-r" class="quarto-xref"><span>R</span></a>), nato znova zaženite RStudio</td>
+</tr>
+<tr class="even">
+<td>Gumba <strong>Render</strong> ni ali Quarto javi napako</td>
+<td>posodobite RStudio na najnovejšo različico</td>
+</tr>
+<tr class="odd">
+<td><code>Error: there is no package called …</code></td>
+<td>paket ni nameščen: <code>install.packages("ime_paketa")</code></td>
+</tr>
+<tr class="even">
+<td>Namestitev paketa javi napako o <em>Rtools</em> ali <em>compilation</em></td>
+<td>ponovite namestitev in na vprašanje o <em>sources</em> odgovorite <strong>No</strong></td>
+</tr>
+<tr class="odd">
+<td>Namestitev paketov odpove, v poti je vaše uporabniško ime s šumniki</td>
+<td>glejte spodaj (<a href="#sec-e0-sumniki" class="quarto-xref"><span>Šumniki v uporabniškem imenu (Windows)</span></a>)</td>
+</tr>
+<tr class="even">
+<td>Na macOS se paket ne namesti zaradi <em>Xcode</em></td>
+<td>v Terminalu poženite <code>xcode-select --install</code></td>
+</tr>
+</tbody>
+</table>
+<section id="sec-e0-sumniki" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0-sumniki">Šumniki v uporabniškem imenu (Windows)</h3>
+<p>Če ima vaše uporabniško ime v Windows šumnike ali presledke (npr. <code>C:/Users/Urška Novak</code>), R pakete pogosto ne more namestiti v privzeto mapo. Rešitev je, da R uporablja mapo brez šumnikov:</p>
+<ol type="1">
+<li>Ustvarite mapo <code>C:/R/library</code>.</li>
+<li>V RStudiu v konzoli poženite:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_environ</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Če paket <code>usethis</code> še ni nameščen, namesto tega v domači mapi ustvarite datoteko <code>.Renviron</code> z Beležnico. 3. V datoteko dopišite vrstico, shranite in znova zaženite RStudio:</p>
+<pre class="text"><code>R_LIBS_USER=C:/R/library</code></pre>
+<ol start="4" type="1">
+<li>Ponovite namestitev paketov (<a href="#sec-e0-paketi" class="quarto-xref"><span>Paketi za predmet</span></a>).</li>
+</ol>
+</section>
+</section>
+<section id="sec-e0-r-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0-r-rstudio">Priročnik: R in RStudio</h2>
+<section id="kaj-je-r" class="level3">
+<h3 class="anchored" data-anchor-id="kaj-je-r">Kaj je R</h3>
+<p><strong>R</strong> je programski jezik in okolje za statistične analize in grafe. Razvila sta ga Ross Ihaka in Robert Gentleman v 90. letih prejšnjega stoletja, danes pa ga razvija velika mednarodna skupnost. Je <strong>brezplačen in odprtokoden</strong> (<em>open source</em>) ter deluje na Windows, macOS in Linuxu.</p>
+<p>Zakaj ga uporabljamo v biologiji:</p>
+<ul>
+<li><strong>ponovljivost</strong> (<em>reproducibility</em>): analizo zapišemo v skripto, ki jo lahko kadar koli ponovimo mi ali kdo drug. Pri programih s klikanjem (npr. Excel, SPSS) bi morali vsak korak ročno zapisati in ponoviti;</li>
+<li><strong>paketi</strong> (<em>packages</em>): na CRAN je več kot 20 000 paketov, za biologijo in genomiko še dodatni na <a href="https://www.bioconductor.org/">Bioconductor</a> in GitHubu (npr. <code>adegenet</code> za populacijsko genetiko, <code>ggplot2</code> za grafe);</li>
+<li><strong>grafi</strong> primerni za objavo, ki jih shranimo kot PNG, PDF ali SVG;</li>
+<li><strong>skupnost</strong>: za skoraj vsako napako že obstaja odgovor (iskanje <em>R + sporočilo napake</em>, <a href="https://stackoverflow.com/">Stack Overflow</a>).</li>
+</ul>
+<p>Povzetek osnovnih ukazov: <a href="https://rstudio.github.io/cheatsheets/base-r.pdf">R cheat sheet (PDF)</a>.</p>
+</section>
+<section id="kako-r-deluje" class="level3">
+<h3 class="anchored" data-anchor-id="kako-r-deluje">Kako R deluje</h3>
+<p>R je <strong>tolmačen jezik</strong> (<em>interpreted language</em>): vsak ukaz se izvede takoj, ko ga poženemo. Podatki, rezultati in funkcije so v pomnilniku (RAM) shranjeni kot <strong>objekti</strong> (<em>objects</em>), vsak s svojim imenom. Na objektih delamo z <strong>operatorji</strong> in <strong>funkcijami</strong>, rezultate pa shranimo kot nove objekte ali v datoteke (tabele, grafe).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Rarchitecture.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Kako R deluje: ukazi s tipkovnice, funkcije in paketi, podatkovni objekti v pomnilniku in datoteke na disku."><img src="images/Rarchitecture.png" class="img-fluid figure-img" style="width:75.0%" alt="Kako R deluje: ukazi s tipkovnice, funkcije in paketi, podatkovni objekti v pomnilniku in datoteke na disku."></a></p>
+<figcaption>Kako R deluje: ukazi s tipkovnice, funkcije in paketi, podatkovni objekti v pomnilniku in datoteke na disku.</figcaption>
+</figure>
+</div>
+</section>
+<section id="rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio">RStudio</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Okno</th>
+<th>Zavihki</th>
+<th>Kaj je tam</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>levo zgoraj</td>
+<td>urejevalnik (<em>Source</em>)</td>
+<td>skripte (<code>.R</code>) in Quarto dokumenti (<code>.qmd</code>)</td>
+</tr>
+<tr class="even">
+<td>levo spodaj</td>
+<td><em>Console</em>, <em>Terminal</em></td>
+<td>konzola R; terminal (Git Bash, od vaje 1 naprej)</td>
+</tr>
+<tr class="odd">
+<td>desno zgoraj</td>
+<td><em>Environment</em>, <em>History</em>, <em>Git</em></td>
+<td>objekti v pomnilniku; zgodovina ukazov; Git (vaja 1)</td>
+</tr>
+<tr class="even">
+<td>desno spodaj</td>
+<td><em>Files</em>, <em>Plots</em>, <em>Packages</em>, <em>Help</em>, <em>Viewer</em></td>
+<td>datoteke; grafi; paketi; pomoč; predogled dokumentov</td>
+</tr>
+</tbody>
+</table>
+<p>Povzetek: <a href="https://rstudio.github.io/cheatsheets/rstudio-ide.pdf">RStudio cheat sheet (PDF)</a>.</p>
+</section>
+<section id="konzola-ali-skripta" class="level3">
+<h3 class="anchored" data-anchor-id="konzola-ali-skripta">Konzola ali skripta</h3>
+<p>V <strong>konzoli</strong> se ukaz izvede takoj, ko pritisnete Enter, a se nikamor ne shrani. Zato kodo vedno pišemo v <strong>R skripto</strong> (<em>File → New File → R Script</em>), ki jo shranimo kot <code>.R</code> datoteko.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/creatingRScript.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Nova R skripta: File → New File → R Script."><img src="images/creatingRScript.png" class="img-fluid figure-img" style="width:50.0%" alt="Nova R skripta: File → New File → R Script."></a></p>
+<figcaption>Nova R skripta: <em>File → New File → R Script</em>.</figcaption>
+</figure>
+</div>
+<p>V skripti Enter samo premakne kazalec v novo vrstico. Kodo poženete takole:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Bližnjica</th>
+<th>Kaj naredi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Ctrl + Enter</strong></td>
+<td>požene trenutno vrstico (ali označeno kodo)</td>
+</tr>
+<tr class="even">
+<td><strong>Ctrl + Shift + Enter</strong></td>
+<td>požene celotno skripto</td>
+</tr>
+<tr class="odd">
+<td><strong>Tab</strong></td>
+<td>dopolni ime objekta ali funkcije</td>
+</tr>
+<tr class="even">
+<td><strong>Alt + −</strong></td>
+<td>napiše <code>&lt;-</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Ctrl + S</strong></td>
+<td>shrani</td>
+</tr>
+</tbody>
+</table>
+<p>Na macOS namesto Ctrl uporabite Cmd.</p>
+<p><strong>Komentarji</strong> (<em>comments</em>) se začnejo z <code>#</code>. R jih ne izvede; z njimi opišete, kaj koda dela:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># izračun povprečja</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>)  <span class="co"># vektor s štirimi števili</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.5</code></pre>
+</div>
+</div>
+<p><strong>Pomoč</strong> za funkcijo dobite z <code>?</code> pred imenom, npr. <code>?mean</code>. Odpre se v zavihku <em>Help</em>.</p>
+</section>
+</section>
+<section id="sec-e0-osnove" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0-osnove">Priročnik: osnove R</h2>
+<section id="računanje" class="level3">
+<h3 class="anchored" data-anchor-id="računanje">Računanje</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Pomen</th>
+<th>Primer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>+</code>, <code>-</code></td>
+<td>seštevanje, odštevanje</td>
+<td><code>5 - 2</code></td>
+</tr>
+<tr class="even">
+<td><code>*</code>, <code>/</code></td>
+<td>množenje, deljenje</td>
+<td><code>6 / 4</code></td>
+</tr>
+<tr class="odd">
+<td><code>^</code></td>
+<td>potenca</td>
+<td><code>2^3</code></td>
+</tr>
+<tr class="even">
+<td><code>%%</code></td>
+<td>ostanek pri deljenju</td>
+<td><code>7 %% 3</code></td>
+</tr>
+</tbody>
+</table>
+<p>Uporabne funkcije: <code>sqrt()</code> (kvadratni koren), <code>log()</code> (naravni logaritem), <code>exp()</code>, <code>round()</code>, <code>abs()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">3</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.14159</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.14</code></pre>
+</div>
+</div>
+</section>
+<section id="primerjave-in-logični-operatorji" class="level3">
+<h3 class="anchored" data-anchor-id="primerjave-in-logični-operatorji">Primerjave in logični operatorji</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Pomen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&lt;</code>, <code>&gt;</code></td>
+<td>manjše, večje</td>
+</tr>
+<tr class="even">
+<td><code>&lt;=</code>, <code>&gt;=</code></td>
+<td>manjše ali enako, večje ali enako</td>
+</tr>
+<tr class="odd">
+<td><code>==</code></td>
+<td>enako (dva enačaja!)</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>ni enako</td>
+</tr>
+<tr class="odd">
+<td><code>&amp;</code></td>
+<td>in (<em>and</em>)</td>
+</tr>
+<tr class="even">
+<td><code>|</code></td>
+<td>ali (<em>or</em>)</td>
+</tr>
+<tr class="odd">
+<td><code>!</code></td>
+<td>ne (<em>not</em>)</td>
+</tr>
+<tr class="even">
+<td><code>%in%</code></td>
+<td>ali je element v vektorju</td>
+</tr>
+</tbody>
+</table>
+<p>Rezultat primerjave je <code>TRUE</code> ali <code>FALSE</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">3</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">==</span> <span class="dv">3</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"IS"</span>, <span class="st">"NO"</span>, <span class="st">"DK"</span>) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"IS"</span>, <span class="st">"GL"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="spremenljivke-in-objekti" class="level3">
+<h3 class="anchored" data-anchor-id="spremenljivke-in-objekti">Spremenljivke in objekti</h3>
+<p>Vrednost shranimo v objekt z operatorjem <strong><code>&lt;-</code></strong> (<em>assignment operator</em>). R ob tem ničesar ne izpiše; objekt se pojavi v zavihku <em>Environment</em>. Vsebino izpišete tako, da napišete ime objekta:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>st_osebkov <span class="ot">&lt;-</span> <span class="dv">92</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>st_osebkov</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 92</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>st_osebkov <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 184</code></pre>
+</div>
+</div>
+<p>Pravila za imena objektov:</p>
+<ul>
+<li>R loči <strong>velike in male črke</strong> (<em>case-sensitive</em>): <code>x</code> in <code>X</code> sta različna objekta,</li>
+<li>brez presledkov in šumnikov; besede ločite s podčrtajem: <code>podatki_orli</code>,</li>
+<li>ime se ne sme začeti s številko.</li>
+</ul>
+</section>
+<section id="funkcije" class="level3">
+<h3 class="anchored" data-anchor-id="funkcije">Funkcije</h3>
+<p>Funkcija (<em>function</em>) sprejme <strong>argumente</strong> v oklepaju in vrne rezultat:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ime_funkcije</span>(<span class="at">argument1 =</span> vrednost1, <span class="at">argument2 =</span> vrednost2)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>vrednosti <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(vrednosti)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(vrednosti)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0  2  4  6  8 10</code></pre>
+</div>
+</div>
+<p>Če argumentov ne poimenujete, jih R jemlje po vrstnem redu. Katere argumente ima funkcija, pove pomoč (<code>?seq</code>).</p>
+</section>
+<section id="paketi" class="level3">
+<h3 class="anchored" data-anchor-id="paketi">Paketi</h3>
+<p>Paket <strong>namestite enkrat</strong> (<code>install.packages()</code>), <strong>naložite pa ga v vsaki seji</strong>, preden ga uporabite (<code>library()</code>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"adegenet"</span>)   <span class="co"># enkrat, v konzoli</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(adegenet)              <span class="co"># na začetku vsake skripte</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nasvet
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>install.packages()</code> ne pišite v skripto ali Quarto dokument, ker bi se paket ob vsakem zagonu nameščal znova. V skripto sodi samo <code>library()</code>.</p>
+</div>
+</div>
+</section>
+<section id="podatkovne-strukture" class="level3">
+<h3 class="anchored" data-anchor-id="podatkovne-strukture">Podatkovne strukture</h3>
+<section id="vektor" class="level4">
+<h4 class="anchored" data-anchor-id="vektor">Vektor</h4>
+<p><strong>Vektor</strong> (<em>vector</em>) je zaporedje elementov <strong>istega tipa</strong> (števila, besedilo ali <code>TRUE</code>/<code>FALSE</code>). Ustvarimo ga s funkcijo <code>c()</code>. Elemente izberemo z oglatimi oklepaji; štetje se začne z <strong>1</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>drzave <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"IS"</span>, <span class="st">"GL"</span>, <span class="st">"NO"</span>, <span class="st">"DK"</span>, <span class="st">"ES"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">27</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">16</span>, <span class="dv">3</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>drzave[<span class="dv">2</span>]</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "GL"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>st[st <span class="sc">&gt;</span> <span class="dv">20</span>]</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27 25</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(drzave)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+</section>
+<section id="matrika" class="level4">
+<h4 class="anchored" data-anchor-id="matrika">Matrika</h4>
+<p><strong>Matrika</strong> (<em>matrix</em>) je dvodimenzionalna tabela elementov istega tipa. Element izberemo z <code>[vrstica, stolpec]</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>m[<span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+</section>
+<section id="podatkovni-okvir" class="level4">
+<h4 class="anchored" data-anchor-id="podatkovni-okvir">Podatkovni okvir</h4>
+<p><strong>Podatkovni okvir</strong> (<em>data frame</em>) je tabela, v kateri je <strong>vsak stolpec lahko drugega tipa</strong>. To je najpogostejša oblika podatkov: vsaka <strong>vrstica</strong> je opazovanje (npr. osebek), vsak <strong>stolpec</strong> spremenljivka.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>vzorci <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">drzava =</span> <span class="fu">c</span>(<span class="st">"IS"</span>, <span class="st">"GL"</span>, <span class="st">"NO"</span>),</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">st_osebkov =</span> <span class="fu">c</span>(<span class="dv">27</span>, <span class="dv">20</span>, <span class="dv">25</span>),</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">otok =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>vzorci</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  drzava st_osebkov  otok
+1     IS         27  TRUE
+2     GL         20  TRUE
+3     NO         25 FALSE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>vzorci<span class="sc">$</span>st_osebkov          <span class="co"># en stolpec</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27 20 25</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>vzorci[vzorci<span class="sc">$</span>otok, ]      <span class="co"># vrstice, kjer je otok TRUE</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  drzava st_osebkov otok
+1     IS         27 TRUE
+2     GL         20 TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="faktor" class="level4">
+<h4 class="anchored" data-anchor-id="faktor">Faktor</h4>
+<p><strong>Faktor</strong> (<em>factor</em>) je vektor kategorij (npr. populacija, spol). Možne vrednosti imenujemo <strong>ravni</strong> (<em>levels</em>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>populacija <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"otok"</span>, <span class="st">"celina"</span>, <span class="st">"otok"</span>, <span class="st">"otok"</span>))</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(populacija)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "celina" "otok"  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(populacija)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>populacija
+celina   otok 
+     1      3 </code></pre>
+</div>
+</div>
+</section>
+<section id="seznam" class="level4">
+<h4 class="anchored" data-anchor-id="seznam">Seznam</h4>
+<p><strong>Seznam</strong> (<em>list</em>) lahko vsebuje elemente različnih tipov in dolžin, tudi druge sezname. Veliko funkcij vrne rezultat kot seznam.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>rezultat <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ime =</span> <span class="st">"orel"</span>, <span class="at">st_osebkov =</span> <span class="dv">92</span>, <span class="at">drzave =</span> drzave)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>rezultat<span class="sc">$</span>drzave</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "IS" "GL" "NO" "DK" "ES"</code></pre>
+</div>
+</div>
+</section>
+<section id="povzetek" class="level4">
+<h4 class="anchored" data-anchor-id="povzetek">Povzetek</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Struktura</th>
+<th>Dimenzije</th>
+<th>Tipi elementov</th>
+<th>Izbira elementov</th>
+<th>Primer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>vektor</td>
+<td>1</td>
+<td>en tip</td>
+<td><code>x[2]</code></td>
+<td><code>c(1, 2, 3)</code></td>
+</tr>
+<tr class="even">
+<td>matrika</td>
+<td>2</td>
+<td>en tip</td>
+<td><code>m[1, 2]</code></td>
+<td><code>matrix(1:6, nrow = 2)</code></td>
+</tr>
+<tr class="odd">
+<td>podatkovni okvir</td>
+<td>2</td>
+<td>vsak stolpec svoj tip</td>
+<td><code>df$stolpec</code>, <code>df[1, ]</code></td>
+<td><code>data.frame(a = 1:2, b = c("x", "y"))</code></td>
+</tr>
+<tr class="even">
+<td>faktor</td>
+<td>1</td>
+<td>kategorije</td>
+<td><code>levels(f)</code></td>
+<td><code>factor(c("otok", "celina"))</code></td>
+</tr>
+<tr class="odd">
+<td>seznam</td>
+<td>1</td>
+<td>poljubni</td>
+<td><code>l$ime</code>, <code>l[[1]]</code></td>
+<td><code>list(1, "a", TRUE)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Obstajajo tudi večdimenzionalne tabele (<em>array</em>), ki jih na vajah ne bomo potrebovali.</p>
+</section>
+</section>
+<section id="primer-podatki-o-perunikah" class="level3">
+<h3 class="anchored" data-anchor-id="primer-podatki-o-perunikah">Primer: podatki o perunikah</h3>
+<p>R ima vgrajene podatke, na katerih lahko vadite. <code>iris</code> vsebuje meritve cvetov (v cm) za 50 cvetov treh vrst perunike (<em>Iris setosa</em>, <em>I. versicolor</em>, <em>I. virginica</em>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)            <span class="co"># prvih šest vrstic</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)             <span class="co"># struktura: stolpci in njihovi tipi</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)         <span class="co"># povzetek vsakega stolpca</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+       Species  
+ setosa    :50  
+ versicolor:50  
+ virginica :50  
+                
+                
+                </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(iris<span class="sc">$</span>Petal.Length)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.758</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iris<span class="sc">$</span>Sepal.Length, iris<span class="sc">$</span>Petal.Length, <span class="at">col =</span> iris<span class="sc">$</span>Species,</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Dolžina čašnega lista (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Dolžina venčnega lista (cm)"</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend =</span> <span class="fu">levels</span>(iris<span class="sc">$</span>Species), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="E0_uvod_R_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Dolžina venčnega lista (petal) glede na dolžino čašnega lista (sepal) pri treh vrstah perunike."><img src="E0_uvod_R_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672" alt="Dolžina venčnega lista (petal) glede na dolžino čašnega lista (sepal) pri treh vrstah perunike."></a></p>
+<figcaption>Dolžina venčnega lista (<em>petal</em>) glede na dolžino čašnega lista (<em>sepal</em>) pri treh vrstah perunike.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Za lepše grafe bomo na vajah uporabljali paket <code>ggplot2</code> (del <code>tidyverse</code>).</p>
+</section>
+</section>
+<section id="sec-e0-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0-quarto">Priročnik: Quarto</h2>
+<p><strong>Quarto</strong> je orodje, s katerim v enem dokumentu združimo <strong>besedilo, kodo in rezultate</strong> (tabele, grafe). Iz dokumenta <code>.qmd</code> naredi HTML, PDF, Word, predstavitev ali celo spletno knjigo. Ta navodila so narejena v Quartu. Na vajah boste vsa poročila pisali v Quartu.</p>
+<p>Povzetek: <a href="https://rstudio.github.io/cheatsheets/quarto.pdf">Quarto cheat sheet (PDF)</a> in <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<section id="zgradba-dokumenta-.qmd" class="level3">
+<h3 class="anchored" data-anchor-id="zgradba-dokumenta-.qmd">Zgradba dokumenta <code>.qmd</code></h3>
+<p>Dokument ima tri dele:</p>
+<ol type="1">
+<li><strong>YAML glava</strong> (<em>YAML header</em>) med <code>---</code> in <code>---</code>: naslov, avtor, oblika izhoda;</li>
+<li><strong>besedilo</strong> v <strong>Markdownu</strong>;</li>
+<li><strong>bloki kode</strong> (<em>code chunks</em>), ki se začnejo z <code>```{r}</code> in končajo z <code>```</code>.</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Moje poročilo"</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Ime Priimek"</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Uvod</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>Besedilo v **Markdownu**.</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="markdown-oblikovanje-besedila" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-oblikovanje-besedila">Markdown: oblikovanje besedila</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Napišete</th>
+<th>Dobite</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code># Naslov</code>, <code>## Podnaslov</code></td>
+<td>naslov 1. in 2. ravni</td>
+</tr>
+<tr class="even">
+<td><code>**krepko**</code></td>
+<td><strong>krepko</strong></td>
+</tr>
+<tr class="odd">
+<td><code>*ležeče*</code></td>
+<td><em>ležeče</em> (latinska imena vrst!)</td>
+</tr>
+<tr class="even">
+<td><code>`koda`</code></td>
+<td><code>koda</code></td>
+</tr>
+<tr class="odd">
+<td><code>- točka</code></td>
+<td>seznam s točkami</td>
+</tr>
+<tr class="even">
+<td><code>1. točka</code></td>
+<td>oštevilčen seznam</td>
+</tr>
+<tr class="odd">
+<td><code>[besedilo](https://quarto.org)</code></td>
+<td><a href="https://quarto.org">povezava</a></td>
+</tr>
+<tr class="even">
+<td><code>![opis](slika.png)</code></td>
+<td>slika</td>
+</tr>
+</tbody>
+</table>
+<p>RStudio ima tudi vizualni urejevalnik (gumb <strong>Visual</strong> levo zgoraj nad dokumentom), v katerem besedilo oblikujete kot v Wordu. Z gumbom <strong>Source</strong> se vrnete na zapis v Markdownu.</p>
+</section>
+<section id="možnosti-blokov-kode" class="level3">
+<h3 class="anchored" data-anchor-id="možnosti-blokov-kode">Možnosti blokov kode</h3>
+<p>Na začetek bloka lahko dodate možnosti, ki se začnejo z <code>#|</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Graf dolžin venčnih listov."</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Možnost</th>
+<th>Kaj naredi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>#\| echo: false</code></td>
+<td>koda se v dokumentu ne prikaže, rezultat pa</td>
+</tr>
+<tr class="even">
+<td><code>#\| eval: false</code></td>
+<td>koda se prikaže, a ne izvede</td>
+</tr>
+<tr class="odd">
+<td><code>#\| include: false</code></td>
+<td>koda se izvede, ne prikaže pa se nič (npr. nalaganje paketov)</td>
+</tr>
+<tr class="even">
+<td><code>#\| warning: false</code>, <code>#\| message: false</code></td>
+<td>skrije opozorila in sporočila</td>
+</tr>
+<tr class="odd">
+<td><code>#\| fig-cap: "…"</code></td>
+<td>podnapis k sliki</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="render" class="level3">
+<h3 class="anchored" data-anchor-id="render">Render</h3>
+<p>Gumb <strong>Render</strong> (ali Ctrl + Shift + K) izvede vso kodo in naredi končni dokument. V ozadju <code>knitr</code> izvede kodo in naredi Markdown, <code>pandoc</code> pa iz njega naredi HTML, PDF ali Word.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/rstudio-qmd-how-it-works.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Kako nastane dokument: .qmd → knitr → .md → pandoc → HTML, PDF ali Word."><img src="images/rstudio-qmd-how-it-works.png" class="img-fluid figure-img" style="width:85.0%" alt="Kako nastane dokument: .qmd → knitr → .md → pandoc → HTML, PDF ali Word."></a></p>
+<figcaption>Kako nastane dokument: <code>.qmd</code> → knitr → <code>.md</code> → pandoc → HTML, PDF ali Word.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Pomembno</span>Render začne s prazno sejo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ob renderju R ne vidi objektov, ki ste jih ustvarili v konzoli. Dokument mora vsebovati vso kodo, od <code>library()</code> do zadnjega grafa. Če render javi <code>object 'x' not found</code>, objekt nastane samo v konzoli, ne v dokumentu.</p>
+</div>
+</div>
+</section>
+<section id="oblike-izhoda" class="level3">
+<h3 class="anchored" data-anchor-id="oblike-izhoda">Oblike izhoda</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><code>format:</code></th>
+<th>Izhod</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>html</code></td>
+<td>spletna stran (privzeto; na vajah uporabljamo to)</td>
+</tr>
+<tr class="even">
+<td><code>pdf</code></td>
+<td>PDF (potrebuje LaTeX: <code>quarto install tinytex</code> v Terminalu)</td>
+</tr>
+<tr class="odd">
+<td><code>docx</code></td>
+<td>Word</td>
+</tr>
+<tr class="even">
+<td><code>revealjs</code></td>
+<td>predstavitev</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sec-e0-rmarkdown" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0-rmarkdown">Za primerjavo: Rmarkdown</h2>
+<p><strong>Rmarkdown</strong> (<code>.Rmd</code>) je predhodnik Quarta in ga boste še pogosto srečali v starejših navodilih, člankih in na GitHubu. Ideja je enaka (besedilo + koda + rezultati), razlike pa so predvsem v zapisu:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Rmarkdown</strong> (<code>.Rmd</code>)</th>
+<th><strong>Quarto</strong> (<code>.qmd</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Jeziki</td>
+<td>predvsem R</td>
+<td>R, Python, Julia, bash</td>
+</tr>
+<tr class="even">
+<td>Gumb v RStudiu</td>
+<td><strong>Knit</strong></td>
+<td><strong>Render</strong></td>
+</tr>
+<tr class="odd">
+<td>Možnosti bloka</td>
+<td>v glavi bloka: <code>```{r, echo=FALSE}</code></td>
+<td>v vrsticah <code>#\|</code>: <code>#\| echo: false</code></td>
+</tr>
+<tr class="even">
+<td>Oblika izhoda v YAML</td>
+<td><code>output: html_document</code></td>
+<td><code>format: html</code></td>
+</tr>
+<tr class="odd">
+<td>Knjige, spletne strani, predstavitve</td>
+<td>dodatni paketi (<em>bookdown</em>, <em>blogdown</em>, <em>xaringan</em>)</td>
+<td>vgrajeno</td>
+</tr>
+<tr class="even">
+<td>Uporaba izven RStudia</td>
+<td>omejena</td>
+<td>tudi VS Code, Jupyter, ukazna vrstica</td>
+</tr>
+</tbody>
+</table>
+<p>Isti dokument v Rmarkdownu bi izgledal tako:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Moje poročilo"</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html_document:</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Rmarkdown_workflow3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Potek pri Rmarkdownu: .Rmd → knitr → .md → pandoc → izhod. Quarto deluje enako, a je eno orodje za vse oblike in jezike."><img src="images/Rmarkdown_workflow3.png" class="img-fluid figure-img" style="width:50.0%" alt="Potek pri Rmarkdownu: .Rmd → knitr → .md → pandoc → izhod. Quarto deluje enako, a je eno orodje za vse oblike in jezike."></a></p>
+<figcaption>Potek pri Rmarkdownu: <code>.Rmd</code> → knitr → <code>.md</code> → pandoc → izhod. Quarto deluje enako, a je eno orodje za vse oblike in jezike.</figcaption>
+</figure>
+</div>
+<p><strong>Zakaj na vajah uporabljamo Quarto:</strong> je naslednik Rmarkdowna, isti zapis deluje za poročila, predstavitve in spletne strani, podpira več jezikov in ima vse vgrajeno. <code>.Rmd</code> datoteke lahko odprete in poganjate tudi v Quartu, zato vas starejša navodila ne bodo ovirala.</p>
+</section>
+<section id="kontrolni-seznam-za-vajo-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="kontrolni-seznam-za-vajo-1">Kontrolni seznam za vajo 1</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">R in RStudio sta nameščena in RStudio ob zagonu pokaže različico R,</label></li>
+<li><label><input type="checkbox">RStudio ne shranjuje <code>.RData</code>,</label></li>
+<li><label><input type="checkbox">paketi <code>tidyverse</code>, <code>adegenet</code>, <code>hierfstat</code>, <code>detectRUNS</code> se naložijo z <code>library()</code>,</label></li>
+<li><label><input type="checkbox">preizkusni Quarto dokument se renderira v HTML z grafom,</label></li>
+<li><label><input type="checkbox">v domači mapi imate mapo <code>GitHub</code> (ne v OneDrive).</label></li>
+</ul>
+<p>Na vaji 1 bomo namestili še Git, ustvarili vaš GitHub repozitorij in vanj naložili prvo R skripto.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopirano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopirano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../uvod_SL.html" class="pagination-link" aria-label="Uvod">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Uvod</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="pagination-link" aria-label="Vaja 1: Nadzor različic z Gitom in GitHubom">
+        <span class="nav-page-text"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
