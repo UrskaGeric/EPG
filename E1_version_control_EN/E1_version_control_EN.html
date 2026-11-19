@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="sl" xml:lang="sl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Practical 1: Version control with Git and GitHub – Evolucijska in populacijska genetika</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../uvod_EN.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ef4d8e9faa04af36b84e1866e7343808.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ni rezultatov",
+    "search-matching-documents-text": "ujemajoči se dokumenti",
+    "search-copy-link-title": "Kopiraj povezavo do iskanja",
+    "search-hide-matches-text": "Skrij dodatne zadetke",
+    "search-more-match-text": "več zadetkov v tem dokumentu",
+    "search-more-matches-text": "več zadetkov v tem dokumentu",
+    "search-clear-button-title": "Počisti",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Prekliči",
+    "search-submit-button-title": "Pošlji",
+    "search-label": "Iskanje"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_EN.html">Practicals (English)</a></li><li class="breadcrumb-item"><a href="../E1_version_control_EN/E1_version_control_EN.html"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Iskanje" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Evolucijska in populacijska genetika</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Iskanje"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uvod</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Vaje (slovenščina)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Practicals (English)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../uvod_EN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction (English)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_version_control_EN/E1_version_control_EN.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej strani</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
+  <li><a href="#what-is-version-control" id="toc-what-is-version-control" class="nav-link" data-scroll-target="#what-is-version-control">What is version control?</a>
+  <ul class="collapse">
+  <li><a href="#git-and-github" id="toc-git-and-github" class="nav-link" data-scroll-target="#git-and-github">Git and GitHub</a></li>
+  </ul></li>
+  <li><a href="#how-git-works-where-your-code-lives" id="toc-how-git-works-where-your-code-lives" class="nav-link" data-scroll-target="#how-git-works-where-your-code-lives">How Git works: where your code lives</a></li>
+  <li><a href="#sec-install" id="toc-sec-install" class="nav-link" data-scroll-target="#sec-install">Installation and setup</a>
+  <ul class="collapse">
+  <li><a href="#sec-account" id="toc-sec-account" class="nav-link" data-scroll-target="#sec-account">GitHub account</a></li>
+  <li><a href="#installing-git" id="toc-installing-git" class="nav-link" data-scroll-target="#installing-git">Installing Git</a></li>
+  <li><a href="#first-configuration-who-you-are" id="toc-first-configuration-who-you-are" class="nav-link" data-scroll-target="#first-configuration-who-you-are">First configuration: who you are</a></li>
+  <li><a href="#signing-in-to-github-from-your-computer" id="toc-signing-in-to-github-from-your-computer" class="nav-link" data-scroll-target="#signing-in-to-github-from-your-computer">Signing in to GitHub from your computer</a></li>
+  </ul></li>
+  <li><a href="#sec-repositories" id="toc-sec-repositories" class="nav-link" data-scroll-target="#sec-repositories">Which repositories we will use</a></li>
+  <li><a href="#first-repository-in-git-bash" id="toc-first-repository-in-git-bash" class="nav-link" data-scroll-target="#first-repository-in-git-bash">First repository in Git Bash</a>
+  <ul class="collapse">
+  <li><a href="#create-a-repository-on-github" id="toc-create-a-repository-on-github" class="nav-link" data-scroll-target="#create-a-repository-on-github">Create a repository on GitHub</a></li>
+  <li><a href="#git-clone-download-the-repository-to-your-computer" id="toc-git-clone-download-the-repository-to-your-computer" class="nav-link" data-scroll-target="#git-clone-download-the-repository-to-your-computer"><code>git clone</code>: download the repository to your computer</a></li>
+  <li><a href="#git-status-what-has-changed" id="toc-git-status-what-has-changed" class="nav-link" data-scroll-target="#git-status-what-has-changed"><code>git status</code>: what has changed?</a></li>
+  <li><a href="#git-add-stage-changes" id="toc-git-add-stage-changes" class="nav-link" data-scroll-target="#git-add-stage-changes"><code>git add</code>: stage changes</a></li>
+  <li><a href="#git-commit-save-a-snapshot" id="toc-git-commit-save-a-snapshot" class="nav-link" data-scroll-target="#git-commit-save-a-snapshot"><code>git commit</code>: save a snapshot</a></li>
+  <li><a href="#git-push-send-changes-to-github" id="toc-git-push-send-changes-to-github" class="nav-link" data-scroll-target="#git-push-send-changes-to-github"><code>git push</code>: send changes to GitHub</a></li>
+  <li><a href="#git-pull-bring-changes-from-github" id="toc-git-pull-bring-changes-from-github" class="nav-link" data-scroll-target="#git-pull-bring-changes-from-github"><code>git pull</code>: bring changes from GitHub</a></li>
+  <li><a href="#git-log-and-git-diff-history-and-differences" id="toc-git-log-and-git-diff-history-and-differences" class="nav-link" data-scroll-target="#git-log-and-git-diff-history-and-differences"><code>git log</code> and <code>git diff</code>: history and differences</a></li>
+  <li><a href="#git-init-a-new-repository-from-an-existing-folder" id="toc-git-init-a-new-repository-from-an-existing-folder" class="nav-link" data-scroll-target="#git-init-a-new-repository-from-an-existing-folder"><code>git init</code>: a new repository from an existing folder</a></li>
+  </ul></li>
+  <li><a href="#git-in-rstudio" id="toc-git-in-rstudio" class="nav-link" data-scroll-target="#git-in-rstudio">Git in RStudio</a>
+  <ul class="collapse">
+  <li><a href="#connect-rstudio-to-git" id="toc-connect-rstudio-to-git" class="nav-link" data-scroll-target="#connect-rstudio-to-git">Connect RStudio to Git</a></li>
+  <li><a href="#a-new-rstudio-project-from-a-github-repository" id="toc-a-new-rstudio-project-from-a-github-repository" class="nav-link" data-scroll-target="#a-new-rstudio-project-from-a-github-repository">A new RStudio project from a GitHub repository</a></li>
+  <li><a href="#what-is-in-the-repository-folder" id="toc-what-is-in-the-repository-folder" class="nav-link" data-scroll-target="#what-is-in-the-repository-folder">What is in the repository folder</a></li>
+  <li><a href="#the-git-tab" id="toc-the-git-tab" class="nav-link" data-scroll-target="#the-git-tab">The Git tab</a></li>
+  </ul></li>
+  <li><a href="#sec-epg-repo-en" id="toc-sec-epg-repo-en" class="nav-link" data-scroll-target="#sec-epg-repo-en">Your EPG repository</a>
+  <ul class="collapse">
+  <li><a href="#create-the-repository" id="toc-create-the-repository" class="nav-link" data-scroll-target="#create-the-repository">Create the repository</a></li>
+  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">Repository structure</a></li>
+  <li><a href="#gitignore-what-we-do-not-upload-to-github" id="toc-gitignore-what-we-do-not-upload-to-github" class="nav-link" data-scroll-target="#gitignore-what-we-do-not-upload-to-github"><code>.gitignore</code>: what we do not upload to GitHub</a></li>
+  <li><a href="#readme.md" id="toc-readme.md" class="nav-link" data-scroll-target="#readme.md">README.md</a></li>
+  <li><a href="#the-rule-for-all-following-practicals" id="toc-the-rule-for-all-following-practicals" class="nav-link" data-scroll-target="#the-rule-for-all-following-practicals">The rule for all following practicals</a></li>
+  </ul></li>
+  <li><a href="#when-something-goes-wrong-undoing-changes" id="toc-when-something-goes-wrong-undoing-changes" class="nav-link" data-scroll-target="#when-something-goes-wrong-undoing-changes">When something goes wrong: undoing changes</a>
+  <ul class="collapse">
+  <li><a href="#when-two-people-work-at-the-same-time" id="toc-when-two-people-work-at-the-same-time" class="nav-link" data-scroll-target="#when-two-people-work-at-the-same-time">When two people work at the same time</a></li>
+  <li><a href="#conflicts" id="toc-conflicts" class="nav-link" data-scroll-target="#conflicts">Conflicts</a></li>
+  </ul></li>
+  <li><a href="#branches" id="toc-branches" class="nav-link" data-scroll-target="#branches">Branches</a>
+  <ul class="collapse">
+  <li><a href="#creating-and-switching-branches" id="toc-creating-and-switching-branches" class="nav-link" data-scroll-target="#creating-and-switching-branches">Creating and switching branches</a></li>
+  <li><a href="#example-of-working-on-a-branch" id="toc-example-of-working-on-a-branch" class="nav-link" data-scroll-target="#example-of-working-on-a-branch">Example of working on a branch</a></li>
+  <li><a href="#merging-git-merge" id="toc-merging-git-merge" class="nav-link" data-scroll-target="#merging-git-merge">Merging: <code>git merge</code></a></li>
+  </ul></li>
+  <li><a href="#graphical-tools-optional" id="toc-graphical-tools-optional" class="nav-link" data-scroll-target="#graphical-tools-optional">Graphical tools (optional)</a></li>
+  <li><a href="#command-summary" id="toc-command-summary" class="nav-link" data-scroll-target="#command-summary">Command summary</a></li>
+  <li><a href="#sec-task" id="toc-sec-task" class="nav-link" data-scroll-target="#sec-task">In-class task</a></li>
+  <li><a href="#sec-homework" id="toc-sec-homework" class="nav-link" data-scroll-target="#sec-homework">Homework: preparation for exercise 2</a></li>
+  <li><a href="#for-the-curious-working-in-a-team" id="toc-for-the-curious-working-in-a-team" class="nav-link" data-scroll-target="#for-the-curious-working-in-a-team">For the curious: working in a team</a>
+  <ul class="collapse">
+  <li><a href="#merge-or-rebase" id="toc-merge-or-rebase" class="nav-link" data-scroll-target="#merge-or-rebase">Merge or rebase?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_EN.html">Practicals (English)</a></li><li class="breadcrumb-item"><a href="../E1_version_control_EN/E1_version_control_EN.html"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-E1_version_control_EN" class="quarto-section-identifier"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-goals" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="learning-goals">Learning goals</h2>
+<p>After this practical you will be able to:</p>
+<ul>
+<li>explain what version control is and why it matters for reproducible science,</li>
+<li>tell the difference between <strong>Git</strong> (a tool on your computer) and <strong>GitHub</strong> (an online service),</li>
+<li>install and configure Git and connect it to your GitHub account,</li>
+<li>create a repository, clone it to your computer and use the basic commands <code>status</code>, <code>add</code>, <code>commit</code>, <code>push</code> and <code>pull</code>,</li>
+<li>use Git directly from <strong>RStudio</strong>,</li>
+<li>set up <strong>your own EPG repository</strong>, where you will upload the scripts from all practicals until the end of the semester.</li>
+</ul>
+</section>
+<section id="what-is-version-control" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-version-control">What is version control?</h2>
+<p>You probably know a folder containing <code>analysis.R</code>, <code>analysis_v2.R</code>, <code>analysis_v2_corrected.R</code> and <code>analysis_FINAL_really.R</code>. A month later you no longer know which one is the right one or what you changed in each. <strong>Version control</strong> solves this systematically: it saves every important change as a snapshot of the project, together with the time, the author and a short description.</p>
+<p>For research this matters because of:</p>
+<ul>
+<li><strong>reproducibility</strong>: you can always show which version of a script produced a result in a paper,</li>
+<li><strong>safety</strong>: if you break or delete something, you can go back to an earlier working state,</li>
+<li><strong>collaboration</strong>: several people can work on the same project without overwriting each other’s files,</li>
+<li><strong>backup</strong>: a copy of the project is stored online, not only on your laptop.</li>
+</ul>
+<p>Most of the tools we use in bioinformatics (PLINK, R packages, pipelines such as Snakemake) are developed and published on GitHub. Journals increasingly require the code to be publicly available when a paper is published, most often in a GitHub repository.</p>
+<section id="git-and-github" class="level3">
+<h3 class="anchored" data-anchor-id="git-and-github">Git and GitHub</h3>
+<p><strong>Git</strong> is a version control program that you install on your computer. It records changes locally and works without an internet connection. <strong>GitHub</strong> is an online service that hosts copies of Git repositories. It enables sharing, collaboration and backup.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Git</strong></th>
+<th><strong>GitHub</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>What it is</td>
+<td>a program (tool)</td>
+<td>an online service</td>
+</tr>
+<tr class="even">
+<td>Where it runs</td>
+<td>locally, on your computer</td>
+<td>online (github.com)</td>
+</tr>
+<tr class="odd">
+<td>How we use it</td>
+<td>command line, RStudio, VS Code</td>
+<td>web browser, GitHub Desktop</td>
+</tr>
+<tr class="even">
+<td>Purpose</td>
+<td>recording versions of files in a repository</td>
+<td>storing and sharing a copy of the repository, collaboration</td>
+</tr>
+<tr class="odd">
+<td>Alternatives</td>
+<td>– (de facto standard)</td>
+<td>GitLab, Bitbucket</td>
+</tr>
+</tbody>
+</table>
+<p>Git and GitHub talk to each other mainly through two commands: with <strong>push</strong> you send your changes to GitHub, with <strong>pull</strong> you bring changes from GitHub to your computer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/git_github_push_pull.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Git and GitHub: push sends changes to GitHub, pull brings them back to your computer."><img src="images/git_github_push_pull.png" class="img-fluid figure-img" style="width:60.0%" alt="Git and GitHub: push sends changes to GitHub, pull brings them back to your computer."></a></p>
+<figcaption>Git and GitHub: <em>push</em> sends changes to GitHub, <em>pull</em> brings them back to your computer.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Key idea
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Git stores <strong>snapshots</strong> of your project (<em>commits</em>) on your computer. GitHub stores a shared copy of that history online, so that you (from several computers) and your collaborators can stay in sync.</p>
+</div>
+</div>
+<p>Git is a <strong>distributed</strong> version control system: every user has the complete repository with its full history and a working copy of the files on their own computer. The server (e.g.&nbsp;GitHub) is only a shared point through which users synchronise.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/distributed_system.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Distributed version control. Every computer has its own local repository and working directory and syncs with GitHub using push and pull."><img src="images/new_diagrams/distributed_system.svg" class="img-fluid figure-img" style="width:90.0%" alt="Distributed version control. Every computer has its own local repository and working directory and syncs with GitHub using push and pull."></a></p>
+<figcaption>Distributed version control. Every computer has its own local repository and working directory and syncs with GitHub using <em>push</em> and <em>pull</em>.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="how-git-works-where-your-code-lives" class="level2">
+<h2 class="anchored" data-anchor-id="how-git-works-where-your-code-lives">How Git works: where your code lives</h2>
+<p>When you work with Git, files move between four “places”:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Where</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Working directory</strong></td>
+<td>your computer</td>
+<td>the folder with the files you edit (in RStudio, VS Code, Excel …)</td>
+</tr>
+<tr class="even">
+<td><strong>Staging area</strong> (<em>index</em>)</td>
+<td>your computer</td>
+<td>a “waiting room” for the changes you selected with <code>git add</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Local repository</strong></td>
+<td>your computer (hidden <code>.git</code> folder)</td>
+<td>the history of all snapshots (commits) on your computer</td>
+</tr>
+<tr class="even">
+<td><strong>Remote repository</strong></td>
+<td>e.g.&nbsp;GitHub</td>
+<td>the shared online copy of the project</td>
+</tr>
+</tbody>
+</table>
+<p>Changes stay <strong>local</strong> until you send them to GitHub with <code>push</code>. Changes made by others (or by you on another computer) are brought in with <code>pull</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/git_workflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Git workflow: working directory → staging area (add) → local repository (commit) → remote repository (push). Source: CloudStudio.com.au."><img src="images/git_workflow.png" class="img-fluid figure-img" style="width:75.0%" alt="Git workflow: working directory → staging area (add) → local repository (commit) → remote repository (push). Source: CloudStudio.com.au."></a></p>
+<figcaption>Git workflow: working directory → staging area (<em>add</em>) → local repository (<em>commit</em>) → remote repository (<em>push</em>). Source: CloudStudio.com.au.</figcaption>
+</figure>
+</div>
+<p>The <code>pull</code> command is actually a combination of two commands: <code>fetch</code> (download the changes from GitHub into the local repository) and <code>merge</code> (combine them with the files in your working directory).</p>
+<p>The figure below summarises the commands that move changes between these places. We will use most of them in this practical.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_areas_commands.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Overview of commands between the working directory, staging area, local repository and remote repository. The grey bars show what git diff compares."><img src="images/new_diagrams/git_areas_commands.svg" class="img-fluid figure-img" style="width:95.0%" alt="Overview of commands between the working directory, staging area, local repository and remote repository. The grey bars show what git diff compares."></a></p>
+<figcaption>Overview of commands between the working directory, staging area, local repository and remote repository. The grey bars show what <code>git diff</code> compares.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Everyday loop
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="images/new_diagrams/everyday_loop.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="images/new_diagrams/everyday_loop.svg" class="img-fluid" style="width:100.0%"></a></p>
+</div>
+</div>
+</section>
+<section id="sec-install" class="level2">
+<h2 class="anchored" data-anchor-id="sec-install">Installation and setup</h2>
+<section id="sec-account" class="level3">
+<h3 class="anchored" data-anchor-id="sec-account">GitHub account</h3>
+<ol type="1">
+<li>Go to <a href="https://github.com/" class="uri">https://github.com/</a> and choose <strong>Sign up</strong>.</li>
+<li>Choose your username carefully, as it will appear in the links to your repositories (e.g.&nbsp;<code>https://github.com/name-surname</code>). We recommend a name you can keep using later in your research.</li>
+<li>As a student you can apply for the free <a href="https://education.github.com/">GitHub Education</a> package (Student Developer Pack). You do not need it for the practicals, but it is useful.</li>
+</ol>
+</section>
+<section id="installing-git" class="level3">
+<h3 class="anchored" data-anchor-id="installing-git">Installing Git</h3>
+<p><strong>Windows:</strong> download Git from <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a> and install it with the default settings. The installation also includes <strong>Git Bash</strong>, the command line in which we will run the commands, and <strong>Git Credential Manager</strong>, which takes care of signing in to GitHub.</p>
+<p><strong>macOS:</strong> open the <em>Terminal</em> app and type <code>git --version</code>. If Git is not installed yet, the system will offer to install the <em>Command Line Developer Tools</em>. Confirm.</p>
+<p><strong>Linux:</strong> <code>sudo apt install git</code> (Ubuntu/Debian).</p>
+<p>Check that the installation works. Open Git Bash (Windows) or Terminal (macOS/Linux) and type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>git version 2.46.0.windows.1</code></pre>
+</section>
+<section id="first-configuration-who-you-are" class="level3">
+<h3 class="anchored" data-anchor-id="first-configuration-who-you-are">First configuration: who you are</h3>
+<p>Git signs every commit with a name and an e-mail address. You set this <strong>once</strong> on every computer. Use <strong>the same e-mail address as for your GitHub account</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Name Surname"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.address@example.com"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> init.defaultBranch main</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The last line makes sure the main branch in new repositories is called <code>main</code> (the same as on GitHub).</p>
+<p>Check the settings with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Configuration from R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can do the same from the R console with the <code>usethis</code> package:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Name Surname"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">user.email =</span> <span class="st">"your.address@example.com"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="signing-in-to-github-from-your-computer" class="level3">
+<h3 class="anchored" data-anchor-id="signing-in-to-github-from-your-computer">Signing in to GitHub from your computer</h3>
+<p>GitHub no longer accepts your account password for <code>push</code>. It needs a secure sign-in:</p>
+<ul>
+<li><strong>Windows:</strong> the first time you <code>git clone</code> (a private repository) or <code>git push</code>, a <strong>Git Credential Manager</strong> window opens. Choose <em>Sign in with your browser</em> and confirm the access in the browser. The sign-in is saved, so you will not have to repeat it.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/06_avtorizacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="The first time Git Bash connects to GitHub, authorise Git Credential Manager (Authorize git-ecosystem)."><img src="images/notion_original/06_avtorizacija.png" class="img-fluid figure-img" style="width:55.0%" alt="The first time Git Bash connects to GitHub, authorise Git Credential Manager (Authorize git-ecosystem)."></a></p>
+<figcaption>The first time Git Bash connects to GitHub, authorise Git Credential Manager (<em>Authorize git-ecosystem</em>).</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>macOS/Linux, or if the above does not work:</strong> create a <strong>Personal Access Token</strong> (PAT) and store it. The easiest way is from R:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"usethis"</span>, <span class="st">"gitcreds"</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()   <span class="co"># opens GitHub in the browser; create the token and copy it</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()         <span class="co"># paste the token when asked</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opozorilo</span>A token is like a password
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Never write the token into scripts and never upload it to GitHub.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-repositories" class="level2">
+<h2 class="anchored" data-anchor-id="sec-repositories">Which repositories we will use</h2>
+<p>In the practicals you will meet three repositories. It is important to know which one is which:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Repository</th>
+<th>Created by</th>
+<th>What is in it</th>
+<th>What you do with it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git-practice</code></td>
+<td>you, today</td>
+<td>test files</td>
+<td>you learn the commands on it; you can delete it after the practical</td>
+</tr>
+<tr class="even">
+<td><code>EPG-2026-surname</code></td>
+<td>you, today</td>
+<td>your scripts, reports and answers from all practicals</td>
+<td><strong>your main repository and your submission</strong> (<a href="#sec-epg-repo-en" class="quarto-xref"><span>Your EPG repository</span></a>)</td>
+</tr>
+<tr class="odd">
+<td>practical instructions</td>
+<td>the teaching assistant</td>
+<td>online instructions for all practicals</td>
+<td>you only read it; optionally clone it and update it with <code>git pull</code> before each practical</td>
+</tr>
+</tbody>
+</table>
+<p>Every repository exists in two places: <strong>on GitHub</strong> (the remote repository) and <strong>on your computer</strong> (the local clone). You get it onto your computer by cloning, in one of two ways that do <strong>the same thing</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Terminal (Git Bash)</th>
+<th>RStudio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cloning</td>
+<td><code>git clone &lt;URL&gt;</code></td>
+<td><em>File → New Project → Version Control → Git</em> → paste the URL</td>
+</tr>
+<tr class="even">
+<td>Result</td>
+<td>a folder with the repository</td>
+<td>the same folder plus a <code>.Rproj</code> file; RStudio opens it as a project</td>
+</tr>
+</tbody>
+</table>
+<p>In the background RStudio runs the same <code>git clone</code> command. Today we clone <code>git-practice</code> in the terminal (so you see what happens) and <code>EPG-2026-surname</code> in RStudio (this is how you will work in all following practicals).</p>
+<p>Keep all repositories in one folder, e.g.&nbsp;<code>GitHub</code> in your home folder (<code>C:/Users/name/GitHub</code>):</p>
+<pre class="text"><code>GitHub/
+├── git-practice/
+└── EPG-2026-surname/</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opozorilo</span>Do not clone into OneDrive, Dropbox or Google Drive
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>On Windows the <em>Documents</em> folder is often synchronised with OneDrive. Cloud synchronisation does not get along with Git (locked or duplicated files in the hidden <code>.git</code> folder). Keep your repositories in a folder that is not in the cloud, e.g.&nbsp;<code>C:/Users/name/GitHub</code>. Your backup is GitHub anyway.</p>
+</div>
+</div>
+</section>
+<section id="first-repository-in-git-bash" class="level2">
+<h2 class="anchored" data-anchor-id="first-repository-in-git-bash">First repository in Git Bash</h2>
+<p>We first learn the commands in the command line. This way you will understand what happens in the background when you later click buttons in RStudio.</p>
+<section id="create-a-repository-on-github" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-repository-on-github">Create a repository on GitHub</h3>
+<ol type="1">
+<li>On GitHub click <strong>+</strong> (top right) → <strong>New repository</strong>.</li>
+<li>Fill in:
+<ul>
+<li><strong>Repository name</strong>: e.g.&nbsp;<code>git-practice</code></li>
+<li><strong>Visibility</strong>: <em>Private</em> or <em>Public</em></li>
+<li>tick <strong>Add a README file</strong>. The README is the “home page” of the repository with a short description of the project.</li>
+</ul></li>
+<li>Click <strong>Create repository</strong>.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/03_github_obrazec.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="The new repository form: name, visibility (Private) and README."><img src="images/notion_original/03_github_obrazec.png" class="img-fluid figure-img" style="width:75.0%" alt="The new repository form: name, visibility (Private) and README."></a></p>
+<figcaption>The new repository form: name, visibility (<em>Private</em>) and README.</figcaption>
+</figure>
+</div>
+</section>
+<section id="git-clone-download-the-repository-to-your-computer" class="level3">
+<h3 class="anchored" data-anchor-id="git-clone-download-the-repository-to-your-computer"><code>git clone</code>: download the repository to your computer</h3>
+<p>On the repository page click the green <strong>Code</strong> button and copy the <strong>HTTPS</strong> address. Other options are also available:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>HTTPS</strong></td>
+<td>cloning with <code>git clone</code> (Git Bash, RStudio)</td>
+</tr>
+<tr class="even">
+<td><strong>Open with GitHub Desktop</strong></td>
+<td>if you prefer a graphical program</td>
+</tr>
+<tr class="odd">
+<td><strong>Download ZIP</strong></td>
+<td>a one-off download <strong>without</strong> the Git history. Do not use it for the practicals.</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/05_github_code_gumb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="The Code button on the repository page. Copy the HTTPS address with the icon to the right of the link."><img src="images/notion_original/05_github_code_gumb.png" class="img-fluid figure-img" style="width:55.0%" alt="The Code button on the repository page. Copy the HTTPS address with the icon to the right of the link."></a></p>
+<figcaption>The <strong>Code</strong> button on the repository page. Copy the HTTPS address with the icon to the right of the link.</figcaption>
+</figure>
+</div>
+<p>In Git Bash, move to the folder where you want to keep your projects and clone the repository:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/GitHub</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/GitHub</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/USERNAME/git-practice.git</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>Cloning into 'git-practice'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (3/3), done.</code></pre>
+<p>Move into the new repository folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> git-practice</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Git Bash shows some useful information in the command line: the user name and computer in green, the current folder in yellow and, when you are inside a Git repository, the current <strong>branch</strong> in blue (e.g.&nbsp;<code>(main)</code>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/07_gitbash_barve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue)."><img src="images/notion_original/07_gitbash_barve.png" class="img-fluid figure-img" style="width:100.0%" alt="The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue)."></a></p>
+<figcaption>The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue).</figcaption>
+</figure>
+</div>
+<p>The <code>(main)</code> label appears <strong>only when you are inside a Git repository folder</strong>. If you move out (<code>cd ..</code>), it disappears. This way you always see whether you are in the right place.</p>
+<p>Look at what is in the folder. The <code>ls -a</code> command also lists hidden files and folders (those starting with a dot):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-a</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>./  ../  .git/  README.md</code></pre>
+<p>You created <code>README.md</code> on GitHub. <strong><code>.git/</code> is a hidden folder where Git stores the entire history of the project</strong>: all commits, branches and the link to GitHub. This folder is what turns an ordinary folder into a Git repository. If you delete it, the files stay, but the history is lost and the <code>(main)</code> label disappears. Never edit the <code>.git</code> folder by hand.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Hidden folders in Explorer and Finder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>.git</code> folder is hidden. On Windows you see it in File Explorer via <em>View → Show → Hidden items</em>; on macOS in Finder with Cmd + Shift + period.</p>
+</div>
+</div>
+</section>
+<section id="git-status-what-has-changed" class="level3">
+<h3 class="anchored" data-anchor-id="git-status-what-has-changed"><code>git status</code>: what has changed?</h3>
+<p><code>git status</code> is the command you will use most often. It shows the state of the working directory compared to the last commit.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean</code></pre>
+<p>Add a new file to the folder, e.g.&nbsp;<code>scripts/test.R</code> (create a <code>scripts</code> folder and an empty file in it). Run <code>git status</code> again:</p>
+<pre class="text"><code>On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+        scripts/
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+<p>New files that Git does not track yet (<em>untracked</em>) are shown in red.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/08_status_untracked.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Files that Git does not track yet are shown in red."><img src="images/notion_original/08_status_untracked.png" class="img-fluid figure-img" style="width:100.0%" alt="Files that Git does not track yet are shown in red."></a></p>
+<figcaption>Files that Git does not track yet are shown in red.</figcaption>
+</figure>
+</div>
+</section>
+<section id="git-add-stage-changes" class="level3">
+<h3 class="anchored" data-anchor-id="git-add-stage-changes"><code>git add</code>: stage changes</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add scripts/test.R   <span class="co"># one file</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .                <span class="co"># all changes in the current folder (careful!)</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check again with <code>git status</code>. Files ready to be committed are shown in green:</p>
+<pre class="text"><code>Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+        new file:   scripts/test.R</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/09_status_staged.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="After git add the file is shown in green and is ready to be committed."><img src="images/notion_original/09_status_staged.png" class="img-fluid figure-img" style="width:100.0%" alt="After git add the file is shown in green and is ready to be committed."></a></p>
+<figcaption>After <code>git add</code> the file is shown in green and is ready to be committed.</figcaption>
+</figure>
+</div>
+</section>
+<section id="git-commit-save-a-snapshot" class="level3">
+<h3 class="anchored" data-anchor-id="git-commit-save-a-snapshot"><code>git commit</code>: save a snapshot</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add test script"</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>[main 0c879b4] Add test script
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 scripts/test.R</code></pre>
+<p>Every commit gets a unique identifier (<em>hash</em>, here <code>0c879b4</code>) that you can later use to return to it.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>A good commit message
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The message should briefly say <strong>what</strong> you changed, e.g.&nbsp;<code>Add SNP filtering by MAF</code> or <code>Fix y axis on PCA plot</code>. Avoid messages such as <code>fixes</code>, <code>asdf</code> or <code>new version</code>. A month later they will tell you nothing.</p>
+</div>
+</div>
+<section id="shortcut-git-commit--a" class="level4">
+<h4 class="anchored" data-anchor-id="shortcut-git-commit--a">Shortcut: <code>git commit -a</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-a</span> <span class="at">-m</span> <span class="st">"Update existing scripts"</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This command stages and commits <strong>changes to already tracked files</strong> in one step. It does <strong>not</strong> add <strong>new</strong> (<em>untracked</em>) files. Until you get used to Git, prefer the separate <code>git add</code> and <code>git commit</code> steps.</p>
+</section>
+</section>
+<section id="git-push-send-changes-to-github" class="level3">
+<h3 class="anchored" data-anchor-id="git-push-send-changes-to-github"><code>git push</code>: send changes to GitHub</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>To https://github.com/USERNAME/git-practice.git
+   c82b3ae..0c879b4  main -&gt; main</code></pre>
+<p>Refresh the repository page on GitHub. The new file and the commit are now visible there too.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/10_github_po_push.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="The repository on GitHub after push: the new folder and the commit message."><img src="images/notion_original/10_github_po_push.png" class="img-fluid figure-img" style="width:100.0%" alt="The repository on GitHub after push: the new folder and the commit message."></a></p>
+<figcaption>The repository on GitHub after <code>push</code>: the new folder and the commit message.</figcaption>
+</figure>
+</div>
+</section>
+<section id="git-pull-bring-changes-from-github" class="level3">
+<h3 class="anchored" data-anchor-id="git-pull-bring-changes-from-github"><code>git pull</code>: bring changes from GitHub</h3>
+<p>On GitHub, edit the <code>README.md</code> file in the browser (pencil icon → <em>Commit changes</em>). This simulates a change made by someone else, or by you on another computer. Then, on your computer:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>Updating 0c879b4..5e1a2f3
+Fast-forward
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)</code></pre>
+<p>If there is nothing new on GitHub, Git prints <code>Already up to date.</code></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opozorilo</span>Good habit
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>At the start of every work session, run <code>git pull</code> first and only then start editing files. This way you avoid conflicts.</p>
+</div>
+</div>
+</section>
+<section id="git-log-and-git-diff-history-and-differences" class="level3">
+<h3 class="anchored" data-anchor-id="git-log-and-git-diff-history-and-differences"><code>git log</code> and <code>git diff</code>: history and differences</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span>     <span class="co"># short list of all commits</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff              <span class="co"># what you changed but have not added with git add yet</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff <span class="at">--staged</span>     <span class="co"># what is staged for the next commit</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>5e1a2f3 (HEAD -&gt; main, origin/main) Update README.md
+0c879b4 Add test script
+c82b3ae Initial commit</code></pre>
+</section>
+<section id="git-init-a-new-repository-from-an-existing-folder" class="level3">
+<h3 class="anchored" data-anchor-id="git-init-a-new-repository-from-an-existing-folder"><code>git init</code>: a new repository from an existing folder</h3>
+<p>If the project already exists on your computer and you want to put it under version control now:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> path/to/project</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>Initialized empty Git repository in .../project/.git/</code></pre>
+<p>Git creates a hidden <code>.git</code> folder where it keeps the entire history (<code>HEAD</code>, <code>objects</code>, <code>refs</code> …). Do not edit or delete this folder, as that deletes the whole history.</p>
+<p>To connect the local repository to GitHub, create an <strong>empty</strong> repository on GitHub (without a README) and then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/USERNAME/project.git</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span><code>clone</code> or <code>init</code>?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong><code>git clone</code></strong>: a copy of an existing repository from GitHub. This is the most common way and the one we use in the practicals.</li>
+<li><strong><code>git init</code></strong>: a new local repository that you connect to GitHub later.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="git-in-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="git-in-rstudio">Git in RStudio</h2>
+<p>In the practicals we work in RStudio, which has a built-in <strong>Git</strong> tab. The commands are the same as in Git Bash, you just run them with a click.</p>
+<section id="connect-rstudio-to-git" class="level3">
+<h3 class="anchored" data-anchor-id="connect-rstudio-to-git">Connect RStudio to Git</h3>
+<ol type="1">
+<li><strong>Tools → Global Options → Git/SVN</strong>.</li>
+<li>Tick <em>Enable version control interface for RStudio projects</em>.</li>
+<li>The <em>Git executable</em> field must contain the path to Git, on Windows usually <code>C:/Program Files/Git/bin/git.exe</code>. If the field is empty, find the file with <em>Browse</em>.</li>
+<li>Restart RStudio.</li>
+</ol>
+</section>
+<section id="a-new-rstudio-project-from-a-github-repository" class="level3">
+<h3 class="anchored" data-anchor-id="a-new-rstudio-project-from-a-github-repository">A new RStudio project from a GitHub repository</h3>
+<ol type="1">
+<li><strong>File → New Project → Version Control → Git</strong>.</li>
+<li>Paste the HTTPS address of the GitHub repository into <em>Repository URL</em>.</li>
+<li>Choose a folder (<em>Create project as subdirectory of</em>), e.g.&nbsp;<code>C:/Users/name/GitHub</code> (not in OneDrive).</li>
+<li>Click <strong>Create Project</strong>.</li>
+</ol>
+<p>In one step RStudio clones the repository (the same as <code>git clone</code>), turns it into an RStudio project and opens it. A <strong>Git</strong> tab appears in the top right, showing the current branch (<code>main</code>) in its top-right corner.</p>
+<p>This is how you will open your repository <code>EPG-2026-surname</code> (<a href="#sec-epg-repo-en" class="quarto-xref"><span>Your EPG repository</span></a>). Once the project exists, you open it next time by double-clicking the <code>.Rproj</code> file or via <em>File → Open Project</em> in RStudio.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Already cloned the repository in the terminal?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Then do not clone it again. In RStudio choose <em>File → New Project → <strong>Existing Directory</strong></em> and select the repository folder. RStudio recognises the Git repository by itself and shows the <strong>Git</strong> tab.</p>
+</div>
+</div>
+</section>
+<section id="what-is-in-the-repository-folder" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-in-the-repository-folder">What is in the repository folder</h3>
+<p>After cloning in RStudio, the repository folder contains the following (hidden files and folders start with a dot):</p>
+<pre class="text"><code>EPG-2026-surname/
+├── .git/                    # hidden folder: the entire history (this IS the repository)
+├── .gitignore               # a FILE: what Git does not track
+├── .Rproj.user/             # hidden folder with RStudio settings
+├── EPG-2026-surname.Rproj   # RStudio project file
+└── README.md                # description of the repository</code></pre>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>What</th>
+<th>Created by</th>
+<th>Goes to GitHub?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.git/</code></td>
+<td>Git when cloning</td>
+<td>no, it is the repository itself</td>
+</tr>
+<tr class="even">
+<td><code>README.md</code></td>
+<td>GitHub, when you create the repository</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td><code>.gitignore</code></td>
+<td>GitHub (R template); RStudio adds a few lines</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td><code>.Rproj</code></td>
+<td>RStudio</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td><code>.Rproj.user/</code></td>
+<td>RStudio</td>
+<td>no, it is in <code>.gitignore</code></td>
+</tr>
+</tbody>
+</table>
+<p>That is why right after opening the project the <strong>Git</strong> tab shows two changes: <code>.gitignore</code> (modified) and <code>.Rproj</code> (new, <strong>?</strong>). This is expected; they go into your first commit.</p>
+</section>
+<section id="the-git-tab" class="level3">
+<h3 class="anchored" data-anchor-id="the-git-tab">The Git tab</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Button / column</th>
+<th>Git command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Staged</em> checkbox</td>
+<td><code>git add</code></td>
+<td>stages the file for the commit</td>
+</tr>
+<tr class="even">
+<td><strong>Diff</strong></td>
+<td><code>git diff</code></td>
+<td>shows the changes line by line (green added, red deleted)</td>
+</tr>
+<tr class="odd">
+<td><strong>Commit</strong></td>
+<td><code>git commit</code></td>
+<td>opens a window where you write a message and save the snapshot</td>
+</tr>
+<tr class="even">
+<td><strong>Push</strong> (green arrow up)</td>
+<td><code>git push</code></td>
+<td>sends the commits to GitHub</td>
+</tr>
+<tr class="odd">
+<td><strong>Pull</strong> (blue arrow down)</td>
+<td><code>git pull</code></td>
+<td>brings the changes from GitHub</td>
+</tr>
+<tr class="even">
+<td>clock (<strong>History</strong>)</td>
+<td><code>git log</code></td>
+<td>shows the commit history</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/notion_original/14_rstudio_git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="RStudio with an open repository: the Git tab (top right) with the Diff, Commit, Pull, Push and History buttons, and the Terminal tab with Git Bash (bottom left)."><img src="images/notion_original/14_rstudio_git.png" class="img-fluid figure-img" style="width:100.0%" alt="RStudio with an open repository: the Git tab (top right) with the Diff, Commit, Pull, Push and History buttons, and the Terminal tab with Git Bash (bottom left)."></a></p>
+<figcaption>RStudio with an open repository: the <strong>Git</strong> tab (top right) with the <em>Diff</em>, <em>Commit</em>, <em>Pull</em>, <em>Push</em> and <em>History</em> buttons, and the <strong>Terminal</strong> tab with Git Bash (bottom left).</figcaption>
+</figure>
+</div>
+<p>Meaning of the letters in the <em>Status</em> column: <strong>?</strong> a new file that Git does not track yet; <strong>A</strong> added; <strong>M</strong> modified; <strong>D</strong> deleted.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Terminal in RStudio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Besides the console, RStudio also has a <strong>Terminal</strong> tab (<em>Tools → Terminal → New Terminal</em>). On Windows you can set it to use Git Bash (<em>Tools → Global Options → Terminal → New terminals open with: Git Bash</em>). This way you can run all the commands from the previous chapter directly in RStudio. We will use the same terminal for PLINK in the next practical.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-epg-repo-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-epg-repo-en">Your EPG repository</h2>
+<p>Until the end of the semester you will upload all scripts, reports and answers from the practicals to <strong>one repository</strong>. It is both your submission and your personal code collection, which you can reuse later, e.g.&nbsp;for your master’s thesis.</p>
+<section id="create-the-repository" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-repository">Create the repository</h3>
+<ol type="1">
+<li>On GitHub, create a new repository named <strong><code>EPG-2026-surname</code></strong> (e.g.&nbsp;<code>EPG-2026-novak</code>).</li>
+<li>Settings:
+<ul>
+<li><strong>Private</strong></li>
+<li>tick <strong>Add a README file</strong></li>
+<li><strong>Add .gitignore</strong> → choose the <strong>R</strong> template</li>
+</ul></li>
+<li>Add the teaching assistant as a collaborator: <strong>Settings → Collaborators → Add people</strong> → <code>UrskaGeric</code>.</li>
+<li>Open the repository as a new project in RStudio (<em>File → New Project → Version Control → Git</em>).</li>
+</ol>
+</section>
+<section id="repository-structure" class="level3">
+<h3 class="anchored" data-anchor-id="repository-structure">Repository structure</h3>
+<p>Create folders for all practicals. Git does not track empty folders, so they will appear on GitHub only after you save the first file in them.</p>
+<pre class="text"><code>EPG-2026-surname/
+├── README.md              # who you are, what is in the repository
+├── .gitignore             # files that Git does not upload to GitHub
+├── EPG-2026-surname.Rproj
+├── E1_git/
+├── E2_plink/
+├── E3_diversity/
+├── E4_structure/
+├── E5_inbreeding/
+└── data/                  # data (NOT uploaded to GitHub!)</code></pre>
+</section>
+<section id="gitignore-what-we-do-not-upload-to-github" class="level3">
+<h3 class="anchored" data-anchor-id="gitignore-what-we-do-not-upload-to-github"><code>.gitignore</code>: what we do not upload to GitHub</h3>
+<p>The <code>.gitignore</code> file tells Git which files not to track. This is very important in population genomics:</p>
+<ul>
+<li>GitHub <strong>rejects files larger than 100 MB</strong>. The eagle VCF file we will work with is almost 600 MB.</li>
+<li>The data do not change during the analysis and are already stored elsewhere (e.g.&nbsp;in the Dryad repository that accompanies the paper). GitHub is for the <strong>code</strong> that turns data into results.</li>
+<li>Intermediate files (PLINK <code>.bed</code>, <code>.bim</code>, <code>.fam</code>, <code>.log</code> …) can be recomputed at any time with your script.</li>
+</ul>
+<p>Add the following to the end of <code>.gitignore</code> (the <em>R</em> template already contains <code>.Rhistory</code>, <code>.RData</code> and <code>.Rproj.user/</code>):</p>
+<pre class="text"><code># --- data and intermediate files (EPG) ---
+data/
+*.vcf
+*.vcf.gz
+*.bed
+*.bim
+*.fam
+*.ped
+*.map
+*.raw
+*.log
+*.nosex
+*.exe
+
+# --- rendered Quarto/Rmarkdown output ---
+*_files/
+*.html</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>What if I want to submit an HTML report?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want to upload a report to GitHub, delete the <code>*.html</code> line. For Quarto documents it is then recommended to add <code>embed-resources: true</code> to the header, so that everything (including figures) is in a single HTML file and you do not need the <code>*_files/</code> folder.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opozorilo</span>If a large file is already in a commit
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you accidentally added a large file to a commit, <code>push</code> will fail even if you later add the file to <code>.gitignore</code>. In that case, ask for help. The solution is to undo the last commit (<code>git reset --soft HEAD~1</code>), remove the file from the staging area (<code>git rm --cached file</code>) and commit again.</p>
+</div>
+</div>
+</section>
+<section id="readme.md" class="level3">
+<h3 class="anchored" data-anchor-id="readme.md">README.md</h3>
+<p><code>README.md</code> is written in <strong>Markdown</strong>, which you already know from exercise 0. GitHub shows it on the front page of the repository. Edit it, for example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Evolutionary and population genetics 2026/27</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>Author: Name Surname</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>Repository with scripts and reports from the EPG practicals.</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contents</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Folder <span class="pp">|</span> Practical <span class="pp">|</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E1_git/`</span> <span class="pp">|</span> Version control with Git and GitHub <span class="pp">|</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E2_plink/`</span> <span class="pp">|</span> SNPs and PLINK <span class="pp">|</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E3_diversity/`</span> <span class="pp">|</span> Genetic diversity and differentiation <span class="pp">|</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E4_structure/`</span> <span class="pp">|</span> Population structure <span class="pp">|</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E5_inbreeding/`</span> <span class="pp">|</span> Relatedness, inbreeding and ROH <span class="pp">|</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>White-tailed eagle genotypes: Hansen et al. (2023), *Molecular Ecology* 32: 1925–1942,</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. The data are not part of this repository.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="the-rule-for-all-following-practicals" class="level3">
+<h3 class="anchored" data-anchor-id="the-rule-for-all-following-practicals">The rule for all following practicals</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Pomembno</span>After every practical
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><code>pull</code> at the start of work,</li>
+<li>save the scripts and reports in the practical’s folder,</li>
+<li><code>commit</code> with a descriptive message (you can commit several times during a practical),</li>
+<li><code>push</code> at the end of work.</li>
+</ol>
+<p>The state of your repository on GitHub is your submission.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="when-something-goes-wrong-undoing-changes" class="level2">
+<h2 class="anchored" data-anchor-id="when-something-goes-wrong-undoing-changes">When something goes wrong: undoing changes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I changed a file and want the last saved version back</td>
+<td><code>git restore file.R</code></td>
+</tr>
+<tr class="even">
+<td>I added a file with <code>git add</code> but do not want it in the commit</td>
+<td><code>git restore --staged file.R</code></td>
+</tr>
+<tr class="odd">
+<td>The last commit has a wrong message (not pushed yet)</td>
+<td><code>git commit --amend -m "New message"</code></td>
+</tr>
+<tr class="even">
+<td>I want to undo a commit that is already on GitHub</td>
+<td><code>git revert &lt;hash&gt;</code> (creates a new commit that reverses the changes)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Opozorilo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>git restore file.R</code> permanently discards unsaved changes in the file. Check with <code>git diff</code> before using it.</p>
+</div>
+</div>
+<section id="when-two-people-work-at-the-same-time" class="level3">
+<h3 class="anchored" data-anchor-id="when-two-people-work-at-the-same-time">When two people work at the same time</h3>
+<p>What happens when two people (Ana and Bor) work on the same repository and both send their changes to GitHub?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/collaboration_push_pull.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s push because it has commit C, which Ana does not have yet. Ana therefore runs git pull first (combining Bor’s commit with hers) and only then pushes successfully."><img src="images/new_diagrams/collaboration_push_pull.svg" class="img-fluid figure-img" style="width:95.0%" alt="Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s push because it has commit C, which Ana does not have yet. Ana therefore runs git pull first (combining Bor’s commit with hers) and only then pushes successfully."></a></p>
+<figcaption>Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s <code>push</code> because it has commit C, which Ana does not have yet. Ana therefore runs <code>git pull</code> first (combining Bor’s commit with hers) and only then pushes successfully.</figcaption>
+</figure>
+</div>
+<p>Why this is good:</p>
+<ul>
+<li><strong>nobody can accidentally overwrite someone else’s work</strong>: Git rejects the <code>push</code> until you have all changes from GitHub,</li>
+<li><strong>both people’s work is kept</strong>: after <code>git pull</code> the history contains both commits, C and D,</li>
+<li><strong>Git does most of the merging itself</strong>; it only needs your help with a conflict.</li>
+</ul>
+<p>The same happens when you work alone on two computers (e.g.&nbsp;at home and at the faculty). Hence the rule: <strong>always <code>git pull</code> before you start working.</strong></p>
+</section>
+<section id="conflicts" class="level3">
+<h3 class="anchored" data-anchor-id="conflicts">Conflicts</h3>
+<p>A conflict happens when the same line of the same file was changed in two places (e.g.&nbsp;on GitHub and on your computer). On <code>pull</code>, Git writes markers into the file:</p>
+<pre class="text"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+plot(pca$x[, 1], pca$x[, 2], col = "blue")
+=======
+plot(pca$x[, 1], pca$x[, 2], col = "red")
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main</code></pre>
+<p>The upper part is your version, the lower part is the version from GitHub. Manually keep the correct line, delete the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers, and then <code>git add</code>, <code>git commit</code> and <code>git push</code>.</p>
+<p>When working in your own repository from one computer, you avoid conflicts by consistently following the <code>pull</code> → work → <code>commit</code> → <code>push</code> loop.</p>
+</section>
+</section>
+<section id="branches" class="level2">
+<h2 class="anchored" data-anchor-id="branches">Branches</h2>
+<p>Branches let you develop new things or try out ideas <strong>without breaking the working main version</strong> (<code>main</code>). In the practicals you will mostly work on <code>main</code>, but branches are the basis of every team project.</p>
+<ul>
+<li><code>main</code> should stay as stable as possible,</li>
+<li>each person or each new feature gets its own branch,</li>
+<li>when the work is finished and tested, the branch is merged back into <code>main</code>.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/branches_merge.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Branch test splits off main, we make two commits on it and then merge it back into main with git merge."><img src="images/new_diagrams/branches_merge.svg" class="img-fluid figure-img" style="width:95.0%" alt="Branch test splits off main, we make two commits on it and then merge it back into main with git merge."></a></p>
+<figcaption>Branch <code>test</code> splits off <code>main</code>, we make two commits on it and then merge it back into <code>main</code> with <code>git merge</code>.</figcaption>
+</figure>
+</div>
+<section id="creating-and-switching-branches" class="level3">
+<h3 class="anchored" data-anchor-id="creating-and-switching-branches">Creating and switching branches</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch                 <span class="co"># list local branches (* = current)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> new-plot     <span class="co"># create a new branch and switch to it</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main            <span class="co"># go back to main</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> new-plot     <span class="co"># delete the branch (once it is merged)</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span><code>git switch</code> or <code>git checkout</code>?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In older tutorials and figures you will often see <code>git checkout</code> (<code>git checkout -b new-branch</code>). The command works, but it does two different jobs: switching branches <strong>and</strong> restoring files, which confuses beginners. Newer Git commands split them: <code>git switch</code> for branches, <code>git restore</code> for files. In the practicals we use <code>switch</code>.</p>
+</div>
+</div>
+</section>
+<section id="example-of-working-on-a-branch" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-working-on-a-branch">Example of working on a branch</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> new-plot</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ... edit files ...</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add PCA plot coloured by country"</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin new-plot</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On the first <code>push</code> of a new branch, GitHub prints a link to open a <strong>Pull Request</strong>. This is a proposal to merge the branch into <code>main</code>, which collaborators can review.</p>
+</section>
+<section id="merging-git-merge" class="level3">
+<h3 class="anchored" data-anchor-id="merging-git-merge">Merging: <code>git merge</code></h3>
+<p>Switch to the branch you want to <strong>update</strong> (usually <code>main</code>) and merge the other branch into it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge new-plot</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>Updating 0c879b4..a09a19b
+Fast-forward
+ E4_structure/pca.R | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)</code></pre>
+</section>
+</section>
+<section id="graphical-tools-optional" class="level2">
+<h2 class="anchored" data-anchor-id="graphical-tools-optional">Graphical tools (optional)</h2>
+<p>Git Bash teaches you how Git really works. Once you understand the commands, graphical tools are convenient:</p>
+<ul>
+<li><strong>RStudio</strong> (Git tab): for the practicals,</li>
+<li><strong>GitHub Desktop</strong>: a simple program for clone, commit, push and pull,</li>
+<li><strong>Visual Studio Code</strong> (<em>Source Control</em> tab): if you also write Python or bash,</li>
+<li><strong>GitKraken</strong>: a nice graphical view of branches and history.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opozorilo</span>Editing directly on GitHub
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can also edit files in the browser on GitHub. This is fine for small README changes, but not for code, because you cannot run and check it before the commit.</p>
+</div>
+</div>
+</section>
+<section id="command-summary" class="level2">
+<h2 class="anchored" data-anchor-id="command-summary">Command summary</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Name Surname"</span>   <span class="co"># one-time setup</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"address"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>url<span class="op">&gt;</span>              <span class="co"># copy a repository from GitHub</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init                     <span class="co"># new local repository</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status                   <span class="co"># what has changed</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="op">&lt;</span>file<span class="op">&gt;</span>               <span class="co"># stage a file for the commit</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .                    <span class="co"># stage all changes in the folder</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"message"</span>      <span class="co"># save a snapshot</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push                     <span class="co"># send commits to GitHub</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull                     <span class="co"># bring and merge changes from GitHub</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span>            <span class="co"># commit history</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff                     <span class="co"># unstaged changes</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="op">&lt;</span>file<span class="op">&gt;</span>           <span class="co"># discard changes in a file</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> <span class="op">&lt;</span>file<span class="op">&gt;</span>  <span class="co"># remove a file from the staging area</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch                   <span class="co"># list branches</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> <span class="op">&lt;</span>name<span class="op">&gt;</span>         <span class="co"># create a branch and switch to it</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="op">&lt;</span>name<span class="op">&gt;</span>            <span class="co"># switch to an existing branch</span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge <span class="op">&lt;</span>name<span class="op">&gt;</span>             <span class="co"># merge a branch into the current branch</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> <span class="op">&lt;</span>name<span class="op">&gt;</span>         <span class="co"># delete a branch</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Print or save the official two-page command summary from GitHub: <a href="https://education.github.com/git-cheat-sheet-education.pdf"><strong>Git cheat sheet (PDF)</strong></a>.</p>
+</section>
+<section id="sec-task" class="level2">
+<h2 class="anchored" data-anchor-id="sec-task">In-class task</h2>
+<ol type="1">
+<li><p>Create a GitHub account, install Git and configure it (<code>user.name</code>, <code>user.email</code>).</p></li>
+<li><p>Create a private repository <strong><code>EPG-2026-surname</code></strong> with a README and the R <code>.gitignore</code> template, and add <code>UrskaGeric</code> as a collaborator.</p></li>
+<li><p>Clone the repository in RStudio (<em>File → New Project → Version Control → Git</em>) into the folder <code>~/GitHub</code> (not in OneDrive). RStudio opens it as a project.</p></li>
+<li><p>Create the folders <code>E1_git</code>, <code>E2_plink</code>, <code>E3_diversity</code>, <code>E4_structure</code>, <code>E5_inbreeding</code> and <code>data</code>.</p></li>
+<li><p>Extend <code>.gitignore</code> with the rules from <a href="#sec-epg-repo-en" class="quarto-xref"><span>Your EPG repository</span></a>.</p></li>
+<li><p>Edit <code>README.md</code> (name, description, table of practicals).</p></li>
+<li><p>In RStudio open a new R script (<em>File → New File → R Script</em>), type in the code below, run it and save it as <code>E1_git/first_script.R</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># My first script in the EPG repository</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: Name Surname</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># made-up allele frequencies in four white-tailed eagle populations</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">IS =</span> <span class="fl">0.12</span>, <span class="at">GL =</span> <span class="fl">0.10</span>, <span class="at">NO =</span> <span class="fl">0.35</span>, <span class="at">DK =</span> <span class="fl">0.40</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># expected heterozygosity for one locus with two alleles: He = 2pq</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>He <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>He</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(He, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Expected heterozygosity (He)"</span>,</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Example: He by population"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>In the <strong>Git</strong> tab in RStudio tick all changes (<em>Staged</em>) → <strong>Commit</strong> (message e.g.&nbsp;<code>Add first R script</code>) → <strong>Push</strong>. Check on GitHub that <code>README.md</code> and <code>E1_git/first_script.R</code> are visible.</p></li>
+<li><p>Create a branch <code>test</code> and in it change the plot colour in the script (e.g.&nbsp;<code>col = "darkorange"</code>). Commit, merge the branch into <code>main</code> and push to GitHub.</p></li>
+<li><p>Submit the link to your repository in the online classroom.</p></li>
+</ol>
+</section>
+<section id="sec-homework" class="level2">
+<h2 class="anchored" data-anchor-id="sec-homework">Homework: preparation for exercise 2</h2>
+<p>In all following practicals we will analyse genomic data of the <strong>white-tailed eagle</strong> (<em>Haliaeetus albicilla</em>) from the paper:</p>
+<blockquote class="blockquote">
+<p>Hansen, C. C. R., Láruson, Á. J., Rasmussen, J. A., et al.&nbsp;(2023). Genomic diversity and differentiation between island and mainland populations of white-tailed eagles (<em>Haliaeetus albicilla</em>). <em>Molecular Ecology</em>, 32, 1925–1942. <a href="https://doi.org/10.1111/mec.16858" class="uri">https://doi.org/10.1111/mec.16858</a></p>
+</blockquote>
+<p>The paper is open access: <a href="https://urskageric.github.io/EPG/literatura/Hansen_2023_MolEcol_orel_belorepec.pdf"><strong>PDF of the paper</strong></a>. Read it and create a file <strong><code>E1_git/eagle_paper.md</code></strong> in your repository, in which you briefly answer (in a few sentences) the following questions:</p>
+<ol type="1">
+<li>What is the main research question of the paper? Why is it interesting that a species with a high dispersal capacity is genetically structured?</li>
+<li>Which countries are the samples from? Which populations are <strong>island</strong> and which are <strong>mainland</strong> populations?</li>
+<li>What are the <strong>historical</strong> samples and why did the authors include them in addition to the contemporary ones?</li>
+<li>What type of data did they use (sequencing, number of SNPs) and how did they filter the data?</li>
+<li>List the analyses they performed (e.g.&nbsp;genetic diversity, F<sub>ST</sub>, PCA, ADMIXTURE, inbreeding, effective population size). Which figure or table shows the result of each analysis?</li>
+<li>What are the main findings on the diversity and inbreeding of island populations compared to mainland populations?</li>
+<li>Which four historical events are thought to have shaped the decline in effective population size?</li>
+<li>Explain in your own words: founder effect, genetic drift, inbreeding, philopatry, effective population size (N<sub>e</sub>).</li>
+</ol>
+<p>Submit the file with <code>commit</code> and <code>push</code> <strong>before exercise 2</strong>. In exercises 2–5 we will repeat some of these analyses ourselves and at the end check whether we reach the same conclusions as the authors.</p>
+</section>
+<section id="for-the-curious-working-in-a-team" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="for-the-curious-working-in-a-team">For the curious: working in a team</h2>
+<p>In larger projects with several collaborators, the team agrees on rules for branches. Simple rules that prevent a lot of trouble:</p>
+<ol type="1">
+<li>do not experiment directly on <code>main</code>,</li>
+<li>always <code>pull</code> before you start working,</li>
+<li>create a branch with a descriptive name for every new thing (<code>new-plot</code>, <code>fix-readme</code>),</li>
+<li>merge the branch only when the code works,</li>
+<li>write meaningful commit messages.</li>
+</ol>
+<p>One of the best-known conventions is <strong>Git flow</strong>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/git_flow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Git flow: main (stable version), develop (development), feature branches (new features), release (preparing a new version) and hotfix (urgent fixes)."><img src="images/git_flow.png" class="img-fluid figure-img" style="width:80.0%" alt="Git flow: main (stable version), develop (development), feature branches (new features), release (preparing a new version) and hotfix (urgent fixes)."></a></p>
+<figcaption>Git flow: <code>main</code> (stable version), <code>develop</code> (development), <code>feature</code> branches (new features), <code>release</code> (preparing a new version) and <code>hotfix</code> (urgent fixes).</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Branch</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>main</code></td>
+<td>stable, released code</td>
+</tr>
+<tr class="even">
+<td><code>develop</code></td>
+<td>ongoing development, integration of new features</td>
+</tr>
+<tr class="odd">
+<td><code>feature/*</code></td>
+<td>new features (from <code>develop</code>)</td>
+</tr>
+<tr class="even">
+<td><code>release/*</code></td>
+<td>preparing a new version (from <code>develop</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>hotfix/*</code></td>
+<td>urgent fixes (from <code>main</code>)</td>
+</tr>
+</tbody>
+</table>
+<section id="merge-or-rebase" class="level3">
+<h3 class="anchored" data-anchor-id="merge-or-rebase">Merge or rebase?</h3>
+<p>Both commands bring work from one branch into another, but they treat history differently.</p>
+<p><strong>Merge</strong> keeps the actual history and creates an additional commit that joins the two branches:</p>
+<pre class="text"><code>A---B---C---F    (main, F = merge commit)
+         \ /
+          D---E  (branch)</code></pre>
+<p><strong>Rebase</strong> “replants” your commits on top of the other branch, so the history is linear. The commit identifiers (<em>hashes</em>) change in the process:</p>
+<pre class="text"><code>A---B---C---D'---E'</code></pre>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Merge</strong></th>
+<th><strong>Rebase</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>History</td>
+<td>keeps branches</td>
+<td>linear, cleaner</td>
+</tr>
+<tr class="even">
+<td>Safety on shared branches</td>
+<td>safer</td>
+<td>can confuse collaborators</td>
+</tr>
+<tr class="odd">
+<td>Conflicts</td>
+<td>resolved once</td>
+<td>may appear for each commit</td>
+</tr>
+</tbody>
+</table>
+<p>In the practicals we use <strong>merge</strong>. Rebase is useful once you are comfortable with the basics of collaboration.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopirano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopirano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../uvod_EN.html" class="pagination-link" aria-label="Introduction (English)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction (English)</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
