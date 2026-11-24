@@ -767,7 +767,7 @@ Slika&nbsp;8.5: Mean H<sub>e</sub> of 500 loci (points) and the expectation (lin
 <li><strong>the inbreeding concept</strong>: how quickly the probability increases that the two alleles in an individual are identical because of a common ancestor.</li>
 </ul>
 <p>In an ideal population N<sub>e</sub> = N<sub>c</sub> (census size, number of adults). In nature N<sub>e</sub> is almost always <strong>much smaller</strong>: often around 10% of N<sub>c</sub> (Frankham 1995), and 2.5–5% in eagles from Norway and Iceland (Hansen et al.&nbsp;2023). The main causes are an unequal sex ratio, differences in reproductive success and fluctuating population size.</p>
-<p>Because H<sub>e</sub> decreases by a factor of <span class="math inline">\((1 - \frac{1}{2N_e})\)</span> per generation, we can <strong>estimate N<sub>e</sub> from a simulation</strong> by measuring how quickly H<sub>e</sub> decreases.</p>
+<p><strong>How we measure N<sub>e</sub> in a simulation.</strong> We cannot count N<sub>e</sub>, but we can measure it by its effect: by how quickly the population loses diversity. In the simulation we follow mean H<sub>e</sub> over generations. Because H<sub>e</sub> decreases by a factor of <span class="math inline">\((1 - \frac{1}{2N_e})\)</span> each generation, log(H<sub>e</sub>) against generation is a straight line with slope log(1 − 1/2N<sub>e</sub>). The function <code>estimate_ne()</code> measures this slope with a straight line (<code>lm</code>) and calculates N<sub>e</sub> from it. In Practical 6 we will estimate N<sub>e</sub> the same way, from the rate of loss of diversity, in real data (historical versus contemporary eagles).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate Ne from mean He per generation: He_t = He_0 (1 - 1/2Ne)^t</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>estimate_ne <span class="ot">&lt;-</span> <span class="cf">function</span>(He, generation) {</span>
@@ -779,7 +779,8 @@ Slika&nbsp;8.5: Mean H<sub>e</sub> of 500 loci (points) and the expectation (lin
 <h3 class="anchored" data-anchor-id="sex-ratio">Sex ratio</h3>
 <p>If N<sub>m</sub> males and N<sub>f</sub> females breed, and each offspring gets one allele from the father and one from the mother:</p>
 <p><span class="math display">\[N_e = \frac{4 N_m N_f}{N_m + N_f}\]</span></p>
-<p>Let’s simulate a population of 100 adults with separate sexes. Individuals have two alleles at 500 loci: <code>A1</code> and <code>A2</code> are matrices (loci × individuals) with the first and second allele. Each offspring gets a random allele of a random father and a random allele of a random mother:</p>
+<p><strong>What we simulate.</strong> The population always has 100 adults; we change the sex ratio: 50 males and 50 females, 20 and 80, and 5 and 95. Each individual has a genotype at 500 independent loci (in R these are the matrices <code>A1</code> and <code>A2</code>, loci × individuals, with the first and second allele, coded 0 or 1). In each generation 100 offspring are produced: each gets a random allele of a randomly chosen father and a random allele of a randomly chosen mother. After each generation we measure mean H<sub>e</sub>, and after 50 generations we calculate N<sub>e</sub> with <code>estimate_ne()</code>.</p>
+<p><strong>How to read the result.</strong> For each scenario the table shows N<sub>e</sub> from the formula (column <code>formula</code>) and N<sub>e</sub> measured in the simulation (column <code>simulation</code>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mean_he <span class="ot">&lt;-</span> <span class="cf">function</span>(A1, A2) {</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> (<span class="fu">rowMeans</span>(A1) <span class="sc">+</span> <span class="fu">rowMeans</span>(A2)) <span class="sc">/</span> <span class="dv">2</span>          <span class="co"># allele frequency at each locus</span></span>
@@ -827,7 +828,7 @@ Slika&nbsp;8.5: Mean H<sub>e</sub> of 500 loci (points) and the expectation (lin
 3     5    95      19       20.1</code></pre>
 </div>
 </div>
-<p>All three populations have 100 adults, but with five males N<sub>e</sub> is only about 19. The simulation estimates are close to the formula, but not identical: the simulation is random.</p>
+<p>All three populations have 100 adults, but with five males the population loses diversity as fast as an ideal population of only about 19 individuals. Half of the genes of each generation come from just five males, so they act as a bottleneck. The simulation estimates are close to the formula, but not identical: the simulation is random.</p>
 </section>
 <section id="differences-in-reproductive-success" class="level3">
 <h3 class="anchored" data-anchor-id="differences-in-reproductive-success">Differences in reproductive success</h3>
@@ -862,6 +863,8 @@ Slika&nbsp;8.5: Mean H<sub>e</sub> of 500 loci (points) and the expectation (lin
   456.3636   157.1429 </code></pre>
 </div>
 </div>
+<p><strong>How to read the result.</strong> Over 22 generations the population had on average (arithmetic mean) 456 individuals, but its N<sub>e</sub> (harmonic mean) is only 157. Just two generations with 20 individuals reduced N<sub>e</sub> to a third.</p>
+<p><strong>What we simulate in the next plot.</strong> The population starts with 20 individuals and grows to about 300 in 27 generations (exponential growth with a little random fluctuation), similar to the eagles in Iceland after protection. For each generation we calculate N<sub>e</sub> as the harmonic mean of all sizes up to that generation. The red line is the actual size, the blue line N<sub>e</sub>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>growth <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">27</span>,</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">N =</span> <span class="fu">round</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.1</span> <span class="sc">*</span> generation) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">28</span>, <span class="dv">0</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
@@ -914,7 +917,7 @@ Slika&nbsp;8.6: A rapidly growing population (red) and its N<sub>e</sub> as the 
 <li>a <strong>bottleneck</strong>: a large population is strongly reduced for a few generations and then grows again,</li>
 <li>a <strong>founder effect</strong>: a new population is founded by a small number of individuals from a larger population (e.g.&nbsp;colonisation of an island).</li>
 </ul>
-<p>For both we need a locus with <strong>many alleles</strong> to see the loss of rare alleles. The frequencies of all alleles in the next generation are <strong>multinomially</strong> distributed (the generalisation of the binomial distribution to more than two alleles):</p>
+<p><strong>What we simulate.</strong> For both we need a locus with <strong>many alleles</strong> to see the loss of rare alleles (a SNP has only two). We take one locus with 20 alleles: a few common and many rare (<code>freq0</code>, printed below). In each generation we draw 2N copies at random from the gene pool of the previous generation, so the frequencies of all alleles are <strong>multinomially</strong> distributed (the generalisation of the binomial distribution to more than two alleles). The function <code>drift_alleles()</code> takes the population size for each generation, so a bottleneck is simply a sequence of sizes. It repeats the simulation 200 times and returns, for each generation, the mean <strong>allelic richness</strong> (how many of the 20 alleles are still present) and the mean <strong>H<sub>e</sub></strong>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>drift_alleles <span class="ot">&lt;-</span> <span class="cf">function</span>(sizes, freq0, <span class="at">replicates =</span> <span class="dv">200</span>) {</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>replicates, \(r) {</span>
@@ -967,10 +970,11 @@ Slika&nbsp;8.7: Bottleneck: 10 generations with N = 2000, 5 generations with N =
 </div>
 </div>
 </div>
+<p><strong>How to read the plot.</strong> The x axis shows generations, the y axis the proportion of the starting value (1 = as much as at the start). The grey band is the bottleneck: 5 generations with only 10 individuals.</p>
 <p>A bottleneck mainly removes <strong>rare alleles</strong>, so <strong>allelic richness</strong> drops faster than <strong>H<sub>e</sub></strong>, which is hardly affected by rare alleles. After the bottleneck the population grows, but diversity does not come back: new alleles can only arise by mutation or migration, which takes a very long time. This is why allelic richness is a good indicator of a recent bottleneck.</p>
 <section id="founder-effect" class="level3">
 <h3 class="anchored" data-anchor-id="founder-effect">Founder effect</h3>
-<p>A new population is founded by k individuals (2k gene copies) drawn at random from a large population with frequencies <code>freq0</code>:</p>
+<p><strong>What we simulate.</strong> From a large source population (frequencies <code>freq0</code>) we draw k founders at random, i.e.&nbsp;2k gene copies, and measure how much of the allelic richness and H<sub>e</sub> of the source population they take with them. For each k (1, 2, 5, 10, 20, 50) we repeat this 1000 times and take the mean. We simulate only the moment of founding, without later drift.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>founders <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>), \(k) {</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(r) {</span>
@@ -1002,6 +1006,7 @@ Slika&nbsp;8.8: Proportion of the allelic richness and H<sub>e</sub> of the sour
 </div>
 </div>
 </div>
+<p><strong>How to read the plot.</strong> The x axis is the number of founders (log scale), the y axis the proportion of the source population’s diversity retained by the founders.</p>
 <p>H<sub>e</sub> is retained relatively well even with a few founders (expected <span class="math inline">\(1 - \frac{1}{2k}\)</span>), while rare alleles are lost.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1047,9 +1052,11 @@ Slika&nbsp;8.9: Allele frequencies in two populations exchanging a proportion m 
 </div>
 </div>
 </div>
+<p><strong>How to read the plot.</strong> Each panel is one migration rate m. The red and blue lines are the allele frequencies in the two populations. With m = 0.1 the frequencies become equal in about 20 generations; with m = 0.01 they are still quite different after 50 generations.</p>
 <p>Migration <strong>equalises</strong> frequencies, while drift randomly <strong>pushes them apart</strong> in each population. In reality both act at the same time, and differentiation settles where they are in balance.</p>
 <p>We measure differentiation with <strong>F<sub>ST</sub></strong>, which compares the heterozygosity within populations (H<sub>S</sub>) with the heterozygosity of the total (pooled) population (H<sub>T</sub>):</p>
 <p><span class="math display">\[F_{ST} = \frac{H_T - H_S}{H_T}\]</span></p>
+<p><strong>What we simulate.</strong> Two populations of N = 50 individuals. Both start with the same frequencies (p = 0.5 at 500 independent loci), so F<sub>ST</sub> = 0 at the start. In each generation the populations first exchange a proportion m of individuals (migration), then each samples the next generation at random on its own (drift). After each generation we calculate H<sub>S</sub>, H<sub>T</sub> and F<sub>ST</sub> (mean over all loci). We repeat this for four migration rates.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>two_populations <span class="ot">&lt;-</span> <span class="cf">function</span>(N, m, <span class="at">generations =</span> <span class="dv">200</span>, <span class="at">loci =</span> <span class="dv">500</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>) {</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, loci); p2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, loci)</span>
@@ -1085,6 +1092,7 @@ Slika&nbsp;8.10: F<sub>ST</sub> between two populations of N = 50 for different 
 </div>
 </div>
 </div>
+<p><strong>How to read the plot.</strong> Each line is one migration rate. The y axis is F<sub>ST</sub>: 0 means the two populations are identical, 1 that they are fixed for different alleles.</p>
 <p>Without migration F<sub>ST</sub> keeps increasing until the two populations are fixed for different alleles. Even <strong>one immigrant per generation</strong> (Nm = 1) strongly limits differentiation, regardless of population size. In the island model (many populations, equal exchange among all) the equilibrium is approximately <span class="math inline">\(F_{ST} \approx \frac{1}{4Nm + 1}\)</span>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1147,9 +1155,14 @@ Slika&nbsp;8.10: F<sub>ST</sub> between two populations of N = 50 for different 
 <tr class="even">
 <td>migration</td>
 <td>F<sub>ST</sub> increases without migration, Nm ≈ 1 limits it</td>
-<td>Practical 5: F<sub>ST</sub>, AMOVA, PCA, isolation by distance</td>
+<td>Practical 5: F<sub>ST</sub>, isolation by distance (IBD)</td>
 </tr>
 <tr class="odd">
+<td>population structure</td>
+<td>through drift, isolated populations differ in allele frequencies at many loci at once</td>
+<td>Practical 5: PCA, MDS, DAPC, ADMIXTURE (how many groups there are and which group an individual belongs to)</td>
+</tr>
+<tr class="even">
 <td>N<sub>e</sub> and inbreeding</td>
 <td>small N<sub>e</sub> increases relatedness of parents</td>
 <td>Practical 6: ROH, F<sub>ROH</sub>, N<sub>e</sub> from historical and contemporary samples</td>

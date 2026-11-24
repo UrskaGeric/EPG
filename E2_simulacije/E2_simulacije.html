@@ -767,7 +767,7 @@ Slika&nbsp;4.5: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
 <li><strong>koncept inbridinga</strong>: kako hitro narašča verjetnost, da sta alela v osebku enaka zaradi skupnega prednika.</li>
 </ul>
 <p>Pri idealni populaciji je N<sub>e</sub> = N<sub>c</sub> (cenzusna velikost, število odraslih). V naravi je N<sub>e</sub> skoraj vedno <strong>precej manjša</strong>: pogosto okoli 10 % N<sub>c</sub> (Frankham 1995), pri orlih na Norveškem in Islandiji 2,5–5 % (Hansen et al.&nbsp;2023). Glavni vzroki so neenako razmerje med spoloma, razlike v reproduktivnem uspehu in nihanje velikosti populacije.</p>
-<p>Ker H<sub>e</sub> pada s faktorjem <span class="math inline">\((1 - \frac{1}{2N_e})\)</span> na generacijo, lahko N<sub>e</sub> <strong>ocenimo iz simulacije</strong>: izmerimo, kako hitro pada H<sub>e</sub>.</p>
+<p><strong>Kako N<sub>e</sub> izmerimo v simulaciji.</strong> N<sub>e</sub> ne moremo prešteti, lahko pa jo izmerimo po njenem učinku: po tem, kako hitro populacija izgublja raznolikost. V simulaciji spremljamo povprečno H<sub>e</sub> čez generacije. Ker H<sub>e</sub> vsako generacijo pade s faktorjem <span class="math inline">\((1 - \frac{1}{2N_e})\)</span>, je log(H<sub>e</sub>) v odvisnosti od generacije premica z naklonom log(1 − 1/2N<sub>e</sub>). Funkcija <code>ocena_ne()</code> s premico (<code>lm</code>) izmeri ta naklon in iz njega izračuna N<sub>e</sub>. Na isti način, iz hitrosti izgube raznolikosti, bomo N<sub>e</sub> v vaji 6 ocenili tudi iz pravih podatkov (historični proti sodobnim orlom).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iz povprečne He po generacijah oceni Ne: He_t = He_0 (1 - 1/2Ne)^t</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ocena_ne <span class="ot">&lt;-</span> <span class="cf">function</span>(He, generacija) {</span>
@@ -779,7 +779,8 @@ Slika&nbsp;4.5: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
 <h3 class="anchored" data-anchor-id="razmerje-med-spoloma">Razmerje med spoloma</h3>
 <p>Če se razmnožuje N<sub>m</sub> samcev in N<sub>f</sub> samic, vsak potomec pa dobi en alel od očeta in enega od matere:</p>
 <p><span class="math display">\[N_e = \frac{4 N_m N_f}{N_m + N_f}\]</span></p>
-<p>Simulirajmo populacijo s 100 odraslimi z ločenima spoloma. Osebki imajo po dva alela na 500 lokusih: <code>A1</code> in <code>A2</code> sta matriki (lokusi × osebki) s prvim in drugim alelom. Vsak potomec dobi naključen alel naključnega očeta in naključen alel naključne matere:</p>
+<p><strong>Kaj simuliramo.</strong> Populacija ima vedno 100 odraslih, spreminjamo pa razmerje med spoloma: 50 samcev in 50 samic, 20 in 80 ter 5 in 95. Vsak osebek ima genotip na 500 neodvisnih lokusih (v R sta to matriki <code>A1</code> in <code>A2</code>, lokusi × osebki, s prvim in drugim alelom, ki je 0 ali 1). V vsaki generaciji nastane 100 potomcev: vsak dobi naključen alel naključno izbranega očeta in naključen alel naključno izbrane matere. Po vsaki generaciji izmerimo povprečno H<sub>e</sub>, po 50 generacijah pa z <code>ocena_ne()</code> izračunamo N<sub>e</sub>.</p>
+<p><strong>Kako beremo rezultat.</strong> V tabeli je za vsak scenarij N<sub>e</sub> po formuli (stolpec <code>formula</code>) in N<sub>e</sub>, izmerjena v simulaciji (stolpec <code>simulacija</code>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>he_povprecje <span class="ot">&lt;-</span> <span class="cf">function</span>(A1, A2) {</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> (<span class="fu">rowMeans</span>(A1) <span class="sc">+</span> <span class="fu">rowMeans</span>(A2)) <span class="sc">/</span> <span class="dv">2</span>          <span class="co"># frekvenca alela na vsakem lokusu</span></span>
@@ -827,7 +828,7 @@ Slika&nbsp;4.5: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
 3     5    95      19       20.1</code></pre>
 </div>
 </div>
-<p>Vse tri populacije imajo 100 odraslih, a pri petih samcih je N<sub>e</sub> le okoli 19. Ocene iz simulacije so blizu formule, a ne enake: simulacija je naključna.</p>
+<p>Vse tri populacije imajo 100 odraslih, a pri petih samcih izgublja raznolikost tako hitro kot idealna populacija z le okoli 19 osebki. Polovico genov vsake generacije prispeva samo pet samcev, zato so ti ozko grlo. Ocene iz simulacije so blizu formule, a ne enake: simulacija je naključna.</p>
 </section>
 <section id="razlike-v-reproduktivnem-uspehu" class="level3">
 <h3 class="anchored" data-anchor-id="razlike-v-reproduktivnem-uspehu">Razlike v reproduktivnem uspehu</h3>
@@ -862,6 +863,8 @@ Slika&nbsp;4.5: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
    456.3636    157.1429 </code></pre>
 </div>
 </div>
+<p><strong>Kako beremo rezultat.</strong> Populacija je imela v 22 generacijah v povprečju (aritmetična sredina) 456 osebkov, njena N<sub>e</sub> (harmonična sredina) pa je le 157. Samo dve generaciji z 20 osebki sta zmanjšali N<sub>e</sub> na tretjino.</p>
+<p><strong>Kaj simuliramo na naslednjem grafu.</strong> Populacija začne z 20 osebki in v 27 generacijah zraste na okoli 300 (eksponentna rast z malo naključnega nihanja), podobno kot orli na Islandiji po zaščiti. Za vsako generacijo izračunamo N<sub>e</sub> kot harmonično sredino vseh velikosti do te generacije. Rdeča črta je dejanska velikost, modra N<sub>e</sub>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>rast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">27</span>,</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">N =</span> <span class="fu">round</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.1</span> <span class="sc">*</span> generacija) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">28</span>, <span class="dv">0</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
@@ -914,7 +917,7 @@ Slika&nbsp;4.6: Populacija, ki hitro raste (rdeča), in njena N<sub>e</sub> kot 
 <li><strong>ozko grlo</strong> (<em>bottleneck</em>): velika populacija se za nekaj generacij močno zmanjša, nato se spet poveča,</li>
 <li><strong>učinek ustanovitelja</strong> (<em>founder effect</em>): novo populacijo ustanovi majhno število osebkov iz večje populacije (npr. kolonizacija otoka).</li>
 </ul>
-<p>Za oba potrebujemo lokus z <strong>več aleli</strong>, da vidimo izgubo redkih alelov. Frekvence vseh alelov v naslednji generaciji so <strong>multinomsko</strong> porazdeljene (posplošitev binomske porazdelitve na več alelov):</p>
+<p><strong>Kaj simuliramo.</strong> Za oba potrebujemo lokus z <strong>več aleli</strong>, da vidimo izgubo redkih alelov (SNP ima samo dva). Vzamemo en lokus z 20 aleli: nekaj pogostih in veliko redkih (<code>frek0</code>, izpis spodaj). V vsaki generaciji iz genskega sklada prejšnje generacije naključno izberemo 2N kopij, zato so frekvence vseh alelov <strong>multinomsko</strong> porazdeljene (posplošitev binomske porazdelitve na več alelov). Funkcija <code>zdrs_alelov()</code> sprejme velikost populacije za vsako generacijo, zato ozko grlo opišemo kar kot zaporedje velikosti. Simulacijo ponovi 200-krat in za vsako generacijo vrne povprečno <strong>bogastvo alelov</strong> (koliko od 20 alelov je še prisotnih) in povprečno <strong>H<sub>e</sub></strong>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>zdrs_alelov <span class="ot">&lt;-</span> <span class="cf">function</span>(velikosti, frek0, <span class="at">ponovitve =</span> <span class="dv">200</span>) {</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>ponovitve, \(r) {</span>
@@ -967,10 +970,11 @@ Slika&nbsp;4.7: Ozko grlo: 10 generacij z N = 2000, 5 generacij z N = 10, nato 3
 </div>
 </div>
 </div>
+<p><strong>Kako beremo graf.</strong> Na osi x so generacije, na osi y delež začetne vrednosti (1 = toliko kot na začetku). Sivo polje je ozko grlo: 5 generacij z le 10 osebki.</p>
 <p>Ozko grlo odstrani predvsem <strong>redke alele</strong>, zato <strong>bogastvo alelov</strong> pade hitreje kot <strong>H<sub>e</sub></strong>, na katero redki aleli skoraj ne vplivajo. Po ozkem grlu se populacija poveča, raznolikost pa se ne vrne: novi aleli lahko nastanejo samo z mutacijami ali migracijami, kar traja zelo dolgo. To je razlog, da je bogastvo alelov dober pokazatelj nedavnega ozkega grla.</p>
 <section id="učinek-ustanovitelja" class="level3">
 <h3 class="anchored" data-anchor-id="učinek-ustanovitelja">Učinek ustanovitelja</h3>
-<p>Novo populacijo ustanovi k osebkov (2k kopij gena), naključno izbranih iz velike populacije s frekvencami <code>frek0</code>:</p>
+<p><strong>Kaj simuliramo.</strong> Iz velike izvorne populacije (frekvence <code>frek0</code>) naključno izberemo k ustanoviteljev, torej 2k kopij gena, in izmerimo, koliko bogastva alelov in H<sub>e</sub> izvorne populacije prinesejo s seboj. Za vsak k (1, 2, 5, 10, 20, 50) to ponovimo 1000-krat in vzamemo povprečje. Simuliramo samo trenutek ustanovitve, brez kasnejšega zdrsa.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ustanovitelji <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>), \(k) {</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(r) {</span>
@@ -1002,6 +1006,7 @@ Slika&nbsp;4.8: Delež bogastva alelov in H<sub>e</sub> izvorne populacije, ki g
 </div>
 </div>
 </div>
+<p><strong>Kako beremo graf.</strong> Os x je število ustanoviteljev (logaritemska lestvica), os y delež raznolikosti izvorne populacije, ki ga ustanovitelji ohranijo.</p>
 <p>H<sub>e</sub> se ohrani razmeroma dobro že pri nekaj ustanoviteljih (pričakovano <span class="math inline">\(1 - \frac{1}{2k}\)</span>), redki aleli pa se izgubijo.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1047,9 +1052,11 @@ Slika&nbsp;4.9: Frekvenci alela v dveh populacijah, ki si izmenjujeta delež m o
 </div>
 </div>
 </div>
+<p><strong>Kako beremo graf.</strong> Vsak panel je ena stopnja migracij m. Rdeča in modra črta sta frekvenci alela v obeh populacijah. Pri m = 0,1 se frekvenci izenačita v približno 20 generacijah, pri m = 0,01 sta tudi po 50 generacijah še precej različni.</p>
 <p>Migracije frekvence <strong>izenačujejo</strong>, zdrs pa jih v vsaki populaciji naključno <strong>razmika</strong>. V resnici delujeta oba hkrati in diferenciacija se ustali tam, kjer sta v ravnovesju.</p>
 <p>Diferenciacijo merimo z <strong>F<sub>ST</sub></strong>, ki primerja heterozigotnost znotraj populacij (H<sub>S</sub>) s heterozigotnostjo celotne (združene) populacije (H<sub>T</sub>):</p>
 <p><span class="math display">\[F_{ST} = \frac{H_T - H_S}{H_T}\]</span></p>
+<p><strong>Kaj simuliramo.</strong> Dve populaciji z N = 50 osebki. Obe začneta z enakimi frekvencami (p = 0,5 na 500 neodvisnih lokusih), zato je na začetku F<sub>ST</sub> = 0. V vsaki generaciji populaciji najprej izmenjata delež m osebkov (migracije), nato vsaka zase naključno vzorči naslednjo generacijo (zdrs). Po vsaki generaciji izračunamo H<sub>S</sub>, H<sub>T</sub> in F<sub>ST</sub> (povprečje čez vse lokuse). To ponovimo za štiri stopnje migracij.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dve_populaciji <span class="ot">&lt;-</span> <span class="cf">function</span>(N, m, <span class="at">generacije =</span> <span class="dv">200</span>, <span class="at">lokusi =</span> <span class="dv">500</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>) {</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi); p2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi)</span>
@@ -1085,6 +1092,7 @@ Slika&nbsp;4.10: F<sub>ST</sub> med dvema populacijama z N = 50 pri različnih d
 </div>
 </div>
 </div>
+<p><strong>Kako beremo graf.</strong> Vsaka črta je ena stopnja migracij. Os y je F<sub>ST</sub>: 0 pomeni, da sta populaciji enaki, 1 pa, da sta fiksirani za različne alele.</p>
 <p>Brez migracij F<sub>ST</sub> narašča, dokler se populaciji ne fiksirata za različne alele. Že <strong>en priseljenec na generacijo</strong> (Nm = 1) diferenciacijo močno omeji, ne glede na velikost populacije. V otoškem modelu (veliko populacij, enaka izmenjava med vsemi) je ravnovesje približno <span class="math inline">\(F_{ST} \approx \frac{1}{4Nm + 1}\)</span>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1147,9 +1155,14 @@ Slika&nbsp;4.10: F<sub>ST</sub> med dvema populacijama z N = 50 pri različnih d
 <tr class="even">
 <td>migracije</td>
 <td>F<sub>ST</sub> raste brez migracij, Nm ≈ 1 ga omeji</td>
-<td>vaja 5: F<sub>ST</sub>, AMOVA, PCA, izolacija z razdaljo</td>
+<td>vaja 5: F<sub>ST</sub>, izolacija z razdaljo (IBD)</td>
 </tr>
 <tr class="odd">
+<td>populacijska struktura</td>
+<td>izolirane populacije se zaradi zdrsa razlikujejo v frekvencah alelov na mnogih lokusih hkrati</td>
+<td>vaja 5: PCA, MDS, DAPC, ADMIXTURE (koliko skupin je in kateri skupini pripada osebek)</td>
+</tr>
+<tr class="even">
 <td>N<sub>e</sub> in inbriding</td>
 <td>majhna N<sub>e</sub> poveča sorodnost staršev</td>
 <td>vaja 6: ROH, F<sub>ROH</sub>, N<sub>e</sub> iz historičnih in sodobnih vzorcev</td>
