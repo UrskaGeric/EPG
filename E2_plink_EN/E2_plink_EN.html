@@ -569,7 +569,7 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>PLINK was developed for <strong>association studies in humans</strong> (GWAS; Purcell et al.&nbsp;2007). The data were genotypes from <strong>SNP chips</strong> (<em>SNP arrays</em>): a few hundred thousand common SNPs, chosen in advance, spread across the genome, with reliable genotypes. This leads to several assumptions that do not hold for non-human species and sequencing data (WGS, RAD):</p>
+<p>PLINK was developed for <strong>association studies in humans</strong> (GWAS; Purcell et al.&nbsp;2007). The data were genotypes from <strong>SNP chips</strong> (<em>SNP arrays</em>): a few hundred thousand common SNPs, chosen in advance, spread across the genome, with reliable genotypes. This leads to several assumptions that do not hold for non-model species and sequencing data (WGS, RAD):</p>
 <ol type="1">
 <li><strong>Chromosomes.</strong> By default PLINK knows the human chromosomes 1–22, X, Y, XY and MT. For the eagle we therefore need <code>--chr-set</code> and <code>--allow-extra-chr</code> (see <a href="#sec-e2-function-en" class="quarto-xref"><span>The plink2() function</span></a>).</li>
 <li><strong>Hard calls only.</strong> PLINK reads only <code>GT</code> (<code>0/0</code>, <code>0/1</code>, <code>1/1</code>). It discards depth (<code>DP</code>), quality (<code>GQ</code>) and genotype likelihoods (<code>PL</code>, <code>GL</code>). With low coverage and ancient DNA, exactly this information is needed to tell a true heterozygote from an error.</li>

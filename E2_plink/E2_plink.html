@@ -569,7 +569,7 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>PLINK je nastal za <strong>asociacijske študije na ljudeh</strong> (GWAS; Purcell et al.&nbsp;2007). Podatki so bili genotipi s <strong>SNP-čipov</strong> (<em>SNP arrays</em>): vnaprej izbranih nekaj sto tisoč pogostih SNP-jev, razporejenih po genomu, z zanesljivimi genotipi. Od tod izhaja več predpostavk, ki pri neljudskih vrstah in podatkih iz sekvenciranja (WGS, RAD) ne veljajo:</p>
+<p>PLINK je nastal za <strong>asociacijske študije na ljudeh</strong> (GWAS; Purcell et al.&nbsp;2007). Podatki so bili genotipi s <strong>SNP-čipov</strong> (<em>SNP arrays</em>): vnaprej izbranih nekaj sto tisoč pogostih SNP-jev, razporejenih po genomu, z zanesljivimi genotipi. Od tod izhaja več predpostavk, ki pri nemodelnih vrstah in podatkih iz sekvenciranja (WGS, RAD) ne veljajo:</p>
 <ol type="1">
 <li><strong>Kromosomi.</strong> PLINK privzeto pozna človeške kromosome 1–22, X, Y, XY in MT. Pri orlu zato potrebujemo <code>--chr-set</code> in <code>--allow-extra-chr</code> (glej <a href="#sec-e2-funkcija" class="quarto-xref"><span>Funkcija plink2()</span></a>).</li>
 <li><strong>Samo trdi genotipi</strong> (<em>hard calls</em>). PLINK prebere samo <code>GT</code> (<code>0/0</code>, <code>0/1</code>, <code>1/1</code>). Globino (<code>DP</code>), kakovost (<code>GQ</code>) in verjetnosti genotipov (<code>PL</code>, <code>GL</code>) zavrže. Pri nizki pokritosti in stari DNA so prav te informacije potrebne, da ločimo pravi heterozigot od napake.</li>
