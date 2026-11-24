@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="sl" xml:lang="sl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Vaja 2: Populacijskogenetski modeli in simulacije – Evolucijska in populacijska genetika</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../E3_plink/E3_plink.html" rel="next">
+<link href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ef4d8e9faa04af36b84e1866e7343808.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ni rezultatov",
+    "search-matching-documents-text": "ujemajoči se dokumenti",
+    "search-copy-link-title": "Kopiraj povezavo do iskanja",
+    "search-hide-matches-text": "Skrij dodatne zadetke",
+    "search-more-match-text": "več zadetkov v tem dokumentu",
+    "search-more-matches-text": "več zadetkov v tem dokumentu",
+    "search-clear-button-title": "Počisti",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Prekliči",
+    "search-submit-button-title": "Pošlji",
+    "search-label": "Iskanje"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E2_simulacije/E2_simulacije.html"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Iskanje" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Evolucijska in populacijska genetika</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Iskanje"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dobrodošli / Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slovenščina</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../uvod_SL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uvod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E0_uvod_R/E0_uvod_R.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">English</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../uvod_EN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E0_intro_R_EN/E0_intro_R_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 0: Setting up your system – R, RStudio and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_version_control_EN/E1_version_control_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../literatura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literatura / Literature</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej strani</h2>
+   
+  <ul>
+  <li><a href="#cilji-vaje" id="toc-cilji-vaje" class="nav-link active" data-scroll-target="#cilji-vaje">Cilji vaje</a></li>
+  <li><a href="#sec-e2-frekvence" id="toc-sec-e2-frekvence" class="nav-link" data-scroll-target="#sec-e2-frekvence">Frekvence alelov in genotipov</a>
+  <ul class="collapse">
+  <li><a href="#bogastvo-alelov-in-alelna-raznovrstnost" id="toc-bogastvo-alelov-in-alelna-raznovrstnost" class="nav-link" data-scroll-target="#bogastvo-alelov-in-alelna-raznovrstnost">Bogastvo alelov in alelna raznovrstnost</a></li>
+  </ul></li>
+  <li><a href="#sec-e2-hwe" id="toc-sec-e2-hwe" class="nav-link" data-scroll-target="#sec-e2-hwe">Hardy-Weinbergovo ravnovesje</a>
+  <ul class="collapse">
+  <li><a href="#ena-generacija-naključnega-parjenja" id="toc-ena-generacija-naključnega-parjenja" class="nav-link" data-scroll-target="#ena-generacija-naključnega-parjenja">Ena generacija naključnega parjenja</a></li>
+  <li><a href="#test-hwe" id="toc-test-hwe" class="nav-link" data-scroll-target="#test-hwe">Test HWE</a></li>
+  <li><a href="#wahlundov-učinek" id="toc-wahlundov-učinek" class="nav-link" data-scroll-target="#wahlundov-učinek">Wahlundov učinek</a></li>
+  </ul></li>
+  <li><a href="#sec-e2-zdrs" id="toc-sec-e2-zdrs" class="nav-link" data-scroll-target="#sec-e2-zdrs">Genetski zdrs: Wright-Fisherjev model</a>
+  <ul class="collapse">
+  <li><a href="#fiksacija-in-izguba" id="toc-fiksacija-in-izguba" class="nav-link" data-scroll-target="#fiksacija-in-izguba">Fiksacija in izguba</a></li>
+  <li><a href="#izguba-heterozigotnosti" id="toc-izguba-heterozigotnosti" class="nav-link" data-scroll-target="#izguba-heterozigotnosti">Izguba heterozigotnosti</a></li>
+  </ul></li>
+  <li><a href="#sec-e2-ne" id="toc-sec-e2-ne" class="nav-link" data-scroll-target="#sec-e2-ne">Efektivna velikost populacije (N<sub>e</sub>)</a>
+  <ul class="collapse">
+  <li><a href="#razmerje-med-spoloma" id="toc-razmerje-med-spoloma" class="nav-link" data-scroll-target="#razmerje-med-spoloma">Razmerje med spoloma</a></li>
+  <li><a href="#razlike-v-reproduktivnem-uspehu" id="toc-razlike-v-reproduktivnem-uspehu" class="nav-link" data-scroll-target="#razlike-v-reproduktivnem-uspehu">Razlike v reproduktivnem uspehu</a></li>
+  <li><a href="#nihanje-velikosti-populacije" id="toc-nihanje-velikosti-populacije" class="nav-link" data-scroll-target="#nihanje-velikosti-populacije">Nihanje velikosti populacije</a></li>
+  </ul></li>
+  <li><a href="#sec-e2-ozko-grlo" id="toc-sec-e2-ozko-grlo" class="nav-link" data-scroll-target="#sec-e2-ozko-grlo">Ozko grlo in učinek ustanovitelja</a>
+  <ul class="collapse">
+  <li><a href="#učinek-ustanovitelja" id="toc-učinek-ustanovitelja" class="nav-link" data-scroll-target="#učinek-ustanovitelja">Učinek ustanovitelja</a></li>
+  </ul></li>
+  <li><a href="#sec-e2-migracije" id="toc-sec-e2-migracije" class="nav-link" data-scroll-target="#sec-e2-migracije">Migracije in pretok genov</a></li>
+  <li><a href="#sec-e2-mutacije" id="toc-sec-e2-mutacije" class="nav-link" data-scroll-target="#sec-e2-mutacije">Nove mutacije in fiksacija (doma)</a></li>
+  <li><a href="#sec-e2-selekcija" id="toc-sec-e2-selekcija" class="nav-link" data-scroll-target="#sec-e2-selekcija">Selekcija proti zdrsu (doma, dodatno)</a></li>
+  <li><a href="#povzetek-od-modelov-do-podatkov" id="toc-povzetek-od-modelov-do-podatkov" class="nav-link" data-scroll-target="#povzetek-od-modelov-do-podatkov">Povzetek: od modelov do podatkov</a></li>
+  <li><a href="#sec-e2-naloge" id="toc-sec-e2-naloge" class="nav-link" data-scroll-target="#sec-e2-naloge">Naloge</a></li>
+  <li><a href="#literatura" id="toc-literatura" class="nav-link" data-scroll-target="#literatura">Literatura</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E2_simulacije/E2_simulacije.html"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-E2_simulacije" class="quarto-section-identifier"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>🌐 <a href="../E2_simulations_EN/E2_simulations_EN.html">English version</a></p>
+</div>
+</div>
+</div>
+<section id="cilji-vaje" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="cilji-vaje">Cilji vaje</h2>
+<p>Po tej vaji boste znali:</p>
+<ul>
+<li>iz števila genotipov izračunati <strong>frekvence alelov in genotipov</strong>, <strong>bogastvo alelov</strong> in <strong>alelno raznovrstnost</strong>,</li>
+<li>izračunati pričakovane frekvence genotipov po <strong>Hardy-Weinbergovem ravnovesju</strong> (HWE) in razložiti <strong>Wahlundov učinek</strong>,</li>
+<li>v R napisati <strong>Wright-Fisherjev model</strong> in z njim simulirati <strong>genetski zdrs</strong> (<em>genetic drift</em>),</li>
+<li>razložiti <strong>efektivno velikost populacije</strong> (N<sub>e</sub>) in kako nanjo vplivajo razmerje med spoloma, reproduktivni uspeh in nihanje velikosti,</li>
+<li>s simulacijo pokazati posledice <strong>ozkega grla</strong> (<em>bottleneck</em>) in <strong>učinka ustanovitelja</strong> (<em>founder effect</em>),</li>
+<li>pokazati, kako <strong>migracije</strong> (pretok genov, <em>gene flow</em>) zmanjšujejo diferenciacijo med populacijami (F<sub>ST</sub>).</li>
+</ul>
+<p><strong>Biološko vprašanje vaje:</strong> kaj lahko pričakujemo pri orlih belorepcih (<em>Haliaeetus albicilla</em>) na Islandiji, kjer je populacija v začetku 20. stoletja padla na približno 20 parov, v primerjavi z Norveško, kjer jih je danes okoli 2000? Kaj se zgodi z genetsko raznolikostjo majhne, izolirane populacije in kaj z razlikami med populacijami?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)                        <span class="co"># vsi dobimo enake naključne številke</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="sec-e2-frekvence" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-frekvence">Frekvence alelov in genotipov</h2>
+<p><strong>Populacija</strong> je skupina osebkov iste vrste, ki se med seboj razmnožujejo. <strong>Genski sklad</strong> (<em>gene pool</em>) so vsi aleli vseh genov v populaciji v določenem obdobju. Zanima nas, kako pogosto se pojavljajo posamezni aleli in genotipi. <strong>Frekvenca</strong> je delež (od 0 do 1).</p>
+<p>Vzemimo SNP z aleloma A in G pri 50 orlih (izmišljen primer):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>genotipi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">AA =</span> <span class="dv">30</span>, <span class="at">AG =</span> <span class="dv">15</span>, <span class="at">GG =</span> <span class="dv">5</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(genotipi)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>frek_genotipov <span class="ot">&lt;-</span> genotipi <span class="sc">/</span> n</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> genotipi[[<span class="st">"AA"</span>]] <span class="sc">+</span> genotipi[[<span class="st">"AG"</span>]]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> n)   <span class="co"># vsak AA nosi 2 alela A, vsak AG enega</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>frek_genotipov</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> AA  AG  GG 
+0.6 0.3 0.1 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">p =</span> p, <span class="at">q =</span> q)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   p    q 
+0.75 0.25 </code></pre>
+</div>
+</div>
+<p>Frekvenca alela je <strong>število kopij alela, deljeno s številom vseh kopij</strong> v populaciji (diploidni osebki imajo dve kopiji na lokus).</p>
+<section id="bogastvo-alelov-in-alelna-raznovrstnost" class="level3">
+<h3 class="anchored" data-anchor-id="bogastvo-alelov-in-alelna-raznovrstnost">Bogastvo alelov in alelna raznovrstnost</h3>
+<p>Genetska raznolikost populacije je odvisna od <strong>števila alelov</strong> in od tega, kako <strong>enakomerno</strong> so aleli zastopani. Na predavanju ste videli tri populacije z istim lokusom in petimi možnimi aleli. Izračunajmo jih:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>populacije <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">alel =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">POP1 =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">POP2 =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.01</span>, <span class="fl">0.01</span>, <span class="fl">0.01</span>, <span class="fl">0.96</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">POP3 =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>populacije <span class="sc">|&gt;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>alel, <span class="at">names_to =</span> <span class="st">"populacija"</span>, <span class="at">values_to =</span> <span class="st">"p"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(populacija) <span class="sc">|&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">bogastvo   =</span> <span class="fu">sum</span>(p <span class="sc">&gt;</span> <span class="dv">0</span>),        <span class="co"># število alelov</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vsota_p2   =</span> <span class="fu">sum</span>(p<span class="sc">^</span><span class="dv">2</span>),          <span class="co"># verjetnost, da sta dva naključna alela enaka</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">He         =</span> <span class="dv">1</span> <span class="sc">-</span> vsota_p2,      <span class="co"># pričakovana heterozigotnost</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">raznovrstnost =</span> <span class="dv">1</span> <span class="sc">/</span> vsota_p2)   <span class="co"># efektivno število alelov</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  populacija bogastvo vsota_p2     He raznovrstnost
+  &lt;chr&gt;         &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;
+1 POP1              5    0.2   0.8             5   
+2 POP2              5    0.922 0.0780          1.08
+3 POP3              2    0.52  0.48            1.92</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Bogastvo alelov</strong> (<em>allelic richness</em>) je število alelov. POP1 in POP2 imata oba 5 alelov.</li>
+<li><strong>Alelna raznovrstnost</strong> (<em>allelic diversity</em>, efektivno število alelov) je <span class="math inline">\(1/\sum p_i^2 = 1/(1 - H_e)\)</span>. To je število enako pogostih alelov, ki bi dalo enako heterozigotnost. POP2 ima 5 alelov, a se obnaša, kot da bi imela samo enega (1,09).</li>
+<li><strong>Pričakovana heterozigotnost</strong> <span class="math inline">\(H_e = 1 - \sum p_i^2\)</span> je verjetnost, da sta dva naključno izbrana alela različna.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Vprašanje
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Katera populacija je raznolikejša, POP2 ali POP3? Odvisno je od mere: POP2 ima več alelov, POP3 višjo H<sub>e</sub>. Kateri meri se bolj pozna, če populacija izgubi redke alele? (Odgovor bomo preverili s simulacijo ozkega grla v <a href="#sec-e2-ozko-grlo" class="quarto-xref"><span>Ozko grlo in učinek ustanovitelja</span></a>.)</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e2-hwe" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-hwe">Hardy-Weinbergovo ravnovesje</h2>
+<p>Če se v populaciji aleli <strong>naključno</strong> razporedijo v spolne celice in se te <strong>naključno</strong> združijo ob oploditvi, so frekvence genotipov že v eni generaciji:</p>
+<p><span class="math display">\[p^2 + 2pq + q^2 = 1\]</span></p>
+<p>in se iz generacije v generacijo ne spreminjajo. To velja, če:</p>
+<ul>
+<li>je populacija <strong>zelo velika</strong> in parjenje <strong>naključno</strong>,</li>
+<li>ni <strong>mutacij</strong>, <strong>migracij</strong> (pretoka genov) in <strong>naravne selekcije</strong>,</li>
+<li>ni <strong>substrukture</strong> (populacija ni razdeljena na podpopulacije) in se generacije ne prekrivajo.</li>
+</ul>
+<p>V naravi skoraj nobena populacija ne izpolnjuje vseh pogojev. HWE je <strong>ničelni model</strong>: odstopanja od njega nam povedo, da deluje kateri od evolucijskih procesov (ali pa da imamo napake v podatkih).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">p =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AA =</span> p<span class="sc">^</span><span class="dv">2</span>, <span class="at">Aa =</span> <span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p), <span class="at">aa =</span> (<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>p, <span class="at">names_to =</span> <span class="st">"genotip"</span>, <span class="at">values_to =</span> <span class="st">"frekvenca"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(p, frekvenca, <span class="at">colour =</span> genotip)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">AA =</span> <span class="st">"#D62728"</span>, <span class="at">Aa =</span> <span class="st">"#2CA02C"</span>, <span class="at">aa =</span> <span class="st">"#1F77B4"</span>)) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"frekvenca alela A (p)"</span>, <span class="at">y =</span> <span class="st">"frekvenca genotipa"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-e2-hwe-krivulje" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-hwe-krivulje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E2_simulacije_files/figure-html/fig-e2-hwe-krivulje-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;3.1: Frekvence genotipov pri HWE v odvisnosti od frekvence alela A (p). Heterozigotov je največ pri p = 0,5."><img src="E2_simulacije_files/figure-html/fig-e2-hwe-krivulje-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-hwe-krivulje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.1: Frekvence genotipov pri HWE v odvisnosti od frekvence alela A (p). Heterozigotov je največ pri p = 0,5.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="ena-generacija-naključnega-parjenja" class="level3">
+<h3 class="anchored" data-anchor-id="ena-generacija-naključnega-parjenja">Ena generacija naključnega parjenja</h3>
+<p>Začnimo s populacijo, ki <strong>ni</strong> v HWE: 50 homozigotov AA, 50 homozigotov aa in nobenega heterozigota (p = 0,5). Vsak potomec dobi en alel od enega in en alel od drugega starša, oba naključno iz genskega sklada:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nakljucno_parjenje <span class="ot">&lt;-</span> <span class="cf">function</span>(genotipi, N) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> genotipi[[<span class="st">"AA"</span>]] <span class="sc">+</span> genotipi[[<span class="st">"Aa"</span>]]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(genotipi))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  alel_1 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, p)          <span class="co"># 1 = A, 0 = a</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  alel_2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, p)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  stevilo_A <span class="ot">&lt;-</span> alel_1 <span class="sc">+</span> alel_2</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">AA =</span> <span class="fu">sum</span>(stevilo_A <span class="sc">==</span> <span class="dv">2</span>), <span class="at">Aa =</span> <span class="fu">sum</span>(stevilo_A <span class="sc">==</span> <span class="dv">1</span>), <span class="at">aa =</span> <span class="fu">sum</span>(stevilo_A <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>starsi  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">AA =</span> <span class="dv">50</span>, <span class="at">Aa =</span> <span class="dv">0</span>, <span class="at">aa =</span> <span class="dv">50</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>potomci <span class="ot">&lt;-</span> <span class="fu">nakljucno_parjenje</span>(starsi, <span class="at">N =</span> <span class="dv">1000</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="at">starsi =</span> starsi <span class="sc">/</span> <span class="fu">sum</span>(starsi), <span class="at">potomci =</span> potomci <span class="sc">/</span> <span class="fu">sum</span>(potomci), <span class="at">HWE =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           AA    Aa    aa
+starsi  0.500 0.000 0.500
+potomci 0.246 0.507 0.247
+HWE     0.250 0.500 0.250</code></pre>
+</div>
+</div>
+<p>Že po eni generaciji so frekvence genotipov blizu <span class="math inline">\(p^2\)</span>, <span class="math inline">\(2pq\)</span> in <span class="math inline">\(q^2\)</span>. Frekvenca alela se ni spremenila, spremenila se je samo razporeditev alelov v genotipe.</p>
+</section>
+<section id="test-hwe" class="level3">
+<h3 class="anchored" data-anchor-id="test-hwe">Test HWE</h3>
+<p>Ali opažene frekvence genotipov odstopajo od pričakovanih? Uporabimo test χ² z eno prostostno stopnjo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>test_hwe <span class="ot">&lt;-</span> <span class="cf">function</span>(genotipi) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">sum</span>(genotipi)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> genotipi[[<span class="dv">1</span>]] <span class="sc">+</span> genotipi[[<span class="dv">2</span>]]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> n)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  pricakovani <span class="ot">&lt;-</span> n <span class="sc">*</span> <span class="fu">c</span>(p<span class="sc">^</span><span class="dv">2</span>, <span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p), (<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  chi2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((genotipi <span class="sc">-</span> pricakovani)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> pricakovani)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">p =</span> p, <span class="at">Ho =</span> genotipi[[<span class="dv">2</span>]] <span class="sc">/</span> n, <span class="at">He =</span> <span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">F =</span> <span class="dv">1</span> <span class="sc">-</span> Ho <span class="sc">/</span> He, <span class="at">chi2 =</span> chi2, <span class="at">p_vrednost =</span> <span class="fu">pchisq</span>(chi2, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="at">primer =</span> <span class="fu">test_hwe</span>(genotipi), <span class="at">starsi =</span> <span class="fu">test_hwe</span>(starsi), <span class="at">potomci =</span> <span class="fu">test_hwe</span>(potomci), <span class="at">.id =</span> <span class="st">"populacija"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  populacija     p    Ho    He       F    chi2 p_vrednost
+  &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+1 primer     0.75  0.3   0.375  0.2      2       1.57e- 1
+2 starsi     0.5   0     0.5    1      100       1.52e-23
+3 potomci    0.500 0.507 0.500 -0.0140   0.196   6.58e- 1</code></pre>
+</div>
+</div>
+<p><strong>F</strong> = 1 − H<sub>o</sub>/H<sub>e</sub> je <strong>koeficient inbridinga</strong> (pri eni populaciji F<sub>IS</sub>): pozitiven F pomeni <strong>primanjkljaj</strong> heterozigotov, negativen pa <strong>presežek</strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Pomembno</span>Pogosta napačna razlaga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Odstopanje od HWE <strong>ni samodejno dokaz</strong> selekcije ali parjenja v sorodstvu. Primanjkljaj heterozigotov lahko povzročijo tudi populacijska struktura (Wahlundov učinek, spodaj), ničelni aleli ali napake pri genotipizaciji. Presežek heterozigotov pa pogosto povzročijo paralogi (podvojeni deli genoma, ki se poravnajo na isto mesto).</p>
+</div>
+</div>
+</section>
+<section id="wahlundov-učinek" class="level3">
+<h3 class="anchored" data-anchor-id="wahlundov-učinek">Wahlundov učinek</h3>
+<p>Imamo dve populaciji, ki sta <strong>vsaka zase</strong> v HWE: v populaciji A je p = 0,8, v populaciji B p = 0,2. Kaj vidimo, če ju (vede ali nevede) združimo v en vzorec?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>hwe_genotipi <span class="ot">&lt;-</span> <span class="cf">function</span>(p, n) <span class="fu">round</span>(n <span class="sc">*</span> <span class="fu">c</span>(<span class="at">AA =</span> p<span class="sc">^</span><span class="dv">2</span>, <span class="at">Aa =</span> <span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p), <span class="at">aa =</span> (<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>pop_A <span class="ot">&lt;-</span> <span class="fu">hwe_genotipi</span>(<span class="fl">0.8</span>, <span class="dv">100</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pop_B <span class="ot">&lt;-</span> <span class="fu">hwe_genotipi</span>(<span class="fl">0.2</span>, <span class="dv">100</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>zdruzeni <span class="ot">&lt;-</span> pop_A <span class="sc">+</span> pop_B</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="at">A =</span> <span class="fu">test_hwe</span>(pop_A), <span class="at">B =</span> <span class="fu">test_hwe</span>(pop_B), <span class="at">zdruzeni =</span> <span class="fu">test_hwe</span>(zdruzeni), <span class="at">.id =</span> <span class="st">"vzorec"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  vzorec       p    Ho    He         F     chi2  p_vrednost
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+1 A          0.8  0.32  0.32 -2.22e-16 4.34e-30 1.000      
+2 B          0.2  0.32  0.32  2.22e-16 4.93e-30 1.000      
+3 zdruzeni   0.5  0.32  0.5   3.6 e- 1 2.59e+ 1 0.000000356</code></pre>
+</div>
+</div>
+<p>Obe populaciji sta v HWE (F = 0), združeni vzorec pa ima velik <strong>primanjkljaj heterozigotov</strong> (F &gt; 0) in test HWE ga zavrne. To je <strong>Wahlundov učinek</strong>: znak, da vzorec ni ena panmiktična populacija. Primanjkljaj je tem večji, čim bolj se frekvence alelov med populacijama razlikujejo. Na pravih podatkih orlov ga bomo videli v vaji 3 (HWE na vseh orlih skupaj in po populacijah).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Vprašanje
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Spremenite frekvenci na p = 0,6 in p = 0,4. Kaj se zgodi s F v združenem vzorcu? Kaj pa, če sta frekvenci enaki? Zakaj Wahlundov učinek povezujemo s F<sub>ST</sub> (vaja 5)?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e2-zdrs" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-zdrs">Genetski zdrs: Wright-Fisherjev model</h2>
+<p>Vsaka generacija je <strong>končen vzorec</strong> genskega sklada prejšnje generacije. Že zaradi naključnega vzorčenja se frekvenca alela iz generacije v generacijo spreminja. To je <strong>genetski zdrs</strong> (<em>genetic drift</em>).</p>
+<p><strong>Wright-Fisherjev model</strong> je najpreprostejši model zdrsa: populacija ima N diploidnih osebkov (2N kopij gena), generacije se ne prekrivajo, parjenje je naključno, ni mutacij, migracij in selekcije. Naslednja generacija dobi 2N kopij, vsako naključno izbrano iz genskega sklada prejšnje generacije. Število kopij alela A je zato <strong>binomsko porazdeljeno</strong>:</p>
+<p><span class="math display">\[k_{t+1} \sim \text{Binom}(2N, p_t), \qquad p_{t+1} = k_{t+1} / 2N\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>wright_fisher <span class="ot">&lt;-</span> <span class="cf">function</span>(N, p0, generacije, <span class="at">ponovitve =</span> <span class="dv">1</span>) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA_real_</span>, <span class="at">nrow =</span> generacije <span class="sc">+</span> <span class="dv">1</span>, <span class="at">ncol =</span> ponovitve)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  p[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> p0</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    p[t <span class="sc">+</span> <span class="dv">1</span>, ] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(ponovitve, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">prob =</span> p[t, ]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span>generacije, <span class="at">times =</span> ponovitve),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">ponovitev  =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>ponovitve, <span class="at">each =</span> generacije <span class="sc">+</span> <span class="dv">1</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">p          =</span> <span class="fu">as.vector</span>(p))</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Funkcija vrne tabelo s frekvenco alela v vsaki generaciji in vsaki ponovitvi. Ponovitve so neodvisne populacije z enakimi parametri (ali neodvisni lokusi v isti populaciji).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>zdrs <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">20</span>,   <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">100</span>, <span class="at">ponovitve =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">N =</span> <span class="st">"N = 20"</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">1000</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">100</span>, <span class="at">ponovitve =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">N =</span> <span class="st">"N = 1000"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(zdrs, <span class="fu">aes</span>(generacija, p, <span class="at">colour =</span> N, <span class="at">group =</span> <span class="fu">interaction</span>(N, ponovitev))) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"N = 20"</span> <span class="ot">=</span> <span class="st">"#B5542C"</span>, <span class="st">"N = 1000"</span> <span class="ot">=</span> <span class="st">"#1F5FA8"</span>)) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"frekvenca alela"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-e2-zdrs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-zdrs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E2_simulacije_files/figure-html/fig-e2-zdrs-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;3.2: Zdrs v populacijah z N = 20 in N = 1000 osebki (po dve ponovitvi, začetna frekvenca 0,5). Po zgledu slike 5.5 v Jobling et al.&nbsp;(2013)."><img src="E2_simulacije_files/figure-html/fig-e2-zdrs-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-zdrs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.2: Zdrs v populacijah z N = 20 in N = 1000 osebki (po dve ponovitvi, začetna frekvenca 0,5). Po zgledu slike 5.5 v Jobling et al.&nbsp;(2013).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>V majhni populaciji se alel hitro <strong>fiksira</strong> (p = 1) ali <strong>izgubi</strong> (p = 0). V veliki se frekvenca spreminja počasneje, a se <strong>tudi spreminja</strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Pomembno</span>Pogosta napačna razlaga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Zdrs <strong>ni omejen na majhne populacije</strong>. Deluje v vsaki končni populaciji, le njegova moč je odvisna od N<sub>e</sub>. In zdrs <strong>ni isto kot inbriding</strong>: zdrs naključno spreminja frekvence alelov in izgublja alele, inbriding pa poveča verjetnost, da sta alela v osebku enaka po poreklu (<em>identical by descent</em>). V majhni populaciji delujeta oba hkrati, zato ju pogosto mešamo.</p>
+</div>
+</div>
+<section id="fiksacija-in-izguba" class="level3">
+<h3 class="anchored" data-anchor-id="fiksacija-in-izguba">Fiksacija in izguba</h3>
+<p>Ker je zdrs naključen, ne moremo napovedati, kateri alel bo preživel. Lahko pa izračunamo <strong>verjetnost</strong>: pri nevtralnem alelu je verjetnost fiksacije enaka njegovi začetni frekvenci.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fiksacija <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">20</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">300</span>, <span class="at">ponovitve =</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p0 =</span> <span class="fl">0.5</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">20</span>, <span class="at">p0 =</span> <span class="fl">0.1</span>, <span class="at">generacije =</span> <span class="dv">300</span>, <span class="at">ponovitve =</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p0 =</span> <span class="fl">0.1</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(generacija <span class="sc">==</span> <span class="dv">300</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>fiksacija <span class="sc">|&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(p0) <span class="sc">|&gt;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">fiksiran =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>), <span class="at">izgubljen =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">0</span>), <span class="at">se_polimorfen =</span> <span class="fu">mean</span>(p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+     p0 fiksiran izgubljen se_polimorfen
+  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1   0.1    0.106     0.894             0
+2   0.5    0.493     0.507             0</code></pre>
+</div>
+</div>
+</section>
+<section id="izguba-heterozigotnosti" class="level3">
+<h3 class="anchored" data-anchor-id="izguba-heterozigotnosti">Izguba heterozigotnosti</h3>
+<p>Pričakovana heterozigotnost se zaradi zdrsa vsako generacijo zmanjša za faktor <span class="math inline">\((1 - \frac{1}{2N})\)</span>:</p>
+<p><span class="math display">\[H_t = H_0 \left(1 - \frac{1}{2N}\right)^t\]</span></p>
+<p>Preverimo s simulacijo 500 lokusov:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>izguba <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">250</span>), \(N)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> N, <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">100</span>, <span class="at">ponovitve =</span> <span class="dv">500</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(generacija) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">He =</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">N =</span> N, <span class="at">pricakovano =</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N))<span class="sc">^</span>generacija))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(izguba, <span class="fu">aes</span>(generacija, He, <span class="at">colour =</span> <span class="fu">factor</span>(N))) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pricakovano)) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"povprečna He"</span>, <span class="at">colour =</span> <span class="st">"N"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-e2-izguba-he" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-izguba-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E2_simulacije_files/figure-html/fig-e2-izguba-he-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;3.3: Povprečna He 500 lokusov (točke) in pričakovanje (črta) za tri velikosti populacije."><img src="E2_simulacije_files/figure-html/fig-e2-izguba-he-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-izguba-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.3: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (črta) za tri velikosti populacije.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Vprašanje: Islandija
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Na Islandiji je bilo pred letom 1914 le okoli 20 parov orlov, populacija pa se je začela povečevati šele po letu 1964 (Hansen et al. 2023). Generacijski čas orla je približno 8 let. Koliko generacij je to? Koliko odstotkov H<sub>e</sub> bi populacija izgubila v tem času, če bi bila N = 40 (vsi odrasli) in koliko, če bi bila N<sub>e</sub> le 10 % tega? Izračunajte v R s formulo zgoraj.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e2-ne" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-ne">Efektivna velikost populacije (N<sub>e</sub>)</h2>
+<p>V Wright-Fisherjevem modelu ima vsak osebek enako možnost, da prispeva potomce. V naravi ni tako. <strong>Efektivna velikost populacije</strong> (N<sub>e</sub>) je velikost idealne Wright-Fisherjeve populacije, ki bi imela <strong>enako močan zdrs</strong> (enako varianco spremembe frekvenc alelov ali enako hitro povečanje inbridinga) kot naša populacija. Na predavanju ste spoznali dva načina definiranja N<sub>e</sub>:</p>
+<ul>
+<li><strong>varianca vzorčenja alelov</strong>: kako močno se frekvenca alela spreminja iz generacije v generacijo,</li>
+<li><strong>koncept inbridinga</strong>: kako hitro narašča verjetnost, da sta alela v osebku enaka zaradi skupnega prednika.</li>
+</ul>
+<p>Pri idealni populaciji je N<sub>e</sub> = N<sub>c</sub> (cenzusna velikost, število odraslih). V naravi je N<sub>e</sub> skoraj vedno <strong>precej manjša</strong>: pogosto okoli 10 % N<sub>c</sub> (Frankham 1995), pri orlih na Norveškem in Islandiji 2,5–5 % (Hansen et al.&nbsp;2023). Glavni vzroki so neenako razmerje med spoloma, razlike v reproduktivnem uspehu in nihanje velikosti populacije.</p>
+<p>Ker H<sub>e</sub> pada s faktorjem <span class="math inline">\((1 - \frac{1}{2N_e})\)</span> na generacijo, lahko N<sub>e</sub> <strong>ocenimo iz simulacije</strong>: izmerimo, kako hitro pada H<sub>e</sub>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iz povprečne He po generacijah oceni Ne: He_t = He_0 (1 - 1/2Ne)^t</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ocena_ne <span class="ot">&lt;-</span> <span class="cf">function</span>(He, generacija) {</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  naklon <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">log</span>(He) <span class="sc">~</span> generacija))[[<span class="st">"generacija"</span>]]   <span class="co"># log(1 - 1/2Ne) na generacijo</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(naklon)))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="razmerje-med-spoloma" class="level3">
+<h3 class="anchored" data-anchor-id="razmerje-med-spoloma">Razmerje med spoloma</h3>
+<p>Če se razmnožuje N<sub>m</sub> samcev in N<sub>f</sub> samic, vsak potomec pa dobi en alel od očeta in enega od matere:</p>
+<p><span class="math display">\[N_e = \frac{4 N_m N_f}{N_m + N_f}\]</span></p>
+<p>Simulirajmo populacijo s 100 odraslimi z ločenima spoloma. Osebki imajo po dva alela na 500 lokusih: <code>A1</code> in <code>A2</code> sta matriki (lokusi × osebki) s prvim in drugim alelom. Vsak potomec dobi naključen alel naključnega očeta in naključen alel naključne matere:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>he_povprecje <span class="ot">&lt;-</span> <span class="cf">function</span>(A1, A2) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> (<span class="fu">rowMeans</span>(A1) <span class="sc">+</span> <span class="fu">rowMeans</span>(A2)) <span class="sc">/</span> <span class="dv">2</span>          <span class="co"># frekvenca alela na vsakem lokusu</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>gameta <span class="ot">&lt;-</span> <span class="cf">function</span>(A1, A2, starsi) {</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># od vsakega starša na vsakem lokusu neodvisno eno od dveh kopij (lokusi niso vezani)</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  drugi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="fu">nrow</span>(A1) <span class="sc">*</span> <span class="fu">length</span>(starsi)) <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(A1))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(drugi, A2[, starsi], A1[, starsi])</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>simuliraj_spola <span class="ot">&lt;-</span> <span class="cf">function</span>(N_m, N_f, <span class="at">generacije =</span> <span class="dv">50</span>, <span class="at">lokusi =</span> <span class="dv">500</span>) {</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> N_m <span class="sc">+</span> N_f</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  A1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(lokusi <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> lokusi)   <span class="co"># začetek: p = 0,5, HWE</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  A2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(lokusi <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> lokusi)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">he_povprecje</span>(A1, A2)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    oce  <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N_m, N, <span class="at">replace =</span> <span class="cn">TRUE</span>)               <span class="co"># prvih N_m osebkov so samci</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    mati <span class="ot">&lt;-</span> <span class="fu">sample</span>((N_m <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>N, N, <span class="at">replace =</span> <span class="cn">TRUE</span>)         <span class="co"># ostali so samice</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    A1_novi <span class="ot">&lt;-</span> <span class="fu">gameta</span>(A1, A2, oce)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    A2 <span class="ot">&lt;-</span> <span class="fu">gameta</span>(A1, A2, mati)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    A1 <span class="ot">&lt;-</span> A1_novi</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    He <span class="ot">&lt;-</span> <span class="fu">c</span>(He, <span class="fu">he_povprecje</span>(A1, A2))</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span>generacije, <span class="at">He =</span> He)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>spola <span class="ot">&lt;-</span> <span class="fu">tribble</span>(<span class="sc">~</span>N_m, <span class="sc">~</span>N_f,</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">50</span>,   <span class="dv">50</span>,</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">20</span>,   <span class="dv">80</span>,</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">5</span>,   <span class="dv">95</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">formula =</span> <span class="dv">4</span> <span class="sc">*</span> N_m <span class="sc">*</span> N_f <span class="sc">/</span> (N_m <span class="sc">+</span> N_f),</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">simulacija =</span> <span class="fu">map2_dbl</span>(N_m, N_f, \(m, f) {</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>           s <span class="ot">&lt;-</span> <span class="fu">simuliraj_spola</span>(m, f)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ocena_ne</span>(s<span class="sc">$</span>He, s<span class="sc">$</span>generacija)</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>         }))</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>spola</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+    N_m   N_f formula simulacija
+  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+1    50    50     100      124. 
+2    20    80      64       69.8
+3     5    95      19       20.8</code></pre>
+</div>
+</div>
+<p>Vse tri populacije imajo 100 odraslih, a pri petih samcih je N<sub>e</sub> le okoli 19. Ocene iz simulacije so blizu formule, a ne enake: simulacija je naključna.</p>
+</section>
+<section id="razlike-v-reproduktivnem-uspehu" class="level3">
+<h3 class="anchored" data-anchor-id="razlike-v-reproduktivnem-uspehu">Razlike v reproduktivnem uspehu</h3>
+<p>Tudi če je spolov enako, N<sub>e</sub> zmanjša to, da <strong>nekaj osebkov prispeva večino potomcev</strong>. Pri stalni velikosti populacije velja približno:</p>
+<p><span class="math display">\[N_e \approx \frac{4N - 2}{V_k + 2}\]</span></p>
+<p>kjer je V<sub>k</sub> varianca števila potomcev na osebek. V idealni populaciji je V<sub>k</sub> ≈ 2 (Poissonova porazdelitev) in N<sub>e</sub> ≈ N.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>simuliraj_uspeh <span class="ot">&lt;-</span> <span class="cf">function</span>(N, utezi, <span class="at">generacije =</span> <span class="dv">50</span>, <span class="at">lokusi =</span> <span class="dv">500</span>) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(lokusi <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> lokusi)   <span class="co"># lokusi × 2N kopij; kopiji osebka i sta 2i-1 in 2i</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generacije <span class="sc">+</span> <span class="dv">1</span>); Vk <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generacije)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  He[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    starsi <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> utezi)    <span class="co"># vsaka nova kopija ima starša, izbranega z utežjo</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, lokusi <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">nrow =</span> lokusi)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    kopija <span class="ot">&lt;-</span> <span class="fu">sweep</span>(<span class="sc">-</span>b, <span class="dv">2</span>, <span class="dv">2</span> <span class="sc">*</span> starsi, <span class="st">"+"</span>)                        <span class="co"># na vsakem lokusu neodvisno ena od dveh kopij starša</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pop[<span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>lokusi, <span class="at">times =</span> <span class="dv">2</span> <span class="sc">*</span> N), <span class="fu">as.vector</span>(kopija))], <span class="at">nrow =</span> lokusi)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    Vk[t] <span class="ot">&lt;-</span> <span class="fu">var</span>(<span class="fu">tabulate</span>(starsi, <span class="at">nbins =</span> N))                      <span class="co"># varianca števila potomcev (kopij) na starša</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    He[t <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Vk =</span> <span class="fu">mean</span>(Vk), <span class="at">Ne_formula =</span> (<span class="dv">4</span> <span class="sc">*</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">mean</span>(Vk) <span class="sc">+</span> <span class="dv">2</span>),</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ne_simulacija =</span> <span class="fu">ocena_ne</span>(He, <span class="dv">0</span><span class="sc">:</span>generacije))</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">enak_uspeh   =</span> <span class="fu">simuliraj_uspeh</span>(N, <span class="at">utezi =</span> <span class="fu">rep</span>(<span class="dv">1</span>, N)),</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">neenak_uspeh =</span> <span class="fu">simuliraj_uspeh</span>(N, <span class="at">utezi =</span> <span class="fu">rgamma</span>(N, <span class="at">shape =</span> <span class="fl">0.3</span>)),   <span class="co"># nekaj osebkov ima veliko potomcev, večina malo</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">"scenarij"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  scenarij        Vk Ne_formula Ne_simulacija
+  &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+1 enak_uspeh    1.97      100.           99.7
+2 neenak_uspeh 17.3        20.7          22.9</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Vprašanje
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Na Islandiji je leta 2022 92 teritorialnih parov speljalo le 38 mladičev (Hansen et al.&nbsp;2023). Kaj to pomeni za V<sub>k</sub> in N<sub>e</sub> islandske populacije? Zakaj je pri orlih N<sub>e</sub> lahko precej manjša od števila parov, čeprav so orli monogamni?</p>
+</div>
+</div>
+</section>
+<section id="nihanje-velikosti-populacije" class="level3">
+<h3 class="anchored" data-anchor-id="nihanje-velikosti-populacije">Nihanje velikosti populacije</h3>
+<p>Če se velikost populacije spreminja, je N<sub>e</sub> v t generacijah približno <strong>harmonična sredina</strong> velikosti:</p>
+<p><span class="math display">\[N_e \approx \frac{t}{\sum_{i=1}^{t} 1/N_i}\]</span></p>
+<p>Harmonična sredina je zelo občutljiva na majhne vrednosti, zato že <strong>kratko ozko grlo</strong> močno zmanjša dolgoročno N<sub>e</sub>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>velikosti <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">20</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>))   <span class="co"># 10 generacij po 500, 2 generaciji po 20, 10 po 500</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">aritmeticna =</span> <span class="fu">mean</span>(velikosti), <span class="at">harmonicna =</span> <span class="fu">length</span>(velikosti) <span class="sc">/</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> velikosti))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>aritmeticna  harmonicna 
+   456.3636    157.1429 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">27</span>,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">N =</span> <span class="fu">round</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.1</span> <span class="sc">*</span> generacija) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">28</span>, <span class="dv">0</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ne =</span> (generacija <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">cumsum</span>(<span class="dv">1</span> <span class="sc">/</span> N))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>rast <span class="sc">|&gt;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(N, Ne), <span class="at">names_to =</span> <span class="st">"velikost"</span>, <span class="at">values_to =</span> <span class="st">"vrednost"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, vrednost, <span class="at">colour =</span> velikost)) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"#B5542C"</span>, <span class="at">Ne =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"dejanska velikost (N)"</span>, <span class="at">Ne =</span> <span class="st">"efektivna velikost (Ne)"</span>)) <span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"velikost populacije"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-e2-ne-rast" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-ne-rast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E2_simulacije_files/figure-html/fig-e2-ne-rast-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Slika&nbsp;3.4: Populacija, ki hitro raste (rdeča), in njena Ne kot harmonična sredina vseh preteklih velikosti (modra). Po zgledu slike 5.7 v Jobling et al.&nbsp;(2013)."><img src="E2_simulacije_files/figure-html/fig-e2-ne-rast-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ne-rast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.4: Populacija, ki hitro raste (rdeča), in njena N<sub>e</sub> kot harmonična sredina vseh preteklih velikosti (modra). Po zgledu slike 5.7 v Jobling et al.&nbsp;(2013).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Populacija se je povečala za več kot desetkrat, N<sub>e</sub> pa skoraj ne. <strong>Današnja genetska raznolikost je posledica pretekle majhne velikosti populacije.</strong> Zato ločimo:</p>
+<ul>
+<li><strong>dolgoročno (zgodovinsko) N<sub>e</sub></strong>: odraža zgodovino populacije (zdrs, selekcijo in migracije v daljšem obdobju) in določa današnjo nevtralno raznolikost. Ko v literaturi o genetski raznolikosti piše N, je navadno mišljena dolgoročna N<sub>e</sub>.</li>
+<li><strong>nedavno (trenutno) N<sub>e</sub></strong>: pove, kako močan zdrs lahko pričakujemo v prihodnjih generacijah.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Vprašanje
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Danska populacija orlov je izumrla v začetku 20. stoletja in je bila ponovno naseljena leta 1995; leta 2020 je imela 133 parov. Norveška ima okoli 2000 parov. Katera bo imela višjo dolgoročno N<sub>e</sub>? Ali je v tem primeru pomembno, od kod so prišli prvi pari?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e2-ozko-grlo" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-ozko-grlo">Ozko grlo in učinek ustanovitelja</h2>
+<p>Dva dogodka zmanjšata raznolikost hitreje kot običajen zdrs:</p>
+<ul>
+<li><strong>ozko grlo</strong> (<em>bottleneck</em>): velika populacija se za nekaj generacij močno zmanjša, nato se spet poveča,</li>
+<li><strong>učinek ustanovitelja</strong> (<em>founder effect</em>): novo populacijo ustanovi majhno število osebkov iz večje populacije (npr. kolonizacija otoka).</li>
+</ul>
+<p>Za oba potrebujemo lokus z <strong>več aleli</strong>, da vidimo izgubo redkih alelov. Frekvence vseh alelov v naslednji generaciji so <strong>multinomsko</strong> porazdeljene (posplošitev binomske porazdelitve na več alelov):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>zdrs_alelov <span class="ot">&lt;-</span> <span class="cf">function</span>(velikosti, frek0, <span class="at">ponovitve =</span> <span class="dv">200</span>) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>ponovitve, \(r) {</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> frek0</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_dfr</span>(<span class="fu">seq_along</span>(velikosti), \(t) {</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>      f <span class="ot">&lt;&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> velikosti[t], <span class="at">prob =</span> f)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> velikosti[t])</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tibble</span>(<span class="at">generacija =</span> t, <span class="at">bogastvo =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(generacija) <span class="sc">|&gt;</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(bogastvo, He), mean))</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 20 alelov: nekaj pogostih in veliko redkih</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>frek0 <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">^</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">19</span>); frek0 <span class="ot">&lt;-</span> frek0 <span class="sc">/</span> <span class="fu">sum</span>(frek0)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(frek0, <span class="dv">3</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.202 0.162 0.129 0.104 0.083 0.066 0.053 0.042 0.034 0.027 0.022 0.017
+[13] 0.014 0.011 0.009 0.007 0.006 0.005 0.004 0.003</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="fu">sum</span>(frek0 <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> bogastvo        He 
+20.000000  0.886297 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>grlo <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span>, <span class="at">bogastvo =</span> <span class="dv">20</span>, <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>)),        <span class="co"># začetno stanje</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">zdrs_alelov</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">30</span>)), frek0))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>grlo <span class="sc">|&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bogastvo =</span> bogastvo <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> He <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>generacija, <span class="at">names_to =</span> <span class="st">"mera"</span>, <span class="at">values_to =</span> <span class="st">"delez"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, delez, <span class="at">colour =</span> mera)) <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="fl">10.5</span>, <span class="at">xmax =</span> <span class="fl">15.5</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"bogastvo alelov"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"delež začetne vrednosti"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-e2-ozko-grlo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-ozko-grlo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E2_simulacije_files/figure-html/fig-e2-ozko-grlo-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Slika&nbsp;3.5: Ozko grlo: 10 generacij z N = 2000, 5 generacij z N = 10, nato 30 generacij z N = 2000. Obe meri sta prikazani kot delež začetne vrednosti (povprečje 200 ponovitev)."><img src="E2_simulacije_files/figure-html/fig-e2-ozko-grlo-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ozko-grlo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.5: Ozko grlo: 10 generacij z N = 2000, 5 generacij z N = 10, nato 30 generacij z N = 2000. Obe meri sta prikazani kot delež začetne vrednosti (povprečje 200 ponovitev).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Ozko grlo odstrani predvsem <strong>redke alele</strong>, zato <strong>bogastvo alelov</strong> pade hitreje kot <strong>H<sub>e</sub></strong>, na katero redki aleli skoraj ne vplivajo. Po ozkem grlu se populacija poveča, raznolikost pa se ne vrne: novi aleli lahko nastanejo samo z mutacijami ali migracijami, kar traja zelo dolgo. To je razlog, da je bogastvo alelov dober pokazatelj nedavnega ozkega grla.</p>
+<section id="učinek-ustanovitelja" class="level3">
+<h3 class="anchored" data-anchor-id="učinek-ustanovitelja">Učinek ustanovitelja</h3>
+<p>Novo populacijo ustanovi k osebkov (2k kopij gena), naključno izbranih iz velike populacije s frekvencami <code>frek0</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ustanovitelji <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>), \(k) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(r) {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> k, <span class="at">prob =</span> frek0)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> k)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">bogastvo =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean)) <span class="sc">|&gt;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">k =</span> k)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>ustanovitelji <span class="sc">|&gt;</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>k, <span class="at">names_to =</span> <span class="st">"mera"</span>, <span class="at">values_to =</span> <span class="st">"delez"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(k, delez, <span class="at">colour =</span> mera)) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"bogastvo alelov"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"število ustanoviteljev (k)"</span>, <span class="at">y =</span> <span class="st">"delež izvorne raznolikosti"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-e2-ustanovitelj" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-ustanovitelj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E2_simulacije_files/figure-html/fig-e2-ustanovitelj-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;3.6: Delež bogastva alelov in He izvorne populacije, ki ga ohrani k ustanoviteljev (povprečje 1000 ponovitev)."><img src="E2_simulacije_files/figure-html/fig-e2-ustanovitelj-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ustanovitelj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.6: Delež bogastva alelov in H<sub>e</sub> izvorne populacije, ki ga ohrani k ustanoviteljev (povprečje 1000 ponovitev).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>H<sub>e</sub> se ohrani razmeroma dobro že pri nekaj ustanoviteljih (pričakovano <span class="math inline">\(1 - \frac{1}{2k}\)</span>), redki aleli pa se izgubijo.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Vprašanje
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Islandijo in Grenlandijo so orli kolonizirali iz celine. Katero mero raznolikosti bi pričakovali nižjo na otokih: bogastvo alelov ali H<sub>e</sub>? Kako bi to preverili s SNP-ji, ki imajo vsi le dva alela? (Namig: SFS in redki aleli v vaji 4.)</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e2-migracije" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-migracije">Migracije in pretok genov</h2>
+<p>Zdrs deluje v vsaki populaciji <strong>neodvisno</strong>, zato se izolirane populacije med seboj vedno bolj razlikujejo. <strong>Migracije</strong> (pretok genov) prinašajo alele iz drugih populacij in razlike zmanjšujejo. V vsaki generaciji je delež m osebkov priseljencev iz druge populacije:</p>
+<p><span class="math display">\[p_1' = (1 - m)\,p_1 + m\,p_2\]</span></p>
+<p>Diferenciacijo merimo z <strong>F<sub>ST</sub></strong>, ki primerja heterozigotnost znotraj populacij (H<sub>S</sub>) s heterozigotnostjo celotne (združene) populacije (H<sub>T</sub>):</p>
+<p><span class="math display">\[F_{ST} = \frac{H_T - H_S}{H_T}\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dve_populaciji <span class="ot">&lt;-</span> <span class="cf">function</span>(N, m, <span class="at">generacije =</span> <span class="dv">200</span>, <span class="at">lokusi =</span> <span class="dv">500</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>) {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi); p2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>generacije, \(t) {</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    p1_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p1 <span class="sc">+</span> m <span class="sc">*</span> p2                       <span class="co"># migracije</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    p2_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p2 <span class="sc">+</span> m <span class="sc">*</span> p1</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    p1 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N, p1_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)        <span class="co"># zdrs</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    p2 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N, p2_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    HS <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="dv">2</span> <span class="sc">*</span> p1 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p1) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> p2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p2)) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    pt <span class="ot">&lt;-</span> (p1 <span class="sc">+</span> p2) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    HT <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> pt <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pt))</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">generacija =</span> t, <span class="at">FST =</span> (HT <span class="sc">-</span> HS) <span class="sc">/</span> HT)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>migracije <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.002</span>, <span class="fl">0.02</span>, <span class="fl">0.1</span>), \(m)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dve_populaciji</span>(<span class="at">N =</span> <span class="dv">50</span>, <span class="at">m =</span> m) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">paste0</span>(<span class="st">"m = "</span>, m, <span class="st">" (Nm = "</span>, <span class="dv">50</span> <span class="sc">*</span> m, <span class="st">")"</span>)))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(migracije, <span class="fu">aes</span>(generacija, FST, <span class="at">colour =</span> m)) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="fu">expression</span>(F[ST]), <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-e2-migracije" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-migracije-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E2_simulacije_files/figure-html/fig-e2-migracije-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;3.7: FST med dvema populacijama z N = 50 pri različnih deležih priseljencev na generacijo (m). Nm je število priseljencev na generacijo."><img src="E2_simulacije_files/figure-html/fig-e2-migracije-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-migracije-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.7: F<sub>ST</sub> med dvema populacijama z N = 50 pri različnih deležih priseljencev na generacijo (m). Nm je število priseljencev na generacijo.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Brez migracij F<sub>ST</sub> narašča, dokler se populaciji ne fiksirata za različne alele. Že <strong>en priseljenec na generacijo</strong> (Nm = 1) diferenciacijo močno omeji, ne glede na velikost populacije. V otoškem modelu (veliko populacij, enaka izmenjava med vsemi) je ravnovesje približno <span class="math inline">\(F_{ST} \approx \frac{1}{4Nm + 1}\)</span>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Pomembno</span>Pogosta napačna razlaga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>F<sub>ST</sub> je mera <strong>diferenciacije</strong> med populacijami, ne neposredna mera genetske razdalje ali števila migrantov. Formula <span class="math inline">\(F_{ST} \approx 1/(4Nm + 1)\)</span> velja samo pri zelo poenostavljenih predpostavkah (otoški model, ravnovesje med zdrsom in migracijami, brez selekcije in mutacij), zato iz izmerjenega F<sub>ST</sub> števila migrantov v naravi ne moremo zanesljivo izračunati.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opomba</span>Vprašanje
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pri orlih ni poročil o migrantih med Grenlandijo, Islandijo in celino (Hansen et al.&nbsp;2023), čeprav orli lahko preletijo velike razdalje. Kakšen F<sub>ST</sub> med Islandijo in Norveško bi pričakovali, če bi bila Islandija dolgo izolirana z majhno N<sub>e</sub>? Svoj odgovor boste preverili v vaji 5.</p>
+</div>
+</div>
+</section>
+<section id="sec-e2-mutacije" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-mutacije">Nove mutacije in fiksacija (doma)</h2>
+<p>Zdrs izgublja alele, <strong>mutacije</strong> pa jih ustvarjajo. Nova mutacija se pojavi v eni kopiji, zato je njena začetna frekvenca <span class="math inline">\(\frac{1}{2N}\)</span> in to je tudi verjetnost, da se fiksira. V majhni populaciji se nova mutacija fiksira pogosteje in hitreje (v povprečju v približno 4N generacijah), v veliki pa nastane več mutacij na generacijo (slika 5.6 v Jobling et al.&nbsp;2013).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>nova_mutacija <span class="ot">&lt;-</span> <span class="cf">function</span>(N, <span class="at">ponovitve =</span> <span class="dv">20000</span>, <span class="at">max_gen =</span> <span class="dv">2000</span>) {</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), ponovitve)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  cas <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_integer_</span>, ponovitve)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_gen) {</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    aktivni <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(aktivni)) <span class="cf">break</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    p[aktivni] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(aktivni), <span class="dv">2</span> <span class="sc">*</span> N, p[aktivni]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    cas[aktivni <span class="sc">&amp;</span> p <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> t</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">N =</span> N, <span class="at">verjetnost_fiksacije =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>), <span class="at">pricakovano =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">povprecni_cas_fiksacije =</span> <span class="fu">mean</span>(cas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">pricakovano_4N =</span> <span class="dv">4</span> <span class="sc">*</span> N)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">nova_mutacija</span>(<span class="dv">10</span>), <span class="fu">nova_mutacija</span>(<span class="dv">50</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+      N verjetnost_fiksacije pricakovano povprecni_cas_fiksacije pricakovano_4N
+  &lt;dbl&gt;                &lt;dbl&gt;       &lt;dbl&gt;                   &lt;dbl&gt;          &lt;dbl&gt;
+1    10               0.0502        0.05                    36.8             40
+2    50               0.0100        0.01                   203.             200</code></pre>
+</div>
+</div>
+<p>Ravnovesje med mutacijami in zdrsom opisuje <strong>populacijski mutacijski parameter</strong></p>
+<p><span class="math display">\[\theta = 4 N_e \mu\]</span></p>
+<p>kjer je μ stopnja mutacij na mesto na generacijo. θ je pričakovana raznolikost nukleotidov (π) v nevtralnem ravnovesju. Za orle so Hansen et al.&nbsp;(2023) uporabili μ = 3,2 × 10<sup>−9</sup> na mesto na leto in generacijski čas 8 let:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">3.2e-9</span> <span class="sc">*</span> <span class="dv">8</span>                       <span class="co"># na mesto na generacijo</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">Ne =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">50000</span>)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="dv">4</span> <span class="sc">*</span> Ne <span class="sc">*</span> mu)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+     Ne    theta
+  &lt;dbl&gt;    &lt;dbl&gt;
+1  1000 0.000102
+2  5000 0.000512
+3 10000 0.00102 
+4 50000 0.00512 </code></pre>
+</div>
+</div>
+<p>V vaji 4 bomo izmerili π pri orlih in iz nje ocenili dolgoročno N<sub>e</sub> (<span class="math inline">\(N_e = \pi / 4\mu\)</span>).</p>
+</section>
+<section id="sec-e2-selekcija" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-selekcija">Selekcija proti zdrsu (doma, dodatno)</h2>
+<p>Pri <strong>selekciji</strong> imajo nosilci enega alela večji reproduktivni uspeh (relativna prednost s). Pred vzorčenjem vsake generacije frekvenco premaknemo v smeri ugodnega alela:</p>
+<p><span class="math display">\[p' = \frac{p(1 + s)}{1 + ps}\]</span></p>
+<p>Simuliramo novo ugodno mutacijo (ena kopija, <span class="math inline">\(p_0 = \frac{1}{2N}\)</span>) in jo spremljamo, dokler se ne fiksira ali izgubi. Rezultat primerjamo z verjetnostjo fiksacije nevtralne mutacije (<span class="math inline">\(\frac{1}{2N}\)</span>) in s Kimurovo približno formulo <span class="math inline">\(u \approx \frac{1 - e^{-2s}}{1 - e^{-4Ns}}\)</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>selekcija <span class="ot">&lt;-</span> <span class="cf">function</span>(N, s, <span class="at">ponovitve =</span> <span class="dv">20000</span>) {</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), ponovitve)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">repeat</span> {</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    aktivni <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(aktivni)) <span class="cf">break</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    pa <span class="ot">&lt;-</span> p[aktivni]</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    p[aktivni] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(aktivni), <span class="dv">2</span> <span class="sc">*</span> N, pa <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> s) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> pa <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">N =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">500</span>), <span class="at">s =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ns =</span> N <span class="sc">*</span> s,</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">nevtralno =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Kimura =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">4</span> <span class="sc">*</span> N <span class="sc">*</span> s)),</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">simulacija =</span> <span class="fu">map2_dbl</span>(N, s, selekcija))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+      N     s    Ns nevtralno Kimura simulacija
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1    20  0.01   0.2     0.025 0.0360     0.0393
+2    20  0.05   1       0.025 0.0969     0.0958
+3   500  0.01   5       0.001 0.0198     0.0198
+4   500  0.05  25       0.001 0.0952     0.093 </code></pre>
+</div>
+</div>
+<p>Tudi ugodna mutacija se največkrat <strong>izgubi</strong> zaradi zdrsa, ko je še redka. V veliki populaciji (N = 500) je pri s = 0,01 verjetnost fiksacije približno 20-krat večja kot pri nevtralni mutaciji, v majhni (N = 20) pa le malo večja.</p>
+<p>Če je <span class="math inline">\(N_e s\)</span> veliko manj kot 1, se ugoden alel obnaša skoraj kot nevtralen in se lahko <strong>izgubi zaradi zdrsa</strong>. V majhnih populacijah zdrs prevlada nad šibko selekcijo, zato se lahko izgubijo tudi koristni aleli, škodljivi pa fiksirajo.</p>
+</section>
+<section id="povzetek-od-modelov-do-podatkov" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="povzetek-od-modelov-do-podatkov">Povzetek: od modelov do podatkov</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Koncept</th>
+<th>Kaj smo videli v simulaciji</th>
+<th>Kje ga bomo videli pri orlih</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HWE, Wahlundov učinek</td>
+<td>združen vzorec dveh populacij ima primanjkljaj heterozigotov</td>
+<td>vaja 3: HWE na vseh orlih in po populacijah</td>
+</tr>
+<tr class="even">
+<td>zdrs, N<sub>e</sub></td>
+<td>H<sub>e</sub> pada hitreje pri majhni N<sub>e</sub></td>
+<td>vaja 4: H<sub>o</sub>, H<sub>e</sub>, π otoških in celinskih populacij</td>
+</tr>
+<tr class="odd">
+<td>ozko grlo, ustanovitelj</td>
+<td>redki aleli se izgubijo prej kot H<sub>e</sub></td>
+<td>vaja 4: SFS in redki aleli; historični proti sodobnim</td>
+</tr>
+<tr class="even">
+<td>migracije</td>
+<td>F<sub>ST</sub> raste brez migracij, Nm ≈ 1 ga omeji</td>
+<td>vaja 5: F<sub>ST</sub>, AMOVA, PCA, izolacija z razdaljo</td>
+</tr>
+<tr class="odd">
+<td>N<sub>e</sub> in inbriding</td>
+<td>majhna N<sub>e</sub> poveča sorodnost staršev</td>
+<td>vaja 6: ROH, F<sub>ROH</sub>, N<sub>e</sub> iz historičnih in sodobnih vzorcev</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-e2-naloge" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-naloge">Naloge</h2>
+<ol type="1">
+<li>Ponovite simulacijo zdrsa (<a href="#fig-e2-zdrs" class="quarto-xref">Slika&nbsp;<span>3.2</span></a>) z drugim semenom (<code>set.seed()</code>). Kaj se spremeni in kaj ostane enako?</li>
+<li>Islandija: simulirajte 10 generacij z N = 40, nato 6 generacij z N = 160 (začetna frekvenca 0,5, 500 lokusov). Koliko H<sub>e</sub> se izgubi? Primerjajte s harmonično sredino velikosti.</li>
+<li>Izračunajte N<sub>e</sub> za populacijo s 300 samci in 30 samicami. Preverite s funkcijo <code>simuliraj_spola()</code>.</li>
+<li>V funkciji <code>dve_populaciji()</code> nastavite N = 500 in m = 0,002 (Nm = 1). Ali je F<sub>ST</sub> po 200 generacijah podoben kot pri N = 50 in m = 0,02 (tudi Nm = 1)?</li>
+<li>Shranite <code>.qmd</code> v svoj repozitorij EPG (mapa <code>E2_simulacije</code>), naredite <code>commit</code> in <code>push</code>.</li>
+</ol>
+</section>
+<section id="literatura" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="literatura">Literatura</h2>
+<ul>
+<li>Frankham, R. (1995). Effective population size/adult population size ratios in wildlife: a review. <em>Genetical Research</em> 66: 95–107.</li>
+<li>Hansen, C. C. R. et al.&nbsp;(2023). Genomic diversity and differentiation between island and mainland populations of White-tailed Eagles (<em>Haliaeetus albicilla</em>). <em>Molecular Ecology</em> 32: 1925–1942.</li>
+<li>Hartl, D. L. &amp; Clark, A. G. (2007). <em>Principles of Population Genetics</em> (4th ed.). Sinauer.</li>
+<li>Jobling, M. A., Hollox, E., Hurles, M., Kivisild, T. &amp; Tyler-Smith, C. (2013). <em>Human Evolutionary Genetics</em> (2nd ed.). Garland Science. Poglavje 5: <em>Processes shaping diversity</em>.</li>
+<li>Allendorf, F. W., Funk, W. C., Aitken, S. N., Byrne, M. &amp; Luikart, G. (2022). <em>Conservation and the Genomics of Populations</em> (3rd ed.). Oxford University Press.</li>
+<li>Wahlund, S. (1928). Zusammensetzung von Populationen und Korrelationserscheinungen vom Standpunkt der Vererbungslehre aus betrachtet. <em>Hereditas</em> 11: 65–106.</li>
+<li>Wright, S. (1931). Evolution in Mendelian populations. <em>Genetics</em> 16: 97–159.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopirano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopirano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="pagination-link" aria-label="Vaja 1: Nadzor različic z Gitom in GitHubom">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../E3_plink/E3_plink.html" class="pagination-link" aria-label="Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK">
+        <span class="nav-page-text"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

@@ -178,7 +178,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./E2_plink/E2_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  <a href="./E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -210,7 +215,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./E2_plink_EN/E2_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a>
+  <a href="./E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -273,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Tukaj so zbrana navodila za vaje pri predmetu <strong>Evolucijska in populacijska genetika</strong> (EPG). Sproti se posodabljajo, zato jih vedno odprite s te strani.</p>
 <section id="biološka-zgodba-orel-belorepec" class="level2">
 <h2 class="anchored" data-anchor-id="biološka-zgodba-orel-belorepec">Biološka zgodba: orel belorepec</h2>
-<p>Od vaje 2 naprej analiziramo genomske podatke <strong>orla belorepca</strong> (<em>Haliaeetus albicilla</em>) iz članka:</p>
+<p>Vse vaje od vaje 2 naprej so vezane na <strong>orla belorepca</strong> (<em>Haliaeetus albicilla</em>): v vaji 2 s simulacijami, od vaje 3 naprej pa analiziramo njegove genomske podatke iz članka:</p>
 <blockquote class="blockquote">
 <p>Hansen, C. C. R., Láruson, Á. J., Rasmussen, J. A., et al.&nbsp;(2023). Genomic diversity and differentiation between island and mainland populations of white-tailed eagles (<em>Haliaeetus albicilla</em>). <em>Molecular Ecology</em>, 32, 1925–1942. <a href="https://doi.org/10.1111/mec.16858" class="uri">https://doi.org/10.1111/mec.16858</a></p>
 </blockquote>
@@ -309,30 +319,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td>2</td>
-<td><a href="./E2_plink/E2_plink.html">Uvod v populacijsko genetiko, SNP-ji in PLINK</a></td>
-<td>SNP-ji, format VCF, PLINK, kontrola kakovosti (manjkajoči podatki, sorodnost KING, MAF, HWE, vezavno neravnovesje), prvi PCA</td>
-<td>Kakšni so podatki in koliko jim lahko zaupamo?</td>
+<td><a href="./E2_simulacije/E2_simulacije.html">Populacijskogenetski modeli in simulacije</a></td>
+<td>frekvence alelov in genotipov, HWE in Wahlundov učinek, genetski zdrs (Wright-Fisherjev model), efektivna velikost populacije (N<sub>e</sub>), ozko grlo, učinek ustanovitelja, migracije; simulacije v R</td>
+<td>Kaj se zgodi z raznolikostjo majhne, izolirane populacije, kot je islandska?</td>
 <td><strong>na voljo</strong></td>
 </tr>
 <tr class="even">
 <td>3</td>
-<td>Genetska raznolikost in diferenciacija</td>
-<td>Ho, He, F<sub>IS</sub>, nukleotidna raznolikost (π), spekter frekvenc alelov (SFS), F<sub>ST</sub></td>
-<td>Ali so otoške populacije manj raznolike in kako različne so populacije med seboj?</td>
-<td>kmalu</td>
+<td><a href="./E3_plink/E3_plink.html">Uvod v populacijsko genetiko, SNP-ji in PLINK</a></td>
+<td>SNP-ji, format VCF, PLINK, kontrola kakovosti (manjkajoči podatki, sorodnost KING, MAF, HWE, vezavno neravnovesje)</td>
+<td>Kakšni so podatki in koliko jim lahko zaupamo?</td>
+<td><strong>na voljo</strong></td>
 </tr>
 <tr class="odd">
 <td>4</td>
-<td>Populacijska struktura</td>
-<td>PCA, DAPC, ADMIXTURE, izolacija z razdaljo (IBD, Mantelov test)</td>
-<td>Koliko genetskih skupin je in ali je razlikovanje povezano z geografsko razdaljo?</td>
+<td>Genetska raznolikost</td>
+<td>število alelov in bogastvo alelov, H<sub>o</sub>, H<sub>e</sub>, F<sub>IS</sub>, nukleotidna raznolikost (π), θ, spekter frekvenc alelov (SFS), Tajima D</td>
+<td>Ali so otoške populacije manj raznolike in ali se je raznolikost zmanjšala od historičnih do sodobnih vzorcev?</td>
 <td>kmalu</td>
 </tr>
 <tr class="even">
 <td>5</td>
-<td>Sorodnost, inbriding in ROH</td>
-<td>sorodnost (KING), dolgi homozigotni odseki (ROH), F<sub>ROH</sub></td>
-<td>Ali so otoške populacije bolj inbridirane?</td>
+<td>Populacijska struktura in diferenciacija v prostoru</td>
+<td>F<sub>ST</sub> (globalni in parni), AMOVA, PCA, MDS, DAPC, ADMIXTURE, izolacija z razdaljo (IBD, Mantelov test), zemljevidi</td>
+<td>Koliko genetskih skupin je in ali je diferenciacija povezana z geografsko razdaljo?</td>
+<td>kmalu</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Sorodnost, inbriding, ROH in efektivna velikost</td>
+<td>sorodnost (KING), dolgi homozigotni odseki (ROH), F<sub>ROH</sub>, N<sub>e</sub> iz historičnih in sodobnih vzorcev</td>
+<td>Ali so otoške populacije bolj inbridirane in kako majhna je njihova N<sub>e</sub>?</td>
 <td>kmalu</td>
 </tr>
 </tbody>

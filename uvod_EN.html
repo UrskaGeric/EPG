@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./E0_intro_R_EN/E0_intro_R_EN.html" rel="next">
-<link href="./E2_plink/E2_plink.html" rel="prev">
+<link href="./E3_plink/E3_plink.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -178,7 +178,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./E2_plink/E2_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  <a href="./E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -210,7 +215,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./E2_plink_EN/E2_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a>
+  <a href="./E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -273,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>These are the instructions for the practicals of the course <strong>Evolutionary and Population Genetics</strong> (EPG). They are updated continuously, so always open them from this page.</p>
 <section id="the-biological-story-the-white-tailed-eagle" class="level2">
 <h2 class="anchored" data-anchor-id="the-biological-story-the-white-tailed-eagle">The biological story: the white-tailed eagle</h2>
-<p>From practical 2 onwards we analyse genomic data of the <strong>white-tailed eagle</strong> (<em>Haliaeetus albicilla</em>) from the paper:</p>
+<p>All practicals from Practical 2 onwards follow the <strong>white-tailed eagle</strong> (<em>Haliaeetus albicilla</em>): Practical 2 with simulations, and from Practical 3 onwards we analyse its genomic data from the paper:</p>
 <blockquote class="blockquote">
 <p>Hansen, C. C. R., Láruson, Á. J., Rasmussen, J. A., et al.&nbsp;(2023). Genomic diversity and differentiation between island and mainland populations of white-tailed eagles (<em>Haliaeetus albicilla</em>). <em>Molecular Ecology</em>, 32, 1925–1942. <a href="https://doi.org/10.1111/mec.16858" class="uri">https://doi.org/10.1111/mec.16858</a></p>
 </blockquote>
@@ -309,30 +319,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td>2</td>
-<td><a href="./E2_plink_EN/E2_plink_EN.html">Introduction to population genetics, SNPs and PLINK</a></td>
-<td>SNPs, VCF format, PLINK, quality control (missing data, KING relatedness, MAF, HWE, linkage disequilibrium), first PCA</td>
-<td>What do the data look like and how much can we trust them?</td>
+<td><a href="./E2_simulations_EN/E2_simulations_EN.html">Population genetic models and simulations</a></td>
+<td>allele and genotype frequencies, HWE and the Wahlund effect, genetic drift (Wright-Fisher model), effective population size (N<sub>e</sub>), bottleneck, founder effect, migration; simulations in R</td>
+<td>What happens to the diversity of a small, isolated population like the Icelandic one?</td>
 <td><strong>available</strong></td>
 </tr>
 <tr class="even">
 <td>3</td>
-<td>Genetic diversity and differentiation</td>
-<td>Ho, He, F<sub>IS</sub>, nucleotide diversity (π), site frequency spectrum (SFS), F<sub>ST</sub></td>
-<td>Are island populations less diverse, and how different are the populations from each other?</td>
-<td>coming soon</td>
+<td><a href="./E3_plink_EN/E3_plink_EN.html">Introduction to population genetics, SNPs and PLINK</a></td>
+<td>SNPs, VCF format, PLINK, quality control (missing data, KING relatedness, MAF, HWE, linkage disequilibrium)</td>
+<td>What do the data look like and how much can we trust them?</td>
+<td><strong>available</strong></td>
 </tr>
 <tr class="odd">
 <td>4</td>
-<td>Population structure</td>
-<td>PCA, DAPC, ADMIXTURE, isolation by distance (IBD, Mantel test)</td>
-<td>How many genetic groups are there, and is differentiation related to geographic distance?</td>
+<td>Genetic diversity</td>
+<td>number of alleles and allelic richness, H<sub>o</sub>, H<sub>e</sub>, F<sub>IS</sub>, nucleotide diversity (π), θ, site frequency spectrum (SFS), Tajima’s D</td>
+<td>Are island populations less diverse, and has diversity decreased from historical to contemporary samples?</td>
 <td>coming soon</td>
 </tr>
 <tr class="even">
 <td>5</td>
-<td>Relatedness, inbreeding and ROH</td>
-<td>relatedness (KING), runs of homozygosity (ROH), F<sub>ROH</sub></td>
-<td>Are island populations more inbred?</td>
+<td>Population structure and differentiation in space</td>
+<td>F<sub>ST</sub> (global and pairwise), AMOVA, PCA, MDS, DAPC, ADMIXTURE, isolation by distance (IBD, Mantel test), maps</td>
+<td>How many genetic groups are there, and is differentiation related to geographic distance?</td>
+<td>coming soon</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Relatedness, inbreeding, ROH and effective size</td>
+<td>relatedness (KING), runs of homozygosity (ROH), F<sub>ROH</sub>, N<sub>e</sub> from historical and contemporary samples</td>
+<td>Are island populations more inbred, and how small is their N<sub>e</sub>?</td>
 <td>coming soon</td>
 </tr>
 </tbody>
@@ -775,8 +792,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./E2_plink/E2_plink.html" class="pagination-link" aria-label="Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></span>
+      <a href="./E3_plink/E3_plink.html" class="pagination-link" aria-label="Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

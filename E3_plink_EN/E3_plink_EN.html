@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Practical 2: Introduction to population genetics, SNPs and PLINK – Evolucijska in populacijska genetika</title>
+<title>Practical 3: Introduction to population genetics, SNPs and PLINK – Evolucijska in populacijska genetika</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../literatura.html" rel="next">
-<link href="../E1_version_control_EN/E1_version_control_EN.html" rel="prev">
+<link href="../E2_simulations_EN/E2_simulations_EN.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -150,7 +150,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_EN.html">English</a></li><li class="breadcrumb-item"><a href="../E2_plink_EN/E2_plink_EN.html"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_EN.html">English</a></li><li class="breadcrumb-item"><a href="../E3_plink_EN/E3_plink_EN.html"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Iskanje" onclick="window.quartoOpenSearch();">
@@ -210,7 +210,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink/E2_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  <a href="../E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -242,7 +247,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink_EN/E2_plink_EN.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a>
+  <a href="../E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -264,43 +274,43 @@ window.Quarto = {
    
   <ul>
   <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
-  <li><a href="#sec-e2-intro-en" id="toc-sec-e2-intro-en" class="nav-link" data-scroll-target="#sec-e2-intro-en">Introduction to population genetics, genetic diversity and SNPs</a>
+  <li><a href="#sec-e3-intro-en" id="toc-sec-e3-intro-en" class="nav-link" data-scroll-target="#sec-e3-intro-en">Introduction to population genetics, genetic diversity and SNPs</a>
   <ul class="collapse">
   <li><a href="#genetic-diversity-the-foundation-of-evolution" id="toc-genetic-diversity-the-foundation-of-evolution" class="nav-link" data-scroll-target="#genetic-diversity-the-foundation-of-evolution">Genetic diversity: the foundation of evolution</a></li>
   <li><a href="#single-nucleotide-polymorphisms-snps" id="toc-single-nucleotide-polymorphisms-snps" class="nav-link" data-scroll-target="#single-nucleotide-polymorphisms-snps">Single nucleotide polymorphisms (SNPs)</a></li>
   </ul></li>
-  <li><a href="#sec-e2-pipeline-en" id="toc-sec-e2-pipeline-en" class="nav-link" data-scroll-target="#sec-e2-pipeline-en">Steps of SNP analysis</a>
+  <li><a href="#sec-e3-pipeline-en" id="toc-sec-e3-pipeline-en" class="nav-link" data-scroll-target="#sec-e3-pipeline-en">Steps of SNP analysis</a>
   <ul class="collapse">
   <li><a href="#biallelic-variants-in-vcf-files-for-plink" id="toc-biallelic-variants-in-vcf-files-for-plink" class="nav-link" data-scroll-target="#biallelic-variants-in-vcf-files-for-plink">Biallelic variants in VCF files for PLINK</a></li>
   </ul></li>
-  <li><a href="#sec-e2-plink-en" id="toc-sec-e2-plink-en" class="nav-link" data-scroll-target="#sec-e2-plink-en">PLINK</a>
+  <li><a href="#sec-e3-plink-en" id="toc-sec-e3-plink-en" class="nav-link" data-scroll-target="#sec-e3-plink-en">PLINK</a>
   <ul class="collapse">
   <li><a href="#input-files-for-plink" id="toc-input-files-for-plink" class="nav-link" data-scroll-target="#input-files-for-plink">Input files for PLINK</a></li>
   <li><a href="#plink-from-r" id="toc-plink-from-r" class="nav-link" data-scroll-target="#plink-from-r">PLINK from R</a></li>
   </ul></li>
-  <li><a href="#sec-e2-data-en" id="toc-sec-e2-data-en" class="nav-link" data-scroll-target="#sec-e2-data-en">Data: white-tailed eagle</a>
+  <li><a href="#sec-e3-data-en" id="toc-sec-e3-data-en" class="nav-link" data-scroll-target="#sec-e3-data-en">Data: white-tailed eagle</a>
   <ul class="collapse">
   <li><a href="#folders-and-paths" id="toc-folders-and-paths" class="nav-link" data-scroll-target="#folders-and-paths">Folders and paths</a></li>
   <li><a href="#group-colours" id="toc-group-colours" class="nav-link" data-scroll-target="#group-colours">Group colours</a></li>
   <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">Metadata</a></li>
-  <li><a href="#sec-e2-vcf-en" id="toc-sec-e2-vcf-en" class="nav-link" data-scroll-target="#sec-e2-vcf-en">The VCF file</a></li>
-  <li><a href="#sec-e2-function-en" id="toc-sec-e2-function-en" class="nav-link" data-scroll-target="#sec-e2-function-en">The <code>plink2()</code> function</a></li>
-  <li><a href="#sec-e2-import-en" id="toc-sec-e2-import-en" class="nav-link" data-scroll-target="#sec-e2-import-en">Importing the VCF into PLINK</a></li>
+  <li><a href="#sec-e3-vcf-en" id="toc-sec-e3-vcf-en" class="nav-link" data-scroll-target="#sec-e3-vcf-en">The VCF file</a></li>
+  <li><a href="#sec-e3-function-en" id="toc-sec-e3-function-en" class="nav-link" data-scroll-target="#sec-e3-function-en">The <code>plink2()</code> function</a></li>
+  <li><a href="#sec-e3-import-en" id="toc-sec-e3-import-en" class="nav-link" data-scroll-target="#sec-e3-import-en">Importing the VCF into PLINK</a></li>
   </ul></li>
-  <li><a href="#sec-e2-filtering-en" id="toc-sec-e2-filtering-en" class="nav-link" data-scroll-target="#sec-e2-filtering-en">Quality control and filtering</a>
+  <li><a href="#sec-e3-filtering-en" id="toc-sec-e3-filtering-en" class="nav-link" data-scroll-target="#sec-e3-filtering-en">Quality control and filtering</a>
   <ul class="collapse">
-  <li><a href="#sec-e2-missing-en" id="toc-sec-e2-missing-en" class="nav-link" data-scroll-target="#sec-e2-missing-en">Missing data</a></li>
-  <li><a href="#sec-e2-kinship-en" id="toc-sec-e2-kinship-en" class="nav-link" data-scroll-target="#sec-e2-kinship-en">Relatedness and duplicated samples (KING)</a></li>
-  <li><a href="#sec-e2-maf-en" id="toc-sec-e2-maf-en" class="nav-link" data-scroll-target="#sec-e2-maf-en">Allele frequencies (MAF)</a></li>
-  <li><a href="#sec-e2-hwe-en" id="toc-sec-e2-hwe-en" class="nav-link" data-scroll-target="#sec-e2-hwe-en">Hardy-Weinberg equilibrium (HWE)</a></li>
+  <li><a href="#sec-e3-missing-en" id="toc-sec-e3-missing-en" class="nav-link" data-scroll-target="#sec-e3-missing-en">Missing data</a></li>
+  <li><a href="#sec-e3-kinship-en" id="toc-sec-e3-kinship-en" class="nav-link" data-scroll-target="#sec-e3-kinship-en">Relatedness and duplicated samples (KING)</a></li>
+  <li><a href="#sec-e3-maf-en" id="toc-sec-e3-maf-en" class="nav-link" data-scroll-target="#sec-e3-maf-en">Allele frequencies (MAF)</a></li>
+  <li><a href="#sec-e3-hwe-en" id="toc-sec-e3-hwe-en" class="nav-link" data-scroll-target="#sec-e3-hwe-en">Hardy-Weinberg equilibrium (HWE)</a></li>
   <li><a href="#filtering-by-chromosome" id="toc-filtering-by-chromosome" class="nav-link" data-scroll-target="#filtering-by-chromosome">Filtering by chromosome</a></li>
-  <li><a href="#sec-e2-ld-en" id="toc-sec-e2-ld-en" class="nav-link" data-scroll-target="#sec-e2-ld-en">Linkage disequilibrium (LD)</a></li>
+  <li><a href="#sec-e3-ld-en" id="toc-sec-e3-ld-en" class="nav-link" data-scroll-target="#sec-e3-ld-en">Linkage disequilibrium (LD)</a></li>
   <li><a href="#all-in-one-command" id="toc-all-in-one-command" class="nav-link" data-scroll-target="#all-in-one-command">All in one command</a></li>
   </ul></li>
   <li><a href="#dataset-for-structure-analyses-maf-0.05" id="toc-dataset-for-structure-analyses-maf-0.05" class="nav-link" data-scroll-target="#dataset-for-structure-analyses-maf-0.05">Dataset for structure analyses (MAF ≥ 0.05)</a></li>
-  <li><a href="#sec-e2-statistics-en" id="toc-sec-e2-statistics-en" class="nav-link" data-scroll-target="#sec-e2-statistics-en">Statistics in PLINK</a></li>
-  <li><a href="#sec-e2-cascade-en" id="toc-sec-e2-cascade-en" class="nav-link" data-scroll-target="#sec-e2-cascade-en">Filtering cascade and final dataset</a></li>
-  <li><a href="#sec-e2-tasks-en" id="toc-sec-e2-tasks-en" class="nav-link" data-scroll-target="#sec-e2-tasks-en">Tasks</a></li>
+  <li><a href="#sec-e3-statistics-en" id="toc-sec-e3-statistics-en" class="nav-link" data-scroll-target="#sec-e3-statistics-en">Statistics in PLINK</a></li>
+  <li><a href="#sec-e3-cascade-en" id="toc-sec-e3-cascade-en" class="nav-link" data-scroll-target="#sec-e3-cascade-en">Filtering cascade and final dataset</a></li>
+  <li><a href="#sec-e3-tasks-en" id="toc-sec-e3-tasks-en" class="nav-link" data-scroll-target="#sec-e3-tasks-en">Tasks</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -308,9 +318,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_EN.html">English</a></li><li class="breadcrumb-item"><a href="../E2_plink_EN/E2_plink_EN.html"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_EN.html">English</a></li><li class="breadcrumb-item"><a href="../E3_plink_EN/E3_plink_EN.html"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-E2_plink_EN" class="quarto-section-identifier"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></span></h1>
+<h1 class="title"><span id="sec-E3_plink_EN" class="quarto-section-identifier"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></span></h1>
 </div>
 
 
@@ -333,7 +343,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>🌐 <a href="../E2_plink/E2_plink.html">Slovenska različica</a></p>
+<p>🌐 <a href="../E3_plink/E3_plink.html">Slovenska različica</a></p>
 </div>
 </div>
 </div>
@@ -351,8 +361,8 @@ window.Quarto = {
 </ul>
 <p><strong>Biological question:</strong> are the white-tailed eagle (<em>Haliaeetus albicilla</em>) data good enough to compare island and mainland, and historical and contemporary populations? Which individuals and SNPs do we have to remove, and why?</p>
 </section>
-<section id="sec-e2-intro-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-intro-en">Introduction to population genetics, genetic diversity and SNPs</h2>
+<section id="sec-e3-intro-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-intro-en">Introduction to population genetics, genetic diversity and SNPs</h2>
 <p>Population genetics is the study of genetic differences within and between populations. It focuses on understanding how these differences arise, how they are distributed, and their role in evolutionary processes. Key areas of research include <strong>adaptation</strong>, <strong>speciation</strong> and <strong>population structure</strong>.</p>
 <section id="genetic-diversity-the-foundation-of-evolution" class="level3">
 <h3 class="anchored" data-anchor-id="genetic-diversity-the-foundation-of-evolution">Genetic diversity: the foundation of evolution</h3>
@@ -392,7 +402,7 @@ window.Quarto = {
 <li><strong>Major allele</strong>: the allele with the higher frequency in the population.</li>
 <li><strong>Minor allele</strong>: the allele with the lower frequency. Its frequency is the <strong>MAF</strong> (minor allele frequency).</li>
 </ul>
-<p>For a biallelic SNP, the major allele has a frequency above 50% and the minor allele below 50%. At multiallelic sites this is not necessarily true, which is why we keep only biallelic SNPs from the VCF (<a href="#sec-e2-pipeline-en" class="quarto-xref"><span>Steps of SNP analysis</span></a>).</p>
+<p>For a biallelic SNP, the major allele has a frequency above 50% and the minor allele below 50%. At multiallelic sites this is not necessarily true, which is why we keep only biallelic SNPs from the VCF (<a href="#sec-e3-pipeline-en" class="quarto-xref"><span>Steps of SNP analysis</span></a>).</p>
 <p>In VCF files we meet another naming: the <strong>reference allele</strong> (<code>REF</code>) is the one in the reference genome, the <strong>alternative allele</strong> (<code>ALT</code>) is the other one. The reference allele is not necessarily the major allele.</p>
 <p>A diploid individual has one of three <strong>genotypes</strong> at each SNP:</p>
 <table class="caption-top table">
@@ -466,16 +476,16 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="sec-e2-pipeline-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-pipeline-en">Steps of SNP analysis</h2>
+<section id="sec-e3-pipeline-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-pipeline-en">Steps of SNP analysis</h2>
 <p>The diagram shows the steps from sequencing reads to the final merged and filtered VCF file. After basic QC and the relatedness check the pipeline splits into a dataset <strong>without LD pruning</strong> and a dataset <strong>after LD pruning</strong>, because different analyses need different datasets.</p>
-<div id="fig-e2-pipeline-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-pipeline-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/snp_pipeline_EN.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it."><img src="images/snp_pipeline_EN.png" class="img-fluid figure-img"></a>
+<div aria-describedby="fig-e3-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/snp_pipeline_EN.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;8.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it."><img src="images/snp_pipeline_EN.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it.
 </figcaption>
 </figure>
 </div>
@@ -528,8 +538,8 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 </section>
 </section>
 </section>
-<section id="sec-e2-plink-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-plink-en">PLINK</h2>
+<section id="sec-e3-plink-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-plink-en">PLINK</h2>
 <p>There are two commonly used versions of PLINK:</p>
 <ul>
 <li><strong>PLINK 1.9</strong>: <a href="https://www.cog-genomics.org/plink/">PLINK 1.9 manual</a></li>
@@ -612,7 +622,7 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 </tr>
 </tbody>
 </table>
-<p>Unzip the download and save the program (only the <code>.exe</code> or executable file) in the <code>data</code> folder (see <a href="#sec-e2-data-en" class="quarto-xref"><span>Data: white-tailed eagle</span></a>). On macOS and Linux make it executable with <code>chmod +x plink plink2</code>.</p>
+<p>Unzip the download and save the program (only the <code>.exe</code> or executable file) in the <code>data</code> folder (see <a href="#sec-e3-data-en" class="quarto-xref"><span>Data: white-tailed eagle</span></a>). On macOS and Linux make it executable with <code>chmod +x plink plink2</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -646,7 +656,7 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 </tbody>
 </table>
 <p>The label after the colon (<em>tag</em>) is the program version. Don’t use the <code>latest</code> tag, because it changes over time.</p>
-<p><strong>From a terminal</strong> (WSL, macOS, Linux), in the <code>practical2</code> folder:</p>
+<p><strong>From a terminal</strong> (WSL, macOS, Linux), in the <code>practical3</code> folder:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="st">"</span><span class="va">$PWD</span><span class="st">"</span>:/data <span class="at">-w</span> /data quay.io/biocontainers/plink2:2.0.0a.6.9--h9948957_0 plink2 <span class="at">--version</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><code>--rm</code>: the container is deleted when it finishes,</li>
@@ -668,7 +678,7 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plink_docker</span>(<span class="st">"plink2"</span>, <span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_0"</span>), <span class="st">"--freq"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"freq_docker"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>File paths must be <strong>relative</strong> (<code>results/...</code>), because the container only sees the <code>practical2</code> folder (as <code>/data</code>). PLINK in the container is the Linux version, also on Windows and macOS.</p>
+<p>File paths must be <strong>relative</strong> (<code>results/...</code>), because the container only sees the <code>practical3</code> folder (as <code>/data</code>). PLINK in the container is the Linux version, also on Windows and macOS.</p>
 </div>
 </div>
 </div>
@@ -684,9 +694,9 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 <div class="callout-body-container callout-body">
 <p>PLINK was developed for <strong>association studies in humans</strong> (GWAS; Purcell et al.&nbsp;2007). The data were genotypes from <strong>SNP chips</strong> (<em>SNP arrays</em>): a few hundred thousand common SNPs, chosen in advance, spread across the genome, with reliable genotypes. This leads to several assumptions that do not hold for non-model species and sequencing data (WGS, RAD):</p>
 <ol type="1">
-<li><strong>Chromosomes.</strong> By default PLINK knows the human chromosomes 1–22, X, Y, XY and MT. For the eagle we therefore need <code>--chr-set</code> and <code>--allow-extra-chr</code> (see <a href="#sec-e2-function-en" class="quarto-xref"><span>The plink2() function</span></a>).</li>
+<li><strong>Chromosomes.</strong> By default PLINK knows the human chromosomes 1–22, X, Y, XY and MT. For the eagle we therefore need <code>--chr-set</code> and <code>--allow-extra-chr</code> (see <a href="#sec-e3-function-en" class="quarto-xref"><span>The plink2() function</span></a>).</li>
 <li><strong>Hard calls only.</strong> PLINK reads only <code>GT</code> (<code>0/0</code>, <code>0/1</code>, <code>1/1</code>). It discards depth (<code>DP</code>), quality (<code>GQ</code>) and genotype likelihoods (<code>PL</code>, <code>GL</code>). With low coverage and ancient DNA, exactly this information is needed to tell a true heterozygote from an error.</li>
-<li><strong>Variable sites only.</strong> The <code>.bim</code> contains only SNPs, no invariant sites. Therefore π per base pair, Tajima’s D and the SFS from PLINK are not correct (Practical 3).</li>
+<li><strong>Variable sites only.</strong> The <code>.bim</code> contains only SNPs, no invariant sites. Therefore π per base pair, Tajima’s D and the SFS from PLINK are not correct (Practical 4).</li>
 <li><strong>Default parameter values</strong> are tuned to human chips (e.g.&nbsp;for <code>--homozyg</code> and <code>--indep-pairwise</code>).</li>
 </ol>
 <section id="example-roh-without-a-snp-chip" class="level4">
@@ -926,11 +936,11 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>runPLINK <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">PLINKoptions =</span> <span class="st">""</span>) <span class="fu">system</span>(<span class="fu">paste</span>(<span class="st">"data/plink2.exe"</span>, PLINKoptions))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runPLINK</span>(<span class="st">"--bfile results/eagle_0 --freq --out results/freq"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The function appears in the <strong>Environment</strong> pane. In the practicals we use a slightly improved version <code>plink2()</code> (<a href="#sec-e2-function-en" class="quarto-xref"><span>The plink2() function</span></a>), which prints the command, adds the settings for the eagle chromosomes, checks for errors and shows the most important lines of the log (<code>.log</code>).</p>
+<p>The function appears in the <strong>Environment</strong> pane. In the practicals we use a slightly improved version <code>plink2()</code> (<a href="#sec-e3-function-en" class="quarto-xref"><span>The plink2() function</span></a>), which prints the command, adds the settings for the eagle chromosomes, checks for errors and shows the most important lines of the log (<code>.log</code>).</p>
 </section>
 </section>
-<section id="sec-e2-data-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-data-en">Data: white-tailed eagle</h2>
+<section id="sec-e3-data-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-data-en">Data: white-tailed eagle</h2>
 <p>We use data from Hansen et al.&nbsp;(2023), <em>Molecular Ecology</em>: whole genomes (WGS) of 92 white-tailed eagles from Iceland (IS), Greenland (GL), Norway (NO), Denmark (DK), Estonia (ES) and one sample from Turkey (TU). Some samples are <strong>contemporary</strong> (Con, after 1990) and some <strong>historical</strong> (His, museum specimens from ~1880–1950).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -945,16 +955,16 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 <p>The eagle VCF is <strong>already filtered and LD-pruned</strong> (r² &gt; 0.5). The authors uploaded only the final dataset to Dryad, so:</p>
 <ul>
 <li>we cannot repeat some filters (depth, genotype quality) from scratch, but we can <strong>check</strong> them,</li>
-<li>the dataset contains only <strong>variable sites</strong>, and some linked SNPs have already been removed. This matters for π, SFS and ROH (Practicals 3 and 5).</li>
+<li>the dataset contains only <strong>variable sites</strong>, and some linked SNPs have already been removed. This matters for π, SFS and ROH (Practicals 4 and 6).</li>
 </ul>
 <p>Variants were called with <strong>GraphTyper2</strong> on the golden eagle (<em>Aquila chrysaetos</em>) reference genome.</p>
 </div>
 </div>
 <section id="folders-and-paths" class="level3">
 <h3 class="anchored" data-anchor-id="folders-and-paths">Folders and paths</h3>
-<p>Download <a href="https://github.com/UrskaGeric/EPG/releases/download/podatki-E2/E2_practical2_data.zip">E2_practical2_data.zip</a> (100 MB) from GitHub and unzip it. You get the folder <code>practical2</code> with this <code>.qmd</code> file, the images and the folder <code>data</code>. Add <code>plink.exe</code> and <code>plink2.exe</code> to the <code>data</code> folder and open <code>E2_plink_EN.qmd</code> in RStudio. The structure must be:</p>
-<pre class="text"><code>practical2/
-├── E2_plink_EN.qmd
+<p>Download <a href="https://github.com/UrskaGeric/EPG/releases/download/podatki-E3/E3_practical3_data.zip">E3_practical3_data.zip</a> (100 MB) from GitHub and unzip it. You get the folder <code>practical3</code> with this <code>.qmd</code> file, the images and the folder <code>data</code>. Add <code>plink.exe</code> and <code>plink2.exe</code> to the <code>data</code> folder and open <code>E3_plink_EN.qmd</code> in RStudio. The structure must be:</p>
+<pre class="text"><code>practical3/
+├── E3_plink_EN.qmd
 ├── images/                   # figures
 ├── data/
 │   ├── eagle.vcf.gz          # genotypes (VCF, compressed)
@@ -1080,8 +1090,8 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 </div>
 </div>
 </section>
-<section id="sec-e2-vcf-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-vcf-en">The VCF file</h3>
+<section id="sec-e3-vcf-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-vcf-en">The VCF file</h3>
 <p>A VCF is a text file with two parts: the <strong>header</strong> (lines starting with <code>##</code>) describes the content, followed by a <strong>table</strong> with one line per variant. The uncompressed file is 588 MB, so we don’t open it completely, we only read the beginning.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vcf_start <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="fu">gzfile</span>(vcf_path), <span class="at">n =</span> <span class="dv">300</span>)   <span class="co"># the header has about 220 lines</span></span>
@@ -1241,8 +1251,8 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 </div>
 </div>
 </section>
-<section id="sec-e2-function-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-function-en">The <code>plink2()</code> function</h3>
+<section id="sec-e3-function-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-function-en">The <code>plink2()</code> function</h3>
 <p>The function builds the command, prints it, runs it and shows the most important lines of the log (<code>.log</code>). It also adds <code>--chr-set 26 no-x no-y no-xy no-mt</code>, because the eagle has 26 autosomes. Without it, PLINK would treat chromosomes 23–26 as human X, Y, XY and MT. The function <code>plink19()</code> does the same with PLINK 1.9 (PLINK 1.9 also knows <code>--chr-set</code>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plink2 <span class="ot">&lt;-</span> <span class="cf">function</span>(..., <span class="at">show =</span> <span class="cn">TRUE</span>, <span class="at">path =</span> plink2_path) {</span>
@@ -1283,8 +1293,8 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 </div>
 </div>
 </section>
-<section id="sec-e2-import-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-import-en">Importing the VCF into PLINK</h3>
+<section id="sec-e3-import-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-import-en">Importing the VCF into PLINK</h3>
 <p>From the VCF we keep only <strong>biallelic SNPs</strong> (<code>--snps-only just-acgt</code>, <code>--max-alleles 2</code>), as described above. Each variant gets the ID <code>chromosome:position</code> (<code>--set-all-var-ids @:#</code>). Chromosome names in the VCF (<code>LR606181.1</code>) are not numbers, so we need <code>--allow-extra-chr</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>import_log <span class="ot">&lt;-</span> <span class="fu">plink2</span>(<span class="st">"--vcf"</span>, vcf_path,</span>
@@ -1357,13 +1367,13 @@ results/eagle_0-temporary.psam written.
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Chromosome"</span>, <span class="at">y =</span> <span class="st">"Number of SNPs"</span>) <span class="sc">+</span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-snps-per-chromosome-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-snps-per-chromosome-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-snps-per-chromosome-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-snps-per-chromosome-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;6.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs."><img src="E2_plink_EN_files/figure-html/fig-e2-snps-per-chromosome-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-snps-per-chromosome-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-snps-per-chromosome-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;8.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs."><img src="E3_plink_EN_files/figure-html/fig-e3-snps-per-chromosome-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-snps-per-chromosome-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-snps-per-chromosome-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs.
 </figcaption>
 </figure>
 </div>
@@ -1371,8 +1381,8 @@ Slika&nbsp;6.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs
 </div>
 </section>
 </section>
-<section id="sec-e2-filtering-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-filtering-en">Quality control and filtering</h2>
+<section id="sec-e3-filtering-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-filtering-en">Quality control and filtering</h2>
 <p>With PLINK filters we remove individuals and SNPs of poor quality. For each filter we first <strong>look at the distribution</strong>, then choose a threshold and justify it. Overview of the filters:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1405,7 +1415,7 @@ Slika&nbsp;6.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs
 </tr>
 <tr class="even">
 <td>Hardy-Weinberg equilibrium</td>
-<td><code>--hwe 1e-6</code> (within populations only, <a href="#sec-e2-hwe-en" class="quarto-xref"><span>Hardy-Weinberg equilibrium (HWE)</span></a>)</td>
+<td><code>--hwe 1e-6</code> (within populations only, <a href="#sec-e3-hwe-en" class="quarto-xref"><span>Hardy-Weinberg equilibrium (HWE)</span></a>)</td>
 <td>SNPs that strongly deviate from HWE</td>
 </tr>
 <tr class="odd">
@@ -1426,8 +1436,8 @@ Slika&nbsp;6.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs
 </tbody>
 </table>
 <p>The values in the table are common defaults. For the eagles we will adapt some of them to the data.</p>
-<section id="sec-e2-missing-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-missing-en">Missing data</h3>
+<section id="sec-e3-missing-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-missing-en">Missing data</h3>
 <p>We count missing genotypes per <strong>individual</strong> (<code>.smiss</code>) and per <strong>SNP</strong> (<code>.vmiss</code>). At the same time <code>--sample-counts</code> counts homozygotes, heterozygotes, transitions and transversions for each individual.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_0"</span>), <span class="st">"--missing"</span>, <span class="st">"--sample-counts"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"eagle_0"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1460,13 +1470,13 @@ Slika&nbsp;6.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-miss-samples-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-miss-samples-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-miss-samples-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-miss-samples-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;6.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for --mind."><img src="E2_plink_EN_files/figure-html/fig-e2-miss-samples-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-miss-samples-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-miss-samples-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;8.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for --mind."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-samples-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-samples-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for <code>--mind</code>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-samples-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for <code>--mind</code>.
 </figcaption>
 </figure>
 </div>
@@ -1529,13 +1539,13 @@ Slika&nbsp;6.3: Proportion of missing genotypes per individual. Dashed lines are
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Frac._missing_SNPs / 1000 (Table S1)"</span>, <span class="at">y =</span> <span class="st">"F_MISS (PLINK)"</span>, <span class="at">colour =</span> <span class="st">"Country"</span>, <span class="at">shape =</span> <span class="st">"Period"</span>) <span class="sc">+</span></span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-miss-paper-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-miss-paper-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-miss-paper-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;6.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x."><img src="E2_plink_EN_files/figure-html/fig-e2-miss-paper-en-1.png" class="img-fluid figure-img" width="480"></a>
+<div aria-describedby="fig-e3-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-miss-paper-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;8.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-paper-en-1.png" class="img-fluid figure-img" width="480"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x.
 </figcaption>
 </figure>
 </div>
@@ -1617,7 +1627,7 @@ Slika&nbsp;6.4: Proportion of missing genotypes per individual: Table S1 of the 
 </table>
 </div>
 </div>
-<p>We choose <strong><code>--mind 0.8</code></strong>: we only remove individuals with more than 80% missing genotypes and keep most historical samples, which are essential for comparing historical and contemporary populations. In every later analysis we will check whether individuals with a lot of missing data behave differently (e.g.&nbsp;on the PCA in Practical 4).</p>
+<p>We choose <strong><code>--mind 0.8</code></strong>: we only remove individuals with more than 80% missing genotypes and keep most historical samples, which are essential for comparing historical and contemporary populations. In every later analysis we will check whether individuals with a lot of missing data behave differently (e.g.&nbsp;on the PCA in Practical 5).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_0"</span>), <span class="st">"--mind"</span>, <span class="st">"0.8"</span>, <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"eagle_1_mind"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1630,57 +1640,57 @@ IDs written to results/eagle_1_mind.mindrem.id .
 </div>
 </div>
 </section>
-<section id="sec-e2-ancient-dna-en" class="level4">
-<h4 class="anchored" data-anchor-id="sec-e2-ancient-dna-en">Ancient DNA: what happens to the DNA molecule</h4>
-<p><strong>Ancient DNA</strong> (aDNA) is not defined by the age of the sample but by its condition: it is any DNA from a non-living source that shows signs of degradation. Our museum eagles, about 100 years old, therefore also count as ancient DNA. After an organism dies, DNA repair stops and the molecule starts to break down (<a href="#fig-e2-damage-en" class="quarto-xref">Slika&nbsp;<span>6.5</span></a>):</p>
+<section id="sec-e3-ancient-dna-en" class="level4">
+<h4 class="anchored" data-anchor-id="sec-e3-ancient-dna-en">Ancient DNA: what happens to the DNA molecule</h4>
+<p><strong>Ancient DNA</strong> (aDNA) is not defined by the age of the sample but by its condition: it is any DNA from a non-living source that shows signs of degradation. Our museum eagles, about 100 years old, therefore also count as ancient DNA. After an organism dies, DNA repair stops and the molecule starts to break down (<a href="#fig-e3-damage-en" class="quarto-xref">Slika&nbsp;<span>8.5</span></a>):</p>
 <ol type="1">
 <li><strong>Depurination</strong>: a purine base (A or G) falls off the strand, leaving a site without a base.</li>
 <li><strong>Nicks</strong>: the strand breaks at the site without a base.</li>
 <li><strong>Fragmentation</strong>: when two nicks on opposite strands are close together, the molecule falls apart. Short <strong>single-stranded overhangs</strong> remain at the ends, most often one or two nucleotides long. Ancient DNA is therefore very short, on average only <strong>30 to 50 bp</strong>.</li>
-<li><strong>Cytosine deamination</strong>: cytosine loses its amino group and becomes uracil (<a href="#fig-e2-deamination-en" class="quarto-xref">Slika&nbsp;<span>6.6</span></a>). Deamination is <strong>more than 100 times faster</strong> in single-stranded than in double-stranded DNA, so damage accumulates at the <strong>ends of fragments</strong>.</li>
+<li><strong>Cytosine deamination</strong>: cytosine loses its amino group and becomes uracil (<a href="#fig-e3-deamination-en" class="quarto-xref">Slika&nbsp;<span>8.6</span></a>). Deamination is <strong>more than 100 times faster</strong> in single-stranded than in double-stranded DNA, so damage accumulates at the <strong>ends of fragments</strong>.</li>
 </ol>
-<div id="fig-e2-damage-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-damage-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-damage-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;6.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at sites without a base, (D) fragmentation into short pieces with single-stranded overhangs, (E) deamination of cytosine to uracil (U, grey) on the overhangs. Source: Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<div aria-describedby="fig-e3-damage-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;8.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at sites without a base, (D) fragmentation into short pieces with single-stranded overhangs, (E) deamination of cytosine to uracil (U, grey) on the overhangs. Source: Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-damage-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at sites without a base, (D) fragmentation into short pieces with single-stranded overhangs, (E) deamination of cytosine to uracil (U, grey) on the overhangs. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-damage-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at sites without a base, (D) fragmentation into short pieces with single-stranded overhangs, (E) deamination of cytosine to uracil (U, grey) on the overhangs. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
 <p>In deamination, cytosine becomes uracil, which the polymerase reads as thymine. Methylated cytosine (5-methylcytosine) is deaminated directly to thymine.</p>
-<div id="fig-e2-deamination-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-deamination-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;6.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: Introduction to Ancient Metagenomics (SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<div aria-describedby="fig-e3-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;8.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: Introduction to Ancient Metagenomics (SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-e2-misincorporation-en" class="quarto-xref">Slika&nbsp;<span>6.7</span></a> shows what happens when such a molecule is amplified and sequenced. Opposite a uracil, the polymerase incorporates adenine instead of guanine, so the sequence shows <strong>C → T</strong> (or <strong>G → A</strong> on the opposite strand), although the living eagle had a cytosine at this site. Where the strand is broken, the polymerase adds an adenine to the end that was not in the original, and this can be carried into the final sequence.</p>
-<div id="fig-e2-misincorporation-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p><a href="#fig-e3-misincorporation-en" class="quarto-xref">Slika&nbsp;<span>8.7</span></a> shows what happens when such a molecule is amplified and sequenced. Opposite a uracil, the polymerase incorporates adenine instead of guanine, so the sequence shows <strong>C → T</strong> (or <strong>G → A</strong> on the opposite strand), although the living eagle had a cytosine at this site. Where the strand is broken, the polymerase adds an adenine to the end that was not in the original, and this can be carried into the final sequence.</p>
+<div id="fig-e3-misincorporation-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-misincorporation-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;6.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) on the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A to the end; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
+<div aria-describedby="fig-e3-misincorporation-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;8.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) on the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A to the end; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-misincorporation-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) on the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A to the end; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-misincorporation-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) on the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A to the end; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
 </figcaption>
 </figure>
 </div>
 <section id="how-we-recognise-damage" class="level5">
 <h5 class="anchored" data-anchor-id="how-we-recognise-damage">How we recognise damage</h5>
-<p>Because damage is concentrated at the ends of fragments, authentic ancient DNA shows the highest proportion of <strong>C → T at the start (5’) of a read</strong> and of <strong>G → A at its end (3’)</strong>. We check this pattern on aligned reads with programs such as <strong>mapDamage</strong> and <strong>DamageProfiler</strong> (we need more than about 1000 aligned reads). The shape of the curve tells us whether the DNA is really old and how the library was prepared (<a href="#fig-e2-damage-patterns-en" class="quarto-xref">Slika&nbsp;<span>6.8</span></a>).</p>
-<div id="fig-e2-damage-patterns-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>Because damage is concentrated at the ends of fragments, authentic ancient DNA shows the highest proportion of <strong>C → T at the start (5’) of a read</strong> and of <strong>G → A at its end (3’)</strong>. We check this pattern on aligned reads with programs such as <strong>mapDamage</strong> and <strong>DamageProfiler</strong> (we need more than about 1000 aligned reads). The shape of the curve tells us whether the DNA is really old and how the library was prepared (<a href="#fig-e3-damage-patterns-en" class="quarto-xref">Slika&nbsp;<span>8.8</span></a>).</p>
+<div id="fig-e3-damage-patterns-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-damage-patterns-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;6.8: Damage patterns on reads (red C → T, blue G → A, by position from the 5’ to the 3’ end): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (raised baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the last nucleotide), (F) single-stranded library. Source: Introduction to Ancient Metagenomics (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<div aria-describedby="fig-e3-damage-patterns-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;8.8: Damage patterns on reads (red C → T, blue G → A, by position from the 5’ to the 3’ end): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (raised baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the last nucleotide), (F) single-stranded library. Source: Introduction to Ancient Metagenomics (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-damage-patterns-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.8: Damage patterns on reads (red C → T, blue G → A, by position from the 5’ to the 3’ end): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (raised baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the last nucleotide), (F) single-stranded library. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-damage-patterns-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.8: Damage patterns on reads (red C → T, blue G → A, by position from the 5’ to the 3’ end): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (raised baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the last nucleotide), (F) single-stranded library. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0.
 </figcaption>
 </figure>
 </div>
@@ -1709,13 +1719,13 @@ Slika&nbsp;6.8: Damage patterns on reads (red C → T, blue G → A, by position
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">colour =</span> <span class="st">"Country"</span>) <span class="sc">+</span></span>
 <span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-tstv-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-tstv-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-tstv-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;6.9: Ts/Tv ratio and proportion of heterozygous sites per individual."><img src="E2_plink_EN_files/figure-html/fig-e2-tstv-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-tstv-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;8.9: Ts/Tv ratio and proportion of heterozygous sites per individual."><img src="E3_plink_EN_files/figure-html/fig-e3-tstv-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.9: Ts/Tv ratio and proportion of heterozygous sites per individual.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.9: Ts/Tv ratio and proportion of heterozygous sites per individual.
 </figcaption>
 </figure>
 </div>
@@ -1758,13 +1768,13 @@ Slika&nbsp;6.9: Ts/Tv ratio and proportion of heterozygous sites per individual.
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of missing genotypes"</span>, <span class="at">y =</span> <span class="st">"Heterozygosity"</span>, <span class="at">colour =</span> <span class="st">"Country"</span>, <span class="at">shape =</span> <span class="st">"Period"</span>) <span class="sc">+</span></span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-het-miss-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-het-miss-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-het-miss-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;6.10: Heterozygosity against the proportion of missing genotypes."><img src="E2_plink_EN_files/figure-html/fig-e2-het-miss-en-1.png" class="img-fluid figure-img" width="576"></a>
+<div aria-describedby="fig-e3-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-het-miss-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;8.10: Heterozygosity against the proportion of missing genotypes."><img src="E3_plink_EN_files/figure-html/fig-e3-het-miss-en-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.10: Heterozygosity against the proportion of missing genotypes.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.10: Heterozygosity against the proportion of missing genotypes.
 </figcaption>
 </figure>
 </div>
@@ -1793,7 +1803,7 @@ Slika&nbsp;6.10: Heterozygosity against the proportion of missing genotypes.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In historical samples, every result can be a mixture of biology and technique (less data, damage, genotyping errors). In practice, damage is checked already on the reads (e.g.&nbsp;<strong>mapDamage</strong>) and removed before variant calling. Another option is to use <strong>transversions only</strong>, which are not affected by deamination. We will try this with PCA in Practical 4.</p>
+<p>In historical samples, every result can be a mixture of biology and technique (less data, damage, genotyping errors). In practice, damage is checked already on the reads (e.g.&nbsp;<strong>mapDamage</strong>) and removed before variant calling. Another option is to use <strong>transversions only</strong>, which are not affected by deamination. We will try this with PCA in Practical 5.</p>
 </div>
 </div>
 </section>
@@ -1818,13 +1828,13 @@ Slika&nbsp;6.10: Heterozygosity against the proportion of missing genotypes.
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of missing genotypes per SNP"</span>, <span class="at">y =</span> <span class="st">"Number of SNPs"</span>) <span class="sc">+</span></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-miss-snp-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-miss-snp-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-miss-snp-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;6.11: Proportion of missing genotypes per SNP (after --mind 0.8)."><img src="E2_plink_EN_files/figure-html/fig-e2-miss-snp-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-miss-snp-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;8.11: Proportion of missing genotypes per SNP (after --mind 0.8)."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-snp-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.11: Proportion of missing genotypes per SNP (after <code>--mind 0.8</code>).
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.11: Proportion of missing genotypes per SNP (after <code>--mind 0.8</code>).
 </figcaption>
 </figure>
 </div>
@@ -1889,8 +1899,8 @@ Slika&nbsp;6.11: Proportion of missing genotypes per SNP (after <code>--mind 0.8
 </div>
 </section>
 </section>
-<section id="sec-e2-kinship-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-kinship-en">Relatedness and duplicated samples (KING)</h3>
+<section id="sec-e3-kinship-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-kinship-en">Relatedness and duplicated samples (KING)</h3>
 <p>Related individuals in a sample cause problems: they inflate allele frequencies of the family, and in structure analyses (PCA, ADMIXTURE) they can create false clusters. Duplicated samples (the same individual twice) are an error that we must remove.</p>
 <section id="king-robust-kinship-estimator" class="level4">
 <h4 class="anchored" data-anchor-id="king-robust-kinship-estimator">KING-robust kinship estimator</h4>
@@ -2024,13 +2034,13 @@ Results written to results/eagle_2_geno.kin0 .</code></pre>
 <span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">4</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-king-heatmap-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-king-heatmap-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-king-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-king-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;6.12: KING kinship heatmap. Individuals are ordered by group."><img src="E2_plink_EN_files/figure-html/fig-e2-king-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
+<div aria-describedby="fig-e3-king-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-king-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;8.12: KING kinship heatmap. Individuals are ordered by group."><img src="E3_plink_EN_files/figure-html/fig-e3-king-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.12: KING kinship heatmap. Individuals are ordered by group.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-king-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.12: KING kinship heatmap. Individuals are ordered by group.
 </figcaption>
 </figure>
 </div>
@@ -2045,13 +2055,13 @@ Slika&nbsp;6.12: KING kinship heatmap. Individuals are ordered by group.
 <span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">4</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-ibs-heatmap-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-ibs-heatmap-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-ibs-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-ibs-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;6.13: IBS0 heatmap. Low values (dark) indicate related individuals."><img src="E2_plink_EN_files/figure-html/fig-e2-ibs-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
+<div aria-describedby="fig-e3-ibs-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-ibs-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;8.13: IBS0 heatmap. Low values (dark) indicate related individuals."><img src="E3_plink_EN_files/figure-html/fig-e3-ibs-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ibs-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.13: IBS0 heatmap. Low values (dark) indicate related individuals.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-ibs-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.13: IBS0 heatmap. Low values (dark) indicate related individuals.
 </figcaption>
 </figure>
 </div>
@@ -2098,13 +2108,13 @@ Slika&nbsp;6.13: IBS0 heatmap. Low values (dark) indicate related individuals.
 <span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"IBS0"</span>, <span class="at">y =</span> <span class="st">"KING kinship"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-king-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-king-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-king-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;6.14: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness."><img src="E2_plink_EN_files/figure-html/fig-e2-king-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-king-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;8.14: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness."><img src="E3_plink_EN_files/figure-html/fig-e3-king-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.14: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.14: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness.
 </figcaption>
 </figure>
 </div>
@@ -2370,7 +2380,7 @@ Slika&nbsp;6.14: KING kinship against IBS0 for all pairs of individuals. Dashed 
 </table>
 </div>
 </div>
-<p>The pair K7–K8 (same place and year) is missing from the table, because K8 was already removed by <code>--mind 0.8</code>. From each duplicated pair we remove the sample with <strong>more missing data</strong>. First-degree relatives (nestlings from the same nest) are kept for now and written to a file, so that we can remove them in Practicals 3–5 if needed.</p>
+<p>The pair K7–K8 (same place and year) is missing from the table, because K8 was already removed by <code>--mind 0.8</code>. From each duplicated pair we remove the sample with <strong>more missing data</strong>. First-degree relatives (nestlings from the same nest) are kept for now and written to a file, so that we can remove them in Practicals 4–6 if needed.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>miss_2 <span class="ot">&lt;-</span> samples <span class="sc">|&gt;</span> <span class="fu">select</span>(vcf_id, f_miss)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2403,8 +2413,8 @@ Slika&nbsp;6.14: KING kinship against IBS0 for all pairs of individuals. Dashed 
 </div>
 </section>
 </section>
-<section id="sec-e2-maf-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-maf-en">Allele frequencies (MAF)</h3>
+<section id="sec-e3-maf-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-maf-en">Allele frequencies (MAF)</h3>
 <p><strong>MAF</strong> (minor allele frequency) is the frequency of the less common allele at a SNP. Rare alleles (MAF &lt; 1–5%) are often sequencing errors, but they also carry information about recent mutations and demography. We therefore apply the MAF filter <strong>depending on the analysis</strong>:</p>
 <ul>
 <li><strong>PCA, DAPC, ADMIXTURE</strong>: rare alleles are usually removed (<code>--maf 0.05</code>), because they contribute little to structure but add noise,</li>
@@ -2620,13 +2630,13 @@ Slika&nbsp;6.14: KING kinship against IBS0 for all pairs of individuals. Dashed 
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"MAF"</span>, <span class="at">y =</span> <span class="st">"Number of SNPs"</span>) <span class="sc">+</span></span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-maf-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-maf-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-maf-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;6.15: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05."><img src="E2_plink_EN_files/figure-html/fig-e2-maf-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-maf-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;8.15: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05."><img src="E3_plink_EN_files/figure-html/fig-e3-maf-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.15: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.15: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05.
 </figcaption>
 </figure>
 </div>
@@ -2688,8 +2698,8 @@ Slika&nbsp;6.15: Distribution of MAF. Dashed lines are the common thresholds 0.0
 </div>
 </div>
 </section>
-<section id="sec-e2-hwe-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-hwe-en">Hardy-Weinberg equilibrium (HWE)</h3>
+<section id="sec-e3-hwe-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-hwe-en">Hardy-Weinberg equilibrium (HWE)</h3>
 <p>In an ideal population (random mating, no selection, migration or mutation, large population), genotype frequencies are <span class="math inline">\(p^2\)</span>, <span class="math inline">\(2pq\)</span> and <span class="math inline">\(q^2\)</span>. Deviations from HWE can be <strong>technical</strong> (genotyping errors, paralogs that create too many heterozygotes) or <strong>biological</strong> (inbreeding, selection, population structure).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_3_no_duplicates"</span>), <span class="st">"--hardy"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"hwe_all"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2784,13 +2794,13 @@ Slika&nbsp;6.15: Distribution of MAF. Dashed lines are the common thresholds 0.0
 <span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Chromosome"</span>, <span class="at">y =</span> <span class="st">"Heterozygosity"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-ho-he-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-ho-he-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-ho-he-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;6.16: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together."><img src="E2_plink_EN_files/figure-html/fig-e2-ho-he-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-ho-he-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;8.16: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together."><img src="E3_plink_EN_files/figure-html/fig-e3-ho-he-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.16: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.16: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together.
 </figcaption>
 </figure>
 </div>
@@ -2799,7 +2809,7 @@ Slika&nbsp;6.16: Mean observed (Ho) and expected (He) heterozygosity per chromos
 <p>If the <strong>observed heterozygosity is lower than expected</strong> (Ho &lt; He), there are fewer heterozygotes than expected under random mating. The cause can be <strong>inbreeding</strong> or <strong>population structure</strong>. If Ho &gt; He, there is an excess of heterozygotes (e.g.&nbsp;mixing of populations or technical errors such as paralogs).</p>
 <section id="wahlund-effect" class="level4">
 <h4 class="anchored" data-anchor-id="wahlund-effect">Wahlund effect</h4>
-<p>If we pool several populations with different allele frequencies, we observe a <strong>deficit of heterozygotes</strong>, even if each population is in equilibrium. This is called the <strong>Wahlund effect</strong>. We test it by calculating HWE separately for two contemporary populations. The HWE test only makes sense for SNPs that are polymorphic in the group, so we exclude monomorphic ones.</p>
+<p>If we pool several populations with different allele frequencies, we observe a <strong>deficit of heterozygotes</strong>, even if each population is in equilibrium. This is called the <strong>Wahlund effect</strong> (we met it in a simulation in Practical 2). We test it by calculating HWE separately for two contemporary populations. The HWE test only makes sense for SNPs that are polymorphic in the group, so we exclude monomorphic ones.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (grp <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"IS_Con"</span>, <span class="st">"NO_Con"</span>)) {</span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(grp, <span class="fu">r</span>(<span class="fu">paste0</span>(grp, <span class="st">".txt"</span>)))</span>
@@ -2828,13 +2838,13 @@ plink2 --bfile results/eagle_3_no_duplicates --keep-fam results/NO_Con.txt --har
 <span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"F = 1 − Ho/He"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">colour =</span> <span class="st">"Group"</span>, <span class="at">fill =</span> <span class="st">"Group"</span>) <span class="sc">+</span></span>
 <span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-hwe-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-hwe-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-hwe-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Slika&nbsp;6.17: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect)."><img src="E2_plink_EN_files/figure-html/fig-e2-hwe-en-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_EN_files/figure-html/fig-e3-hwe-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Slika&nbsp;8.17: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect)."><img src="E3_plink_EN_files/figure-html/fig-e3-hwe-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.17: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect).
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;8.17: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect).
 </figcaption>
 </figure>
 </div>
@@ -2916,8 +2926,8 @@ Slika&nbsp;6.17: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He
 </div>
 <p>Be careful: for further filtering we use the <strong>whole dataset</strong>, not just chromosome 1.</p>
 </section>
-<section id="sec-e2-ld-en" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-ld-en">Linkage disequilibrium (LD)</h3>
+<section id="sec-e3-ld-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-ld-en">Linkage disequilibrium (LD)</h3>
 <p>SNPs that lie close together are inherited together and carry similar information (<strong>linkage disequilibrium</strong>, LD). For PCA and ADMIXTURE, which assume independent SNPs, we therefore remove one SNP from each pair with high r² (<strong>LD pruning</strong>).</p>
 <p>The command <code>--indep-pairwise 50 5 0.2</code> scans windows of 50 SNPs, shifts the window by 5 SNPs and removes one SNP from each pair with r² &gt; 0.2.</p>
 <div class="cell">
@@ -2948,9 +2958,9 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 <p>Our VCF is <strong>already pruned</strong> at r² 0.5. Additional pruning at r² 0.2 would remove many more SNPs, partly because r² is calculated over all populations together (population structure itself increases LD). Therefore we don’t apply it and keep the authors’ dataset. For analyses that need <strong>all</strong> SNPs (ROH, LD decay, π in windows), an <strong>unpruned</strong> dataset would be used in practice.</p>
 </div>
 </div>
-<section id="sec-e2-think-ld-en" class="level4">
-<h4 class="anchored" data-anchor-id="sec-e2-think-ld-en">Think: where does LD pruning matter?</h4>
-<p>The diagram (<a href="#fig-e2-pipeline-en" class="quarto-xref">Slika&nbsp;<span>6.1</span></a>) splits after basic QC and relatedness into two datasets: <strong>without LD pruning</strong> and <strong>after LD pruning</strong>. Our data are only on the right branch. Before using them in Practicals 3–5, think about where this will affect the results.</p>
+<section id="sec-e3-think-ld-en" class="level4">
+<h4 class="anchored" data-anchor-id="sec-e3-think-ld-en">Think: where does LD pruning matter?</h4>
+<p>The diagram (<a href="#fig-e3-pipeline-en" class="quarto-xref">Slika&nbsp;<span>8.1</span></a>) splits after basic QC and relatedness into two datasets: <strong>without LD pruning</strong> and <strong>after LD pruning</strong>. Our data are only on the right branch. Before using them in Practicals 4–6, think about where this will affect the results.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2974,43 +2984,43 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 <tbody>
 <tr class="odd">
 <td>PCA, DAPC, ADMIXTURE</td>
-<td>4</td>
+<td>5</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>relatedness (KING)</td>
-<td>2</td>
+<td>3</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>Ho, He, F<sub>IS</sub></td>
-<td>3</td>
+<td>4</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>global F<sub>ST</sub> between populations</td>
-<td>3</td>
+<td>5</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>F<sub>ST</sub> in windows along the genome</td>
-<td>3</td>
+<td>5</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>π in windows, Tajima’s D, SFS</td>
-<td>3</td>
+<td>4</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>ROH and F<sub>ROH</sub></td>
-<td>5</td>
+<td>6</td>
 <td></td>
 <td></td>
 </tr>
@@ -3041,7 +3051,7 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Hansen et al.&nbsp;(2023) calculated F<sub>ST</sub> on the pruned dataset. Would the global F<sub>ST</sub> between Iceland and Norway change much if all SNPs were used? What about with <code>--maf 0.05</code>? Why does it matter for F<sub>IS</sub> and F<sub>H</sub> (<code>plink --het</code>) from which individuals the allele frequencies are calculated? (Hint: Wahlund effect in <a href="#sec-e2-hwe-en" class="quarto-xref"><span>Hardy-Weinberg equilibrium (HWE)</span></a>.)</p>
+<p>Hansen et al.&nbsp;(2023) calculated F<sub>ST</sub> on the pruned dataset. Would the global F<sub>ST</sub> between Iceland and Norway change much if all SNPs were used? What about with <code>--maf 0.05</code>? Why does it matter for F<sub>IS</sub> and F<sub>H</sub> (<code>plink --het</code>) from which individuals the allele frequencies are calculated? (Hint: Wahlund effect in <a href="#sec-e3-hwe-en" class="quarto-xref"><span>Hardy-Weinberg equilibrium (HWE)</span></a>.)</p>
 </div>
 </div>
 </section>
@@ -3053,10 +3063,10 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 <span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./plink2.exe</span> <span class="at">--bfile</span> eagle_filters <span class="at">--indep-pairwise</span> 50 5 0.2 <span class="at">--out</span> eagle_ld</span>
 <span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./plink2.exe</span> <span class="at">--bfile</span> eagle_filters <span class="at">--extract</span> eagle_ld.prune.in <span class="at">--make-bed</span> <span class="at">--out</span> eagle_ld_pruned</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>We left out <code>--hwe</code>, because we don’t apply it to pooled populations (<a href="#sec-e2-hwe-en" class="quarto-xref"><span>Hardy-Weinberg equilibrium (HWE)</span></a>).</li>
+<li>We left out <code>--hwe</code>, because we don’t apply it to pooled populations (<a href="#sec-e3-hwe-en" class="quarto-xref"><span>Hardy-Weinberg equilibrium (HWE)</span></a>).</li>
 <li><code>--indep-pairwise</code> does <strong>not remove</strong> SNPs, it only writes a list (<code>.prune.in</code>, <code>.prune.out</code>). They are removed only with <code>--extract</code>.</li>
 </ul>
-<p>In this practical we filtered <strong>step by step</strong>, because this shows how many individuals and SNPs we lose with each filter (<a href="#sec-e2-cascade-en" class="quarto-xref"><span>Filtering cascade and final dataset</span></a>).</p>
+<p>In this practical we filtered <strong>step by step</strong>, because this shows how many individuals and SNPs we lose with each filter (<a href="#sec-e3-cascade-en" class="quarto-xref"><span>Filtering cascade and final dataset</span></a>).</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -3074,7 +3084,7 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 </section>
 <section id="dataset-for-structure-analyses-maf-0.05" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-for-structure-analyses-maf-0.05">Dataset for structure analyses (MAF ≥ 0.05)</h2>
-<p>For the population structure analyses in Practical 4 (PCA, DAPC, ADMIXTURE) we also prepare a dataset without rare alleles (MAF ≥ 0.05, <a href="#sec-e2-maf-en" class="quarto-xref"><span>Allele frequencies (MAF)</span></a>).</p>
+<p>For the population structure analyses in Practical 5 (PCA, DAPC, ADMIXTURE) we also prepare a dataset without rare alleles (MAF ≥ 0.05, <a href="#sec-e3-maf-en" class="quarto-xref"><span>Allele frequencies (MAF)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_3_no_duplicates"</span>), <span class="st">"--maf"</span>, <span class="st">"0.05"</span>,</span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"eagle_4_maf05"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -3087,8 +3097,8 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 </div>
 </div>
 </section>
-<section id="sec-e2-statistics-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-statistics-en">Statistics in PLINK</h2>
+<section id="sec-e3-statistics-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-statistics-en">Statistics in PLINK</h2>
 <p>PLINK can calculate many statistics, but visualisations need to be done in R. This is especially important for large datasets: we run PLINK on a Linux server and import the output text files into R. We will also calculate most of these statistics with R packages.</p>
 <table class="caption-top table">
 <colgroup>
@@ -3110,61 +3120,61 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 <td>missing data</td>
 <td><code>--missing</code></td>
 <td><code>.smiss</code>, <code>.vmiss</code></td>
-<td>Practical 2</td>
+<td>Practical 3</td>
 </tr>
 <tr class="even">
 <td>allele frequencies</td>
 <td><code>--freq</code></td>
 <td><code>.afreq</code></td>
-<td>Practical 2</td>
+<td>Practical 3</td>
 </tr>
 <tr class="odd">
 <td>Hardy-Weinberg</td>
 <td><code>--hardy</code></td>
 <td><code>.hardy</code></td>
-<td>Practical 2</td>
+<td>Practical 3</td>
 </tr>
 <tr class="even">
 <td>KING relatedness</td>
 <td><code>--make-king-table</code></td>
 <td><code>.kin0</code></td>
-<td>Practical 2</td>
+<td>Practical 3</td>
 </tr>
 <tr class="odd">
 <td>PCA</td>
 <td><code>--pca 10</code></td>
 <td><code>.eigenvec</code>, <code>.eigenval</code></td>
-<td>Practical 4</td>
+<td>Practical 5</td>
 </tr>
 <tr class="even">
 <td>relationship matrix (GRM)</td>
 <td><code>--make-rel square</code></td>
 <td><code>.rel</code></td>
-<td>Practical 4</td>
+<td>Practical 5</td>
 </tr>
 <tr class="odd">
 <td>MDS (PLINK 1.9 only)</td>
 <td><code>--cluster --mds-plot 4</code></td>
 <td><code>.mds</code></td>
-<td>Practical 4</td>
+<td>Practical 5</td>
 </tr>
 <tr class="even">
 <td>heterozygosity and F<sub>H</sub></td>
 <td><code>--het</code></td>
 <td><code>.het</code></td>
-<td>Practical 5</td>
+<td>Practical 6</td>
 </tr>
 <tr class="odd">
 <td>ROH (PLINK 1.9 only)</td>
 <td><code>--homozyg</code></td>
 <td><code>.hom</code></td>
-<td>Practical 5</td>
+<td>Practical 6</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="sec-e2-cascade-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-cascade-en">Filtering cascade and final dataset</h2>
+<section id="sec-e3-cascade-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-cascade-en">Filtering cascade and final dataset</h2>
 <p>Finally we make a table: how many SNPs and individuals are left after each step. Such a table always goes into the methods or supplementary material.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>count_files <span class="ot">&lt;-</span> <span class="cf">function</span>(path) <span class="fu">c</span>(<span class="at">snp =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(path, <span class="st">".bim"</span>))),</span>
@@ -3176,7 +3186,7 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 <span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2 Individuals with ≤ 80% missing"</span>,    <span class="st">"`--mind 0.8`"</span>,                          <span class="st">"eagle_1_mind"</span>,</span>
 <span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3 SNPs with ≤ 20% missing"</span>,           <span class="st">"`--geno 0.2`"</span>,                          <span class="st">"eagle_2_geno"</span>,</span>
 <span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 No duplicated samples"</span>,             <span class="st">"`--remove` (KING &gt; 0.354)"</span>,             <span class="st">"eagle_3_no_duplicates"</span>,</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0.05 (for Practical 4)"</span>,     <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"eagle_4_maf05"</span></span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0.05 (for Practical 5)"</span>,     <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"eagle_4_maf05"</span></span>
 <span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>cascade <span class="ot">&lt;-</span> steps <span class="sc">|&gt;</span></span>
@@ -3246,7 +3256,7 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 <td style="text-align: right;">83</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">5 MAF ≥ 0.05 (for Practical 4)</td>
+<td style="text-align: left;">5 MAF ≥ 0.05 (for Practical 5)</td>
 <td style="text-align: left;"><code>--maf 0.05</code></td>
 <td style="text-align: left;">eagle_4_maf05</td>
 <td style="text-align: right;">184,192</td>
@@ -3292,11 +3302,11 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 <tbody>
 <tr class="odd">
 <td><code>eagle_qc</code> (no MAF filter)</td>
-<td>Practical 3 (diversity, π, SFS, F<sub>ST</sub>), Practical 5 (relatedness, ROH, F<sub>ROH</sub>)</td>
+<td>Practical 4 (diversity, π, SFS), Practical 5 (F<sub>ST</sub>, AMOVA), Practical 6 (relatedness, ROH, F<sub>ROH</sub>)</td>
 </tr>
 <tr class="even">
 <td><code>eagle_qc_maf05</code></td>
-<td>Practical 4 (PCA, DAPC, ADMIXTURE, NJ tree, IBD)</td>
+<td>Practical 5 (PCA, MDS, DAPC, ADMIXTURE, NJ tree, IBD)</td>
 </tr>
 <tr class="odd">
 <td><code>relatives_1st_degree.tsv</code></td>
@@ -3307,10 +3317,10 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 </div>
 </div>
 </section>
-<section id="sec-e2-tasks-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-tasks-en">Tasks</h2>
+<section id="sec-e3-tasks-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-tasks-en">Tasks</h2>
 <ol type="1">
-<li>Answer the questions in the boxes (briefly, in your own <code>.qmd</code> file), including the table in <a href="#sec-e2-think-ld-en" class="quarto-xref"><span>Think: where does LD pruning matter?</span></a>.</li>
+<li>Answer the questions in the boxes (briefly, in your own <code>.qmd</code> file), including the table in <a href="#sec-e3-think-ld-en" class="quarto-xref"><span>Think: where does LD pruning matter?</span></a>.</li>
 <li>Repeat the cascade with the stricter threshold <code>--mind 0.5</code>. How many individuals and which groups do you lose? Could you still answer the question about historical and contemporary populations with this dataset?</li>
 <li>Calculate HWE also for <code>GL_Con</code> and <code>DK_Con</code>. Are the results similar to <code>IS_Con</code> and <code>NO_Con</code>? Why are there fewer deviations in smaller groups? (Hint: power of the test.)</li>
 <li>Check in Hansen et al.&nbsp;(2023) whether the authors checked relatedness. Does our result agree with theirs?</li>
@@ -3735,8 +3745,8 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../E1_version_control_EN/E1_version_control_EN.html" class="pagination-link" aria-label="Practical 1: Version control with Git and GitHub">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></span>
+      <a href="../E2_simulations_EN/E2_simulations_EN.html" class="pagination-link" aria-label="Practical 2: Population genetic models and simulations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../E2_plink_EN/E2_plink_EN.html" rel="next">
+<link href="../E2_simulations_EN/E2_simulations_EN.html" rel="next">
 <link href="../E0_intro_R_EN/E0_intro_R_EN.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -181,7 +181,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink/E2_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  <a href="../E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -213,7 +218,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink_EN/E2_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a>
+  <a href="../E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -1157,10 +1167,11 @@ c82b3ae Initial commit</code></pre>
 ├── README.md              # who you are, what is in the repository
 ├── EPG-2026-surname.Rproj
 ├── E1_git/
-├── E2_plink/
-├── E3_diversity/
-├── E4_structure/
-├── E5_inbreeding/
+├── E2_simulations/
+├── E3_plink/
+├── E4_diversity/
+├── E5_structure/
+├── E6_relatedness/
 └── data/                  # data (NOT uploaded to GitHub!)</code></pre>
 </section>
 <section id="gitignore-what-we-do-not-upload-to-github" class="level3">
@@ -1230,15 +1241,16 @@ data/
 <span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Folder <span class="pp">|</span> Practical <span class="pp">|</span></span>
 <span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E1_git/`</span> <span class="pp">|</span> Version control with Git and GitHub <span class="pp">|</span></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E2_plink/`</span> <span class="pp">|</span> SNPs and PLINK <span class="pp">|</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E3_diversity/`</span> <span class="pp">|</span> Genetic diversity and differentiation <span class="pp">|</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E4_structure/`</span> <span class="pp">|</span> Population structure <span class="pp">|</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E5_inbreeding/`</span> <span class="pp">|</span> Relatedness, inbreeding and ROH <span class="pp">|</span></span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data</span></span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>White-tailed eagle genotypes: Hansen et al. (2023), *Molecular Ecology* 32: 1925–1942,</span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. The data are not part of this repository.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E2_simulations/`</span> <span class="pp">|</span> Population genetic models and simulations <span class="pp">|</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E3_plink/`</span> <span class="pp">|</span> SNPs and PLINK <span class="pp">|</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E4_diversity/`</span> <span class="pp">|</span> Genetic diversity <span class="pp">|</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E5_structure/`</span> <span class="pp">|</span> Population structure and differentiation in space <span class="pp">|</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E6_relatedness/`</span> <span class="pp">|</span> Relatedness, inbreeding, ROH and N~e~ <span class="pp">|</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>White-tailed eagle genotypes: Hansen et al. (2023), *Molecular Ecology* 32: 1925–1942,</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. The data are not part of this repository.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="the-rule-for-all-following-practicals" class="level3">
 <h3 class="anchored" data-anchor-id="the-rule-for-all-following-practicals">The rule for all following practicals</h3>
@@ -1388,7 +1400,7 @@ plot(pca$x[, 1], pca$x[, 2], col = "red")
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Updating 0c879b4..a09a19b
 Fast-forward
- E4_structure/pca.R | 12 ++++++++++++
+ E5_structure/pca.R | 12 ++++++++++++
  1 file changed, 12 insertions(+)</code></pre>
 </section>
 </section>
@@ -1447,7 +1459,7 @@ Fast-forward
 <li><p>Create a GitHub account, install Git and configure it (<code>user.name</code>, <code>user.email</code>).</p></li>
 <li><p>Create a private repository <strong><code>EPG-2026-surname</code></strong> with a README and the R <code>.gitignore</code> template, and add <code>UrskaGeric</code> as a collaborator.</p></li>
 <li><p>Clone the repository in RStudio (<em>File → New Project → Version Control → Git</em>) into the folder <code>~/GitHub</code> (not in OneDrive). RStudio opens it as a project.</p></li>
-<li><p>Create the folders <code>E1_git</code>, <code>E2_plink</code>, <code>E3_diversity</code>, <code>E4_structure</code>, <code>E5_inbreeding</code> and <code>data</code>.</p></li>
+<li><p>Create the folders <code>E1_git</code>, <code>E2_simulations</code>, <code>E3_plink</code>, <code>E4_diversity</code>, <code>E5_structure</code>, <code>E6_relatedness</code> and <code>data</code>.</p></li>
 <li><p>Extend <code>.gitignore</code> with the rules from <a href="#sec-epg-repo-en" class="quarto-xref"><span>Your EPG repository</span></a>.</p></li>
 <li><p>Edit <code>README.md</code> (name, description, table of practicals).</p></li>
 <li><p>In RStudio open a new R script (<em>File → New File → R Script</em>), type in the code below, run it and save it as <code>E1_git/first_script.R</code>:</p>
@@ -1486,7 +1498,7 @@ Fast-forward
 <li>Which four historical events are thought to have shaped the decline in effective population size?</li>
 <li>Explain in your own words: founder effect, genetic drift, inbreeding, philopatry, effective population size (N<sub>e</sub>).</li>
 </ol>
-<p>Submit the file with <code>commit</code> and <code>push</code> <strong>before practical 2</strong>. In exercises 2–5 we will repeat some of these analyses ourselves and at the end check whether we reach the same conclusions as the authors.</p>
+<p>Submit the file with <code>commit</code> and <code>push</code> <strong>before practical 2</strong>. In practicals 2–6 we will repeat some of these analyses ourselves and at the end check whether we reach the same conclusions as the authors.</p>
 </section>
 <section id="for-the-curious-working-in-a-team" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="for-the-curious-working-in-a-team">For the curious: working in a team</h2>
@@ -1983,8 +1995,8 @@ Fast-forward
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../E2_plink_EN/E2_plink_EN.html" class="pagination-link" aria-label="Practical 2: Introduction to population genetics, SNPs and PLINK">
-        <span class="nav-page-text"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../E2_simulations_EN/E2_simulations_EN.html" class="pagination-link" aria-label="Practical 2: Population genetic models and simulations">
+        <span class="nav-page-text"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

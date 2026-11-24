@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK – Evolucijska in populacijska genetika</title>
+<title>Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK – Evolucijska in populacijska genetika</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../uvod_EN.html" rel="next">
-<link href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" rel="prev">
+<link href="../E2_simulacije/E2_simulacije.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -150,7 +150,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E2_plink/E2_plink.html"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E3_plink/E3_plink.html"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Iskanje" onclick="window.quartoOpenSearch();">
@@ -210,7 +210,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink/E2_plink.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  <a href="../E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -242,7 +247,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink_EN/E2_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a>
+  <a href="../E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -264,43 +274,43 @@ window.Quarto = {
    
   <ul>
   <li><a href="#cilji-vaje" id="toc-cilji-vaje" class="nav-link active" data-scroll-target="#cilji-vaje">Cilji vaje</a></li>
-  <li><a href="#sec-e2-uvod" id="toc-sec-e2-uvod" class="nav-link" data-scroll-target="#sec-e2-uvod">Uvod v populacijsko genetiko, genetsko raznolikost in SNP-je</a>
+  <li><a href="#sec-e3-uvod" id="toc-sec-e3-uvod" class="nav-link" data-scroll-target="#sec-e3-uvod">Uvod v populacijsko genetiko, genetsko raznolikost in SNP-je</a>
   <ul class="collapse">
   <li><a href="#genetska-raznolikost-temelj-evolucije" id="toc-genetska-raznolikost-temelj-evolucije" class="nav-link" data-scroll-target="#genetska-raznolikost-temelj-evolucije">Genetska raznolikost: temelj evolucije</a></li>
   <li><a href="#polimorfizmi-posameznih-nukleotidov-snp-ji" id="toc-polimorfizmi-posameznih-nukleotidov-snp-ji" class="nav-link" data-scroll-target="#polimorfizmi-posameznih-nukleotidov-snp-ji">Polimorfizmi posameznih nukleotidov (SNP-ji)</a></li>
   </ul></li>
-  <li><a href="#sec-e2-cevovod" id="toc-sec-e2-cevovod" class="nav-link" data-scroll-target="#sec-e2-cevovod">Koraki analize SNP-jev</a>
+  <li><a href="#sec-e3-cevovod" id="toc-sec-e3-cevovod" class="nav-link" data-scroll-target="#sec-e3-cevovod">Koraki analize SNP-jev</a>
   <ul class="collapse">
   <li><a href="#dvoalelne-variante-v-datotekah-vcf-za-plink" id="toc-dvoalelne-variante-v-datotekah-vcf-za-plink" class="nav-link" data-scroll-target="#dvoalelne-variante-v-datotekah-vcf-za-plink">Dvoalelne variante v datotekah VCF za PLINK</a></li>
   </ul></li>
-  <li><a href="#sec-e2-plink" id="toc-sec-e2-plink" class="nav-link" data-scroll-target="#sec-e2-plink">PLINK</a>
+  <li><a href="#sec-e3-plink" id="toc-sec-e3-plink" class="nav-link" data-scroll-target="#sec-e3-plink">PLINK</a>
   <ul class="collapse">
   <li><a href="#vhodne-datoteke-za-plink" id="toc-vhodne-datoteke-za-plink" class="nav-link" data-scroll-target="#vhodne-datoteke-za-plink">Vhodne datoteke za PLINK</a></li>
   <li><a href="#plink-iz-r-a" id="toc-plink-iz-r-a" class="nav-link" data-scroll-target="#plink-iz-r-a">PLINK iz R-a</a></li>
   </ul></li>
-  <li><a href="#sec-e2-podatki" id="toc-sec-e2-podatki" class="nav-link" data-scroll-target="#sec-e2-podatki">Podatki: orel belorepec</a>
+  <li><a href="#sec-e3-podatki" id="toc-sec-e3-podatki" class="nav-link" data-scroll-target="#sec-e3-podatki">Podatki: orel belorepec</a>
   <ul class="collapse">
   <li><a href="#mape-in-poti" id="toc-mape-in-poti" class="nav-link" data-scroll-target="#mape-in-poti">Mape in poti</a></li>
   <li><a href="#barve-skupin" id="toc-barve-skupin" class="nav-link" data-scroll-target="#barve-skupin">Barve skupin</a></li>
   <li><a href="#metapodatki" id="toc-metapodatki" class="nav-link" data-scroll-target="#metapodatki">Metapodatki</a></li>
-  <li><a href="#sec-e2-vcf" id="toc-sec-e2-vcf" class="nav-link" data-scroll-target="#sec-e2-vcf">Datoteka VCF</a></li>
-  <li><a href="#sec-e2-funkcija" id="toc-sec-e2-funkcija" class="nav-link" data-scroll-target="#sec-e2-funkcija">Funkcija <code>plink2()</code></a></li>
-  <li><a href="#sec-e2-uvoz" id="toc-sec-e2-uvoz" class="nav-link" data-scroll-target="#sec-e2-uvoz">Uvoz VCF v PLINK</a></li>
+  <li><a href="#sec-e3-vcf" id="toc-sec-e3-vcf" class="nav-link" data-scroll-target="#sec-e3-vcf">Datoteka VCF</a></li>
+  <li><a href="#sec-e3-funkcija" id="toc-sec-e3-funkcija" class="nav-link" data-scroll-target="#sec-e3-funkcija">Funkcija <code>plink2()</code></a></li>
+  <li><a href="#sec-e3-uvoz" id="toc-sec-e3-uvoz" class="nav-link" data-scroll-target="#sec-e3-uvoz">Uvoz VCF v PLINK</a></li>
   </ul></li>
-  <li><a href="#sec-e2-filtriranje" id="toc-sec-e2-filtriranje" class="nav-link" data-scroll-target="#sec-e2-filtriranje">Kontrola kakovosti in filtriranje</a>
+  <li><a href="#sec-e3-filtriranje" id="toc-sec-e3-filtriranje" class="nav-link" data-scroll-target="#sec-e3-filtriranje">Kontrola kakovosti in filtriranje</a>
   <ul class="collapse">
-  <li><a href="#sec-e2-manjkajoci" id="toc-sec-e2-manjkajoci" class="nav-link" data-scroll-target="#sec-e2-manjkajoci">Manjkajoči podatki</a></li>
-  <li><a href="#sec-e2-sorodnost" id="toc-sec-e2-sorodnost" class="nav-link" data-scroll-target="#sec-e2-sorodnost">Sorodnost in podvojeni vzorci (KING)</a></li>
-  <li><a href="#sec-e2-maf" id="toc-sec-e2-maf" class="nav-link" data-scroll-target="#sec-e2-maf">Frekvence alelov (MAF)</a></li>
-  <li><a href="#sec-e2-hwe" id="toc-sec-e2-hwe" class="nav-link" data-scroll-target="#sec-e2-hwe">Hardy-Weinbergovo ravnovesje (HWE)</a></li>
+  <li><a href="#sec-e3-manjkajoci" id="toc-sec-e3-manjkajoci" class="nav-link" data-scroll-target="#sec-e3-manjkajoci">Manjkajoči podatki</a></li>
+  <li><a href="#sec-e3-sorodnost" id="toc-sec-e3-sorodnost" class="nav-link" data-scroll-target="#sec-e3-sorodnost">Sorodnost in podvojeni vzorci (KING)</a></li>
+  <li><a href="#sec-e3-maf" id="toc-sec-e3-maf" class="nav-link" data-scroll-target="#sec-e3-maf">Frekvence alelov (MAF)</a></li>
+  <li><a href="#sec-e3-hwe" id="toc-sec-e3-hwe" class="nav-link" data-scroll-target="#sec-e3-hwe">Hardy-Weinbergovo ravnovesje (HWE)</a></li>
   <li><a href="#filtriranje-po-kromosomu" id="toc-filtriranje-po-kromosomu" class="nav-link" data-scroll-target="#filtriranje-po-kromosomu">Filtriranje po kromosomu</a></li>
-  <li><a href="#sec-e2-ld" id="toc-sec-e2-ld" class="nav-link" data-scroll-target="#sec-e2-ld">Vezavno neravnovesje (LD)</a></li>
+  <li><a href="#sec-e3-ld" id="toc-sec-e3-ld" class="nav-link" data-scroll-target="#sec-e3-ld">Vezavno neravnovesje (LD)</a></li>
   <li><a href="#vse-v-enem-ukazu" id="toc-vse-v-enem-ukazu" class="nav-link" data-scroll-target="#vse-v-enem-ukazu">Vse v enem ukazu</a></li>
   </ul></li>
   <li><a href="#nabor-za-analize-strukture-maf-005" id="toc-nabor-za-analize-strukture-maf-005" class="nav-link" data-scroll-target="#nabor-za-analize-strukture-maf-005">Nabor za analize strukture (MAF ≥ 0,05)</a></li>
-  <li><a href="#sec-e2-statistike" id="toc-sec-e2-statistike" class="nav-link" data-scroll-target="#sec-e2-statistike">Statistike v PLINK-u</a></li>
-  <li><a href="#sec-e2-kaskada" id="toc-sec-e2-kaskada" class="nav-link" data-scroll-target="#sec-e2-kaskada">Kaskada filtriranja in končni nabor</a></li>
-  <li><a href="#sec-e2-naloga" id="toc-sec-e2-naloga" class="nav-link" data-scroll-target="#sec-e2-naloga">Naloge</a></li>
+  <li><a href="#sec-e3-statistike" id="toc-sec-e3-statistike" class="nav-link" data-scroll-target="#sec-e3-statistike">Statistike v PLINK-u</a></li>
+  <li><a href="#sec-e3-kaskada" id="toc-sec-e3-kaskada" class="nav-link" data-scroll-target="#sec-e3-kaskada">Kaskada filtriranja in končni nabor</a></li>
+  <li><a href="#sec-e3-naloga" id="toc-sec-e3-naloga" class="nav-link" data-scroll-target="#sec-e3-naloga">Naloge</a></li>
   <li><a href="#literatura" id="toc-literatura" class="nav-link" data-scroll-target="#literatura">Literatura</a></li>
   </ul>
 </nav>
@@ -308,9 +318,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E2_plink/E2_plink.html"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E3_plink/E3_plink.html"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-E2_plink" class="quarto-section-identifier"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></span></h1>
+<h1 class="title"><span id="sec-E3_plink" class="quarto-section-identifier"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></span></h1>
 </div>
 
 
@@ -333,7 +343,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>🌐 <a href="../E2_plink_EN/E2_plink_EN.html">English version</a></p>
+<p>🌐 <a href="../E3_plink_EN/E3_plink_EN.html">English version</a></p>
 </div>
 </div>
 </div>
@@ -351,8 +361,8 @@ window.Quarto = {
 </ul>
 <p><strong>Biološko vprašanje vaje:</strong> ali so podatki orlov belorepcev (<em>Haliaeetus albicilla</em>) dovolj kakovostni, da lahko primerjamo otoške in celinske ter historične in sodobne populacije? Katere osebke in SNP-je moramo izločiti in zakaj?</p>
 </section>
-<section id="sec-e2-uvod" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-uvod">Uvod v populacijsko genetiko, genetsko raznolikost in SNP-je</h2>
+<section id="sec-e3-uvod" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-uvod">Uvod v populacijsko genetiko, genetsko raznolikost in SNP-je</h2>
 <p>Populacijska genetika preučuje genetske razlike znotraj populacij in med njimi. Zanima jo, kako te razlike nastanejo, kako so porazdeljene in kakšno vlogo imajo v evolucijskih procesih. Ključna področja raziskav so <strong>prilagajanje</strong> (<em>adaptation</em>), <strong>nastanek vrst</strong> (<em>speciation</em>) in <strong>populacijska struktura</strong> (<em>population structure</em>).</p>
 <section id="genetska-raznolikost-temelj-evolucije" class="level3">
 <h3 class="anchored" data-anchor-id="genetska-raznolikost-temelj-evolucije">Genetska raznolikost: temelj evolucije</h3>
@@ -392,7 +402,7 @@ window.Quarto = {
 <li><strong>Pogostejši alel</strong> (<em>major allele</em>): alel z višjo frekvenco v populaciji.</li>
 <li><strong>Redkejši alel</strong> (<em>minor allele</em>): alel z nižjo frekvenco. Njegova frekvenca je <strong>MAF</strong> (<em>minor allele frequency</em>).</li>
 </ul>
-<p>Pri dvoalelnem SNP-ju ima pogostejši alel frekvenco nad 50 %, redkejši pod 50 %. Pri večalelnih mestih to ne velja nujno, zato iz VCF obdržimo samo dvoalelne SNP-je (<a href="#sec-e2-cevovod" class="quarto-xref"><span>Koraki analize SNP-jev</span></a>).</p>
+<p>Pri dvoalelnem SNP-ju ima pogostejši alel frekvenco nad 50 %, redkejši pod 50 %. Pri večalelnih mestih to ne velja nujno, zato iz VCF obdržimo samo dvoalelne SNP-je (<a href="#sec-e3-cevovod" class="quarto-xref"><span>Koraki analize SNP-jev</span></a>).</p>
 <p>Pri datotekah VCF se srečamo še z drugim poimenovanjem: <strong>referenčni alel</strong> (<code>REF</code>) je tisti, ki je v referenčnem genomu, <strong>alternativni alel</strong> (<code>ALT</code>) pa drugi. Referenčni alel ni nujno pogostejši.</p>
 <p>Pri diploidnem organizmu ima osebek na vsakem SNP-ju enega od treh <strong>genotipov</strong>:</p>
 <table class="caption-top table">
@@ -466,16 +476,16 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="sec-e2-cevovod" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-cevovod">Koraki analize SNP-jev</h2>
+<section id="sec-e3-cevovod" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-cevovod">Koraki analize SNP-jev</h2>
 <p>Shema prikazuje korake od odčitkov do končnega, združenega in filtriranega VCF. Po osnovnem QC in preverjanju sorodnosti se pot razcepi na nabor <strong>brez LD čiščenja</strong> in nabor <strong>po LD čiščenju</strong>, ker različne analize potrebujejo različne nabore.</p>
-<div id="fig-e2-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/snp_pipeline_SL.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo."><img src="images/snp_pipeline_SL.png" class="img-fluid figure-img"></a>
+<div aria-describedby="fig-e3-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/snp_pipeline_SL.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;4.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo."><img src="images/snp_pipeline_SL.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo.
 </figcaption>
 </figure>
 </div>
@@ -528,8 +538,8 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </section>
 </section>
 </section>
-<section id="sec-e2-plink" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-plink">PLINK</h2>
+<section id="sec-e3-plink" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-plink">PLINK</h2>
 <p>Pogosto uporabljamo dve različici programa PLINK:</p>
 <ul>
 <li><strong>PLINK 1.9</strong>: <a href="https://www.cog-genomics.org/plink/">priročnik PLINK 1.9</a></li>
@@ -612,7 +622,7 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </tr>
 </tbody>
 </table>
-<p>ZIP razpakirajte in program (samo <code>.exe</code> oziroma izvršljivo datoteko) shranite v mapo <code>podatki</code> (glej <a href="#sec-e2-podatki" class="quarto-xref"><span>Podatki: orel belorepec</span></a>). Na macOS in Linuxu mu dovolite izvajanje z ukazom <code>chmod +x plink plink2</code>.</p>
+<p>ZIP razpakirajte in program (samo <code>.exe</code> oziroma izvršljivo datoteko) shranite v mapo <code>podatki</code> (glej <a href="#sec-e3-podatki" class="quarto-xref"><span>Podatki: orel belorepec</span></a>). Na macOS in Linuxu mu dovolite izvajanje z ukazom <code>chmod +x plink plink2</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -646,7 +656,7 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </tbody>
 </table>
 <p>Oznaka za dvopičjem (<em>tag</em>) je različica programa. Ne uporabljajte oznake <code>latest</code>, ker se s časom spremeni.</p>
-<p><strong>Iz terminala</strong> (WSL, macOS, Linux), v mapi <code>vaja2</code>:</p>
+<p><strong>Iz terminala</strong> (WSL, macOS, Linux), v mapi <code>vaja3</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="st">"</span><span class="va">$PWD</span><span class="st">"</span>:/data <span class="at">-w</span> /data quay.io/biocontainers/plink2:2.0.0a.6.9--h9948957_0 plink2 <span class="at">--version</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><code>--rm</code>: zabojnik se po koncu izbriše,</li>
@@ -668,7 +678,7 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plink_docker</span>(<span class="st">"plink2"</span>, <span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_0"</span>), <span class="st">"--freq"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"frekvence_docker"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Poti do datotek morajo biti <strong>relativne</strong> (<code>rezultati/...</code>), ker zabojnik vidi samo mapo <code>vaja2</code> (kot <code>/data</code>). PLINK v zabojniku je različica za Linux, tudi na Windowsih in macOS.</p>
+<p>Poti do datotek morajo biti <strong>relativne</strong> (<code>rezultati/...</code>), ker zabojnik vidi samo mapo <code>vaja3</code> (kot <code>/data</code>). PLINK v zabojniku je različica za Linux, tudi na Windowsih in macOS.</p>
 </div>
 </div>
 </div>
@@ -684,9 +694,9 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 <div class="callout-body-container callout-body">
 <p>PLINK je nastal za <strong>asociacijske študije na ljudeh</strong> (GWAS; Purcell et al.&nbsp;2007). Podatki so bili genotipi s <strong>SNP-čipov</strong> (<em>SNP arrays</em>): vnaprej izbranih nekaj sto tisoč pogostih SNP-jev, razporejenih po genomu, z zanesljivimi genotipi. Od tod izhaja več predpostavk, ki pri nemodelnih vrstah in podatkih iz sekvenciranja (WGS, RAD) ne veljajo:</p>
 <ol type="1">
-<li><strong>Kromosomi.</strong> PLINK privzeto pozna človeške kromosome 1–22, X, Y, XY in MT. Pri orlu zato potrebujemo <code>--chr-set</code> in <code>--allow-extra-chr</code> (glej <a href="#sec-e2-funkcija" class="quarto-xref"><span>Funkcija plink2()</span></a>).</li>
+<li><strong>Kromosomi.</strong> PLINK privzeto pozna človeške kromosome 1–22, X, Y, XY in MT. Pri orlu zato potrebujemo <code>--chr-set</code> in <code>--allow-extra-chr</code> (glej <a href="#sec-e3-funkcija" class="quarto-xref"><span>Funkcija plink2()</span></a>).</li>
 <li><strong>Samo trdi genotipi</strong> (<em>hard calls</em>). PLINK prebere samo <code>GT</code> (<code>0/0</code>, <code>0/1</code>, <code>1/1</code>). Globino (<code>DP</code>), kakovost (<code>GQ</code>) in verjetnosti genotipov (<code>PL</code>, <code>GL</code>) zavrže. Pri nizki pokritosti in stari DNA so prav te informacije potrebne, da ločimo pravi heterozigot od napake.</li>
-<li><strong>Samo variabilna mesta.</strong> V <code>.bim</code> so samo SNP-ji, nevariabilnih mest ni. Zato π na bazni par, Tajima D in SFS iz PLINK-a niso pravilni (vaja 3).</li>
+<li><strong>Samo variabilna mesta.</strong> V <code>.bim</code> so samo SNP-ji, nevariabilnih mest ni. Zato π na bazni par, Tajima D in SFS iz PLINK-a niso pravilni (vaja 4).</li>
 <li><strong>Privzete vrednosti</strong> parametrov so umerjene na človeške čipe (npr. pri <code>--homozyg</code> in <code>--indep-pairwise</code>).</li>
 </ol>
 <section id="primer-roh-brez-snp-čipa" class="level4">
@@ -926,11 +936,11 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>runPLINK <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">PLINKoptions =</span> <span class="st">""</span>) <span class="fu">system</span>(<span class="fu">paste</span>(<span class="st">"podatki/plink2.exe"</span>, PLINKoptions))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runPLINK</span>(<span class="st">"--bfile rezultati/orel_0 --freq --out rezultati/frekvence"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Funkcija se pojavi v zavihku <strong>Environment</strong>. Pri vajah uporabljamo malo izboljšano različico <code>plink2()</code> (<a href="#sec-e2-funkcija" class="quarto-xref"><span>Funkcija plink2()</span></a>), ki ukaz izpiše, doda nastavitve za kromosome orla, preveri napake in pokaže najpomembnejše vrstice iz dnevnika (<code>.log</code>).</p>
+<p>Funkcija se pojavi v zavihku <strong>Environment</strong>. Pri vajah uporabljamo malo izboljšano različico <code>plink2()</code> (<a href="#sec-e3-funkcija" class="quarto-xref"><span>Funkcija plink2()</span></a>), ki ukaz izpiše, doda nastavitve za kromosome orla, preveri napake in pokaže najpomembnejše vrstice iz dnevnika (<code>.log</code>).</p>
 </section>
 </section>
-<section id="sec-e2-podatki" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-podatki">Podatki: orel belorepec</h2>
+<section id="sec-e3-podatki" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-podatki">Podatki: orel belorepec</h2>
 <p>Uporabljamo podatke iz članka Hansen et al.&nbsp;(2023), <em>Molecular Ecology</em>: celi genomi (WGS) 92 orlov belorepcev z Islandije (IS), Grenlandije (GL), Norveške (NO), Danske (DK), Estonije (ES) in en vzorec iz Turčije (TU). Del vzorcev je <strong>sodobnih</strong> (Con, po letu 1990), del pa <strong>historičnih</strong> (His, muzejski primerki iz obdobja ~1880–1950).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -945,16 +955,16 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 <p>VCF orlov je <strong>že filtriran in LD-pruned</strong> (r² &gt; 0,5). Avtorji so na Dryad naložili samo končni nabor, zato:</p>
 <ul>
 <li>nekaterih filtrov (globina, kakovost genotipa) ne moremo ponoviti od začetka, lahko pa jih <strong>preverimo</strong>,</li>
-<li>v naboru so samo <strong>variabilna mesta</strong>, nekateri vezani SNP-ji pa so že odstranjeni. To bo pomembno pri π, SFS in ROH (vaji 3 in 5).</li>
+<li>v naboru so samo <strong>variabilna mesta</strong>, nekateri vezani SNP-ji pa so že odstranjeni. To bo pomembno pri π, SFS in ROH (vaji 4 in 6).</li>
 </ul>
 <p>Klic variant so naredili z orodjem <strong>GraphTyper2</strong> na referenčnem genomu planinskega orla (<em>Aquila chrysaetos</em>).</p>
 </div>
 </div>
 <section id="mape-in-poti" class="level3">
 <h3 class="anchored" data-anchor-id="mape-in-poti">Mape in poti</h3>
-<p>Z GitHuba prenesite <a href="https://github.com/UrskaGeric/EPG/releases/download/podatki-E2/E2_vaja2_podatki.zip">E2_vaja2_podatki.zip</a> (100 MB) in ga razpakirajte. Dobite mapo <code>vaja2</code> s to <code>.qmd</code> datoteko, slikami in mapo <code>podatki</code>. V mapo <code>podatki</code> dodajte še <code>plink.exe</code> in <code>plink2.exe</code> ter odprite <code>E2_plink.qmd</code> v RStudiu. Struktura mora biti:</p>
-<pre class="text"><code>vaja2/
-├── E2_plink.qmd
+<p>Z GitHuba prenesite <a href="https://github.com/UrskaGeric/EPG/releases/download/podatki-E3/E3_vaja3_podatki.zip">E3_vaja3_podatki.zip</a> (100 MB) in ga razpakirajte. Dobite mapo <code>vaja3</code> s to <code>.qmd</code> datoteko, slikami in mapo <code>podatki</code>. V mapo <code>podatki</code> dodajte še <code>plink.exe</code> in <code>plink2.exe</code> ter odprite <code>E3_plink.qmd</code> v RStudiu. Struktura mora biti:</p>
+<pre class="text"><code>vaja3/
+├── E3_plink.qmd
 ├── images/                   # slike
 ├── podatki/
 │   ├── eagle.vcf.gz          # genotipi (VCF, stisnjen)
@@ -1076,8 +1086,8 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </div>
 </div>
 </section>
-<section id="sec-e2-vcf" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-vcf">Datoteka VCF</h3>
+<section id="sec-e3-vcf" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-vcf">Datoteka VCF</h3>
 <p>VCF je besedilna datoteka z dvema deloma: <strong>glava</strong> (vrstice z <code>##</code>) opisuje vsebino, sledi <strong>tabela</strong> z eno vrstico na varianto. Nestisnjena datoteka ima 588 MB, zato je ne odpremo v celoti, ampak preberemo samo začetek.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>zacetek <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="fu">gzfile</span>(vcf_pot), <span class="at">n =</span> <span class="dv">300</span>)   <span class="co"># glava ima približno 220 vrstic</span></span>
@@ -1237,8 +1247,8 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </div>
 </div>
 </section>
-<section id="sec-e2-funkcija" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-funkcija">Funkcija <code>plink2()</code></h3>
+<section id="sec-e3-funkcija" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-funkcija">Funkcija <code>plink2()</code></h3>
 <p>Funkcija sestavi ukaz, ga izpiše, požene in pokaže najpomembnejše vrstice iz dnevnika (<code>.log</code>). Doda tudi <code>--chr-set 26 no-x no-y no-xy no-mt</code>, ker ima orel 26 avtosomov. Brez tega bi PLINK kromosome 23–26 razumel kot človeške X, Y, XY in MT. Funkcija <code>plink19()</code> naredi isto s PLINK 1.9 (ukaz <code>--chr-set</code> pozna tudi PLINK 1.9).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plink2 <span class="ot">&lt;-</span> <span class="cf">function</span>(..., <span class="at">izpis =</span> <span class="cn">TRUE</span>, <span class="at">pot =</span> plink2_pot) {</span>
@@ -1279,8 +1289,8 @@ Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </div>
 </div>
 </section>
-<section id="sec-e2-uvoz" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-uvoz">Uvoz VCF v PLINK</h3>
+<section id="sec-e3-uvoz" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-uvoz">Uvoz VCF v PLINK</h3>
 <p>Iz VCF obdržimo samo <strong>dvoalelne SNP-je</strong> (<code>--snps-only just-acgt</code>, <code>--max-alleles 2</code>), kot smo opisali zgoraj. Vsaki varianti damo ID <code>kromosom:položaj</code> (<code>--set-all-var-ids @:#</code>). Imena kromosomov v VCF (<code>LR606181.1</code>) niso števila, zato potrebujemo <code>--allow-extra-chr</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dnevnik_uvoz <span class="ot">&lt;-</span> <span class="fu">plink2</span>(<span class="st">"--vcf"</span>, vcf_pot,</span>
@@ -1353,13 +1363,13 @@ rezultati/orel_0-temporary.psam written.
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Kromosom"</span>, <span class="at">y =</span> <span class="st">"Število SNP-jev"</span>) <span class="sc">+</span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-snp-po-kromosomih" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-snp-po-kromosomih" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-snp-po-kromosomih-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-snp-po-kromosomih-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev."><img src="E2_plink_files/figure-html/fig-e2-snp-po-kromosomih-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-snp-po-kromosomih-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-snp-po-kromosomih-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;4.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev."><img src="E3_plink_files/figure-html/fig-e3-snp-po-kromosomih-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-snp-po-kromosomih-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-snp-po-kromosomih-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev.
 </figcaption>
 </figure>
 </div>
@@ -1367,8 +1377,8 @@ Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP
 </div>
 </section>
 </section>
-<section id="sec-e2-filtriranje" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-filtriranje">Kontrola kakovosti in filtriranje</h2>
+<section id="sec-e3-filtriranje" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-filtriranje">Kontrola kakovosti in filtriranje</h2>
 <p>Pri filtriranju z ukazi PLINK odstranimo osebke in SNP-je slabe kakovosti. Pri vsakem filtru najprej <strong>pogledamo porazdelitev</strong>, nato izberemo mejo in jo utemeljimo. Pregled filtrov:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1401,7 +1411,7 @@ Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP
 </tr>
 <tr class="even">
 <td>Hardy-Weinbergovo ravnovesje</td>
-<td><code>--hwe 1e-6</code> (samo znotraj populacij, <a href="#sec-e2-hwe" class="quarto-xref"><span>Hardy-Weinbergovo ravnovesje (HWE)</span></a>)</td>
+<td><code>--hwe 1e-6</code> (samo znotraj populacij, <a href="#sec-e3-hwe" class="quarto-xref"><span>Hardy-Weinbergovo ravnovesje (HWE)</span></a>)</td>
 <td>SNP-je, ki močno odstopajo od HWE</td>
 </tr>
 <tr class="odd">
@@ -1422,8 +1432,8 @@ Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP
 </tbody>
 </table>
 <p>Vrednosti v tabeli so pogoste privzete vrednosti. Pri orlih bomo nekatere prilagodili podatkom.</p>
-<section id="sec-e2-manjkajoci" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-manjkajoci">Manjkajoči podatki</h3>
+<section id="sec-e3-manjkajoci" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-manjkajoci">Manjkajoči podatki</h3>
 <p>Manjkajoče genotipe preštejemo na ravni <strong>osebkov</strong> (<code>.smiss</code>) in <strong>SNP-jev</strong> (<code>.vmiss</code>). Hkrati s <code>--sample-counts</code> preštejemo homozigote, heterozigote, tranzicije in transverzije za vsak osebek.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_0"</span>), <span class="st">"--missing"</span>, <span class="st">"--sample-counts"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"orel_0"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1456,13 +1466,13 @@ Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-miss-osebki" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-miss-osebki" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-miss-osebki-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za --mind."><img src="E2_plink_files/figure-html/fig-e2-miss-osebki-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-miss-osebki-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;4.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za --mind."><img src="E3_plink_files/figure-html/fig-e3-miss-osebki-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za <code>--mind</code>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za <code>--mind</code>.
 </figcaption>
 </figure>
 </div>
@@ -1525,13 +1535,13 @@ Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so mož
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Frac._missing_SNPs / 1000 (tabela S1)"</span>, <span class="at">y =</span> <span class="st">"F_MISS (PLINK)"</span>, <span class="at">colour =</span> <span class="st">"Država"</span>, <span class="at">shape =</span> <span class="st">"Obdobje"</span>) <span class="sc">+</span></span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-miss-clanek" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-miss-clanek" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-miss-clanek-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;3.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x."><img src="E2_plink_files/figure-html/fig-e2-miss-clanek-1.png" class="img-fluid figure-img" width="480"></a>
+<div aria-describedby="fig-e3-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-miss-clanek-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;4.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x."><img src="E3_plink_files/figure-html/fig-e3-miss-clanek-1.png" class="img-fluid figure-img" width="480"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x.
 </figcaption>
 </figure>
 </div>
@@ -1613,7 +1623,7 @@ Slika&nbsp;3.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) 
 </table>
 </div>
 </div>
-<p>Izberemo <strong><code>--mind 0.8</code></strong>: odstranimo samo osebke, ki imajo več kot 80 % manjkajočih genotipov, in ohranimo večino historičnih vzorcev, ki so ključni za primerjavo historičnih in sodobnih populacij. Pri vsaki nadaljnji analizi pa bomo preverili, ali se osebki z veliko manjkajočimi podatki obnašajo drugače (npr. na PCA v vaji 4).</p>
+<p>Izberemo <strong><code>--mind 0.8</code></strong>: odstranimo samo osebke, ki imajo več kot 80 % manjkajočih genotipov, in ohranimo večino historičnih vzorcev, ki so ključni za primerjavo historičnih in sodobnih populacij. Pri vsaki nadaljnji analizi pa bomo preverili, ali se osebki z veliko manjkajočimi podatki obnašajo drugače (npr. na PCA v vaji 5).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_0"</span>), <span class="st">"--mind"</span>, <span class="st">"0.8"</span>, <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"orel_1_mind"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1626,57 +1636,57 @@ IDs written to rezultati/orel_1_mind.mindrem.id .
 </div>
 </div>
 </section>
-<section id="sec-e2-stara-dna" class="level4">
-<h4 class="anchored" data-anchor-id="sec-e2-stara-dna">Stara DNA: kaj se zgodi z molekulo DNA</h4>
-<p><strong>Stara DNA</strong> (<em>ancient DNA</em>, aDNA) ni določena s starostjo vzorca, ampak z njegovim stanjem: to je vsaka DNA iz neživega vira, ki kaže znake razgradnje. Med staro DNA zato sodijo tudi naši muzejski orli, stari približno 100 let. Po smrti organizma se popravljanje DNA ustavi in molekula začne razpadati (<a href="#fig-e2-poskodbe" class="quarto-xref">Slika&nbsp;<span>3.5</span></a>):</p>
+<section id="sec-e3-stara-dna" class="level4">
+<h4 class="anchored" data-anchor-id="sec-e3-stara-dna">Stara DNA: kaj se zgodi z molekulo DNA</h4>
+<p><strong>Stara DNA</strong> (<em>ancient DNA</em>, aDNA) ni določena s starostjo vzorca, ampak z njegovim stanjem: to je vsaka DNA iz neživega vira, ki kaže znake razgradnje. Med staro DNA zato sodijo tudi naši muzejski orli, stari približno 100 let. Po smrti organizma se popravljanje DNA ustavi in molekula začne razpadati (<a href="#fig-e3-poskodbe" class="quarto-xref">Slika&nbsp;<span>4.5</span></a>):</p>
 <ol type="1">
 <li><strong>Depurinacija</strong> (<em>depurination</em>): z verige odpade purinska baza (A ali G), ostane mesto brez baze.</li>
 <li><strong>Zareze</strong> (<em>nicks</em>): na mestu brez baze se veriga prekine.</li>
 <li><strong>Razpad na kratke fragmente</strong> (<em>fragmentation</em>): kadar sta zarezi na nasprotnih verigah blizu skupaj, molekula razpade. Na koncih ostanejo kratki <strong>enoverižni previsi</strong> (<em>overhangs</em>), največkrat dolgi en ali dva nukleotida. Stara DNA je zato zelo kratka, v povprečju le <strong>30 do 50 bp</strong>.</li>
-<li><strong>Deaminacija citozina</strong> (<em>cytosine deamination</em>): citozin izgubi aminsko skupino in postane uracil (<a href="#fig-e2-deaminacija" class="quarto-xref">Slika&nbsp;<span>3.6</span></a>). V enoverižni DNA je deaminacija <strong>več kot 100-krat hitrejša</strong> kot v dvoverižni, zato se poškodbe zbirajo prav na <strong>koncih fragmentov</strong>.</li>
+<li><strong>Deaminacija citozina</strong> (<em>cytosine deamination</em>): citozin izgubi aminsko skupino in postane uracil (<a href="#fig-e3-deaminacija" class="quarto-xref">Slika&nbsp;<span>4.6</span></a>). V enoverižni DNA je deaminacija <strong>več kot 100-krat hitrejša</strong> kot v dvoverižni, zato se poškodbe zbirajo prav na <strong>koncih fragmentov</strong>.</li>
 </ol>
-<div id="fig-e2-poskodbe" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-poskodbe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-poskodbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;3.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<div aria-describedby="fig-e3-poskodbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;4.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-poskodbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-poskodbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
 <p>Pri deaminaciji citozin postane uracil, ki ga polimeraza prebere kot timin. Metilirani citozin (5-metilcitozin) se z deaminacijo spremeni neposredno v timin.</p>
-<div id="fig-e2-deaminacija" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-deaminacija" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;3.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: Introduction to Ancient Metagenomics (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<div aria-describedby="fig-e3-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;4.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: Introduction to Ancient Metagenomics (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
-<p>Kaj se zgodi pri pomnoževanju in branju takšne molekule, kaže <a href="#fig-e2-napacna-vgradnja" class="quarto-xref">Slika&nbsp;<span>3.7</span></a>. Nasproti uracila polimeraza vgradi adenin namesto gvanina, zato v zaporedju vidimo <strong>C → T</strong> (oziroma <strong>G → A</strong> na nasprotni verigi), čeprav je bil v živem orlu na tem mestu citozin. Kjer je veriga prekinjena, polimeraza na konec doda adenin, ki ga v originalu ni bilo, in ta se lahko prenese v končno zaporedje.</p>
-<div id="fig-e2-napacna-vgradnja" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>Kaj se zgodi pri pomnoževanju in branju takšne molekule, kaže <a href="#fig-e3-napacna-vgradnja" class="quarto-xref">Slika&nbsp;<span>4.7</span></a>. Nasproti uracila polimeraza vgradi adenin namesto gvanina, zato v zaporedju vidimo <strong>C → T</strong> (oziroma <strong>G → A</strong> na nasprotni verigi), čeprav je bil v živem orlu na tem mestu citozin. Kjer je veriga prekinjena, polimeraza na konec doda adenin, ki ga v originalu ni bilo, in ta se lahko prenese v končno zaporedje.</p>
+<div id="fig-e3-napacna-vgradnja" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-napacna-vgradnja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;3.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
+<div aria-describedby="fig-e3-napacna-vgradnja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;4.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-napacna-vgradnja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-napacna-vgradnja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
 </figcaption>
 </figure>
 </div>
 <section id="kako-poškodbe-prepoznamo" class="level5">
 <h5 class="anchored" data-anchor-id="kako-poškodbe-prepoznamo">Kako poškodbe prepoznamo</h5>
-<p>Ker so poškodbe zbrane na koncih fragmentov, je pri pravi stari DNA delež zamenjav <strong>C → T največji na začetku (5’) odčitka</strong> in delež <strong>G → A največji na koncu (3’)</strong>. Ta vzorec preverimo na poravnanih odčitkih s programi, kot sta <strong>mapDamage</strong> in <strong>DamageProfiler</strong> (potrebujemo več kot približno 1000 poravnanih odčitkov). Oblika krivulje pove, ali je DNA res stara in kako je bila knjižnica pripravljena (<a href="#fig-e2-vzorci-poskodb" class="quarto-xref">Slika&nbsp;<span>3.8</span></a>).</p>
-<div id="fig-e2-vzorci-poskodb" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>Ker so poškodbe zbrane na koncih fragmentov, je pri pravi stari DNA delež zamenjav <strong>C → T največji na začetku (5’) odčitka</strong> in delež <strong>G → A največji na koncu (3’)</strong>. Ta vzorec preverimo na poravnanih odčitkih s programi, kot sta <strong>mapDamage</strong> in <strong>DamageProfiler</strong> (potrebujemo več kot približno 1000 poravnanih odčitkov). Oblika krivulje pove, ali je DNA res stara in kako je bila knjižnica pripravljena (<a href="#fig-e3-vzorci-poskodb" class="quarto-xref">Slika&nbsp;<span>4.8</span></a>).</p>
+<div id="fig-e3-vzorci-poskodb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-vzorci-poskodb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;3.8: Vzorci poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5’ do 3’ konca): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Vir: Introduction to Ancient Metagenomics (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<div aria-describedby="fig-e3-vzorci-poskodb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;4.8: Vzorci poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5’ do 3’ konca): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Vir: Introduction to Ancient Metagenomics (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-vzorci-poskodb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.8: Vzorci poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5’ do 3’ konca): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-vzorci-poskodb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.8: Vzorci poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5’ do 3’ konca): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0.
 </figcaption>
 </figure>
 </div>
@@ -1705,13 +1715,13 @@ Slika&nbsp;3.8: Vzorci poškodb na odčitkih (rdeče C → T, modro G → A, po 
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">colour =</span> <span class="st">"Država"</span>) <span class="sc">+</span></span>
 <span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-tstv" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-tstv" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-tstv-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;3.9: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih."><img src="E2_plink_files/figure-html/fig-e2-tstv-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-tstv-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;4.9: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih."><img src="E3_plink_files/figure-html/fig-e3-tstv-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.9: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.9: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih.
 </figcaption>
 </figure>
 </div>
@@ -1754,13 +1764,13 @@ Slika&nbsp;3.9: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih.
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Delež manjkajočih genotipov"</span>, <span class="at">y =</span> <span class="st">"Heterozigotnost"</span>, <span class="at">colour =</span> <span class="st">"Država"</span>, <span class="at">shape =</span> <span class="st">"Obdobje"</span>) <span class="sc">+</span></span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-het-miss" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-het-miss" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-het-miss-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;3.10: Heterozigotnost proti deležu manjkajočih genotipov."><img src="E2_plink_files/figure-html/fig-e2-het-miss-1.png" class="img-fluid figure-img" width="576"></a>
+<div aria-describedby="fig-e3-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-het-miss-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;4.10: Heterozigotnost proti deležu manjkajočih genotipov."><img src="E3_plink_files/figure-html/fig-e3-het-miss-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.10: Heterozigotnost proti deležu manjkajočih genotipov.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.10: Heterozigotnost proti deležu manjkajočih genotipov.
 </figcaption>
 </figure>
 </div>
@@ -1789,7 +1799,7 @@ Slika&nbsp;3.10: Heterozigotnost proti deležu manjkajočih genotipov.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Pri historičnih vzorcih je vsak rezultat lahko mešanica biologije in tehnike (manj podatkov, poškodbe, napake genotipizacije). V praksi poškodbe preverimo že na odčitkih (npr. <strong>mapDamage</strong>) in jih pred klicem variant odstranimo. Ena od možnosti je tudi analiza <strong>samo s transverzijami</strong>, na katere deaminacija ne vpliva. To bomo poskusili pri PCA v vaji 4.</p>
+<p>Pri historičnih vzorcih je vsak rezultat lahko mešanica biologije in tehnike (manj podatkov, poškodbe, napake genotipizacije). V praksi poškodbe preverimo že na odčitkih (npr. <strong>mapDamage</strong>) in jih pred klicem variant odstranimo. Ena od možnosti je tudi analiza <strong>samo s transverzijami</strong>, na katere deaminacija ne vpliva. To bomo poskusili pri PCA v vaji 5.</p>
 </div>
 </div>
 </section>
@@ -1814,13 +1824,13 @@ Slika&nbsp;3.10: Heterozigotnost proti deležu manjkajočih genotipov.
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Delež manjkajočih genotipov na SNP"</span>, <span class="at">y =</span> <span class="st">"Število SNP-jev"</span>) <span class="sc">+</span></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-miss-snp" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-miss-snp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-miss-snp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;3.11: Delež manjkajočih genotipov po SNP-jih (po --mind 0.8)."><img src="E2_plink_files/figure-html/fig-e2-miss-snp-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-miss-snp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;4.11: Delež manjkajočih genotipov po SNP-jih (po --mind 0.8)."><img src="E3_plink_files/figure-html/fig-e3-miss-snp-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.11: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</code>).
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.11: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</code>).
 </figcaption>
 </figure>
 </div>
@@ -1885,8 +1895,8 @@ Slika&nbsp;3.11: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</
 </div>
 </section>
 </section>
-<section id="sec-e2-sorodnost" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-sorodnost">Sorodnost in podvojeni vzorci (KING)</h3>
+<section id="sec-e3-sorodnost" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-sorodnost">Sorodnost in podvojeni vzorci (KING)</h3>
 <p>Sorodni osebki v vzorcu povzročajo težave: precenijo frekvence alelov v družini, pri analizah strukture (PCA, ADMIXTURE) pa lahko ustvarijo lažne skupine. Podvojeni vzorci (isti osebek dvakrat) so napaka, ki jo moramo odstraniti.</p>
 <section id="cenilka-sorodnosti-king-robust" class="level4">
 <h4 class="anchored" data-anchor-id="cenilka-sorodnosti-king-robust">Cenilka sorodnosti KING-robust</h4>
@@ -2020,13 +2030,13 @@ Results written to rezultati/orel_2_geno.kin0 .</code></pre>
 <span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">4</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-king-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-king-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-king-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-king-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;3.12: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah."><img src="E2_plink_files/figure-html/fig-e2-king-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
+<div aria-describedby="fig-e3-king-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-king-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;4.12: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah."><img src="E3_plink_files/figure-html/fig-e3-king-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.12: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-king-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.12: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah.
 </figcaption>
 </figure>
 </div>
@@ -2041,13 +2051,13 @@ Slika&nbsp;3.12: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah.
 <span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">4</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-ibs-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-ibs-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-ibs-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-ibs-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;3.13: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke."><img src="E2_plink_files/figure-html/fig-e2-ibs-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
+<div aria-describedby="fig-e3-ibs-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-ibs-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;4.13: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke."><img src="E3_plink_files/figure-html/fig-e3-ibs-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ibs-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.13: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-ibs-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.13: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke.
 </figcaption>
 </figure>
 </div>
@@ -2094,13 +2104,13 @@ Slika&nbsp;3.13: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne o
 <span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"IBS0"</span>, <span class="at">y =</span> <span class="st">"KING kinship"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-king" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-king" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-king-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;3.14: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti."><img src="E2_plink_files/figure-html/fig-e2-king-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-king-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;4.14: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti."><img src="E3_plink_files/figure-html/fig-e3-king-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.14: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.14: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti.
 </figcaption>
 </figure>
 </div>
@@ -2366,7 +2376,7 @@ Slika&nbsp;3.14: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte s
 </table>
 </div>
 </div>
-<p>Par K7–K8 (isti kraj in leto) v tabeli manjka, ker smo K8 že odstranili s <code>--mind 0.8</code>. Iz vsakega para podvojenih vzorcev odstranimo tistega z <strong>več manjkajočimi podatki</strong>. Sorodnike 1. stopnje (mladiče iz istega gnezda) zaenkrat obdržimo in jih zapišemo v datoteko, da jih lahko v vajah 3–5 po potrebi odstranimo.</p>
+<p>Par K7–K8 (isti kraj in leto) v tabeli manjka, ker smo K8 že odstranili s <code>--mind 0.8</code>. Iz vsakega para podvojenih vzorcev odstranimo tistega z <strong>več manjkajočimi podatki</strong>. Sorodnike 1. stopnje (mladiče iz istega gnezda) zaenkrat obdržimo in jih zapišemo v datoteko, da jih lahko v vajah 4–6 po potrebi odstranimo.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>miss_2 <span class="ot">&lt;-</span> osebki <span class="sc">|&gt;</span> <span class="fu">select</span>(vcf_id, f_miss)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2399,8 +2409,8 @@ Slika&nbsp;3.14: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte s
 </div>
 </section>
 </section>
-<section id="sec-e2-maf" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-maf">Frekvence alelov (MAF)</h3>
+<section id="sec-e3-maf" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-maf">Frekvence alelov (MAF)</h3>
 <p><strong>MAF</strong> (<em>minor allele frequency</em>) je frekvenca redkejšega alela na SNP-ju. Redki aleli (MAF &lt; 1–5 %) so pogosto napake sekvenciranja, hkrati pa nosijo informacijo o nedavnih mutacijah in demografiji. Filter MAF zato uporabimo <strong>glede na analizo</strong>:</p>
 <ul>
 <li><strong>PCA, DAPC, ADMIXTURE</strong>: redke alele običajno odstranimo (<code>--maf 0.05</code>), ker k strukturi prispevajo malo, šum pa povečajo,</li>
@@ -2616,13 +2626,13 @@ Slika&nbsp;3.14: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte s
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"MAF"</span>, <span class="at">y =</span> <span class="st">"Število SNP-jev"</span>) <span class="sc">+</span></span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-maf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-maf" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-maf-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;3.15: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05."><img src="E2_plink_files/figure-html/fig-e2-maf-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-maf-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;4.15: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05."><img src="E3_plink_files/figure-html/fig-e3-maf-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.15: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.15: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
 </figcaption>
 </figure>
 </div>
@@ -2684,8 +2694,8 @@ Slika&nbsp;3.15: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
 </div>
 </div>
 </section>
-<section id="sec-e2-hwe" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-hwe">Hardy-Weinbergovo ravnovesje (HWE)</h3>
+<section id="sec-e3-hwe" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-hwe">Hardy-Weinbergovo ravnovesje (HWE)</h3>
 <p>V idealni populaciji (naključno parjenje, brez selekcije, migracije in mutacij, velika populacija) so frekvence genotipov <span class="math inline">\(p^2\)</span>, <span class="math inline">\(2pq\)</span> in <span class="math inline">\(q^2\)</span>. Odstopanja od HWE so lahko <strong>tehnična</strong> (napake genotipizacije, paralogi, ki dajo preveč heterozigotov) ali <strong>biološka</strong> (inbriding, selekcija, populacijska struktura).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_3_brez_duplikatov"</span>), <span class="st">"--hardy"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"hwe_vsi"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2780,13 +2790,13 @@ Slika&nbsp;3.15: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
 <span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Kromosom"</span>, <span class="at">y =</span> <span class="st">"Heterozigotnost"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-ho-he" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-ho-he" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-ho-he-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;3.16: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj."><img src="E2_plink_files/figure-html/fig-e2-ho-he-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-ho-he-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;4.16: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj."><img src="E3_plink_files/figure-html/fig-e3-ho-he-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.16: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.16: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj.
 </figcaption>
 </figure>
 </div>
@@ -2795,7 +2805,7 @@ Slika&nbsp;3.16: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost p
 <p>Če je <strong>opažena heterozigotnost nižja od pričakovane</strong> (Ho &lt; He), imamo manj heterozigotov, kot bi jih pričakovali pri naključnem parjenju. Vzrok je lahko <strong>parjenje v sorodstvu</strong> (inbriding) ali <strong>populacijska struktura</strong>. Če je Ho &gt; He, imamo presežek heterozigotov (npr. mešanje populacij ali tehnične napake, kot so paralogi).</p>
 <section id="wahlundov-učinek" class="level4">
 <h4 class="anchored" data-anchor-id="wahlundov-učinek">Wahlundov učinek</h4>
-<p>Če združimo več populacij z različnimi frekvencami alelov, opazimo <strong>primanjkljaj heterozigotov</strong>, čeprav je vsaka populacija v ravnovesju. Temu pravimo <strong>Wahlundov učinek</strong>. Preverimo ga tako, da HWE izračunamo še posebej za dve sodobni populaciji. Test HWE ima smisel samo za SNP-je, ki so v skupini polimorfni, zato monomorfne izločimo.</p>
+<p>Če združimo več populacij z različnimi frekvencami alelov, opazimo <strong>primanjkljaj heterozigotov</strong>, čeprav je vsaka populacija v ravnovesju. Temu pravimo <strong>Wahlundov učinek</strong> (s simulacijo smo ga spoznali v vaji 2). Preverimo ga tako, da HWE izračunamo še posebej za dve sodobni populaciji. Test HWE ima smisel samo za SNP-je, ki so v skupini polimorfni, zato monomorfne izločimo.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (skupina <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"IS_Con"</span>, <span class="st">"NO_Con"</span>)) {</span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(skupina, <span class="fu">r</span>(<span class="fu">paste0</span>(skupina, <span class="st">".txt"</span>)))</span>
@@ -2824,13 +2834,13 @@ plink2 --bfile rezultati/orel_3_brez_duplikatov --keep-fam rezultati/NO_Con.txt 
 <span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"F = 1 − Ho/He"</span>, <span class="at">y =</span> <span class="st">"Gostota"</span>, <span class="at">colour =</span> <span class="st">"Skupina"</span>, <span class="at">fill =</span> <span class="st">"Skupina"</span>) <span class="sc">+</span></span>
 <span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-e2-hwe" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-e3-hwe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-hwe-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Slika&nbsp;3.17: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek)."><img src="E2_plink_files/figure-html/fig-e2-hwe-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-e3-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="E3_plink_files/figure-html/fig-e3-hwe-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Slika&nbsp;4.17: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek)."><img src="E3_plink_files/figure-html/fig-e3-hwe-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.17: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek).
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4.17: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek).
 </figcaption>
 </figure>
 </div>
@@ -2912,8 +2922,8 @@ Slika&nbsp;3.17: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP
 </div>
 <p>Pozor: za nadaljnje filtriranje uporabimo <strong>cel nabor</strong>, ne samo kromosoma 1.</p>
 </section>
-<section id="sec-e2-ld" class="level3">
-<h3 class="anchored" data-anchor-id="sec-e2-ld">Vezavno neravnovesje (LD)</h3>
+<section id="sec-e3-ld" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e3-ld">Vezavno neravnovesje (LD)</h3>
 <p>SNP-ji, ki ležijo blizu skupaj, se dedujejo skupaj in nosijo podobno informacijo (<strong>vezavno neravnovesje</strong>, <em>linkage disequilibrium</em>, LD). Za PCA in ADMIXTURE, ki predpostavljata neodvisne SNP-je, zato odstranimo enega iz vsakega para z visokim r² (<strong>LD pruning</strong>).</p>
 <p>Ukaz <code>--indep-pairwise 50 5 0.2</code> pregleda okna po 50 SNP-jev, okno premakne za 5 SNP-jev in iz vsakega para z r² &gt; 0,2 odstrani enega.</p>
 <div class="cell">
@@ -2944,9 +2954,9 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 <p>Naš VCF je <strong>že pruned</strong> pri r² 0,5. Dodatni pruning pri r² 0,2 bi odstranil še veliko SNP-jev, deloma tudi zato, ker r² računamo na vseh populacijah skupaj (populacijska struktura sama poveča LD). Zato ga ne uporabimo in ostanemo pri naboru avtorjev. Za analize, ki potrebujejo <strong>vse</strong> SNP-je (ROH, LD decay, π v oknih), bi v praksi uporabili <strong>nepruned</strong> nabor.</p>
 </div>
 </div>
-<section id="sec-e2-razmislite-ld" class="level4">
-<h4 class="anchored" data-anchor-id="sec-e2-razmislite-ld">Razmislite: kje se pozna LD pruning?</h4>
-<p>Shema (<a href="#fig-e2-pipeline" class="quarto-xref">Slika&nbsp;<span>3.1</span></a>) se po osnovnem QC in sorodnosti razcepi na dva nabora: <strong>brez LD čiščenja</strong> in <strong>po LD čiščenju</strong>. Naši podatki so samo na desni veji. Preden jih uporabimo za analize v vajah 3–5, premislite, kje bo to vplivalo na rezultat.</p>
+<section id="sec-e3-razmislite-ld" class="level4">
+<h4 class="anchored" data-anchor-id="sec-e3-razmislite-ld">Razmislite: kje se pozna LD pruning?</h4>
+<p>Shema (<a href="#fig-e3-pipeline" class="quarto-xref">Slika&nbsp;<span>4.1</span></a>) se po osnovnem QC in sorodnosti razcepi na dva nabora: <strong>brez LD čiščenja</strong> in <strong>po LD čiščenju</strong>. Naši podatki so samo na desni veji. Preden jih uporabimo za analize v vajah 4–6, premislite, kje bo to vplivalo na rezultat.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2970,43 +2980,43 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 <tbody>
 <tr class="odd">
 <td>PCA, DAPC, ADMIXTURE</td>
-<td>4</td>
+<td>5</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>sorodnost (KING)</td>
-<td>2</td>
+<td>3</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>Ho, He, F<sub>IS</sub></td>
-<td>3</td>
+<td>4</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>globalni F<sub>ST</sub> med populacijami</td>
-<td>3</td>
+<td>5</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>F<sub>ST</sub> v oknih vzdolž genoma</td>
-<td>3</td>
+<td>5</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>π v oknih, Tajima D, SFS</td>
-<td>3</td>
+<td>4</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>ROH in F<sub>ROH</sub></td>
-<td>5</td>
+<td>6</td>
 <td></td>
 <td></td>
 </tr>
@@ -3037,7 +3047,7 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Hansen et al.&nbsp;(2023) so F<sub>ST</sub> računali na pruned naboru. Ali bi se globalni F<sub>ST</sub> med Islandijo in Norveško bistveno spremenil, če bi uporabili vse SNP-je? Kaj pa, če bi uporabili <code>--maf 0.05</code>? Zakaj je pri F<sub>IS</sub> in F<sub>H</sub> (<code>plink --het</code>) pomembno, iz katerih osebkov izračunamo frekvence alelov? (Namig: Wahlundov učinek v <a href="#sec-e2-hwe" class="quarto-xref"><span>Hardy-Weinbergovo ravnovesje (HWE)</span></a>.)</p>
+<p>Hansen et al.&nbsp;(2023) so F<sub>ST</sub> računali na pruned naboru. Ali bi se globalni F<sub>ST</sub> med Islandijo in Norveško bistveno spremenil, če bi uporabili vse SNP-je? Kaj pa, če bi uporabili <code>--maf 0.05</code>? Zakaj je pri F<sub>IS</sub> in F<sub>H</sub> (<code>plink --het</code>) pomembno, iz katerih osebkov izračunamo frekvence alelov? (Namig: Wahlundov učinek v <a href="#sec-e3-hwe" class="quarto-xref"><span>Hardy-Weinbergovo ravnovesje (HWE)</span></a>.)</p>
 </div>
 </div>
 </section>
@@ -3049,10 +3059,10 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 <span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./plink2.exe</span> <span class="at">--bfile</span> orel_filtri <span class="at">--indep-pairwise</span> 50 5 0.2 <span class="at">--out</span> orel_ld</span>
 <span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./plink2.exe</span> <span class="at">--bfile</span> orel_filtri <span class="at">--extract</span> orel_ld.prune.in <span class="at">--make-bed</span> <span class="at">--out</span> orel_ld_pruned</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li><code>--hwe</code> smo izpustili, ker ga na združenih populacijah ne uporabimo (<a href="#sec-e2-hwe" class="quarto-xref"><span>Hardy-Weinbergovo ravnovesje (HWE)</span></a>).</li>
+<li><code>--hwe</code> smo izpustili, ker ga na združenih populacijah ne uporabimo (<a href="#sec-e3-hwe" class="quarto-xref"><span>Hardy-Weinbergovo ravnovesje (HWE)</span></a>).</li>
 <li><code>--indep-pairwise</code> SNP-jev <strong>ne odstrani</strong>, ampak samo zapiše seznam (<code>.prune.in</code>, <code>.prune.out</code>). Odstranimo jih šele z <code>--extract</code>.</li>
 </ul>
-<p>Pri vajah smo filtrirali <strong>po korakih</strong>, ker tako vidimo, koliko osebkov in SNP-jev izgubimo pri vsakem filtru (<a href="#sec-e2-kaskada" class="quarto-xref"><span>Kaskada filtriranja in končni nabor</span></a>).</p>
+<p>Pri vajah smo filtrirali <strong>po korakih</strong>, ker tako vidimo, koliko osebkov in SNP-jev izgubimo pri vsakem filtru (<a href="#sec-e3-kaskada" class="quarto-xref"><span>Kaskada filtriranja in končni nabor</span></a>).</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -3070,7 +3080,7 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 </section>
 <section id="nabor-za-analize-strukture-maf-005" class="level2">
 <h2 class="anchored" data-anchor-id="nabor-za-analize-strukture-maf-005">Nabor za analize strukture (MAF ≥ 0,05)</h2>
-<p>Za analize populacijske strukture v vaji 4 (PCA, DAPC, ADMIXTURE) pripravimo še nabor brez redkih alelov (MAF ≥ 0,05, <a href="#sec-e2-maf" class="quarto-xref"><span>Frekvence alelov (MAF)</span></a>).</p>
+<p>Za analize populacijske strukture v vaji 5 (PCA, DAPC, ADMIXTURE) pripravimo še nabor brez redkih alelov (MAF ≥ 0,05, <a href="#sec-e3-maf" class="quarto-xref"><span>Frekvence alelov (MAF)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_3_brez_duplikatov"</span>), <span class="st">"--maf"</span>, <span class="st">"0.05"</span>,</span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"orel_4_maf05"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -3083,8 +3093,8 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 </div>
 </div>
 </section>
-<section id="sec-e2-statistike" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-statistike">Statistike v PLINK-u</h2>
+<section id="sec-e3-statistike" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-statistike">Statistike v PLINK-u</h2>
 <p>S PLINK-om lahko izračunamo veliko statistik, grafe pa naredimo v R-u. To je posebej pomembno pri velikih naborih: PLINK poženemo na strežniku z Linuxom, izhodne besedilne datoteke pa uvozimo v R. Večino statistik bomo izračunali tudi s paketi v R.</p>
 <table class="caption-top table">
 <thead>
@@ -3100,61 +3110,61 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 <td>manjkajoči podatki</td>
 <td><code>--missing</code></td>
 <td><code>.smiss</code>, <code>.vmiss</code></td>
-<td>vaja 2</td>
+<td>vaja 3</td>
 </tr>
 <tr class="even">
 <td>frekvence alelov</td>
 <td><code>--freq</code></td>
 <td><code>.afreq</code></td>
-<td>vaja 2</td>
+<td>vaja 3</td>
 </tr>
 <tr class="odd">
 <td>Hardy-Weinberg</td>
 <td><code>--hardy</code></td>
 <td><code>.hardy</code></td>
-<td>vaja 2</td>
+<td>vaja 3</td>
 </tr>
 <tr class="even">
 <td>sorodnost KING</td>
 <td><code>--make-king-table</code></td>
 <td><code>.kin0</code></td>
-<td>vaja 2</td>
+<td>vaja 3</td>
 </tr>
 <tr class="odd">
 <td>PCA</td>
 <td><code>--pca 10</code></td>
 <td><code>.eigenvec</code>, <code>.eigenval</code></td>
-<td>vaja 4</td>
+<td>vaja 5</td>
 </tr>
 <tr class="even">
 <td>matrika sorodnosti (GRM)</td>
 <td><code>--make-rel square</code></td>
 <td><code>.rel</code></td>
-<td>vaja 4</td>
+<td>vaja 5</td>
 </tr>
 <tr class="odd">
 <td>MDS (samo PLINK 1.9)</td>
 <td><code>--cluster --mds-plot 4</code></td>
 <td><code>.mds</code></td>
-<td>vaja 4</td>
+<td>vaja 5</td>
 </tr>
 <tr class="even">
 <td>heterozigotnost in F<sub>H</sub></td>
 <td><code>--het</code></td>
 <td><code>.het</code></td>
-<td>vaja 5</td>
+<td>vaja 6</td>
 </tr>
 <tr class="odd">
 <td>ROH (samo PLINK 1.9)</td>
 <td><code>--homozyg</code></td>
 <td><code>.hom</code></td>
-<td>vaja 5</td>
+<td>vaja 6</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="sec-e2-kaskada" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-kaskada">Kaskada filtriranja in končni nabor</h2>
+<section id="sec-e3-kaskada" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-kaskada">Kaskada filtriranja in končni nabor</h2>
 <p>Na koncu naredimo tabelo: koliko SNP-jev in osebkov ostane po vsakem koraku. Tako tabelo vedno dodamo v metode ali dodatno gradivo.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>stevilo <span class="ot">&lt;-</span> <span class="cf">function</span>(pot) <span class="fu">c</span>(<span class="at">snp =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(pot, <span class="st">".bim"</span>))),</span>
@@ -3166,7 +3176,7 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 <span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2 Osebki z ≤ 80 % manjkajočih"</span>,      <span class="st">"`--mind 0.8`"</span>,                          <span class="st">"orel_1_mind"</span>,</span>
 <span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3 SNP-ji z ≤ 20 % manjkajočih"</span>,      <span class="st">"`--geno 0.2`"</span>,                          <span class="st">"orel_2_geno"</span>,</span>
 <span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 Brez podvojenih vzorcev"</span>,          <span class="st">"`--remove` (KING &gt; 0,354)"</span>,             <span class="st">"orel_3_brez_duplikatov"</span>,</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0,05 (za vajo 4)"</span>        , <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"orel_4_maf05"</span></span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0,05 (za vajo 5)"</span>        , <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"orel_4_maf05"</span></span>
 <span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>kaskada <span class="ot">&lt;-</span> koraki <span class="sc">|&gt;</span></span>
@@ -3236,7 +3246,7 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 <td style="text-align: right;">83</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">5 MAF ≥ 0,05 (za vajo 4)</td>
+<td style="text-align: left;">5 MAF ≥ 0,05 (za vajo 5)</td>
 <td style="text-align: left;"><code>--maf 0.05</code></td>
 <td style="text-align: left;">orel_4_maf05</td>
 <td style="text-align: right;">184 192</td>
@@ -3282,11 +3292,11 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 <tbody>
 <tr class="odd">
 <td><code>orel_qc</code> (brez MAF filtra)</td>
-<td>vaja 3 (raznolikost, π, SFS, F<sub>ST</sub>), vaja 5 (sorodnost, ROH, F<sub>ROH</sub>)</td>
+<td>vaja 4 (raznolikost, π, SFS), vaja 5 (F<sub>ST</sub>, AMOVA), vaja 6 (sorodnost, ROH, F<sub>ROH</sub>)</td>
 </tr>
 <tr class="even">
 <td><code>orel_qc_maf05</code></td>
-<td>vaja 4 (PCA, DAPC, ADMIXTURE, NJ drevo, IBD)</td>
+<td>vaja 5 (PCA, MDS, DAPC, ADMIXTURE, NJ drevo, IBD)</td>
 </tr>
 <tr class="odd">
 <td><code>sorodniki_1_stopnja.tsv</code></td>
@@ -3297,10 +3307,10 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 </div>
 </div>
 </section>
-<section id="sec-e2-naloga" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-naloga">Naloge</h2>
+<section id="sec-e3-naloga" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e3-naloga">Naloge</h2>
 <ol type="1">
-<li>Odgovorite na vprašanja v okvirjih (kratko, v svoji <code>.qmd</code> datoteki), tudi na tabelo v <a href="#sec-e2-razmislite-ld" class="quarto-xref"><span>Razmislite: kje se pozna LD pruning?</span></a>.</li>
+<li>Odgovorite na vprašanja v okvirjih (kratko, v svoji <code>.qmd</code> datoteki), tudi na tabelo v <a href="#sec-e3-razmislite-ld" class="quarto-xref"><span>Razmislite: kje se pozna LD pruning?</span></a>.</li>
 <li>Ponovite kaskado s strožjo mejo <code>--mind 0.5</code>. Koliko osebkov in katere skupine izgubite? Ali bi s tem naborom še lahko odgovorili na vprašanje o historičnih in sodobnih populacijah?</li>
 <li>Izračunajte HWE še za <code>GL_Con</code> in <code>DK_Con</code>. Ali so rezultati podobni kot pri <code>IS_Con</code> in <code>NO_Con</code>? Zakaj je pri manjših skupinah odstopanj manj? (Namig: moč testa.)</li>
 <li>V članku Hansen et al.&nbsp;(2023) poiščite, ali so preverjali sorodnost. Ali se naš rezultat ujema z njihovim?</li>
@@ -3725,8 +3735,8 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="pagination-link" aria-label="Vaja 1: Nadzor različic z Gitom in GitHubom">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></span>
+      <a href="../E2_simulacije/E2_simulacije.html" class="pagination-link" aria-label="Vaja 2: Populacijskogenetski modeli in simulacije">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../E2_plink/E2_plink.html" rel="next">
+<link href="../E2_simulacije/E2_simulacije.html" rel="next">
 <link href="../E0_uvod_R/E0_uvod_R.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -181,7 +181,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink/E2_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  <a href="../E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -213,7 +218,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E2_plink_EN/E2_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Introduction to population genetics, SNPs and PLINK</span></a>
+  <a href="../E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
   </div>
 </li>
       </ul>
@@ -1162,10 +1172,11 @@ c82b3ae Initial commit</code></pre>
 ├── README.md              # kdo ste, kaj je v repozitoriju
 ├── EPG-2026-priimek.Rproj
 ├── E1_git/
-├── E2_plink/
-├── E3_raznolikost/
-├── E4_struktura/
-├── E5_inbriding/
+├── E2_simulacije/
+├── E3_plink/
+├── E4_raznolikost/
+├── E5_struktura/
+├── E6_sorodnost/
 └── data/                  # podatki (NE gredo na GitHub!)</code></pre>
 </section>
 <section id="gitignore-česa-ne-nalagamo-na-github" class="level3">
@@ -1235,15 +1246,16 @@ data/
 <span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mapa <span class="pp">|</span> Vaja <span class="pp">|</span></span>
 <span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E1_git/`</span> <span class="pp">|</span> Nadzor različic z Gitom in GitHubom <span class="pp">|</span></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E2_plink/`</span> <span class="pp">|</span> SNP-ji in PLINK <span class="pp">|</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E3_raznolikost/`</span> <span class="pp">|</span> Genetska raznolikost in diferenciacija <span class="pp">|</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E4_struktura/`</span> <span class="pp">|</span> Populacijska struktura <span class="pp">|</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E5_inbriding/`</span> <span class="pp">|</span> Sorodnost, inbriding in ROH <span class="pp">|</span></span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Podatki</span></span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>Genotipi orlov belorepcev: Hansen et al. (2023), *Molecular Ecology* 32: 1925–1942,</span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. Podatki niso del repozitorija.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E2_simulacije/`</span> <span class="pp">|</span> Populacijskogenetski modeli in simulacije <span class="pp">|</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E3_plink/`</span> <span class="pp">|</span> SNP-ji in PLINK <span class="pp">|</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E4_raznolikost/`</span> <span class="pp">|</span> Genetska raznolikost <span class="pp">|</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E5_struktura/`</span> <span class="pp">|</span> Populacijska struktura in diferenciacija v prostoru <span class="pp">|</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`E6_sorodnost/`</span> <span class="pp">|</span> Sorodnost, inbriding, ROH in N~e~ <span class="pp">|</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Podatki</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>Genotipi orlov belorepcev: Hansen et al. (2023), *Molecular Ecology* 32: 1925–1942,</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. Podatki niso del repozitorija.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="pravilo-za-vse-naslednje-vaje" class="level3">
 <h3 class="anchored" data-anchor-id="pravilo-za-vse-naslednje-vaje">Pravilo za vse naslednje vaje</h3>
@@ -1393,7 +1405,7 @@ plot(pca$x[, 1], pca$x[, 2], col = "red")
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Updating 0c879b4..a09a19b
 Fast-forward
- E4_struktura/pca.R | 12 ++++++++++++
+ E5_struktura/pca.R | 12 ++++++++++++
  1 file changed, 12 insertions(+)</code></pre>
 </section>
 </section>
@@ -1452,7 +1464,7 @@ Fast-forward
 <li><p>Ustvarite GitHub račun, namestite Git in ga nastavite (<code>user.name</code>, <code>user.email</code>).</p></li>
 <li><p>Ustvarite zasebni repozitorij <strong><code>EPG-2026-priimek</code></strong> z README in predlogo <code>.gitignore</code> za R ter dodajte <code>UrskaGeric</code> kot sodelavko.</p></li>
 <li><p>Repozitorij klonirajte v RStudiu (<em>File → New Project → Version Control → Git</em>) v mapo <code>~/GitHub</code> (ne v OneDrive). RStudio ga odpre kot projekt.</p></li>
-<li><p>Ustvarite mape <code>E1_git</code>, <code>E2_plink</code>, <code>E3_raznolikost</code>, <code>E4_struktura</code>, <code>E5_inbriding</code> in <code>data</code>.</p></li>
+<li><p>Ustvarite mape <code>E1_git</code>, <code>E2_simulacije</code>, <code>E3_plink</code>, <code>E4_raznolikost</code>, <code>E5_struktura</code>, <code>E6_sorodnost</code> in <code>data</code>.</p></li>
 <li><p><code>.gitignore</code> dopolnite s pravili iz <a href="#sec-epg-repo" class="quarto-xref"><span>Vaš repozitorij za vaje EPG</span></a>.</p></li>
 <li><p>Uredite <code>README.md</code> (ime, opis, tabela vaj).</p></li>
 <li><p>V RStudiu odprite novo R skripto (<em>File → New File → R Script</em>), prepišite spodnjo kodo, jo poženite in shranite kot <code>E1_git/prva_skripta.R</code>:</p>
@@ -1491,7 +1503,7 @@ Fast-forward
 <li>Kateri štirje zgodovinski dogodki naj bi oblikovali upad efektivne velikosti populacij?</li>
 <li>S svojimi besedami razložite pojme: učinek ustanovitelja, genetski drift, inbriding, filopatrija, efektivna velikost populacije (N<sub>e</sub>).</li>
 </ol>
-<p>Datoteko oddajte s <code>commit</code> in <code>push</code> <strong>pred začetkom vaje 2</strong>. Na vajah 2–5 bomo nekatere od teh analiz ponovili sami in na koncu preverili, ali pridemo do enakih zaključkov kot avtorji.</p>
+<p>Datoteko oddajte s <code>commit</code> in <code>push</code> <strong>pred začetkom vaje 2</strong>. Na vajah 2–6 bomo nekatere od teh analiz ponovili sami in na koncu preverili, ali pridemo do enakih zaključkov kot avtorji.</p>
 </section>
 <section id="za-radovedne-delo-v-skupini" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="za-radovedne-delo-v-skupini">Za radovedne: delo v skupini</h2>
@@ -1988,8 +2000,8 @@ Fast-forward
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../E2_plink/E2_plink.html" class="pagination-link" aria-label="Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK">
-        <span class="nav-page-text"><span class="chapter-title">Vaja 2: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../E2_simulacije/E2_simulacije.html" class="pagination-link" aria-label="Vaja 2: Populacijskogenetski modeli in simulacije">
+        <span class="nav-page-text"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
