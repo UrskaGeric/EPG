@@ -1067,7 +1067,7 @@ Slika&nbsp;3.1: Od vzorca do nabora SNP-jev. Pri tej vaji začnemo v stolpcu 3: 
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="st">"--make-bed"</span>,</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"orel_0"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>plink2 --vcf ../../../podatki/eagle_vaje/eagle.vcf.gz --allow-extra-chr --snps-only just-acgt --max-alleles 2 --set-all-var-ids @:# --make-bed --out rezultati/orel_0 
+<pre><code>plink2 --vcf podatki/eagle.vcf.gz --allow-extra-chr --snps-only just-acgt --max-alleles 2 --set-all-var-ids @:# --make-bed --out rezultati/orel_0 
 --vcf: 218126 variants scanned.
 rezultati/orel_0-temporary.psam written.
 92 samples (0 females, 0 males, 92 ambiguous; 92 founders) loaded from
