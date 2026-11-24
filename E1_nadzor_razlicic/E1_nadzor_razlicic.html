@@ -479,6 +479,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Pregled ukazov med delovno mapo, pripravljalnim območjem, lokalnim in oddaljenim repozitorijem. Sivi pravokotniki označujejo, kaj primerja ukaz <code>git diff</code>.</figcaption>
 </figure>
 </div>
+<p>Na spodnji shemi so stanja datotek in ukazi zbrani po vrstnem redu, kot jih bomo uporabljali na vaji. Ista shema se ponovi pri vsakem ukazu, rdeče pa je označeno, kaj ukaz naredi.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/nove_sheme/git_koraki_pregled.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Stanja datotek in osnovni ukazi Git na eni shemi. Datoteka v delovni mapi je nesledena (Git je še ne pozna), nespremenjena (enaka kot v zadnjem commitu) ali spremenjena. Pri vsakem ukazu v nadaljevanju je rdeče označeno, kaj naredi. Zamisel po SPAAM, Introduction to Git(Hub) (CC BY 4.0) in Chacon &amp; Straub (2014), Pro Git."><img src="images/nove_sheme/git_koraki_pregled.svg" class="img-fluid figure-img" style="width:95.0%" alt="Stanja datotek in osnovni ukazi Git na eni shemi. Datoteka v delovni mapi je nesledena (Git je še ne pozna), nespremenjena (enaka kot v zadnjem commitu) ali spremenjena. Pri vsakem ukazu v nadaljevanju je rdeče označeno, kaj naredi. Zamisel po SPAAM, Introduction to Git(Hub) (CC BY 4.0) in Chacon &amp; Straub (2014), Pro Git."></a></p>
+<figcaption>Stanja datotek in osnovni ukazi Git na eni shemi. Datoteka v delovni mapi je <strong>nesledena</strong> (Git je še ne pozna), <strong>nespremenjena</strong> (enaka kot v zadnjem commitu) ali <strong>spremenjena</strong>. Pri vsakem ukazu v nadaljevanju je rdeče označeno, kaj naredi. Zamisel po <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/git-github.html">SPAAM, Introduction to Git(Hub)</a> (CC BY 4.0) in Chacon &amp; Straub (2014), <em>Pro Git</em>.</figcaption>
+</figure>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -489,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="images/nove_sheme/vsakodnevni_cikel.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="images/nove_sheme/vsakodnevni_cikel.svg" class="img-fluid" style="width:100.0%"></a></p>
+<p><a href="images/nove_sheme/vsakodnevni_cikel.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/nove_sheme/vsakodnevni_cikel.svg" class="img-fluid" style="width:100.0%"></a></p>
 </div>
 </div>
 </section>
@@ -546,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/06_avtorizacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Ob prvi povezavi Git Bash z GitHubom potrdite dostop za Git Credential Manager (Authorize git-ecosystem)."><img src="images/notion_original/06_avtorizacija.png" class="img-fluid figure-img" style="width:55.0%" alt="Ob prvi povezavi Git Bash z GitHubom potrdite dostop za Git Credential Manager (Authorize git-ecosystem)."></a></p>
+<p><a href="images/notion_original/06_avtorizacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Ob prvi povezavi Git Bash z GitHubom potrdite dostop za Git Credential Manager (Authorize git-ecosystem)."><img src="images/notion_original/06_avtorizacija.png" class="img-fluid figure-img" style="width:55.0%" alt="Ob prvi povezavi Git Bash z GitHubom potrdite dostop za Git Credential Manager (Authorize git-ecosystem)."></a></p>
 <figcaption>Ob prvi povezavi Git Bash z GitHubom potrdite dostop za Git Credential Manager (<em>Authorize git-ecosystem</em>).</figcaption>
 </figure>
 </div>
@@ -673,13 +680,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/03_github_obrazec.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Obrazec za nov repozitorij: ime, zasebnost (Private) in README."><img src="images/notion_original/03_github_obrazec.png" class="img-fluid figure-img" style="width:75.0%" alt="Obrazec za nov repozitorij: ime, zasebnost (Private) in README."></a></p>
+<p><a href="images/notion_original/03_github_obrazec.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Obrazec za nov repozitorij: ime, zasebnost (Private) in README."><img src="images/notion_original/03_github_obrazec.png" class="img-fluid figure-img" style="width:75.0%" alt="Obrazec za nov repozitorij: ime, zasebnost (Private) in README."></a></p>
 <figcaption>Obrazec za nov repozitorij: ime, zasebnost (<em>Private</em>) in README.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-clone-prenesite-repozitorij-na-računalnik" class="level3">
 <h3 class="anchored" data-anchor-id="git-clone-prenesite-repozitorij-na-računalnik"><code>git clone</code>: prenesite repozitorij na računalnik</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/nove_sheme/git_koraki_clone.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Kaj naredi git clone (rdeče)."><img src="images/nove_sheme/git_koraki_clone.svg" class="img-fluid figure-img" style="width:95.0%" alt="Kaj naredi git clone (rdeče)."></a></p>
+<figcaption>Kaj naredi <code>git clone</code> (rdeče).</figcaption>
+</figure>
+</div>
 <p>Na strani repozitorija kliknite zeleni gumb <strong>Code</strong> in kopirajte <strong>HTTPS</strong> naslov. Na voljo so še druge možnosti:</p>
 <table class="caption-top table">
 <colgroup>
@@ -709,7 +722,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/05_github_code_gumb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Gumb Code na strani repozitorija. HTTPS naslov kopirate z ikono desno od povezave."><img src="images/notion_original/05_github_code_gumb.png" class="img-fluid figure-img" style="width:55.0%" alt="Gumb Code na strani repozitorija. HTTPS naslov kopirate z ikono desno od povezave."></a></p>
+<p><a href="images/notion_original/05_github_code_gumb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Gumb Code na strani repozitorija. HTTPS naslov kopirate z ikono desno od povezave."><img src="images/notion_original/05_github_code_gumb.png" class="img-fluid figure-img" style="width:55.0%" alt="Gumb Code na strani repozitorija. HTTPS naslov kopirate z ikono desno od povezave."></a></p>
 <figcaption>Gumb <strong>Code</strong> na strani repozitorija. HTTPS naslov kopirate z ikono desno od povezave.</figcaption>
 </figure>
 </div>
@@ -727,7 +740,7 @@ Receiving objects: 100% (3/3), done.</code></pre>
 <p>Git Bash v vrstici z ukazom pokaže nekaj koristnih informacij: zeleno uporabniško ime in računalnik, rumeno trenutno mapo in, kadar ste v Git repozitoriju, modro trenutno <strong>vejo</strong> (<em>branch</em>, npr. <code>(main)</code>).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/07_gitbash_barve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Vrstica z ukazom v Git Bashu: uporabnik in računalnik (zeleno), MINGW64 (vijolično), mapa (rumeno) in veja (modro)."><img src="images/notion_original/07_gitbash_barve.png" class="img-fluid figure-img" style="width:100.0%" alt="Vrstica z ukazom v Git Bashu: uporabnik in računalnik (zeleno), MINGW64 (vijolično), mapa (rumeno) in veja (modro)."></a></p>
+<p><a href="images/notion_original/07_gitbash_barve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Vrstica z ukazom v Git Bashu: uporabnik in računalnik (zeleno), MINGW64 (vijolično), mapa (rumeno) in veja (modro)."><img src="images/notion_original/07_gitbash_barve.png" class="img-fluid figure-img" style="width:100.0%" alt="Vrstica z ukazom v Git Bashu: uporabnik in računalnik (zeleno), MINGW64 (vijolično), mapa (rumeno) in veja (modro)."></a></p>
 <figcaption>Vrstica z ukazom v Git Bashu: uporabnik in računalnik (zeleno), MINGW64 (vijolično), mapa (rumeno) in veja (modro).</figcaption>
 </figure>
 </div>
@@ -752,6 +765,12 @@ Receiving objects: 100% (3/3), done.</code></pre>
 </section>
 <section id="git-status-kaj-se-je-spremenilo" class="level3">
 <h3 class="anchored" data-anchor-id="git-status-kaj-se-je-spremenilo"><code>git status</code>: kaj se je spremenilo?</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/nove_sheme/git_koraki_status.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Kaj naredi git status (rdeče)."><img src="images/nove_sheme/git_koraki_status.svg" class="img-fluid figure-img" style="width:95.0%" alt="Kaj naredi git status (rdeče)."></a></p>
+<figcaption>Kaj naredi <code>git status</code> (rdeče).</figcaption>
+</figure>
+</div>
 <p><code>git status</code> je ukaz, ki ga boste uporabljali najpogosteje. Pokaže stanje delovne mape glede na zadnji commit.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>On branch main
@@ -770,13 +789,19 @@ nothing added to commit but untracked files present (use "git add" to track)</co
 <p>Nove datoteke, ki jih Git še ne spremlja (<em>untracked</em>), so izpisane rdeče.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/08_status_untracked.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Datoteke, ki jih Git še ne spremlja, so izpisane rdeče."><img src="images/notion_original/08_status_untracked.png" class="img-fluid figure-img" style="width:100.0%" alt="Datoteke, ki jih Git še ne spremlja, so izpisane rdeče."></a></p>
+<p><a href="images/notion_original/08_status_untracked.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Datoteke, ki jih Git še ne spremlja, so izpisane rdeče."><img src="images/notion_original/08_status_untracked.png" class="img-fluid figure-img" style="width:100.0%" alt="Datoteke, ki jih Git še ne spremlja, so izpisane rdeče."></a></p>
 <figcaption>Datoteke, ki jih Git še ne spremlja, so izpisane rdeče.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-add-pripravite-spremembe-stage" class="level3">
 <h3 class="anchored" data-anchor-id="git-add-pripravite-spremembe-stage"><code>git add</code>: pripravite spremembe (<em>stage</em>)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/nove_sheme/git_koraki_add.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Kaj naredi git add (rdeče)."><img src="images/nove_sheme/git_koraki_add.svg" class="img-fluid figure-img" style="width:95.0%" alt="Kaj naredi git add (rdeče)."></a></p>
+<figcaption>Kaj naredi <code>git add</code> (rdeče).</figcaption>
+</figure>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add scripts/test.R   <span class="co"># ena datoteka</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .                <span class="co"># vse spremembe v trenutni mapi (previdno!)</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Ponovno preverite z <code>git status</code>. Datoteke, pripravljene za commit, so izpisane zeleno:</p>
@@ -785,13 +810,19 @@ nothing added to commit but untracked files present (use "git add" to track)</co
         new file:   scripts/test.R</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/09_status_staged.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Po git add je datoteka izpisana zeleno in pripravljena za commit."><img src="images/notion_original/09_status_staged.png" class="img-fluid figure-img" style="width:100.0%" alt="Po git add je datoteka izpisana zeleno in pripravljena za commit."></a></p>
+<p><a href="images/notion_original/09_status_staged.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Po git add je datoteka izpisana zeleno in pripravljena za commit."><img src="images/notion_original/09_status_staged.png" class="img-fluid figure-img" style="width:100.0%" alt="Po git add je datoteka izpisana zeleno in pripravljena za commit."></a></p>
 <figcaption>Po <code>git add</code> je datoteka izpisana zeleno in pripravljena za commit.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-commit-shranite-posnetek-stanja-commit" class="level3">
 <h3 class="anchored" data-anchor-id="git-commit-shranite-posnetek-stanja-commit"><code>git commit</code>: shranite posnetek stanja (<em>commit</em>)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/nove_sheme/git_koraki_commit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Kaj naredi git commit (rdeče)."><img src="images/nove_sheme/git_koraki_commit.svg" class="img-fluid figure-img" style="width:95.0%" alt="Kaj naredi git commit (rdeče)."></a></p>
+<figcaption>Kaj naredi <code>git commit</code> (rdeče).</figcaption>
+</figure>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Dodaj testno skripto"</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>[main 0c879b4] Dodaj testno skripto
  1 file changed, 0 insertions(+), 0 deletions(-)
@@ -818,19 +849,31 @@ nothing added to commit but untracked files present (use "git add" to track)</co
 </section>
 <section id="git-push-pošljite-push-spremembe-na-github" class="level3">
 <h3 class="anchored" data-anchor-id="git-push-pošljite-push-spremembe-na-github"><code>git push</code>: pošljite (<em>push</em>) spremembe na GitHub</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/nove_sheme/git_koraki_push.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Kaj naredi git push (rdeče)."><img src="images/nove_sheme/git_koraki_push.svg" class="img-fluid figure-img" style="width:95.0%" alt="Kaj naredi git push (rdeče)."></a></p>
+<figcaption>Kaj naredi <code>git push</code> (rdeče).</figcaption>
+</figure>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>To https://github.com/UPORABNISKO-IME/git-vaja.git
    c82b3ae..0c879b4  main -&gt; main</code></pre>
 <p>Osvežite stran repozitorija na GitHubu. Nova datoteka in commit sta zdaj vidna tudi tam.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/10_github_po_push.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Repozitorij na GitHubu po push: nova mapa in sporočilo commita."><img src="images/notion_original/10_github_po_push.png" class="img-fluid figure-img" style="width:100.0%" alt="Repozitorij na GitHubu po push: nova mapa in sporočilo commita."></a></p>
+<p><a href="images/notion_original/10_github_po_push.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Repozitorij na GitHubu po push: nova mapa in sporočilo commita."><img src="images/notion_original/10_github_po_push.png" class="img-fluid figure-img" style="width:100.0%" alt="Repozitorij na GitHubu po push: nova mapa in sporočilo commita."></a></p>
 <figcaption>Repozitorij na GitHubu po <code>push</code>: nova mapa in sporočilo commita.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-pull-prenesite-pull-spremembe-z-githuba" class="level3">
 <h3 class="anchored" data-anchor-id="git-pull-prenesite-pull-spremembe-z-githuba"><code>git pull</code>: prenesite (<em>pull</em>) spremembe z GitHuba</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/nove_sheme/git_koraki_pull.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Kaj naredi git pull (rdeče)."><img src="images/nove_sheme/git_koraki_pull.svg" class="img-fluid figure-img" style="width:95.0%" alt="Kaj naredi git pull (rdeče)."></a></p>
+<figcaption>Kaj naredi <code>git pull</code> (rdeče).</figcaption>
+</figure>
+</div>
 <p>Na GitHubu v brskalniku uredite datoteko <code>README.md</code> (ikona svinčnika → <em>Commit changes</em>). S tem simulirate spremembo, ki jo je naredil nekdo drug ali vi na drugem računalniku. Nato na računalniku:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Updating 0c879b4..5e1a2f3
@@ -1027,7 +1070,7 @@ c82b3ae Initial commit</code></pre>
 </table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/14_rstudio_git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="RStudio z odprtim repozitorijem: zavihek Git (desno zgoraj) z gumbi Diff, Commit, Pull, Push in History ter zavihek Terminal z Git Bashem (levo spodaj)."><img src="images/notion_original/14_rstudio_git.png" class="img-fluid figure-img" style="width:100.0%" alt="RStudio z odprtim repozitorijem: zavihek Git (desno zgoraj) z gumbi Diff, Commit, Pull, Push in History ter zavihek Terminal z Git Bashem (levo spodaj)."></a></p>
+<p><a href="images/notion_original/14_rstudio_git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="RStudio z odprtim repozitorijem: zavihek Git (desno zgoraj) z gumbi Diff, Commit, Pull, Push in History ter zavihek Terminal z Git Bashem (levo spodaj)."><img src="images/notion_original/14_rstudio_git.png" class="img-fluid figure-img" style="width:100.0%" alt="RStudio z odprtim repozitorijem: zavihek Git (desno zgoraj) z gumbi Diff, Commit, Pull, Push in History ter zavihek Terminal z Git Bashem (levo spodaj)."></a></p>
 <figcaption>RStudio z odprtim repozitorijem: zavihek <strong>Git</strong> (desno zgoraj) z gumbi <em>Diff</em>, <em>Commit</em>, <em>Pull</em>, <em>Push</em> in <em>History</em> ter zavihek <strong>Terminal</strong> z Git Bashem (levo spodaj).</figcaption>
 </figure>
 </div>
@@ -1228,7 +1271,7 @@ Opozorilo
 <p>Kaj se zgodi, ko dva človeka (Ana in Bor) delata na istem repozitoriju in oba pošljeta spremembe na GitHub?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/nove_sheme/sodelovanje_push_pull.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Ana in Bor delata hkrati. Bor prvi naredi push. Anin push GitHub zavrne, ker ima commit C, ki ga Ana še nima. Ana zato najprej naredi git pull (Borov commit združi s svojim) in šele nato uspešno push."><img src="images/nove_sheme/sodelovanje_push_pull.svg" class="img-fluid figure-img" style="width:95.0%" alt="Ana in Bor delata hkrati. Bor prvi naredi push. Anin push GitHub zavrne, ker ima commit C, ki ga Ana še nima. Ana zato najprej naredi git pull (Borov commit združi s svojim) in šele nato uspešno push."></a></p>
+<p><a href="images/nove_sheme/sodelovanje_push_pull.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Ana in Bor delata hkrati. Bor prvi naredi push. Anin push GitHub zavrne, ker ima commit C, ki ga Ana še nima. Ana zato najprej naredi git pull (Borov commit združi s svojim) in šele nato uspešno push."><img src="images/nove_sheme/sodelovanje_push_pull.svg" class="img-fluid figure-img" style="width:95.0%" alt="Ana in Bor delata hkrati. Bor prvi naredi push. Anin push GitHub zavrne, ker ima commit C, ki ga Ana še nima. Ana zato najprej naredi git pull (Borov commit združi s svojim) in šele nato uspešno push."></a></p>
 <figcaption>Ana in Bor delata hkrati. Bor prvi naredi <code>push</code>. Anin <code>push</code> GitHub zavrne, ker ima commit C, ki ga Ana še nima. Ana zato najprej naredi <code>git pull</code> (Borov commit združi s svojim) in šele nato uspešno <code>push</code>.</figcaption>
 </figure>
 </div>
@@ -1262,7 +1305,7 @@ plot(pca$x[, 1], pca$x[, 2], col = "red")
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/nove_sheme/veje_merge.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Veja test se odcepi od main, na njej naredimo dva commita, nato jo z git merge združimo nazaj v main."><img src="images/nove_sheme/veje_merge.svg" class="img-fluid figure-img" style="width:95.0%" alt="Veja test se odcepi od main, na njej naredimo dva commita, nato jo z git merge združimo nazaj v main."></a></p>
+<p><a href="images/nove_sheme/veje_merge.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-22" title="Veja test se odcepi od main, na njej naredimo dva commita, nato jo z git merge združimo nazaj v main."><img src="images/nove_sheme/veje_merge.svg" class="img-fluid figure-img" style="width:95.0%" alt="Veja test se odcepi od main, na njej naredimo dva commita, nato jo z git merge združimo nazaj v main."></a></p>
 <figcaption>Veja <code>test</code> se odcepi od <code>main</code>, na njej naredimo dva commita, nato jo z <code>git merge</code> združimo nazaj v <code>main</code>.</figcaption>
 </figure>
 </div>
@@ -1416,7 +1459,7 @@ Fast-forward
 <p>Eden bolj znanih dogovorov je <strong>Git flow</strong>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/git_flow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Git flow: main (stabilna različica), develop (razvoj), veje feature (nove funkcije), release (priprava nove različice) in hotfix (nujni popravki)."><img src="images/git_flow.png" class="img-fluid figure-img" style="width:80.0%" alt="Git flow: main (stabilna različica), develop (razvoj), veje feature (nove funkcije), release (priprava nove različice) in hotfix (nujni popravki)."></a></p>
+<p><a href="images/git_flow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23" title="Git flow: main (stabilna različica), develop (razvoj), veje feature (nove funkcije), release (priprava nove različice) in hotfix (nujni popravki)."><img src="images/git_flow.png" class="img-fluid figure-img" style="width:80.0%" alt="Git flow: main (stabilna različica), develop (razvoj), veje feature (nove funkcije), release (priprava nove različice) in hotfix (nujni popravki)."></a></p>
 <figcaption>Git flow: <code>main</code> (stabilna različica), <code>develop</code> (razvoj), veje <code>feature</code> (nove funkcije), <code>release</code> (priprava nove različice) in <code>hotfix</code> (nujni popravki).</figcaption>
 </figure>
 </div>

@@ -479,6 +479,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Overview of commands between the working directory, staging area, local repository and remote repository. The grey bars show what <code>git diff</code> compares.</figcaption>
 </figure>
 </div>
+<p>The diagram below collects the file states and commands in the order we will use them in the practical. The same diagram is repeated for each command, with red showing what the command does.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_steps_pregled.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="File states and the basic Git commands in one diagram. A file in the working directory is untracked (Git does not know it yet), unmodified (the same as in the last commit) or modified. For each command below, red shows what it does. Idea after SPAAM, Introduction to Git(Hub) (CC BY 4.0) and Chacon &amp; Straub (2014), Pro Git."><img src="images/new_diagrams/git_steps_pregled.svg" class="img-fluid figure-img" style="width:95.0%" alt="File states and the basic Git commands in one diagram. A file in the working directory is untracked (Git does not know it yet), unmodified (the same as in the last commit) or modified. For each command below, red shows what it does. Idea after SPAAM, Introduction to Git(Hub) (CC BY 4.0) and Chacon &amp; Straub (2014), Pro Git."></a></p>
+<figcaption>File states and the basic Git commands in one diagram. A file in the working directory is <strong>untracked</strong> (Git does not know it yet), <strong>unmodified</strong> (the same as in the last commit) or <strong>modified</strong>. For each command below, red shows what it does. Idea after <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/git-github.html">SPAAM, Introduction to Git(Hub)</a> (CC BY 4.0) and Chacon &amp; Straub (2014), <em>Pro Git</em>.</figcaption>
+</figure>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -489,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="images/new_diagrams/everyday_loop.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="images/new_diagrams/everyday_loop.svg" class="img-fluid" style="width:100.0%"></a></p>
+<p><a href="images/new_diagrams/everyday_loop.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/new_diagrams/everyday_loop.svg" class="img-fluid" style="width:100.0%"></a></p>
 </div>
 </div>
 </section>
@@ -546,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/06_avtorizacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="The first time Git Bash connects to GitHub, authorise Git Credential Manager (Authorize git-ecosystem)."><img src="images/notion_original/06_avtorizacija.png" class="img-fluid figure-img" style="width:55.0%" alt="The first time Git Bash connects to GitHub, authorise Git Credential Manager (Authorize git-ecosystem)."></a></p>
+<p><a href="images/notion_original/06_avtorizacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="The first time Git Bash connects to GitHub, authorise Git Credential Manager (Authorize git-ecosystem)."><img src="images/notion_original/06_avtorizacija.png" class="img-fluid figure-img" style="width:55.0%" alt="The first time Git Bash connects to GitHub, authorise Git Credential Manager (Authorize git-ecosystem)."></a></p>
 <figcaption>The first time Git Bash connects to GitHub, authorise Git Credential Manager (<em>Authorize git-ecosystem</em>).</figcaption>
 </figure>
 </div>
@@ -673,13 +680,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/03_github_obrazec.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="The new repository form: name, visibility (Private) and README."><img src="images/notion_original/03_github_obrazec.png" class="img-fluid figure-img" style="width:75.0%" alt="The new repository form: name, visibility (Private) and README."></a></p>
+<p><a href="images/notion_original/03_github_obrazec.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="The new repository form: name, visibility (Private) and README."><img src="images/notion_original/03_github_obrazec.png" class="img-fluid figure-img" style="width:75.0%" alt="The new repository form: name, visibility (Private) and README."></a></p>
 <figcaption>The new repository form: name, visibility (<em>Private</em>) and README.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-clone-download-the-repository-to-your-computer" class="level3">
 <h3 class="anchored" data-anchor-id="git-clone-download-the-repository-to-your-computer"><code>git clone</code>: download the repository to your computer</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_steps_clone.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="What git clone does (red)."><img src="images/new_diagrams/git_steps_clone.svg" class="img-fluid figure-img" style="width:95.0%" alt="What git clone does (red)."></a></p>
+<figcaption>What <code>git clone</code> does (red).</figcaption>
+</figure>
+</div>
 <p>On the repository page click the green <strong>Code</strong> button and copy the <strong>HTTPS</strong> address. Other options are also available:</p>
 <table class="caption-top table">
 <colgroup>
@@ -709,7 +722,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/05_github_code_gumb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="The Code button on the repository page. Copy the HTTPS address with the icon to the right of the link."><img src="images/notion_original/05_github_code_gumb.png" class="img-fluid figure-img" style="width:55.0%" alt="The Code button on the repository page. Copy the HTTPS address with the icon to the right of the link."></a></p>
+<p><a href="images/notion_original/05_github_code_gumb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="The Code button on the repository page. Copy the HTTPS address with the icon to the right of the link."><img src="images/notion_original/05_github_code_gumb.png" class="img-fluid figure-img" style="width:55.0%" alt="The Code button on the repository page. Copy the HTTPS address with the icon to the right of the link."></a></p>
 <figcaption>The <strong>Code</strong> button on the repository page. Copy the HTTPS address with the icon to the right of the link.</figcaption>
 </figure>
 </div>
@@ -727,7 +740,7 @@ Receiving objects: 100% (3/3), done.</code></pre>
 <p>Git Bash shows some useful information in the command line: the user name and computer in green, the current folder in yellow and, when you are inside a Git repository, the current <strong>branch</strong> in blue (e.g.&nbsp;<code>(main)</code>).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/07_gitbash_barve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue)."><img src="images/notion_original/07_gitbash_barve.png" class="img-fluid figure-img" style="width:100.0%" alt="The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue)."></a></p>
+<p><a href="images/notion_original/07_gitbash_barve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue)."><img src="images/notion_original/07_gitbash_barve.png" class="img-fluid figure-img" style="width:100.0%" alt="The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue)."></a></p>
 <figcaption>The Git Bash prompt: user and computer (green), MINGW64 (purple), folder (yellow) and branch (blue).</figcaption>
 </figure>
 </div>
@@ -752,6 +765,12 @@ Receiving objects: 100% (3/3), done.</code></pre>
 </section>
 <section id="git-status-what-has-changed" class="level3">
 <h3 class="anchored" data-anchor-id="git-status-what-has-changed"><code>git status</code>: what has changed?</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_steps_status.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="What git status does (red)."><img src="images/new_diagrams/git_steps_status.svg" class="img-fluid figure-img" style="width:95.0%" alt="What git status does (red)."></a></p>
+<figcaption>What <code>git status</code> does (red).</figcaption>
+</figure>
+</div>
 <p><code>git status</code> is the command you will use most often. It shows the state of the working directory compared to the last commit.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>On branch main
@@ -770,13 +789,19 @@ nothing added to commit but untracked files present (use "git add" to track)</co
 <p>New files that Git does not track yet (<em>untracked</em>) are shown in red.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/08_status_untracked.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Files that Git does not track yet are shown in red."><img src="images/notion_original/08_status_untracked.png" class="img-fluid figure-img" style="width:100.0%" alt="Files that Git does not track yet are shown in red."></a></p>
+<p><a href="images/notion_original/08_status_untracked.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Files that Git does not track yet are shown in red."><img src="images/notion_original/08_status_untracked.png" class="img-fluid figure-img" style="width:100.0%" alt="Files that Git does not track yet are shown in red."></a></p>
 <figcaption>Files that Git does not track yet are shown in red.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-add-stage-changes" class="level3">
 <h3 class="anchored" data-anchor-id="git-add-stage-changes"><code>git add</code>: stage changes</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_steps_add.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="What git add does (red)."><img src="images/new_diagrams/git_steps_add.svg" class="img-fluid figure-img" style="width:95.0%" alt="What git add does (red)."></a></p>
+<figcaption>What <code>git add</code> does (red).</figcaption>
+</figure>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add scripts/test.R   <span class="co"># one file</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .                <span class="co"># all changes in the current folder (careful!)</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check again with <code>git status</code>. Files ready to be committed are shown in green:</p>
@@ -785,13 +810,19 @@ nothing added to commit but untracked files present (use "git add" to track)</co
         new file:   scripts/test.R</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/09_status_staged.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="After git add the file is shown in green and is ready to be committed."><img src="images/notion_original/09_status_staged.png" class="img-fluid figure-img" style="width:100.0%" alt="After git add the file is shown in green and is ready to be committed."></a></p>
+<p><a href="images/notion_original/09_status_staged.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="After git add the file is shown in green and is ready to be committed."><img src="images/notion_original/09_status_staged.png" class="img-fluid figure-img" style="width:100.0%" alt="After git add the file is shown in green and is ready to be committed."></a></p>
 <figcaption>After <code>git add</code> the file is shown in green and is ready to be committed.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-commit-save-a-snapshot" class="level3">
 <h3 class="anchored" data-anchor-id="git-commit-save-a-snapshot"><code>git commit</code>: save a snapshot</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_steps_commit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="What git commit does (red)."><img src="images/new_diagrams/git_steps_commit.svg" class="img-fluid figure-img" style="width:95.0%" alt="What git commit does (red)."></a></p>
+<figcaption>What <code>git commit</code> does (red).</figcaption>
+</figure>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add test script"</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>[main 0c879b4] Add test script
  1 file changed, 0 insertions(+), 0 deletions(-)
@@ -818,19 +849,31 @@ nothing added to commit but untracked files present (use "git add" to track)</co
 </section>
 <section id="git-push-send-changes-to-github" class="level3">
 <h3 class="anchored" data-anchor-id="git-push-send-changes-to-github"><code>git push</code>: send changes to GitHub</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_steps_push.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="What git push does (red)."><img src="images/new_diagrams/git_steps_push.svg" class="img-fluid figure-img" style="width:95.0%" alt="What git push does (red)."></a></p>
+<figcaption>What <code>git push</code> does (red).</figcaption>
+</figure>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>To https://github.com/USERNAME/git-practice.git
    c82b3ae..0c879b4  main -&gt; main</code></pre>
 <p>Refresh the repository page on GitHub. The new file and the commit are now visible there too.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/10_github_po_push.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="The repository on GitHub after push: the new folder and the commit message."><img src="images/notion_original/10_github_po_push.png" class="img-fluid figure-img" style="width:100.0%" alt="The repository on GitHub after push: the new folder and the commit message."></a></p>
+<p><a href="images/notion_original/10_github_po_push.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="The repository on GitHub after push: the new folder and the commit message."><img src="images/notion_original/10_github_po_push.png" class="img-fluid figure-img" style="width:100.0%" alt="The repository on GitHub after push: the new folder and the commit message."></a></p>
 <figcaption>The repository on GitHub after <code>push</code>: the new folder and the commit message.</figcaption>
 </figure>
 </div>
 </section>
 <section id="git-pull-bring-changes-from-github" class="level3">
 <h3 class="anchored" data-anchor-id="git-pull-bring-changes-from-github"><code>git pull</code>: bring changes from GitHub</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/new_diagrams/git_steps_pull.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="What git pull does (red)."><img src="images/new_diagrams/git_steps_pull.svg" class="img-fluid figure-img" style="width:95.0%" alt="What git pull does (red)."></a></p>
+<figcaption>What <code>git pull</code> does (red).</figcaption>
+</figure>
+</div>
 <p>On GitHub, edit the <code>README.md</code> file in the browser (pencil icon → <em>Commit changes</em>). This simulates a change made by someone else, or by you on another computer. Then, on your computer:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Updating 0c879b4..5e1a2f3
@@ -1022,7 +1065,7 @@ c82b3ae Initial commit</code></pre>
 </table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/notion_original/14_rstudio_git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="RStudio with an open repository: the Git tab (top right) with the Diff, Commit, Pull, Push and History buttons, and the Terminal tab with Git Bash (bottom left)."><img src="images/notion_original/14_rstudio_git.png" class="img-fluid figure-img" style="width:100.0%" alt="RStudio with an open repository: the Git tab (top right) with the Diff, Commit, Pull, Push and History buttons, and the Terminal tab with Git Bash (bottom left)."></a></p>
+<p><a href="images/notion_original/14_rstudio_git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="RStudio with an open repository: the Git tab (top right) with the Diff, Commit, Pull, Push and History buttons, and the Terminal tab with Git Bash (bottom left)."><img src="images/notion_original/14_rstudio_git.png" class="img-fluid figure-img" style="width:100.0%" alt="RStudio with an open repository: the Git tab (top right) with the Diff, Commit, Pull, Push and History buttons, and the Terminal tab with Git Bash (bottom left)."></a></p>
 <figcaption>RStudio with an open repository: the <strong>Git</strong> tab (top right) with the <em>Diff</em>, <em>Commit</em>, <em>Pull</em>, <em>Push</em> and <em>History</em> buttons, and the <strong>Terminal</strong> tab with Git Bash (bottom left).</figcaption>
 </figure>
 </div>
@@ -1223,7 +1266,7 @@ Opozorilo
 <p>What happens when two people (Ana and Bor) work on the same repository and both send their changes to GitHub?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/new_diagrams/collaboration_push_pull.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s push because it has commit C, which Ana does not have yet. Ana therefore runs git pull first (combining Bor’s commit with hers) and only then pushes successfully."><img src="images/new_diagrams/collaboration_push_pull.svg" class="img-fluid figure-img" style="width:95.0%" alt="Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s push because it has commit C, which Ana does not have yet. Ana therefore runs git pull first (combining Bor’s commit with hers) and only then pushes successfully."></a></p>
+<p><a href="images/new_diagrams/collaboration_push_pull.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s push because it has commit C, which Ana does not have yet. Ana therefore runs git pull first (combining Bor’s commit with hers) and only then pushes successfully."><img src="images/new_diagrams/collaboration_push_pull.svg" class="img-fluid figure-img" style="width:95.0%" alt="Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s push because it has commit C, which Ana does not have yet. Ana therefore runs git pull first (combining Bor’s commit with hers) and only then pushes successfully."></a></p>
 <figcaption>Ana and Bor work at the same time. Bor pushes first. GitHub rejects Ana’s <code>push</code> because it has commit C, which Ana does not have yet. Ana therefore runs <code>git pull</code> first (combining Bor’s commit with hers) and only then pushes successfully.</figcaption>
 </figure>
 </div>
@@ -1257,7 +1300,7 @@ plot(pca$x[, 1], pca$x[, 2], col = "red")
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/new_diagrams/branches_merge.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Branch test splits off main, we make two commits on it and then merge it back into main with git merge."><img src="images/new_diagrams/branches_merge.svg" class="img-fluid figure-img" style="width:95.0%" alt="Branch test splits off main, we make two commits on it and then merge it back into main with git merge."></a></p>
+<p><a href="images/new_diagrams/branches_merge.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-22" title="Branch test splits off main, we make two commits on it and then merge it back into main with git merge."><img src="images/new_diagrams/branches_merge.svg" class="img-fluid figure-img" style="width:95.0%" alt="Branch test splits off main, we make two commits on it and then merge it back into main with git merge."></a></p>
 <figcaption>Branch <code>test</code> splits off <code>main</code>, we make two commits on it and then merge it back into <code>main</code> with <code>git merge</code>.</figcaption>
 </figure>
 </div>
@@ -1411,7 +1454,7 @@ Fast-forward
 <p>One of the best-known conventions is <strong>Git flow</strong>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/git_flow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Git flow: main (stable version), develop (development), feature branches (new features), release (preparing a new version) and hotfix (urgent fixes)."><img src="images/git_flow.png" class="img-fluid figure-img" style="width:80.0%" alt="Git flow: main (stable version), develop (development), feature branches (new features), release (preparing a new version) and hotfix (urgent fixes)."></a></p>
+<p><a href="images/git_flow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23" title="Git flow: main (stable version), develop (development), feature branches (new features), release (preparing a new version) and hotfix (urgent fixes)."><img src="images/git_flow.png" class="img-fluid figure-img" style="width:80.0%" alt="Git flow: main (stable version), develop (development), feature branches (new features), release (preparing a new version) and hotfix (urgent fixes)."></a></p>
 <figcaption>Git flow: <code>main</code> (stable version), <code>develop</code> (development), <code>feature</code> branches (new features), <code>release</code> (preparing a new version) and <code>hotfix</code> (urgent fixes).</figcaption>
 </figure>
 </div>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="mr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#D62728"/></marker>
+<marker id="ms" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#C4C4C4"/></marker>
+<marker id="mc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333333"/></marker>
+</defs>
+<rect width="1000" height="650" fill="white"/>
+<rect x="12" y="12" width="726" height="626" rx="12" fill="#F5F7FB" stroke="#C9CED8"/>
+<text x="375" y="38" text-anchor="middle" font-size="15" font-weight="600" fill="#333">Vaš računalnik (lokalno, local)</text>
+<rect x="758" y="12" width="230" height="626" rx="12" fill="#F3F3F6" stroke="#C9CED8"/>
+<text x="873" y="38" text-anchor="middle" font-size="15" font-weight="600" fill="#333">Splet (remote)</text>
+<rect x="30" y="54" width="340" height="62" rx="8" fill="#DCE9F7" stroke="#4C78A8" stroke-width="2"/>
+<text x="200.0" y="80" text-anchor="middle" font-size="15" font-weight="700" fill="#222">Delovna mapa</text>
+<text x="200.0" y="101" text-anchor="middle" font-size="12" fill="#555">(working directory)</text>
+<rect x="382" y="54" width="156" height="62" rx="8" fill="#FDE6CF" stroke="#E07B1A" stroke-width="2"/>
+<text x="460.0" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#222">Pripravljalno območje</text>
+<text x="460.0" y="101" text-anchor="middle" font-size="12" fill="#555">(staging area)</text>
+<rect x="552" y="54" width="176" height="62" rx="8" fill="#DDF0D8" stroke="#3E8E3E" stroke-width="2"/>
+<text x="640.0" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#222">Lokalni repozitorij</text>
+<text x="640.0" y="101" text-anchor="middle" font-size="12" fill="#555">(local repository, .git)</text>
+<rect x="775" y="54" width="210" height="62" rx="8" fill="#E6E6EC" stroke="#5B5B7A" stroke-width="2"/>
+<text x="880.0" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#222">Oddaljeni repozitorij</text>
+<text x="880.0" y="101" text-anchor="middle" font-size="12" fill="#555">(GitHub)</text>
+<rect x="33" y="128" width="104" height="44" rx="6" fill="white" stroke="#4C78A8" stroke-dasharray="4 3"/>
+<text x="85" y="147" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2b4f7a">nesledene</text>
+<text x="85" y="163" text-anchor="middle" font-size="11" fill="#666">(untracked)</text>
+<rect x="148" y="128" width="104" height="44" rx="6" fill="white" stroke="#4C78A8" stroke-dasharray="4 3"/>
+<text x="200" y="147" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2b4f7a">nespremenjene</text>
+<text x="200" y="163" text-anchor="middle" font-size="11" fill="#666">(unmodified)</text>
+<rect x="263" y="128" width="104" height="44" rx="6" fill="white" stroke="#4C78A8" stroke-dasharray="4 3"/>
+<text x="315" y="147" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2b4f7a">spremenjene</text>
+<text x="315" y="163" text-anchor="middle" font-size="11" fill="#666">(modified)</text>
+<line x1="85" y1="172" x2="85" y2="590" stroke="#B9BFCA" stroke-dasharray="3 4"/>
+<line x1="200" y1="172" x2="200" y2="590" stroke="#B9BFCA" stroke-dasharray="3 4"/>
+<line x1="315" y1="172" x2="315" y2="590" stroke="#B9BFCA" stroke-dasharray="3 4"/>
+<line x1="460" y1="116" x2="460" y2="590" stroke="#B9BFCA" stroke-dasharray="3 4"/>
+<line x1="640" y1="116" x2="640" y2="590" stroke="#B9BFCA" stroke-dasharray="3 4"/>
+<line x1="880" y1="116" x2="880" y2="590" stroke="#B9BFCA" stroke-dasharray="3 4"/>
+<text x="280" y="618" text-anchor="middle" font-size="14" font-weight="700" font-family="Consolas, monospace" fill="#C4C4C4">git status<tspan font-family="Segoe UI, Helvetica, Arial, sans-serif" font-weight="400" font-size="12" fill="#888"> : pokaže, v katerem stanju so datoteke (ničesar ne spremeni)</tspan></text>
+<circle cx="880" cy="215" r="6" fill="#C4C4C4"/>
+<line x1="880" y1="215" x2="204" y2="215" stroke="#C4C4C4" stroke-width="3" stroke-dasharray="10 6" marker-end="url(#ms)"/>
+<text x="540.0" y="206" text-anchor="middle" font-size="14" font-weight="700" font-family="Consolas, monospace" fill="#A0A0A0">git clone</text>
+<text x="540.0" y="234" text-anchor="middle" font-size="12" fill="#A0A0A0">prva kopija celotnega repozitorija</text>
+<circle cx="85" cy="268" r="6" fill="#C4C4C4"/>
+<line x1="85" y1="268" x2="456" y2="268" stroke="#C4C4C4" stroke-width="3" marker-end="url(#ms)"/>
+<text x="272.5" y="259" text-anchor="middle" font-size="14" font-weight="700" font-family="Consolas, monospace" fill="#A0A0A0">git add</text>
+<text x="272.5" y="287" text-anchor="middle" font-size="12" fill="#A0A0A0">nova datoteka: Git jo začne spremljati</text>
+<circle cx="200" cy="321" r="6" fill="#C4C4C4"/>
+<line x1="200" y1="321" x2="311" y2="321" stroke="#C4C4C4" stroke-width="3" marker-end="url(#ms)"/>
+<text x="257.5" y="311" text-anchor="middle" font-size="12" fill="#A0A0A0" font-style="italic">urejate v RStudiu</text>
+<circle cx="315" cy="374" r="6" fill="#C4C4C4"/>
+<line x1="315" y1="374" x2="456" y2="374" stroke="#C4C4C4" stroke-width="3" marker-end="url(#ms)"/>
+<text x="387.5" y="365" text-anchor="middle" font-size="14" font-weight="700" font-family="Consolas, monospace" fill="#A0A0A0">git add</text>
+<text x="387.5" y="393" text-anchor="middle" font-size="12" fill="#A0A0A0">izberete spremembe</text>
+<circle cx="460" cy="427" r="6" fill="#D62728"/>
+<line x1="460" y1="427" x2="636" y2="427" stroke="#D62728" stroke-width="4.5" marker-end="url(#mr)"/>
+<text x="550.0" y="418" text-anchor="middle" font-size="14" font-weight="700" font-family="Consolas, monospace" fill="#D62728">git commit</text>
+<text x="550.0" y="446" text-anchor="middle" font-size="12" fill="#D62728">shranite posnetek stanja (datoteke so spet nespremenjene)</text>
+<circle cx="640" cy="480" r="6" fill="#C4C4C4"/>
+<line x1="640" y1="480" x2="876" y2="480" stroke="#C4C4C4" stroke-width="3" stroke-dasharray="10 6" marker-end="url(#ms)"/>
+<text x="760.0" y="471" text-anchor="middle" font-size="14" font-weight="700" font-family="Consolas, monospace" fill="#A0A0A0">git push</text>
+<text x="760.0" y="499" text-anchor="middle" font-size="12" fill="#A0A0A0">pošljete commite na GitHub</text>
+<circle cx="880" cy="533" r="6" fill="#C4C4C4"/>
+<line x1="880" y1="533" x2="204" y2="533" stroke="#C4C4C4" stroke-width="3" stroke-dasharray="10 6" marker-end="url(#ms)"/>
+<text x="540.0" y="524" text-anchor="middle" font-size="14" font-weight="700" font-family="Consolas, monospace" fill="#A0A0A0">git pull</text>
+<text x="540.0" y="552" text-anchor="middle" font-size="12" fill="#A0A0A0">prenesete nove commite z GitHuba (v repozitorij in delovno mapo)</text>
+</svg>
