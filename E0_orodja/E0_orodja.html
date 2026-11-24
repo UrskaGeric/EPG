@@ -78,6 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ef4d8e9faa04af36b84e1866e7343808.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -568,9 +571,21 @@ Program, ki bere ukaze iz terminala in jih izvede. Najpogostejša lupina je <str
 <section id="ročna-pot-če-hitra-ne-deluje" class="level4">
 <h4 class="anchored" data-anchor-id="ročna-pot-če-hitra-ne-deluje">Ročna pot (če hitra ne deluje)</h4>
 <ol type="1">
-<li><em>Nadzorna plošča</em> → <em>Programi</em> → <em>Programi in funkcije</em> → <em>Vklop ali izklop funkcij sistema Windows</em> → obkljukajte <strong>Windows Subsystem for Linux</strong> (podsistem Windows za Linux).</li>
-<li>Ponovno zaženite računalnik.</li>
-<li>Odprite <strong>Microsoft Store</strong>, poiščite <strong>Ubuntu</strong> (izberite različico z oznako LTS) in kliknite <em>Namesti</em>.</li>
+<li><p><em>Nadzorna plošča</em> → <em>Programi</em> → <em>Programi in funkcije</em> → <em>Vklop ali izklop funkcij sistema Windows</em> → obkljukajte <strong>Windows Subsystem for Linux</strong> (podsistem Windows za Linux).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_01_funkcije.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Vklop funkcije Windows Subsystem for Linux."><img src="images/wsl_01_funkcije.png" class="img-fluid figure-img" style="width:50.0%" alt="Vklop funkcije Windows Subsystem for Linux."></a></p>
+<figcaption>Vklop funkcije <em>Windows Subsystem for Linux</em>.</figcaption>
+</figure>
+</div></li>
+<li><p>Ponovno zaženite računalnik.</p></li>
+<li><p>Odprite <strong>Microsoft Store</strong>, poiščite <strong>Ubuntu</strong> (izberite različico z oznako LTS) in kliknite <em>Namesti</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_02_store.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Ubuntu (LTS) v trgovini Microsoft Store."><img src="images/wsl_02_store.png" class="img-fluid figure-img" style="width:45.0%" alt="Ubuntu (LTS) v trgovini Microsoft Store."></a></p>
+<figcaption>Ubuntu (LTS) v trgovini Microsoft Store.</figcaption>
+</figure>
+</div></li>
 </ol>
 </section>
 <section id="prvi-zagon-uporabnik-in-geslo" class="level4">
@@ -595,6 +610,26 @@ Program, ki bere ukaze iz terminala in jih izvede. Najpogostejša lupina je <str
 <p><strong>Iz Windows do domače mape v Linuxu.</strong> V <em>Raziskovalcu</em> (<em>File Explorer</em>) je v levem stolpcu spodaj mapa <strong>Linux</strong>. Lahko pa v naslovno vrstico vpišete:</p>
 <pre><code>\\wsl.localhost\Ubuntu\home\vaseime</code></pre>
 <p><strong>Terminal v izbrani mapi.</strong> Odprite mapo v Raziskovalcu, v naslovno vrstico vpišite <code>wsl</code> in pritisnite Enter. Odpre se terminal Linux, ki je že v tej mapi.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_06_raziskovalec_wsl.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="V naslovno vrstico Raziskovalca vpišemo wsl …"><img src="images/wsl_06_raziskovalec_wsl.png" class="img-fluid figure-img" alt="V naslovno vrstico Raziskovalca vpišemo wsl …"></a></p>
+<figcaption>V naslovno vrstico Raziskovalca vpišemo <code>wsl</code> …</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_07_terminal_ls.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="… in odpre se terminal Linux v isti mapi (pot /mnt/c/...), kjer z ls izpišemo datoteke."><img src="images/wsl_07_terminal_ls.png" class="img-fluid figure-img" alt="… in odpre se terminal Linux v isti mapi (pot /mnt/c/...), kjer z ls izpišemo datoteke."></a></p>
+<figcaption>… in odpre se terminal Linux v isti mapi (pot <code>/mnt/c/...</code>), kjer z <code>ls</code> izpišemo datoteke.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -609,6 +644,12 @@ Program, ki bere ukaze iz terminala in jih izvede. Najpogostejša lupina je <str
 </div>
 </div>
 <p>V domači mapi je skrita datoteka <strong><code>.bashrc</code></strong>. To je nastavitvena datoteka lupine: tu so barve terminala, poti do programov, nastavitve za condo ipd. Vidite jo z <code>ls -a</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_08_mapa_linux.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Domača mapa Linuxa v Raziskovalcu (Linux → Ubuntu → home → uporabnik). Puščica kaže datoteko .bashrc."><img src="images/wsl_08_mapa_linux.png" class="img-fluid figure-img" style="width:80.0%" alt="Domača mapa Linuxa v Raziskovalcu (Linux → Ubuntu → home → uporabnik). Puščica kaže datoteko .bashrc."></a></p>
+<figcaption>Domača mapa Linuxa v Raziskovalcu (<em>Linux</em> → <em>Ubuntu</em> → <em>home</em> → uporabnik). Puščica kaže datoteko <code>.bashrc</code>.</figcaption>
+</figure>
+</div>
 </section>
 <section id="sec-e0o-sudo" class="level3">
 <h3 class="anchored" data-anchor-id="sec-e0o-sudo">Pravice: <code>sudo</code> in <code>root</code></h3>
@@ -629,7 +670,26 @@ Program, ki bere ukaze iz terminala in jih izvede. Najpogostejša lupina je <str
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dt">swap</span><span class="ot">=</span><span class="st">4GB</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Nato v PowerShellu ponastavite WSL in odprite nov terminal Ubuntu:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>wsl <span class="op">--</span>shutdown</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_03_shutdown.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Ponastavitev WSL v PowerShellu."><img src="images/wsl_03_shutdown.png" class="img-fluid figure-img" style="width:75.0%" alt="Ponastavitev WSL v PowerShellu."></a></p>
+<figcaption>Ponastavitev WSL v PowerShellu.</figcaption>
+</figure>
+</div>
+<p>Nov terminal Ubuntu odprete s puščico ob <code>+</code> v oknu Terminal:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_04_nov_zavihek.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Nov zavihek z Ubuntu v programu Windows Terminal."><img src="images/wsl_04_nov_zavihek.png" class="img-fluid figure-img" style="width:75.0%" alt="Nov zavihek z Ubuntu v programu Windows Terminal."></a></p>
+<figcaption>Nov zavihek z Ubuntu v programu Windows Terminal.</figcaption>
+</figure>
+</div>
 <p>Z ukazom <code>htop</code> preverite, koliko pomnilnika zdaj vidi Linux.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_05_htop.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="htop v terminalu Ubuntu: vrstica Mem kaže, koliko pomnilnika vidi Linux (tukaj 30,7 GB), zgoraj so procesorska jedra (tukaj 16)."><img src="images/wsl_05_htop.png" class="img-fluid figure-img" style="width:85.0%" alt="htop v terminalu Ubuntu: vrstica Mem kaže, koliko pomnilnika vidi Linux (tukaj 30,7 GB), zgoraj so procesorska jedra (tukaj 16)."></a></p>
+<figcaption><code>htop</code> v terminalu Ubuntu: vrstica <em>Mem</em> kaže, koliko pomnilnika vidi Linux (tukaj 30,7 GB), zgoraj so procesorska jedra (tukaj 16).</figcaption>
+</figure>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -647,11 +707,31 @@ Program, ki bere ukaze iz terminala in jih izvede. Najpogostejša lupina je <str
 <section id="sec-e0o-wsl-dostop" class="level3">
 <h3 class="anchored" data-anchor-id="sec-e0o-wsl-dostop">Kako odpreti terminal WSL</h3>
 <ol type="1">
-<li>Aplikacija <strong>Ubuntu</strong> v meniju <em>Start</em>.</li>
-<li><strong>Windows Terminal</strong> ali PowerShell: zavihek <strong>Ubuntu</strong> (puščica ob <code>+</code>) ali ukaz <code>wsl</code>.</li>
-<li><strong>Raziskovalec</strong>: <code>wsl</code> v naslovni vrstici (odpre se v tej mapi).</li>
-<li><strong>MobaXterm</strong>: <em>WSL-Ubuntu</em> v seznamu sej. Priročno, če imate hkrati odprte tudi povezave na strežnike, sicer pa porabi preveč pomnilnika.</li>
-<li><strong>Visual Studio Code</strong>: razširitev <em>WSL</em>, nato <em>Connect to WSL</em>.</li>
+<li><p>Aplikacija <strong>Ubuntu</strong> v meniju <em>Start</em>.</p></li>
+<li><p><strong>Windows Terminal</strong> ali PowerShell: zavihek <strong>Ubuntu</strong> (puščica ob <code>+</code>) ali ukaz <code>wsl</code>.</p></li>
+<li><p><strong>Raziskovalec</strong>: <code>wsl</code> v naslovni vrstici (odpre se v tej mapi).</p></li>
+<li><p><strong>MobaXterm</strong>: <em>WSL-Ubuntu</em> v seznamu sej. Priročno, če imate hkrati odprte tudi povezave na strežnike, sicer pa porabi preveč pomnilnika.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_09_mobaxterm.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Seja WSL-Ubuntu v programu MobaXterm."><img src="images/wsl_09_mobaxterm.png" class="img-fluid figure-img" alt="Seja WSL-Ubuntu v programu MobaXterm."></a></p>
+<figcaption>Seja <em>WSL-Ubuntu</em> v programu MobaXterm.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/wsl_10_mobaxterm_terminal.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Odprt terminal Ubuntu v MobaXtermu; levo je brskalnik po domači mapi."><img src="images/wsl_10_mobaxterm_terminal.png" class="img-fluid figure-img" alt="Odprt terminal Ubuntu v MobaXtermu; levo je brskalnik po domači mapi."></a></p>
+<figcaption>Odprt terminal Ubuntu v MobaXtermu; levo je brskalnik po domači mapi.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div></li>
+<li><p><strong>Visual Studio Code</strong>: razširitev <em>WSL</em>, nato <em>Connect to WSL</em>.</p></li>
 </ol>
 </section>
 </section>
@@ -791,6 +871,12 @@ Spletni repozitorij slik (podobno kot GitHub za kodo): <a href="https://hub.dock
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ukaz, ki se izvede ob zagonu</span></span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"app.py"</span>]</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Če program potrebuje dodatne pakete, jih naštejemo v <code>requirements.txt</code> in v Dockerfile dodamo <code>COPY requirements.txt .</code> in <code>RUN pip install -r requirements.txt</code>. Modul <code>math</code> je del Pythona, zato ga ni treba nameščati.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/docker_01_mapa.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Mapa projekta: program app.py, recept Dockerfile in (neobvezno) seznam paketov requirements.txt."><img src="images/docker_01_mapa.png" class="img-fluid figure-img" style="width:40.0%" alt="Mapa projekta: program app.py, recept Dockerfile in (neobvezno) seznam paketov requirements.txt."></a></p>
+<figcaption>Mapa projekta: program <code>app.py</code>, recept <code>Dockerfile</code> in (neobvezno) seznam paketov <code>requirements.txt</code>.</figcaption>
+</figure>
+</div>
 <p>Zgradimo sliko in jo zaženemo (v mapi z Dockerfile):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> moj-program:1.0 .     <span class="co"># ime slike z malimi črkami; pika = ta mapa</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> moj-program:1.0       <span class="co"># izpiše: sqrt of 16 is 4.0</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1257,6 +1343,38 @@ Spletni repozitorij slik (podobno kot GitHub za kodo): <a href="https://hub.dock
   </div>
 </nav>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
