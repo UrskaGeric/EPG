@@ -205,17 +205,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E0_orodja_1_linux/E0_orodja_1_linux.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja 1: Linux v bioinformatiki</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../E0_orodja_2_wsl/E0_orodja_2_wsl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja 2: WSL – Linux na Windowsih</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../E0_orodja_3_docker/E0_orodja_3_docker.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja 3: Docker – programi v zabojnikih</span></a>
+  <a href="../E0_orodja/E0_orodja.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja za bioinformatike: Linux, WSL in Docker</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -497,10 +487,10 @@ window.Quarto = {
 <div id="fig-e3-pipeline-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/snp_pipeline_EN.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;11.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it."><img src="images/snp_pipeline_EN.png" class="img-fluid figure-img"></a>
+<a href="images/snp_pipeline_EN.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;9.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it."><img src="images/snp_pipeline_EN.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it.
+Slika&nbsp;9.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it.
 </figcaption>
 </figure>
 </div>
@@ -516,7 +506,7 @@ Slika&nbsp;11.1: From sample to SNP dataset. In this practical we start in colum
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Large analyses are usually run on Linux servers (HPC), where PLINK is called directly from the terminal. PLINK also runs on Windows and macOS, so we will run it from R. The commands are the same. If you don’t know Linux, have a look at the <a href="https://phoenixnap.com/kb/wp-content/uploads/2023/11/linux-commands-cheat-sheet-pdf.pdf">basic Linux commands</a> and <a href="../E0_orodja_1_linux/E0_orodja_1_linux.html">Tools 1: Linux in bioinformatics</a> (in Slovenian).</p>
+<p>Large analyses are usually run on Linux servers (HPC), where PLINK is called directly from the terminal. PLINK also runs on Windows and macOS, so we will run it from R. The commands are the same. If you don’t know Linux, have a look at the <a href="https://phoenixnap.com/kb/wp-content/uploads/2023/11/linux-commands-cheat-sheet-pdf.pdf">basic Linux commands</a> and <a href="../E0_orodja/E0_orodja.html#sec-e0o-linux">Tools for bioinformatics: Linux</a> (in Slovenian).</p>
 </div>
 </div>
 <section id="biallelic-variants-in-vcf-files-for-plink" class="level3">
@@ -650,7 +640,7 @@ Slika&nbsp;11.1: From sample to SNP dataset. In this practical we start in colum
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Instead of downloading the program into the <code>data</code> folder, you can run it in a Docker <strong>container</strong>. The advantage is that everyone uses <strong>exactly the same version</strong> of the program regardless of the operating system, and we record the version in the methods and README. This is one of the foundations of <strong>reproducibility</strong>. Docker must be installed and running (see <a href="../E0_orodja_3_docker/E0_orodja_3_docker.html">Tools 3: Docker</a>, in Slovenian).</p>
+<p>Instead of downloading the program into the <code>data</code> folder, you can run it in a Docker <strong>container</strong>. The advantage is that everyone uses <strong>exactly the same version</strong> of the program regardless of the operating system, and we record the version in the methods and README. This is one of the foundations of <strong>reproducibility</strong>. Docker must be installed and running (see <a href="../E0_orodja/E0_orodja.html#sec-e0o-docker">Tools for bioinformatics: Docker</a>, in Slovenian).</p>
 <p>We use ready-made <strong>images</strong> from the <a href="https://biocontainers.pro">BioContainers</a> project:</p>
 <table class="caption-top table">
 <thead>
@@ -1385,10 +1375,10 @@ results/eagle_0-temporary.psam written.
 <div id="fig-e3-snps-per-chromosome-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-snps-per-chromosome-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-snps-per-chromosome-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;11.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs."><img src="E3_plink_EN_files/figure-html/fig-e3-snps-per-chromosome-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-snps-per-chromosome-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;9.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs."><img src="E3_plink_EN_files/figure-html/fig-e3-snps-per-chromosome-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-snps-per-chromosome-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs.
+Slika&nbsp;9.2: Number of SNPs per chromosome. Longer chromosomes have more SNPs.
 </figcaption>
 </figure>
 </div>
@@ -1488,10 +1478,10 @@ Slika&nbsp;11.2: Number of SNPs per chromosome. Longer chromosomes have more SNP
 <div id="fig-e3-miss-samples-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-miss-samples-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-miss-samples-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;11.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for --mind."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-samples-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-miss-samples-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;9.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for --mind."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-samples-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-samples-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for <code>--mind</code>.
+Slika&nbsp;9.3: Proportion of missing genotypes per individual. Dashed lines are possible thresholds for <code>--mind</code>.
 </figcaption>
 </figure>
 </div>
@@ -1557,10 +1547,10 @@ Slika&nbsp;11.3: Proportion of missing genotypes per individual. Dashed lines ar
 <div id="fig-e3-miss-paper-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-miss-paper-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;11.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-paper-en-1.png" class="img-fluid figure-img" width="480"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-miss-paper-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;9.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-paper-en-1.png" class="img-fluid figure-img" width="480"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x.
+Slika&nbsp;9.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x.
 </figcaption>
 </figure>
 </div>
@@ -1657,20 +1647,20 @@ IDs written to results/eagle_1_mind.mindrem.id .
 </section>
 <section id="sec-e3-ancient-dna-en" class="level4">
 <h4 class="anchored" data-anchor-id="sec-e3-ancient-dna-en">Ancient DNA: what happens to the DNA molecule after death</h4>
-<p><strong>Ancient DNA</strong> (aDNA) is not defined by the age of the sample but by its condition: it is any DNA from a non-living source that shows signs of degradation. Our museum eagles, about 100 years old, therefore also count as ancient DNA. After an organism dies, DNA repair stops and the molecule starts to decay (<a href="#fig-e3-damage-en" class="quarto-xref">Slika&nbsp;<span>11.5</span></a>):</p>
+<p><strong>Ancient DNA</strong> (aDNA) is not defined by the age of the sample but by its condition: it is any DNA from a non-living source that shows signs of degradation. Our museum eagles, about 100 years old, therefore also count as ancient DNA. After an organism dies, DNA repair stops and the molecule starts to decay (<a href="#fig-e3-damage-en" class="quarto-xref">Slika&nbsp;<span>9.5</span></a>):</p>
 <ol type="1">
 <li><strong>Depurination</strong>: a purine base (A or G) is lost from the strand by hydrolysis. The sugar-phosphate backbone stays intact, but there is no base at that position (<em>abasic site</em>).</li>
 <li><strong>Nicks</strong>: the backbone is unstable at an abasic site and breaks there. A nick breaks only one strand of the double-stranded molecule.</li>
 <li><strong>Fragmentation</strong>: when nicks on opposite strands are close together, the molecule falls apart. Because the nicks are not exactly opposite each other, short <strong>single-stranded overhangs</strong> remain at the ends. Ancient DNA is therefore short: in the samples described by SPAAM it is on average about <strong>30 to 50 bp</strong> long. Length depends more on the conditions in which the sample was kept than on its age, so fragments can be longer in well-preserved and younger samples.</li>
-<li><strong>Cytosine deamination</strong>: cytosine loses its amino group and becomes uracil (<a href="#fig-e3-deamination-en" class="quarto-xref">Slika&nbsp;<span>11.6</span></a>). In double-stranded DNA cytosine is protected by pairing with guanine; in single-stranded DNA it is exposed, so deamination there is <strong>more than 100 times faster</strong> (Lindahl &amp; Nyberg 1974; Frederico et al.&nbsp;1993, as summarised by SPAAM). Single-stranded overhangs are at the ends of fragments, so damage accumulates <strong>at the fragment ends</strong>.</li>
+<li><strong>Cytosine deamination</strong>: cytosine loses its amino group and becomes uracil (<a href="#fig-e3-deamination-en" class="quarto-xref">Slika&nbsp;<span>9.6</span></a>). In double-stranded DNA cytosine is protected by pairing with guanine; in single-stranded DNA it is exposed, so deamination there is <strong>more than 100 times faster</strong> (Lindahl &amp; Nyberg 1974; Frederico et al.&nbsp;1993, as summarised by SPAAM). Single-stranded overhangs are at the ends of fragments, so damage accumulates <strong>at the fragment ends</strong>.</li>
 </ol>
 <div id="fig-e3-damage-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-damage-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;11.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at abasic sites, (D) fragmentation into short fragments with single-stranded overhangs, (E) cytosine deamination to uracil (U, grey) in the overhangs. Source: Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;9.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at abasic sites, (D) fragmentation into short fragments with single-stranded overhangs, (E) cytosine deamination to uracil (U, grey) in the overhangs. Source: Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-damage-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at abasic sites, (D) fragmentation into short fragments with single-stranded overhangs, (E) cytosine deamination to uracil (U, grey) in the overhangs. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
+Slika&nbsp;9.5: DNA degradation after death: (A) intact double-stranded DNA, (B) depurination, (C) nicks at abasic sites, (D) fragmentation into short fragments with single-stranded overhangs, (E) cytosine deamination to uracil (U, grey) in the overhangs. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
@@ -1678,32 +1668,32 @@ Slika&nbsp;11.5: DNA degradation after death: (A) intact double-stranded DNA, (B
 <div id="fig-e3-deamination-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;11.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: Introduction to Ancient Metagenomics (SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;9.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: Introduction to Ancient Metagenomics (SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
+Slika&nbsp;9.6: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
 <section id="how-damage-becomes-errors-in-the-sequence" class="level5">
 <h5 class="anchored" data-anchor-id="how-damage-becomes-errors-in-the-sequence">How damage becomes errors in the sequence</h5>
-<p>Uracil pairs with adenine, so during amplification the polymerase <strong>incorporates A opposite uracil</strong> (instead of the G that would pair with cytosine). The new strand therefore carries A instead of G (<a href="#fig-e3-misincorporation-en" class="quarto-xref">Slika&nbsp;<span>11.7</span></a> A, “G → A misincorporation”), and in the next copy a T stands opposite this A. At a position where the living eagle had a cytosine, we therefore read <strong>C → T</strong>. The same damage read from the opposite strand appears as <strong>G → A</strong>.</p>
+<p>Uracil pairs with adenine, so during amplification the polymerase <strong>incorporates A opposite uracil</strong> (instead of the G that would pair with cytosine). The new strand therefore carries A instead of G (<a href="#fig-e3-misincorporation-en" class="quarto-xref">Slika&nbsp;<span>9.7</span></a> A, “G → A misincorporation”), and in the next copy a T stands opposite this A. At a position where the living eagle had a cytosine, we therefore read <strong>C → T</strong>. The same damage read from the opposite strand appears as <strong>G → A</strong>.</p>
 <p>The error is thus a difference from the <strong>original DNA before damage</strong>. In the data we see it as a difference from the reference genome, so it cannot be told apart from a true SNP if we look at a single site in a single individual.</p>
-<p>The polymerase also stops at a strand break and often adds an adenine to the end (<a href="#fig-e3-misincorporation-en" class="quarto-xref">Slika&nbsp;<span>11.7</span></a> B). If this partial product anneals to another molecule in the next round of amplification, this A becomes a misincorporated nucleotide.</p>
+<p>The polymerase also stops at a strand break and often adds an adenine to the end (<a href="#fig-e3-misincorporation-en" class="quarto-xref">Slika&nbsp;<span>9.7</span></a> B). If this partial product anneals to another molecule in the next round of amplification, this A becomes a misincorporated nucleotide.</p>
 <div id="fig-e3-misincorporation-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-misincorporation-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;11.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) in the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
+<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;9.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) in the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-misincorporation-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) in the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
+Slika&nbsp;9.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C → U) in the template causes misincorporation of A instead of G. (B) The polymerase stops at a strand break and adds an A; when this partial product anneals to another template in the next cycle, the A becomes a misincorporated nucleotide. Source: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="how-we-detect-damage-on-the-reads" class="level5">
 <h5 class="anchored" data-anchor-id="how-we-detect-damage-on-the-reads">How we detect damage on the reads</h5>
-<p>Because damage is concentrated at fragment ends, in authentic ancient DNA the proportion of C → T and G → A substitutions is <strong>not constant along the read</strong>. Programs such as <strong>mapDamage</strong> (Jónsson et al.&nbsp;2013) and <strong>DamageProfiler</strong> (Neukamm et al.&nbsp;2021) calculate, for each position in the aligned reads, the proportion of reference cytosines read as T (and of reference guanines read as A). The result is a <strong>damage profile</strong> (<a href="#fig-e3-damage-patterns-en" class="quarto-xref">Slika&nbsp;<span>11.8</span></a>).</p>
+<p>Because damage is concentrated at fragment ends, in authentic ancient DNA the proportion of C → T and G → A substitutions is <strong>not constant along the read</strong>. Programs such as <strong>mapDamage</strong> (Jónsson et al.&nbsp;2013) and <strong>DamageProfiler</strong> (Neukamm et al.&nbsp;2021) calculate, for each position in the aligned reads, the proportion of reference cytosines read as T (and of reference guanines read as A). The result is a <strong>damage profile</strong> (<a href="#fig-e3-damage-patterns-en" class="quarto-xref">Slika&nbsp;<span>9.8</span></a>).</p>
 <p><strong>How to read the figure:</strong></p>
 <ul>
 <li>the x axis is the <strong>position of the nucleotide in the read</strong>: on the left from the 5′ end towards the middle, on the right from the middle towards the 3′ end,</li>
@@ -1761,10 +1751,10 @@ Slika&nbsp;11.7: How ancient DNA damage becomes sequence errors. (A) Uracil (C �
 <div id="fig-e3-damage-patterns-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-damage-patterns-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;11.8: Damage profiles on reads (red C → T, blue G → A, by position from the 5′ to the 3′ end of the read): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (elevated baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the terminal nucleotide), (F) single-stranded library. The panels do not represent different DNA ages. Source: Introduction to Ancient Metagenomics (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;9.8: Damage profiles on reads (red C → T, blue G → A, by position from the 5′ to the 3′ end of the read): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (elevated baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the terminal nucleotide), (F) single-stranded library. The panels do not represent different DNA ages. Source: Introduction to Ancient Metagenomics (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-damage-patterns-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.8: Damage profiles on reads (red C → T, blue G → A, by position from the 5′ to the 3′ end of the read): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (elevated baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the terminal nucleotide), (F) single-stranded library. The panels do not represent different DNA ages. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0.
+Slika&nbsp;9.8: Damage profiles on reads (red C → T, blue G → A, by position from the 5′ to the 3′ end of the read): (A) modern DNA or a USER-treated library, (B) too few reads, (C) wrong reference (elevated baseline), (D) authentic ancient DNA, double-stranded library, (E) partial USER treatment (damage remains only on the terminal nucleotide), (F) single-stranded library. The panels do not represent different DNA ages. Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); adapted from nf-core/eager (Z. Fagernäs), CC BY 4.0.
 </figcaption>
 </figure>
 </div>
@@ -1829,10 +1819,10 @@ Slika&nbsp;11.8: Damage profiles on reads (red C → T, blue G → A, by positio
 <div id="fig-e3-tstv-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-tstv-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;11.9: Ts/Tv (left) and observed heterozygosity at SNPs (right) per individual, by period. Colour is country."><img src="E3_plink_EN_files/figure-html/fig-e3-tstv-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-tstv-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;9.9: Ts/Tv (left) and observed heterozygosity at SNPs (right) per individual, by period. Colour is country."><img src="E3_plink_EN_files/figure-html/fig-e3-tstv-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.9: Ts/Tv (left) and observed heterozygosity at SNPs (right) per individual, by period. Colour is country.
+Slika&nbsp;9.9: Ts/Tv (left) and observed heterozygosity at SNPs (right) per individual, by period. Colour is country.
 </figcaption>
 </figure>
 </div>
@@ -2010,10 +2000,10 @@ Slika&nbsp;11.9: Ts/Tv (left) and observed heterozygosity at SNPs (right) per in
 <div id="fig-e3-het-countries-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-het-countries-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-het-countries-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;11.10: Observed heterozygosity at SNPs per country and period. Each point is one individual."><img src="E3_plink_EN_files/figure-html/fig-e3-het-countries-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-het-countries-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;9.10: Observed heterozygosity at SNPs per country and period. Each point is one individual."><img src="E3_plink_EN_files/figure-html/fig-e3-het-countries-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-het-countries-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.10: Observed heterozygosity at SNPs per country and period. Each point is one individual.
+Slika&nbsp;9.10: Observed heterozygosity at SNPs per country and period. Each point is one individual.
 </figcaption>
 </figure>
 </div>
@@ -2046,10 +2036,10 @@ Slika&nbsp;11.10: Observed heterozygosity at SNPs per country and period. Each p
 <div id="fig-e3-het-miss-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-het-miss-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;11.11: Observed heterozygosity at SNPs against the proportion of missing genotypes. Each point is one individual."><img src="E3_plink_EN_files/figure-html/fig-e3-het-miss-en-1.png" class="img-fluid figure-img" width="576"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-het-miss-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;9.11: Observed heterozygosity at SNPs against the proportion of missing genotypes. Each point is one individual."><img src="E3_plink_EN_files/figure-html/fig-e3-het-miss-en-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.11: Observed heterozygosity at SNPs against the proportion of missing genotypes. Each point is one individual.
+Slika&nbsp;9.11: Observed heterozygosity at SNPs against the proportion of missing genotypes. Each point is one individual.
 </figcaption>
 </figure>
 </div>
@@ -2113,10 +2103,10 @@ Slika&nbsp;11.11: Observed heterozygosity at SNPs against the proportion of miss
 <div id="fig-e3-miss-snp-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-miss-snp-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;11.12: Proportion of missing genotypes per SNP (after --mind 0.8)."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-snp-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-miss-snp-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;9.12: Proportion of missing genotypes per SNP (after --mind 0.8)."><img src="E3_plink_EN_files/figure-html/fig-e3-miss-snp-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.12: Proportion of missing genotypes per SNP (after <code>--mind 0.8</code>).
+Slika&nbsp;9.12: Proportion of missing genotypes per SNP (after <code>--mind 0.8</code>).
 </figcaption>
 </figure>
 </div>
@@ -2223,10 +2213,10 @@ Results written to results/eagle_2_geno.kin0 .</code></pre>
 <div id="fig-e3-king-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-king-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;11.13: KING kinship versus IBS0 for all pairs of individuals. The dashed lines are the thresholds for duplicated samples (0.354) and first-degree relatives (0.177)."><img src="E3_plink_EN_files/figure-html/fig-e3-king-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-king-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;9.13: KING kinship versus IBS0 for all pairs of individuals. The dashed lines are the thresholds for duplicated samples (0.354) and first-degree relatives (0.177)."><img src="E3_plink_EN_files/figure-html/fig-e3-king-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.13: KING kinship versus IBS0 for all pairs of individuals. The dashed lines are the thresholds for duplicated samples (0.354) and first-degree relatives (0.177).
+Slika&nbsp;9.13: KING kinship versus IBS0 for all pairs of individuals. The dashed lines are the thresholds for duplicated samples (0.354) and first-degree relatives (0.177).
 </figcaption>
 </figure>
 </div>
@@ -2692,10 +2682,10 @@ Slika&nbsp;11.13: KING kinship versus IBS0 for all pairs of individuals. The das
 <div id="fig-e3-maf-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-maf-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;11.14: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05."><img src="E3_plink_EN_files/figure-html/fig-e3-maf-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-maf-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;9.14: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05."><img src="E3_plink_EN_files/figure-html/fig-e3-maf-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.14: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05.
+Slika&nbsp;9.14: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05.
 </figcaption>
 </figure>
 </div>
@@ -2856,10 +2846,10 @@ Slika&nbsp;11.14: Distribution of MAF. Dashed lines are the common thresholds 0.
 <div id="fig-e3-ho-he-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-ho-he-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;11.15: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together."><img src="E3_plink_EN_files/figure-html/fig-e3-ho-he-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-ho-he-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;9.15: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together."><img src="E3_plink_EN_files/figure-html/fig-e3-ho-he-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.15: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together.
+Slika&nbsp;9.15: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together.
 </figcaption>
 </figure>
 </div>
@@ -2900,10 +2890,10 @@ plink2 --bfile results/eagle_3_no_duplicates --keep-fam results/NO_Con.txt --har
 <div id="fig-e3-hwe-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_EN_files/figure-html/fig-e3-hwe-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;11.16: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect)."><img src="E3_plink_EN_files/figure-html/fig-e3-hwe-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_EN_files/figure-html/fig-e3-hwe-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;9.16: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect)."><img src="E3_plink_EN_files/figure-html/fig-e3-hwe-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;11.16: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect).
+Slika&nbsp;9.16: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect).
 </figcaption>
 </figure>
 </div>
@@ -3019,7 +3009,7 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 </div>
 <section id="sec-e3-think-ld-en" class="level4">
 <h4 class="anchored" data-anchor-id="sec-e3-think-ld-en">Think: where does LD pruning matter?</h4>
-<p>The diagram (<a href="#fig-e3-pipeline-en" class="quarto-xref">Slika&nbsp;<span>11.1</span></a>) splits after basic QC and relatedness into two datasets: <strong>without LD pruning</strong> and <strong>after LD pruning</strong>. Our data are only on the right branch. Before using them in Practicals 4–6, think about where this will affect the results.</p>
+<p>The diagram (<a href="#fig-e3-pipeline-en" class="quarto-xref">Slika&nbsp;<span>9.1</span></a>) splits after basic QC and relatedness into two datasets: <strong>without LD pruning</strong> and <strong>after LD pruning</strong>. Our data are only on the right branch. Before using them in Practicals 4–6, think about where this will affect the results.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

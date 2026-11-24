@@ -205,17 +205,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../E0_orodja_1_linux/E0_orodja_1_linux.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja 1: Linux v bioinformatiki</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../E0_orodja_2_wsl/E0_orodja_2_wsl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja 2: WSL – Linux na Windowsih</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../E0_orodja_3_docker/E0_orodja_3_docker.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja 3: Docker – programi v zabojnikih</span></a>
+  <a href="../E0_orodja/E0_orodja.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Orodja za bioinformatike: Linux, WSL in Docker</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -497,10 +487,10 @@ window.Quarto = {
 <div id="fig-e3-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/snp_pipeline_SL.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;7.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo."><img src="images/snp_pipeline_SL.png" class="img-fluid figure-img"></a>
+<a href="images/snp_pipeline_SL.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;5.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo."><img src="images/snp_pipeline_SL.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo.
+Slika&nbsp;5.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo.
 </figcaption>
 </figure>
 </div>
@@ -516,7 +506,7 @@ Slika&nbsp;7.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Velike analize v praksi poganjamo na strežnikih (HPC) z Linuxom, kjer PLINK kličemo neposredno iz terminala. PLINK deluje tudi na Windowsih in macOS, zato ga bomo poganjali kar iz R-a. Ukazi so enaki. Če Linuxa ne poznate, si oglejte <a href="https://phoenixnap.com/kb/wp-content/uploads/2023/11/linux-commands-cheat-sheet-pdf.pdf">osnovne ukaze Linux</a> in <a href="../E0_orodja_1_linux/E0_orodja_1_linux.html">Orodja 1: Linux v bioinformatiki</a>.</p>
+<p>Velike analize v praksi poganjamo na strežnikih (HPC) z Linuxom, kjer PLINK kličemo neposredno iz terminala. PLINK deluje tudi na Windowsih in macOS, zato ga bomo poganjali kar iz R-a. Ukazi so enaki. Če Linuxa ne poznate, si oglejte <a href="https://phoenixnap.com/kb/wp-content/uploads/2023/11/linux-commands-cheat-sheet-pdf.pdf">osnovne ukaze Linux</a> in <a href="../E0_orodja/E0_orodja.html#sec-e0o-linux">Orodja za bioinformatike: Linux</a>.</p>
 </div>
 </div>
 <section id="dvoalelne-variante-v-datotekah-vcf-za-plink" class="level3">
@@ -650,7 +640,7 @@ Slika&nbsp;7.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Namesto da program prenesete v mapo <code>podatki</code>, ga lahko poženete v <strong>zabojniku</strong> (<em>container</em>) Docker. Prednost je, da vsi uporabljajo <strong>točno isto različico</strong> programa ne glede na operacijski sistem, različico pa zapišemo v metode in README. To je ena od osnov <strong>ponovljivosti</strong> (<em>reproducibility</em>). Docker morate imeti nameščen in zagnan (glej <a href="../E0_orodja_3_docker/E0_orodja_3_docker.html">Orodja 3: Docker</a>).</p>
+<p>Namesto da program prenesete v mapo <code>podatki</code>, ga lahko poženete v <strong>zabojniku</strong> (<em>container</em>) Docker. Prednost je, da vsi uporabljajo <strong>točno isto različico</strong> programa ne glede na operacijski sistem, različico pa zapišemo v metode in README. To je ena od osnov <strong>ponovljivosti</strong> (<em>reproducibility</em>). Docker morate imeti nameščen in zagnan (glej <a href="../E0_orodja/E0_orodja.html#sec-e0o-docker">Orodja za bioinformatike: Docker</a>).</p>
 <p>Uporabimo pripravljeni <strong>sliki</strong> (<em>image</em>) iz projekta <a href="https://biocontainers.pro">BioContainers</a>:</p>
 <table class="caption-top table">
 <thead>
@@ -1381,10 +1371,10 @@ rezultati/orel_0-temporary.psam written.
 <div id="fig-e3-snp-po-kromosomih" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-snp-po-kromosomih-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-snp-po-kromosomih-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;7.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev."><img src="E3_plink_files/figure-html/fig-e3-snp-po-kromosomih-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-snp-po-kromosomih-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;5.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev."><img src="E3_plink_files/figure-html/fig-e3-snp-po-kromosomih-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-snp-po-kromosomih-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev.
+Slika&nbsp;5.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP-jev.
 </figcaption>
 </figure>
 </div>
@@ -1484,10 +1474,10 @@ Slika&nbsp;7.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP
 <div id="fig-e3-miss-osebki" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-miss-osebki-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;7.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za --mind."><img src="E3_plink_files/figure-html/fig-e3-miss-osebki-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-miss-osebki-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;5.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za --mind."><img src="E3_plink_files/figure-html/fig-e3-miss-osebki-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za <code>--mind</code>.
+Slika&nbsp;5.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za <code>--mind</code>.
 </figcaption>
 </figure>
 </div>
@@ -1553,10 +1543,10 @@ Slika&nbsp;7.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so mož
 <div id="fig-e3-miss-clanek" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-miss-clanek-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;7.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x."><img src="E3_plink_files/figure-html/fig-e3-miss-clanek-1.png" class="img-fluid figure-img" width="480"></a>
+<a href="E3_plink_files/figure-html/fig-e3-miss-clanek-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;5.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x."><img src="E3_plink_files/figure-html/fig-e3-miss-clanek-1.png" class="img-fluid figure-img" width="480"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x.
+Slika&nbsp;5.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x.
 </figcaption>
 </figure>
 </div>
@@ -1653,20 +1643,20 @@ IDs written to rezultati/orel_1_mind.mindrem.id .
 </section>
 <section id="sec-e3-stara-dna" class="level4">
 <h4 class="anchored" data-anchor-id="sec-e3-stara-dna">Stara DNA: kaj se zgodi z molekulo DNA po smrti</h4>
-<p><strong>Stara DNA</strong> (<em>ancient DNA</em>, aDNA) ni določena s starostjo vzorca, ampak z njegovim stanjem: to je vsaka DNA iz neživega vira, ki kaže znake razgradnje. Med staro DNA zato sodijo tudi naši muzejski orli, stari približno 100 let. Po smrti organizma se popravljanje DNA ustavi in molekula začne razpadati (<a href="#fig-e3-poskodbe" class="quarto-xref">Slika&nbsp;<span>7.5</span></a>):</p>
+<p><strong>Stara DNA</strong> (<em>ancient DNA</em>, aDNA) ni določena s starostjo vzorca, ampak z njegovim stanjem: to je vsaka DNA iz neživega vira, ki kaže znake razgradnje. Med staro DNA zato sodijo tudi naši muzejski orli, stari približno 100 let. Po smrti organizma se popravljanje DNA ustavi in molekula začne razpadati (<a href="#fig-e3-poskodbe" class="quarto-xref">Slika&nbsp;<span>5.5</span></a>):</p>
 <ol type="1">
 <li><strong>Depurinacija</strong> (<em>depurination</em>): s hidrolizo z verige odpade purinska baza (A ali G). Sladkorno-fosfatna veriga ostane cela, na tem mestu pa ni baze (<em>abasic site</em>).</li>
 <li><strong>Zareze</strong> (<em>nicks</em>): veriga je na mestu brez baze nestabilna in se tam prekine. Zareza prekine samo eno verigo dvoverižne molekule.</li>
 <li><strong>Razpad na kratke fragmente</strong> (<em>fragmentation</em>): kadar sta zarezi na nasprotnih verigah blizu skupaj, molekula razpade. Ker zarezi nista točno nasproti, na koncih ostanejo kratki <strong>enoverižni previsi</strong> (<em>overhangs</em>). Stara DNA je zato kratka: v vzorcih, ki jih opisuje SPAAM, je dolga v povprečju okoli <strong>30 do 50 bp</strong>. Dolžina je bolj kot od starosti odvisna od pogojev, v katerih je bil vzorec shranjen, zato so lahko fragmenti pri dobro ohranjenih in mlajših vzorcih daljši.</li>
-<li><strong>Deaminacija citozina</strong> (<em>cytosine deamination</em>): citozin izgubi aminsko skupino in postane uracil (<a href="#fig-e3-deaminacija" class="quarto-xref">Slika&nbsp;<span>7.6</span></a>). V dvoverižni DNA je citozin zaščiten s parjenjem z gvaninom, v enoverižni pa je izpostavljen, zato je deaminacija tam <strong>več kot 100-krat hitrejša</strong> (Lindahl &amp; Nyberg 1974; Frederico et al.&nbsp;1993, povzeto po SPAAM). Enoverižni previsi so na koncih fragmentov, zato se poškodbe zbirajo prav <strong>na koncih fragmentov</strong>.</li>
+<li><strong>Deaminacija citozina</strong> (<em>cytosine deamination</em>): citozin izgubi aminsko skupino in postane uracil (<a href="#fig-e3-deaminacija" class="quarto-xref">Slika&nbsp;<span>5.6</span></a>). V dvoverižni DNA je citozin zaščiten s parjenjem z gvaninom, v enoverižni pa je izpostavljen, zato je deaminacija tam <strong>več kot 100-krat hitrejša</strong> (Lindahl &amp; Nyberg 1974; Frederico et al.&nbsp;1993, povzeto po SPAAM). Enoverižni previsi so na koncih fragmentov, zato se poškodbe zbirajo prav <strong>na koncih fragmentov</strong>.</li>
 </ol>
 <div id="fig-e3-poskodbe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-poskodbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;7.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<a href="images/adna_poskodbe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;5.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/adna_poskodbe.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-poskodbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
+Slika&nbsp;5.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B) depurinacija, (C) zareze na mestih brez baze, (D) razpad na kratke fragmente z enoverižnimi previsi, (E) deaminacija citozina v uracil (U, sivo) na previsih. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
@@ -1674,32 +1664,32 @@ Slika&nbsp;7.5: Razgradnja DNA po smrti: (A) nepoškodovana dvoverižna DNA, (B)
 <div id="fig-e3-deaminacija" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;7.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: Introduction to Ancient Metagenomics (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;5.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: Introduction to Ancient Metagenomics (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
+Slika&nbsp;5.6: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
 </figcaption>
 </figure>
 </div>
 <section id="kako-poškodbe-postanejo-napake-v-zaporedju" class="level5">
 <h5 class="anchored" data-anchor-id="kako-poškodbe-postanejo-napake-v-zaporedju">Kako poškodbe postanejo napake v zaporedju</h5>
-<p>Uracil se pari z adeninom, zato polimeraza pri pomnoževanju <strong>nasproti uracila vgradi A</strong> (namesto G, ki bi stal nasproti citozina). V novi verigi je tako A namesto G (<a href="#fig-e3-napacna-vgradnja" class="quarto-xref">Slika&nbsp;<span>7.7</span></a> A, »G → A misincorporation«), v naslednji kopiji pa nasproti tega A stoji T. Na mestu, kjer je bil v živem orlu citozin, zato v zaporedju preberemo <strong>C → T</strong>. Ista poškodba, prebrana z nasprotne verige, je <strong>G → A</strong>.</p>
+<p>Uracil se pari z adeninom, zato polimeraza pri pomnoževanju <strong>nasproti uracila vgradi A</strong> (namesto G, ki bi stal nasproti citozina). V novi verigi je tako A namesto G (<a href="#fig-e3-napacna-vgradnja" class="quarto-xref">Slika&nbsp;<span>5.7</span></a> A, »G → A misincorporation«), v naslednji kopiji pa nasproti tega A stoji T. Na mestu, kjer je bil v živem orlu citozin, zato v zaporedju preberemo <strong>C → T</strong>. Ista poškodba, prebrana z nasprotne verige, je <strong>G → A</strong>.</p>
 <p>Napaka je torej razlika glede na <strong>izvorno DNA pred poškodbo</strong>. V podatkih jo vidimo kot razliko od referenčnega genoma, zato je ne moremo ločiti od pravega SNP-ja, če gledamo samo eno mesto pri enem osebku.</p>
-<p>Polimeraza se ustavi tudi na prekinitvi verige in na konec pogosto doda adenin (<a href="#fig-e3-napacna-vgradnja" class="quarto-xref">Slika&nbsp;<span>7.7</span></a> B). Če se tak delni produkt v naslednjem krogu pomnoževanja naleže na drugo molekulo, postane ta A napačno vgrajen nukleotid.</p>
+<p>Polimeraza se ustavi tudi na prekinitvi verige in na konec pogosto doda adenin (<a href="#fig-e3-napacna-vgradnja" class="quarto-xref">Slika&nbsp;<span>5.7</span></a> B). Če se tak delni produkt v naslednjem krogu pomnoževanja naleže na drugo molekulo, postane ta A napačno vgrajen nukleotid.</p>
 <div id="fig-e3-napacna-vgradnja" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-napacna-vgradnja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;7.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
+<a href="images/adna_napacna_vgradnja.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;5.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), Nucleic Acids Research 29: 4793–4799."><img src="images/adna_napacna_vgradnja.png" class="img-fluid figure-img" style="width:60.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-napacna-vgradnja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
+Slika&nbsp;5.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uracil (C → U) na matrici povzroči napačno vgradnjo A namesto G. (B) Polimeraza se ustavi na prekinitvi verige in na konec doda A; ko ta delni produkt v naslednjem krogu naleže na drugo matrico, postane A napačno vgrajen nukleotid. Vir: Hofreiter et al.&nbsp;(2001), <em>Nucleic Acids Research</em> 29: 4793–4799.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="kako-poškodbe-prepoznamo-na-odčitkih" class="level5">
 <h5 class="anchored" data-anchor-id="kako-poškodbe-prepoznamo-na-odčitkih">Kako poškodbe prepoznamo na odčitkih</h5>
-<p>Ker so poškodbe zbrane na koncih fragmentov, pri pravi stari DNA delež zamenjav C → T in G → A <strong>ni enak vzdolž odčitka</strong>. Programa, kot sta <strong>mapDamage</strong> (Jónsson et al.&nbsp;2013) in <strong>DamageProfiler</strong> (Neukamm et al.&nbsp;2021), na poravnanih odčitkih za vsak položaj izračunata, kolikšen delež citozinov v referenci je v odčitkih T (in kolikšen delež gvaninov A). Rezultat je <strong>profil poškodb</strong> (<a href="#fig-e3-vzorci-poskodb" class="quarto-xref">Slika&nbsp;<span>7.8</span></a>).</p>
+<p>Ker so poškodbe zbrane na koncih fragmentov, pri pravi stari DNA delež zamenjav C → T in G → A <strong>ni enak vzdolž odčitka</strong>. Programa, kot sta <strong>mapDamage</strong> (Jónsson et al.&nbsp;2013) in <strong>DamageProfiler</strong> (Neukamm et al.&nbsp;2021), na poravnanih odčitkih za vsak položaj izračunata, kolikšen delež citozinov v referenci je v odčitkih T (in kolikšen delež gvaninov A). Rezultat je <strong>profil poškodb</strong> (<a href="#fig-e3-vzorci-poskodb" class="quarto-xref">Slika&nbsp;<span>5.8</span></a>).</p>
 <p><strong>Kako beremo sliko:</strong></p>
 <ul>
 <li>os x je <strong>položaj nukleotida v odčitku</strong>: levo od 5′ konca proti sredini, desno od sredine proti 3′ koncu,</li>
@@ -1757,10 +1747,10 @@ Slika&nbsp;7.7: Kako poškodbe stare DNA postanejo napake v zaporedju. (A) Uraci
 <div id="fig-e3-vzorci-poskodb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-vzorci-poskodb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;7.8: Profili poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5′ do 3′ konca odčitka): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Paneli ne predstavljajo različnih starosti DNA. Vir: Introduction to Ancient Metagenomics (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
+<a href="images/adna_vzorci_poskodb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;5.8: Profili poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5′ do 3′ konca odčitka): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Paneli ne predstavljajo različnih starosti DNA. Vir: Introduction to Ancient Metagenomics (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0."><img src="images/adna_vzorci_poskodb.png" class="img-fluid figure-img" style="width:70.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-vzorci-poskodb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.8: Profili poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5′ do 3′ konca odčitka): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Paneli ne predstavljajo različnih starosti DNA. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0.
+Slika&nbsp;5.8: Profili poškodb na odčitkih (rdeče C → T, modro G → A, po položaju od 5′ do 3′ konca odčitka): (A) sodobna DNA ali knjižnica, tretirana z encimi USER, (B) premalo odčitkov, (C) napačna referenca (povišana osnovna raven), (D) prava stara DNA, dvoverižna knjižnica, (E) delno tretiranje USER (poškodba ostane le na zadnjem nukleotidu), (F) enoverižna knjižnica. Paneli ne predstavljajo različnih starosti DNA. Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics</a> (SPAAM); prirejeno po nf-core/eager (Z. Fagernäs), CC BY 4.0.
 </figcaption>
 </figure>
 </div>
@@ -1824,10 +1814,10 @@ Slika&nbsp;7.8: Profili poškodb na odčitkih (rdeče C → T, modro G → A, po
 <div id="fig-e3-tstv" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-tstv-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;7.9: Ts/Tv (levo) in opažena heterozigotnost na SNP-jih (desno) po osebkih, ločeno po obdobju. Barva je država."><img src="E3_plink_files/figure-html/fig-e3-tstv-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-tstv-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;5.9: Ts/Tv (levo) in opažena heterozigotnost na SNP-jih (desno) po osebkih, ločeno po obdobju. Barva je država."><img src="E3_plink_files/figure-html/fig-e3-tstv-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.9: Ts/Tv (levo) in opažena heterozigotnost na SNP-jih (desno) po osebkih, ločeno po obdobju. Barva je država.
+Slika&nbsp;5.9: Ts/Tv (levo) in opažena heterozigotnost na SNP-jih (desno) po osebkih, ločeno po obdobju. Barva je država.
 </figcaption>
 </figure>
 </div>
@@ -2003,10 +1993,10 @@ Slika&nbsp;7.9: Ts/Tv (levo) in opažena heterozigotnost na SNP-jih (desno) po o
 <div id="fig-e3-het-drzave" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-het-drzave-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-het-drzave-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;7.10: Opažena heterozigotnost na SNP-jih po državah in obdobjih. Vsaka točka je en osebek."><img src="E3_plink_files/figure-html/fig-e3-het-drzave-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-het-drzave-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;5.10: Opažena heterozigotnost na SNP-jih po državah in obdobjih. Vsaka točka je en osebek."><img src="E3_plink_files/figure-html/fig-e3-het-drzave-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-het-drzave-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.10: Opažena heterozigotnost na SNP-jih po državah in obdobjih. Vsaka točka je en osebek.
+Slika&nbsp;5.10: Opažena heterozigotnost na SNP-jih po državah in obdobjih. Vsaka točka je en osebek.
 </figcaption>
 </figure>
 </div>
@@ -2039,10 +2029,10 @@ Slika&nbsp;7.10: Opažena heterozigotnost na SNP-jih po državah in obdobjih. Vs
 <div id="fig-e3-het-miss" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-het-miss-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;7.11: Opažena heterozigotnost na SNP-jih proti deležu manjkajočih genotipov. Vsaka točka je en osebek."><img src="E3_plink_files/figure-html/fig-e3-het-miss-1.png" class="img-fluid figure-img" width="576"></a>
+<a href="E3_plink_files/figure-html/fig-e3-het-miss-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;5.11: Opažena heterozigotnost na SNP-jih proti deležu manjkajočih genotipov. Vsaka točka je en osebek."><img src="E3_plink_files/figure-html/fig-e3-het-miss-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.11: Opažena heterozigotnost na SNP-jih proti deležu manjkajočih genotipov. Vsaka točka je en osebek.
+Slika&nbsp;5.11: Opažena heterozigotnost na SNP-jih proti deležu manjkajočih genotipov. Vsaka točka je en osebek.
 </figcaption>
 </figure>
 </div>
@@ -2106,10 +2096,10 @@ Slika&nbsp;7.11: Opažena heterozigotnost na SNP-jih proti deležu manjkajočih 
 <div id="fig-e3-miss-snp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-miss-snp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;7.12: Delež manjkajočih genotipov po SNP-jih (po --mind 0.8)."><img src="E3_plink_files/figure-html/fig-e3-miss-snp-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-miss-snp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;5.12: Delež manjkajočih genotipov po SNP-jih (po --mind 0.8)."><img src="E3_plink_files/figure-html/fig-e3-miss-snp-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.12: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</code>).
+Slika&nbsp;5.12: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</code>).
 </figcaption>
 </figure>
 </div>
@@ -2216,10 +2206,10 @@ Results written to rezultati/orel_2_geno.kin0 .</code></pre>
 <div id="fig-e3-king" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-king-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;7.13: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkani črti sta meji za podvojene vzorce (0,354) in sorodnike 1. stopnje (0,177)."><img src="E3_plink_files/figure-html/fig-e3-king-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-king-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;5.13: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkani črti sta meji za podvojene vzorce (0,354) in sorodnike 1. stopnje (0,177)."><img src="E3_plink_files/figure-html/fig-e3-king-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.13: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkani črti sta meji za podvojene vzorce (0,354) in sorodnike 1. stopnje (0,177).
+Slika&nbsp;5.13: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkani črti sta meji za podvojene vzorce (0,354) in sorodnike 1. stopnje (0,177).
 </figcaption>
 </figure>
 </div>
@@ -2685,10 +2675,10 @@ Slika&nbsp;7.13: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkani črti s
 <div id="fig-e3-maf" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-maf-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;7.14: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05."><img src="E3_plink_files/figure-html/fig-e3-maf-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-maf-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;5.14: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05."><img src="E3_plink_files/figure-html/fig-e3-maf-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.14: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
+Slika&nbsp;5.14: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
 </figcaption>
 </figure>
 </div>
@@ -2849,10 +2839,10 @@ Slika&nbsp;7.14: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
 <div id="fig-e3-ho-he" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-ho-he-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;7.15: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj."><img src="E3_plink_files/figure-html/fig-e3-ho-he-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-ho-he-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Slika&nbsp;5.15: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj."><img src="E3_plink_files/figure-html/fig-e3-ho-he-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.15: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj.
+Slika&nbsp;5.15: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj.
 </figcaption>
 </figure>
 </div>
@@ -2893,10 +2883,10 @@ plink2 --bfile rezultati/orel_3_brez_duplikatov --keep-fam rezultati/NO_Con.txt 
 <div id="fig-e3-hwe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e3-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E3_plink_files/figure-html/fig-e3-hwe-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;7.16: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek)."><img src="E3_plink_files/figure-html/fig-e3-hwe-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E3_plink_files/figure-html/fig-e3-hwe-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Slika&nbsp;5.16: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek)."><img src="E3_plink_files/figure-html/fig-e3-hwe-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e3-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;7.16: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek).
+Slika&nbsp;5.16: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek).
 </figcaption>
 </figure>
 </div>
@@ -3012,7 +3002,7 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 </div>
 <section id="sec-e3-razmislite-ld" class="level4">
 <h4 class="anchored" data-anchor-id="sec-e3-razmislite-ld">Razmislite: kje se pozna LD pruning?</h4>
-<p>Shema (<a href="#fig-e3-pipeline" class="quarto-xref">Slika&nbsp;<span>7.1</span></a>) se po osnovnem QC in sorodnosti razcepi na dva nabora: <strong>brez LD čiščenja</strong> in <strong>po LD čiščenju</strong>. Naši podatki so samo na desni veji. Preden jih uporabimo za analize v vajah 4–6, premislite, kje bo to vplivalo na rezultat.</p>
+<p>Shema (<a href="#fig-e3-pipeline" class="quarto-xref">Slika&nbsp;<span>5.1</span></a>) se po osnovnem QC in sorodnosti razcepi na dva nabora: <strong>brez LD čiščenja</strong> in <strong>po LD čiščenju</strong>. Naši podatki so samo na desni veji. Preden jih uporabimo za analize v vajah 4–6, premislite, kje bo to vplivalo na rezultat.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="sl" xml:lang="sl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Orodja za bioinformatike: Linux, WSL in Docker – Evolucijska in populacijska genetika</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" rel="next">
+<link href="../E0_uvod_R/E0_uvod_R.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ef4d8e9faa04af36b84e1866e7343808.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ni rezultatov",
+    "search-matching-documents-text": "ujemajoči se dokumenti",
+    "search-copy-link-title": "Kopiraj povezavo do iskanja",
+    "search-hide-matches-text": "Skrij dodatne zadetke",
+    "search-more-match-text": "več zadetkov v tem dokumentu",
+    "search-more-matches-text": "več zadetkov v tem dokumentu",
+    "search-clear-button-title": "Počisti",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Prekliči",
+    "search-submit-button-title": "Pošlji",
+    "search-label": "Iskanje"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E0_orodja/E0_orodja.html"><span class="chapter-title">Orodja za bioinformatike: Linux, WSL in Docker</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Preklopi navigacijo v stranski vrstici" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Iskanje" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Evolucijska in populacijska genetika</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Iskanje"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dobrodošli / Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slovenščina</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../uvod_SL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uvod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E0_uvod_R/E0_uvod_R.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E0_orodja/E0_orodja.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Orodja za bioinformatike: Linux, WSL in Docker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E2_simulacije/E2_simulacije.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 2: Populacijskogenetski modeli in simulacije</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink/E3_plink.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vaja 3: Uvod v populacijsko genetiko, SNP-ji in PLINK</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">English</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Preklopi odsek">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../uvod_EN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E0_intro_R_EN/E0_intro_R_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 0: Setting up your system – R, RStudio and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E1_version_control_EN/E1_version_control_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 1: Version control with Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E2_simulations_EN/E2_simulations_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 2: Population genetic models and simulations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../E3_plink_EN/E3_plink_EN.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Practical 3: Introduction to population genetics, SNPs and PLINK</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../literatura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literatura / Literature</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej strani</h2>
+   
+  <ul>
+  <li><a href="#sec-e0o-linux" id="toc-sec-e0o-linux" class="nav-link active" data-scroll-target="#sec-e0o-linux">Linux v bioinformatiki</a>
+  <ul class="collapse">
+  <li><a href="#sec-e0o-zakaj" id="toc-sec-e0o-zakaj" class="nav-link" data-scroll-target="#sec-e0o-zakaj">Vloga Linuxa v bioinformatiki</a></li>
+  <li><a href="#sec-e0o-pojmi" id="toc-sec-e0o-pojmi" class="nav-link" data-scroll-target="#sec-e0o-pojmi">Zgradba sistema Linux</a></li>
+  <li><a href="#sec-e0o-moznosti" id="toc-sec-e0o-moznosti" class="nav-link" data-scroll-target="#sec-e0o-moznosti">Dostop do okolja Linux</a></li>
+  <li><a href="#sec-e0o-ukazi" id="toc-sec-e0o-ukazi" class="nav-link" data-scroll-target="#sec-e0o-ukazi">Osnovni ukazi</a></li>
+  </ul></li>
+  <li><a href="#sec-e0o-wsl-del" id="toc-sec-e0o-wsl-del" class="nav-link" data-scroll-target="#sec-e0o-wsl-del">WSL: Linux na Windowsih</a>
+  <ul class="collapse">
+  <li><a href="#sec-e0o-wsl" id="toc-sec-e0o-wsl" class="nav-link" data-scroll-target="#sec-e0o-wsl">Kaj je WSL</a></li>
+  <li><a href="#sec-e0o-wsl-namestitev" id="toc-sec-e0o-wsl-namestitev" class="nav-link" data-scroll-target="#sec-e0o-wsl-namestitev">Namestitev</a></li>
+  <li><a href="#sec-e0o-wsl-datoteke" id="toc-sec-e0o-wsl-datoteke" class="nav-link" data-scroll-target="#sec-e0o-wsl-datoteke">Datoteke: Windows ↔︎ Linux</a></li>
+  <li><a href="#sec-e0o-sudo" id="toc-sec-e0o-sudo" class="nav-link" data-scroll-target="#sec-e0o-sudo">Pravice: <code>sudo</code> in <code>root</code></a></li>
+  <li><a href="#sec-e0o-wslconfig" id="toc-sec-e0o-wslconfig" class="nav-link" data-scroll-target="#sec-e0o-wslconfig">Koliko pomnilnika dobi Linux</a></li>
+  <li><a href="#sec-e0o-wsl-dostop" id="toc-sec-e0o-wsl-dostop" class="nav-link" data-scroll-target="#sec-e0o-wsl-dostop">Kako odpreti terminal WSL</a></li>
+  </ul></li>
+  <li><a href="#sec-e0o-docker" id="toc-sec-e0o-docker" class="nav-link" data-scroll-target="#sec-e0o-docker">Docker: programi v zabojnikih</a>
+  <ul class="collapse">
+  <li><a href="#sec-e0o-docker-zakaj" id="toc-sec-e0o-docker-zakaj" class="nav-link" data-scroll-target="#sec-e0o-docker-zakaj">Zakaj Docker</a></li>
+  <li><a href="#sec-e0o-docker-namestitev" id="toc-sec-e0o-docker-namestitev" class="nav-link" data-scroll-target="#sec-e0o-docker-namestitev">Namestitev</a></li>
+  <li><a href="#sec-e0o-docker-ukazi" id="toc-sec-e0o-docker-ukazi" class="nav-link" data-scroll-target="#sec-e0o-docker-ukazi">Osnovni ukazi</a></li>
+  <li><a href="#sec-e0o-rstudio-docker" id="toc-sec-e0o-rstudio-docker" class="nav-link" data-scroll-target="#sec-e0o-rstudio-docker">RStudio v zabojniku</a></li>
+  <li><a href="#sec-e0o-dockerfile" id="toc-sec-e0o-dockerfile" class="nav-link" data-scroll-target="#sec-e0o-dockerfile">Lastna slika: Dockerfile</a></li>
+  <li><a href="#sec-e0o-dockerhub" id="toc-sec-e0o-dockerhub" class="nav-link" data-scroll-target="#sec-e0o-dockerhub">Deljenje slik: Docker Hub</a></li>
+  <li><a href="#sec-e0o-apptainer" id="toc-sec-e0o-apptainer" class="nav-link" data-scroll-target="#sec-e0o-apptainer">Superračunalniki: Apptainer</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../uvod_SL.html">Slovenščina</a></li><li class="breadcrumb-item"><a href="../E0_orodja/E0_orodja.html"><span class="chapter-title">Orodja za bioinformatike: Linux, WSL in Docker</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-E0_orodja" class="quarto-section-identifier"><span class="chapter-title">Orodja za bioinformatike: Linux, WSL in Docker</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Priročnik o osnovnih računalniških orodjih za delo z genomskimi podatki ima tri dele: <strong>Linux v bioinformatiki</strong>, <strong>WSL: Linux na Windowsih</strong> in <strong>Docker: programi v zabojnikih</strong>. Vsi so neobvezni in namenjeni samostojnemu delu; za vaje jih ne potrebujete.</p>
+<section id="sec-e0o-linux" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0o-linux">Linux v bioinformatiki</h2>
+<section id="sec-e0o-zakaj" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-zakaj">Vloga Linuxa v bioinformatiki</h3>
+<p>Linux je standardno okolje za analizo genomskih podatkov iz dveh razlogov.</p>
+<p><strong>Programska oprema.</strong> Večina bioinformatičnih programov je razvita za Linux in Unix. Programski cevovod (<em>pipeline</em>) od surovih odčitkov do datoteke VCF (npr. fastp, BWA, samtools, GATK, bcftools) in številni programi za populacijsko genomiko (npr. ADMIXTURE) delujejo samo v okolju Unix ali so tam najbolje podprti. Le redki programi, kot je PLINK, imajo tudi različico za Windows.</p>
+<p><strong>Strežniki in računska moč.</strong> Genomski podatki so obsežni (podatki celotnega genoma enega osebka obsegajo več deset GB), analize pa trajajo od nekaj ur do več dni. Zato tečejo na strežnikih in superračunalnikih (<em>high-performance computing</em>, HPC), ki imajo dovolj pomnilnika in procesorskih jeder ter lahko delajo neprekinjeno. Ti sistemi skoraj brez izjeme uporabljajo Linux.</p>
+<p>Iz tega sledi način dela:</p>
+<ul>
+<li>do strežnika dostopamo oddaljeno prek <strong>terminala</strong> (<em>terminal</em>) in ukazne vrstice (<em>command line</em>), brez grafičnega vmesnika;</li>
+<li>posamezne korake analize povežemo v <strong>skripte</strong> (<em>scripts</em>), najpogosteje v jeziku Bash, ki jih lahko ponovimo na novih podatkih in tako zagotovimo ponovljivost analize.</li>
+</ul>
+</section>
+<section id="sec-e0o-pojmi" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-pojmi">Zgradba sistema Linux</h3>
+<dl>
+<dt><strong>Jedro</strong> (<em>kernel</em>)</dt>
+<dd>
+Osrednji del operacijskega sistema. Posreduje med strojno opremo (procesor, pomnilnik, disk, mreža) in programi ter upravlja procese, pomnilnik, datotečni sistem in mrežo.
+</dd>
+<dt><strong>Distribucija</strong> (<em>distribution, distro</em>)</dt>
+<dd>
+Celoten operacijski sistem, zgrajen okoli jedra Linux: jedro, sistemske knjižnice, orodja in upravitelj paketov. Najpogostejše so <strong>Ubuntu</strong> in Debian (osebni računalniki in strežniki) ter Rocky Linux in Red Hat Enterprise Linux (pogosti na superračunalnikih).
+</dd>
+<dt><strong>Lupina</strong> (<em>shell</em>)</dt>
+<dd>
+Program, ki bere ukaze iz terminala in jih izvede. Najpogostejša lupina je <strong>Bash</strong>.
+</dd>
+</dl>
+<pre><code>+------------------------+
+| programi               |  urejevalniki, R, PLINK, samtools ...
++------------------------+
+| lupina (Bash)          |  vnos ukazov
++------------------------+
+| sistemske knjižnice    |
++------------------------+
+| jedro Linux            |  procesi, pomnilnik, datoteke, mreža
++------------------------+
+| strojna oprema         |  procesor, RAM, disk
++------------------------+</code></pre>
+</section>
+<section id="sec-e0o-moznosti" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-moznosti">Dostop do okolja Linux</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Način</th>
+<th>Opis</th>
+<th>Primernost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Računalnik z Linuxom ali macOS</strong></td>
+<td>terminal je vgrajen</td>
+<td>macOS ni Linux, je pa sistem Unix: večina ukazov je enakih</td>
+</tr>
+<tr class="even">
+<td><strong>WSL</strong> (<em>Windows Subsystem for Linux</em>)</td>
+<td>polna distribucija Linuxa (npr. Ubuntu) znotraj Windows 10/11</td>
+<td>priporočena izbira na Windowsih</td>
+</tr>
+<tr class="odd">
+<td><strong>Git Bash</strong></td>
+<td>lupina Bash z osnovnimi ukazi na Windowsih</td>
+<td>preprosti ukazi; nameščen skupaj z Gitom</td>
+</tr>
+<tr class="even">
+<td><strong>Virtualni stroj</strong> (<em>virtual machine</em>, npr. VirtualBox)</td>
+<td>celoten sistem Linux v ločenem oknu</td>
+<td>porabi veliko pomnilnika, namestitev je zahtevnejša</td>
+</tr>
+<tr class="odd">
+<td><strong>Dvojni zagon</strong> (<em>dual boot</em>)</td>
+<td>Linux nameščen poleg Windows</td>
+<td>polna zmogljivost, vendar zahteva ponovni zagon ob vsakem preklopu</td>
+</tr>
+<tr class="even">
+<td><strong>Oddaljeni strežnik</strong> (SSH)</td>
+<td>delo na oddaljenem računalniku z Linuxom</td>
+<td>običajen način za obsežne analize</td>
+</tr>
+<tr class="odd">
+<td><strong>Docker</strong></td>
+<td>posamezni programi v zabojnikih</td>
+<td>ponovljivost, programi brez namestitve</td>
+</tr>
+</tbody>
+</table>
+<section id="sec-e0o-ssh" class="level4">
+<h4 class="anchored" data-anchor-id="sec-e0o-ssh">Povezava s strežnikom</h4>
+<p>Na strežnik se povežemo prek protokola <strong>SSH</strong> (<em>Secure Shell</em>), datoteke pa prenašamo prek <strong>SFTP</strong> (<em>SSH File Transfer Protocol</em>) ali z ukazom <code>scp</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Program</th>
+<th>Namen</th>
+<th>Opomba</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Terminal / PowerShell</strong></td>
+<td><code>ssh ime@streznik</code></td>
+<td>vgrajeno v Windows 10/11, macOS in Linux</td>
+</tr>
+<tr class="even">
+<td><strong>MobaXterm</strong></td>
+<td>SSH in SFTP, več povezav v zavihkih, tudi WSL</td>
+<td>priročen, vendar porabi veliko pomnilnika</td>
+</tr>
+<tr class="odd">
+<td><strong>PuTTY</strong></td>
+<td>SSH</td>
+<td>ena povezava naenkrat; povezave je mogoče uvoziti v MobaXterm</td>
+</tr>
+<tr class="even">
+<td><strong>FileZilla</strong>, <strong>WinSCP</strong></td>
+<td>prenos datotek (SFTP)</td>
+<td>WinSCP samo za Windows</td>
+</tr>
+<tr class="odd">
+<td><strong>Visual Studio Code</strong> (Remote – SSH)</td>
+<td>urejanje datotek neposredno na strežniku</td>
+<td>datotek ni treba hraniti lokalno</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># povezava na strežnik</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> ime@streznik.primer.si</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># kopiranje datoteke na strežnik in s strežnika</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> podatki.vcf ime@streznik.primer.si:/home/ime/projekt/</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> ime@streznik.primer.si:/home/ime/projekt/rezultat.txt .</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="sec-e0o-ukazi" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-ukazi">Osnovni ukazi</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ukaz</th>
+<th>Pomen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pwd</code></td>
+<td>izpiše trenutno mapo</td>
+</tr>
+<tr class="even">
+<td><code>ls -lh</code></td>
+<td>izpiše vsebino mape z velikostmi datotek</td>
+</tr>
+<tr class="odd">
+<td><code>cd mapa</code>, <code>cd ..</code>, <code>cd ~</code></td>
+<td>premik v mapo, eno raven višje, v domačo mapo</td>
+</tr>
+<tr class="even">
+<td><code>mkdir mapa</code></td>
+<td>ustvari mapo</td>
+</tr>
+<tr class="odd">
+<td><code>cp vir cilj</code>, <code>mv vir cilj</code></td>
+<td>kopira, premakne ali preimenuje</td>
+</tr>
+<tr class="even">
+<td><code>rm datoteka</code></td>
+<td>izbriše datoteko (<strong>trajno, brez koša</strong>)</td>
+</tr>
+<tr class="odd">
+<td><code>head</code>, <code>tail</code>, <code>less</code></td>
+<td>prikaže začetek, konec ali celotno datoteko</td>
+</tr>
+<tr class="even">
+<td><code>wc -l datoteka</code></td>
+<td>prešteje vrstice (npr. število SNP-jev v datoteki <code>.bim</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>grep vzorec datoteka</code></td>
+<td>poišče vrstice, ki vsebujejo vzorec</td>
+</tr>
+<tr class="even">
+<td><code>find . -name "*.vcf"</code></td>
+<td>poišče datoteke po imenu</td>
+</tr>
+<tr class="odd">
+<td><code>htop</code></td>
+<td>prikaže porabo procesorja in pomnilnika</td>
+</tr>
+</tbody>
+</table>
+<p>Ukaze povezujemo s cevjo (<em>pipe</em>, <code>|</code>): izhod enega ukaza postane vhod naslednjega. Primer: število map z rezultati v trenutni mapi, brez podmap.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-maxdepth</span> 1 <span class="at">-type</span> d <span class="at">-name</span> <span class="st">"*result*"</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>.</code> trenutna mapa</li>
+<li><code>-maxdepth 1</code> brez iskanja po podmapah</li>
+<li><code>-type d</code> samo mape (<code>-type f</code> samo datoteke)</li>
+<li><code>-name "*result*"</code> ime vsebuje <code>result</code></li>
+<li><code>| wc -l</code> prešteje vrstice izpisa</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Pregledi ukazov (<em>cheat sheets</em>)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://www.stationx.net/unix-commands-cheat-sheet/">Unix Commands Cheat Sheet (StationX)</a></li>
+<li><a href="https://hpc.ua.edu/wp-content/uploads/2022/02/Linux_bash_cheat_sheet.pdf">Linux Bash Cheat Sheet (University of Alabama HPC, PDF)</a></li>
+<li><a href="https://devhints.io/bash">Bash scripting cheatsheet (devhints)</a></li>
+<li><a href="https://quickref.me/bash.html">Bash Quick Reference (quickref.me)</a></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e0o-wsl-del" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0o-wsl-del">WSL: Linux na Windowsih</h2>
+<section id="sec-e0o-wsl" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-wsl">Kaj je WSL</h3>
+<p><strong>WSL</strong> (<em>Windows Subsystem for Linux</em>) omogoča, da na Windows 10 ali 11 poganjamo pravo distribucijo Linuxa, npr. Ubuntu, brez virtualnega stroja in brez dvojnega zagona. <strong>WSL 2</strong> ima pravo jedro Linux, zato v njem delujejo vsi linuxovi programi, tudi Docker (glej <a href="#sec-e0o-docker" class="quarto-xref"><span>Docker: programi v zabojnikih</span></a>).</p>
+<p>Linux in Windows si delita datoteke: do map na Windowsih dostopate iz Linuxa in obratno.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Pomembno</span>Potrebujete skrbniške pravice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Namestitev zahteva skrbniške pravice (<em>administrator</em>) in ponovni zagon računalnika. Na računalnikih z omejenimi pravicami (npr. v računalniških učilnicah) namestitev običajno ni mogoča.</p>
+</div>
+</div>
+</section>
+<section id="sec-e0o-wsl-namestitev" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-wsl-namestitev">Namestitev</h3>
+<section id="hitra-pot-priporočeno" class="level4">
+<h4 class="anchored" data-anchor-id="hitra-pot-priporočeno">Hitra pot (priporočeno)</h4>
+<ol type="1">
+<li><p>Odprite <strong>PowerShell kot skrbnik</strong> (desni klik na <em>Start</em> → <em>Terminal (Admin)</em> ali <em>Windows PowerShell (Admin)</em>).</p></li>
+<li><p>Vpišite:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>wsl <span class="op">--</span>install</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ukaz vklopi WSL in namesti Ubuntu.</p></li>
+<li><p><strong>Ponovno zaženite računalnik.</strong></p></li>
+</ol>
+</section>
+<section id="ročna-pot-če-hitra-ne-deluje" class="level4">
+<h4 class="anchored" data-anchor-id="ročna-pot-če-hitra-ne-deluje">Ročna pot (če hitra ne deluje)</h4>
+<ol type="1">
+<li><em>Nadzorna plošča</em> → <em>Programi</em> → <em>Programi in funkcije</em> → <em>Vklop ali izklop funkcij sistema Windows</em> → obkljukajte <strong>Windows Subsystem for Linux</strong> (podsistem Windows za Linux).</li>
+<li>Ponovno zaženite računalnik.</li>
+<li>Odprite <strong>Microsoft Store</strong>, poiščite <strong>Ubuntu</strong> (izberite različico z oznako LTS) in kliknite <em>Namesti</em>.</li>
+</ol>
+</section>
+<section id="prvi-zagon-uporabnik-in-geslo" class="level4">
+<h4 class="anchored" data-anchor-id="prvi-zagon-uporabnik-in-geslo">Prvi zagon: uporabnik in geslo</h4>
+<p>Ko prvič odprete Ubuntu, vas vpraša za <strong>uporabniško ime in geslo za Linux</strong>. To je ločen uporabnik od vašega uporabnika na Windowsih.</p>
+<ul>
+<li>Ime naj bo kratko, z malimi črkami in <strong>brez šumnikov</strong> (npr. <code>urska</code>).</li>
+<li>Pri vpisu gesla se na zaslonu ne izpiše nič, niti zvezdice. To je normalno.</li>
+<li>Geslo si zapomnite: potrebovali ga boste pri vsakem ukazu <code>sudo</code>.</li>
+</ul>
+<p>Preverite, katero različico imate:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsb_release</span> <span class="at">-a</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nato posodobite sistem (to naredite občasno):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt upgrade</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="sec-e0o-wsl-datoteke" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-wsl-datoteke">Datoteke: Windows ↔︎ Linux</h3>
+<p><strong>Iz Linuxa do map na Windowsih.</strong> Disk <code>C:</code> je v Linuxu viden kot <code>/mnt/c</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /mnt/c/Users/VaseIme/Documents</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Iz Windows do domače mape v Linuxu.</strong> V <em>Raziskovalcu</em> (<em>File Explorer</em>) je v levem stolpcu spodaj mapa <strong>Linux</strong>. Lahko pa v naslovno vrstico vpišete:</p>
+<pre><code>\\wsl.localhost\Ubuntu\home\vaseime</code></pre>
+<p><strong>Terminal v izbrani mapi.</strong> Odprite mapo v Raziskovalcu, v naslovno vrstico vpišite <code>wsl</code> in pritisnite Enter. Odpre se terminal Linux, ki je že v tej mapi.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Kje naj bodo podatki
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Linuxovi programi so precej hitrejši, če so podatki v domači mapi Linuxa (<code>~</code>), ne na <code>/mnt/c</code>. Za velike analize datoteke najprej kopirajte v Linux.</p>
+</div>
+</div>
+<p>V domači mapi je skrita datoteka <strong><code>.bashrc</code></strong>. To je nastavitvena datoteka lupine: tu so barve terminala, poti do programov, nastavitve za condo ipd. Vidite jo z <code>ls -a</code>.</p>
+</section>
+<section id="sec-e0o-sudo" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-sudo">Pravice: <code>sudo</code> in <code>root</code></h3>
+<p>V Linuxu ima navaden uporabnik dostop samo do svoje domače mape (<code>/home/ime</code>). Za nameščanje programov in spreminjanje sistema potrebujemo pravice skrbnika, ki se v Linuxu imenuje <strong>root</strong>.</p>
+<ul>
+<li><code>sudo ukaz</code> izvede <strong>en</strong> ukaz s pravicami root (vpraša za geslo). To je običajen način.</li>
+<li><code>sudo -s</code> odpre lupino kot root (poziv se spremeni v <code>root@...#</code>). Z <code>exit</code> se vrnete nazaj. Pazite: root ima svojo domačo mapo (<code>/root</code>), ki ni vaša.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install htop     <span class="co"># namestitev programa</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span>                      <span class="co"># poraba procesorja in pomnilnika; izhod s q</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-e0o-wslconfig" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-wslconfig">Koliko pomnilnika dobi Linux</h3>
+<p>WSL 2 privzeto dobi <strong>polovico</strong> pomnilnika računalnika. Če potrebujete več, v mapi <code>C:\Users\VaseIme</code> ustvarite datoteko <strong><code>.wslconfig</code></strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[wsl2]</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">memory</span><span class="ot">=</span><span class="st">12GB        # največ toliko RAM-a (prilagodite svojemu računalniku)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="dt">processors</span><span class="ot">=</span><span class="st">4       # število jeder</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dt">swap</span><span class="ot">=</span><span class="st">4GB</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nato v PowerShellu ponastavite WSL in odprite nov terminal Ubuntu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>wsl <span class="op">--</span>shutdown</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Z ukazom <code>htop</code> preverite, koliko pomnilnika zdaj vidi Linux.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opozorilo</span>Ne dajte Linuxu vsega
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Windows potrebuje svoj pomnilnik. Linuxu dodelite največ okoli 75 % pomnilnika računalnika.</p>
+</div>
+</div>
+</section>
+<section id="sec-e0o-wsl-dostop" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-wsl-dostop">Kako odpreti terminal WSL</h3>
+<ol type="1">
+<li>Aplikacija <strong>Ubuntu</strong> v meniju <em>Start</em>.</li>
+<li><strong>Windows Terminal</strong> ali PowerShell: zavihek <strong>Ubuntu</strong> (puščica ob <code>+</code>) ali ukaz <code>wsl</code>.</li>
+<li><strong>Raziskovalec</strong>: <code>wsl</code> v naslovni vrstici (odpre se v tej mapi).</li>
+<li><strong>MobaXterm</strong>: <em>WSL-Ubuntu</em> v seznamu sej. Priročno, če imate hkrati odprte tudi povezave na strežnike, sicer pa porabi preveč pomnilnika.</li>
+<li><strong>Visual Studio Code</strong>: razširitev <em>WSL</em>, nato <em>Connect to WSL</em>.</li>
+</ol>
+</section>
+</section>
+<section id="sec-e0o-docker" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e0o-docker">Docker: programi v zabojnikih</h2>
+<section id="sec-e0o-docker-zakaj" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-docker-zakaj">Zakaj Docker</h3>
+<p>Bioinformatični programi so pogosto zahtevni za namestitev: potrebujejo točno določene različice knjižnic, drug program jih potrebuje drugačne, na strežniku pa nimamo pravic za nameščanje. Rezultat analize je lahko odvisen tudi od različice programa.</p>
+<p><strong>Docker</strong> to reši tako, da program skupaj z vsem, kar potrebuje, zapakira v <strong>zabojnik</strong> (<em>container</em>). Zabojnik deluje enako na vašem prenosniku, na strežniku in pri sodelavcu. To je osnova <strong>ponovljivosti</strong> (<em>reproducibility</em>): čez dve leti lahko analizo ponovite s točno istimi različicami programov.</p>
+<dl>
+<dt><strong>Slika</strong> (<em>image</em>)</dt>
+<dd>
+Načrt oziroma »zamrznjen« paket: operacijski sistem, programi in nastavitve. Ne spreminja se.
+</dd>
+<dt><strong>Zabojnik</strong> (<em>container</em>)</dt>
+<dd>
+Zagnana slika. Iz ene slike lahko zaženemo več zabojnikov.
+</dd>
+<dt><strong>Dockerfile</strong></dt>
+<dd>
+Recept (besedilna datoteka), iz katerega zgradimo sliko.
+</dd>
+<dt><strong>Docker Hub</strong></dt>
+<dd>
+Spletni repozitorij slik (podobno kot GitHub za kodo): <a href="https://hub.docker.com" class="uri">https://hub.docker.com</a>.
+</dd>
+</dl>
+<p>Zabojnik ni virtualni stroj: nima svojega jedra, ampak uporablja jedro gostitelja (Linux). Zato je majhen in se zažene v sekundi.</p>
+</section>
+<section id="sec-e0o-docker-namestitev" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-docker-namestitev">Namestitev</h3>
+<p><strong>Windows in macOS:</strong> namestite <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>. Na Windowsih uporablja WSL 2 (glej <a href="#sec-e0o-wsl-del" class="quarto-xref"><span>WSL: Linux na Windowsih</span></a>), zato najprej namestite WSL. V nastavitvah Docker Desktop (<em>Settings</em> → <em>Resources</em> → <em>WSL integration</em>) vklopite Ubuntu. Nato ukaz <code>docker</code> deluje tudi v terminalu Ubuntu.</p>
+<p><strong>Linux</strong> (ali WSL brez Docker Desktop):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install docker.io</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> usermod <span class="at">-aG</span> docker <span class="va">$USER</span>   <span class="co"># da ne potrebujete sudo pred vsakim ukazom docker</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Po zadnjem ukazu se odjavite in ponovno prijavite (v WSL: <code>wsl --shutdown</code> v PowerShellu).</p>
+<p>Preizkus:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run hello-world</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Če vidite pozdravno sporočilo, Docker deluje.</p>
+</section>
+<section id="sec-e0o-docker-ukazi" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-docker-ukazi">Osnovni ukazi</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ukaz</th>
+<th>Kaj naredi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>docker pull ubuntu:24.04</code></td>
+<td>prenese sliko z Docker Huba</td>
+</tr>
+<tr class="even">
+<td><code>docker images</code></td>
+<td>seznam slik na računalniku</td>
+</tr>
+<tr class="odd">
+<td><code>docker run -it --rm ubuntu:24.04 bash</code></td>
+<td>zažene zabojnik in odpre lupino v njem; <code>--rm</code> ga po izhodu izbriše</td>
+</tr>
+<tr class="even">
+<td><code>docker ps</code>, <code>docker ps -a</code></td>
+<td>zagnani zabojniki, vsi zabojniki (tudi ustavljeni)</td>
+</tr>
+<tr class="odd">
+<td><code>docker stop ime</code>, <code>docker rm ime</code></td>
+<td>ustavi, izbriše zabojnik</td>
+</tr>
+<tr class="even">
+<td><code>docker rmi slika</code></td>
+<td>izbriše sliko</td>
+</tr>
+<tr class="odd">
+<td><code>docker logs ime</code></td>
+<td>izpis zabojnika</td>
+</tr>
+<tr class="even">
+<td><code>docker system prune</code></td>
+<td>počisti neuporabljene slike in zabojnike</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Oznaka</strong> (<em>tag</em>) za dvopičjem je različica slike. Za ponovljivost vedno navedite točno različico (<code>ubuntu:24.04</code>), ne <code>latest</code>, ki se s časom spreminja.</p>
+<section id="podatki-v-zabojniku" class="level4">
+<h4 class="anchored" data-anchor-id="podatki-v-zabojniku">Podatki v zabojniku</h4>
+<p>Zabojnik privzeto ne vidi vaših datotek. Mapo mu <strong>priklopimo</strong> (<em>mount</em>) z <code>-v</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="st">"</span><span class="va">$PWD</span><span class="st">"</span>:/data <span class="at">-w</span> /data ubuntu:24.04 ls <span class="at">-lh</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>-v "$PWD":/data</code> trenutno mapo pokaže v zabojniku kot <code>/data</code></li>
+<li><code>-w /data</code> ukaz se izvede v tej mapi</li>
+</ul>
+<p>Tako poganjamo bioinformatične programe: podatki ostanejo na vašem disku, program pa teče v zabojniku.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>BioContainers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Za skoraj vsak bioinformatični program (samtools, bcftools, BWA, PLINK, ADMIXTURE …) že obstaja pripravljena slika v projektu <a href="https://biocontainers.pro">BioContainers</a>. Programa ni treba nameščati, samo prenesete sliko z ustrezno različico.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-e0o-rstudio-docker" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-rstudio-docker">RStudio v zabojniku</h3>
+<p>Projekt <a href="https://rocker-project.org">Rocker</a> pripravlja slike z R in RStudio Serverjem. Tako lahko imate točno določeno različico R, ne glede na to, kaj je nameščeno na računalniku:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-p</span> 8787:8787 <span class="at">-e</span> PASSWORD=izberi_geslo <span class="dt">\</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-v</span> <span class="st">"</span><span class="va">$PWD</span><span class="st">"</span>:/home/rstudio/projekt rocker/rstudio:4.4.0</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>V brskalniku odprite <a href="http://localhost:8787" class="uri">http://localhost:8787</a> (uporabnik <code>rstudio</code>, geslo, ki ste ga izbrali). Tako na strežnikih v raziskovalnih skupinah pogosto teče RStudio Server za več uporabnikov.</p>
+</section>
+<section id="sec-e0o-dockerfile" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-dockerfile">Lastna slika: Dockerfile</h3>
+<p>Preprost primer: program v Pythonu <code>app.py</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"sqrt of 16 is"</span>, math.sqrt(<span class="dv">16</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>in recept <code>Dockerfile</code> v isti mapi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># osnovna slika: Python (točna različica)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.12-slim</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># delovna mapa v zabojniku</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># kopiraj program v zabojnik</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> app.py .</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ukaz, ki se izvede ob zagonu</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"app.py"</span>]</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Če program potrebuje dodatne pakete, jih naštejemo v <code>requirements.txt</code> in v Dockerfile dodamo <code>COPY requirements.txt .</code> in <code>RUN pip install -r requirements.txt</code>. Modul <code>math</code> je del Pythona, zato ga ni treba nameščati.</p>
+<p>Zgradimo sliko in jo zaženemo (v mapi z Dockerfile):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> moj-program:1.0 .     <span class="co"># ime slike z malimi črkami; pika = ta mapa</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> moj-program:1.0       <span class="co"># izpiše: sqrt of 16 is 4.0</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-e0o-dockerhub" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-dockerhub">Deljenje slik: Docker Hub</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> login                                         <span class="co"># prijava z uporabniškim imenom in žetonom</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> tag moj-program:1.0 uporabnik/moj-program:1.0</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> push uporabnik/moj-program:1.0                <span class="co"># slika je zdaj javna</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull uporabnik/moj-program:1.0                <span class="co"># na drugem računalniku</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Opozorilo</span>Gesla in žetoni ne sodijo v zapiske ali kodo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Za <code>docker login</code> uporabite <strong>dostopni žeton</strong> (<em>access token</em>), ki ga ustvarite na Docker Hubu, in ga hranite v upravitelju gesel. Gesel, žetonov in ključev API nikoli ne pišite v skripte, zapiske ali repozitorije: kdor jih najde, lahko dostopa do vaših računov. Če se to zgodi, žeton takoj prekličite in ustvarite novega.</p>
+</div>
+</div>
+</section>
+<section id="sec-e0o-apptainer" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e0o-apptainer">Superračunalniki: Apptainer</h3>
+<p>Na superračunalnikih (HPC) Docker običajno ni dovoljen, ker zahteva pravice root. Namesto njega se uporablja <strong>Apptainer</strong> (prej <em>Singularity</em>), ki zna uporabiti iste slike Docker:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://ubuntu:24.04          <span class="co"># iz slike Docker naredi datoteko .sif</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec ubuntu_24.04.sif cat /etc/os-release</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Zato se splača delo v zabojnikih naučiti že zdaj: isti program boste lahko pognali na prenosniku in na superračunalniku.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Več
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://docs.docker.com/">Dokumentacija Docker</a></li>
+<li><a href="https://biocontainers.pro">BioContainers</a></li>
+<li><a href="https://rocker-project.org">Rocker (R v zabojnikih)</a></li>
+<li><a href="https://apptainer.org/docs/user/latest/">Apptainer</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopirano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopirano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../E0_uvod_R/E0_uvod_R.html" class="pagination-link" aria-label="Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Vaja 0: Vzpostavitev sistema – R, RStudio in Quarto</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../E1_nadzor_razlicic/E1_nadzor_razlicic.html" class="pagination-link" aria-label="Vaja 1: Nadzor različic z Gitom in GitHubom">
+        <span class="nav-page-text"><span class="chapter-title">Vaja 1: Nadzor različic z Gitom in GitHubom</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
