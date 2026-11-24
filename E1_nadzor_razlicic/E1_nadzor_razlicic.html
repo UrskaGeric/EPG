@@ -648,7 +648,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Vse repozitorije imejte v eni mapi, npr. <code>GitHub</code> v vaši domači mapi (<code>C:/Users/ime/GitHub</code>):</p>
 <pre class="text"><code>GitHub/
 ├── git-vaja/
-└── EPG-2026-priimek/</code></pre>
+│   └── .git/              # skrita mapa: vsak repozitorij ima svojo
+└── EPG-2026-priimek/
+    └── .git/</code></pre>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -755,11 +757,54 @@ Receiving objects: 100% (3/3), done.</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nasvet</span>Skrite mape v Raziskovalcu in Finderju
+<span class="screen-reader-only">Nasvet</span>Kako vidimo skrite mape
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Mapa <code>.git</code> je skrita. Na Windows jo vidite v Raziskovalcu z <em>Pogled → Pokaži → Skriti elementi</em> (<em>View → Show → Hidden items</em>), na macOS v Finderju s Cmd + Shift + pika.</p>
+<p>Mapa <code>.git</code> je skrita (vse datoteke in mape, ki se začnejo s piko, so skrite). Vsak repozitorij jo mora imeti: če je v mapi ni, mapa <strong>ni</strong> Git repozitorij. Skrite mape vidite takole:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kje</th>
+<th>Ukaz ali nastavitev</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Git Bash, terminal na macOS/Linuxu</td>
+<td><code>ls -a</code> (vse datoteke), <code>ls -la</code> (vse, s podrobnostmi)</td>
+</tr>
+<tr class="even">
+<td>Windows PowerShell</td>
+<td><code>Get-ChildItem -Force</code> (ali <code>dir -Force</code>)</td>
+</tr>
+<tr class="odd">
+<td>Windows ukazna vrstica (cmd)</td>
+<td><code>dir /a</code></td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td><code>list.files(all.files = TRUE)</code></td>
+</tr>
+<tr class="odd">
+<td>RStudio, zavihek <em>Files</em></td>
+<td>ikona zobnika (<em>More</em>) → <em>Show Hidden Files</em></td>
+</tr>
+<tr class="even">
+<td>Raziskovalec (Windows)</td>
+<td><em>Pogled → Pokaži → Skriti elementi</em> (<em>View → Show → Hidden items</em>)</td>
+</tr>
+<tr class="odd">
+<td>Finder (macOS)</td>
+<td>Cmd + Shift + pika</td>
+</tr>
+</tbody>
+</table>
+<p>Ali je mapa repozitorij, preverite tudi z <code>git status</code>: zunaj repozitorija izpiše <code>fatal: not a git repository</code>.</p>
 </div>
 </div>
 </section>
@@ -1111,8 +1156,10 @@ c82b3ae Initial commit</code></pre>
 <h3 class="anchored" data-anchor-id="struktura-repozitorija">Struktura repozitorija</h3>
 <p>Ustvarite mape za vse vaje. Prazne mape Git ne spremlja, zato bodo na GitHubu vidne šele, ko vanje shranite prvo datoteko.</p>
 <pre class="text"><code>EPG-2026-priimek/
-├── README.md              # kdo ste, kaj je v repozitoriju
+├── .git/                  # skrita mapa z zgodovino (ustvari jo Git, ne urejajte je)
 ├── .gitignore             # datoteke, ki jih Git ne nalaga na GitHub
+├── .Rproj.user/           # skrita mapa z nastavitvami RStudia (v .gitignore)
+├── README.md              # kdo ste, kaj je v repozitoriju
 ├── EPG-2026-priimek.Rproj
 ├── E1_git/
 ├── E2_plink/

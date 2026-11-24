@@ -648,7 +648,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Keep all repositories in one folder, e.g.&nbsp;<code>GitHub</code> in your home folder (<code>C:/Users/name/GitHub</code>):</p>
 <pre class="text"><code>GitHub/
 ├── git-practice/
-└── EPG-2026-surname/</code></pre>
+│   └── .git/              # hidden folder: every repository has its own
+└── EPG-2026-surname/
+    └── .git/</code></pre>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -755,11 +757,54 @@ Receiving objects: 100% (3/3), done.</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nasvet</span>Hidden folders in Explorer and Finder
+<span class="screen-reader-only">Nasvet</span>How to see hidden folders
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <code>.git</code> folder is hidden. On Windows you see it in File Explorer via <em>View → Show → Hidden items</em>; on macOS in Finder with Cmd + Shift + period.</p>
+<p>The <code>.git</code> folder is hidden (all files and folders starting with a dot are hidden). Every repository must have it: if a folder does not contain it, the folder is <strong>not</strong> a Git repository. You can see hidden folders like this:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Where</th>
+<th>Command or setting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Git Bash, terminal on macOS/Linux</td>
+<td><code>ls -a</code> (all files), <code>ls -la</code> (all, with details)</td>
+</tr>
+<tr class="even">
+<td>Windows PowerShell</td>
+<td><code>Get-ChildItem -Force</code> (or <code>dir -Force</code>)</td>
+</tr>
+<tr class="odd">
+<td>Windows command prompt (cmd)</td>
+<td><code>dir /a</code></td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td><code>list.files(all.files = TRUE)</code></td>
+</tr>
+<tr class="odd">
+<td>RStudio, <em>Files</em> tab</td>
+<td>gear icon (<em>More</em>) → <em>Show Hidden Files</em></td>
+</tr>
+<tr class="even">
+<td>File Explorer (Windows)</td>
+<td><em>View → Show → Hidden items</em></td>
+</tr>
+<tr class="odd">
+<td>Finder (macOS)</td>
+<td>Cmd + Shift + period</td>
+</tr>
+</tbody>
+</table>
+<p>You can also check whether a folder is a repository with <code>git status</code>: outside a repository it prints <code>fatal: not a git repository</code>.</p>
 </div>
 </div>
 </section>
@@ -1106,8 +1151,10 @@ c82b3ae Initial commit</code></pre>
 <h3 class="anchored" data-anchor-id="repository-structure">Repository structure</h3>
 <p>Create folders for all practicals. Git does not track empty folders, so they will appear on GitHub only after you save the first file in them.</p>
 <pre class="text"><code>EPG-2026-surname/
-├── README.md              # who you are, what is in the repository
+├── .git/                  # hidden folder with the history (created by Git, do not edit)
 ├── .gitignore             # files that Git does not upload to GitHub
+├── .Rproj.user/           # hidden folder with RStudio settings (in .gitignore)
+├── README.md              # who you are, what is in the repository
 ├── EPG-2026-surname.Rproj
 ├── E1_git/
 ├── E2_plink/
