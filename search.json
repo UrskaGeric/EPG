@@ -938,7 +938,17 @@
     "href": "literatura.html",
     "title": "Literatura / Literature",
     "section": "",
-    "text": "Podatki za vaje / Data for the practicals",
+    "text": "Temeljni učbeniki / Essential textbooks",
+    "crumbs": [
+      "Literatura / Literature"
+    ]
+  },
+  {
+    "objectID": "literatura.html#temeljni-učbeniki-essential-textbooks",
+    "href": "literatura.html#temeljni-učbeniki-essential-textbooks",
+    "title": "Literatura / Literature",
+    "section": "",
+    "text": "Bioinformatika / BioinformaticsJones, N. C., & Pevzner, P. A. (2004). An Introduction to Bioinformatics Algorithms. MIT Press.\n\n\n\n\n\n\n\nPopulacijska genomika / Population genomicsHahn, M. W. (2018). Molecular Population Genetics. Sinauer / Oxford University Press.\n\n\n\n\n\n\n\nKlasična populacijska genetika / Classical population geneticsHartl, D. L., & Clark, A. G. (2007). Principles of Population Genetics (4th ed.). Sinauer.",
     "crumbs": [
       "Literatura / Literature"
     ]
@@ -947,8 +957,8 @@
     "objectID": "literatura.html#podatki-za-vaje-data-for-the-practicals",
     "href": "literatura.html#podatki-za-vaje-data-for-the-practicals",
     "title": "Literatura / Literature",
-    "section": "",
-    "text": "Hansen, C. C. R., Láruson, Á. J., Rasmussen, J. A., et al. (2023). Genomic diversity and differentiation between island and mainland populations of white-tailed eagles (Haliaeetus albicilla). Molecular Ecology, 32, 1925–1942. https://doi.org/10.1111/mec.16858 · PDF",
+    "section": "Podatki za vaje / Data for the practicals",
+    "text": "Podatki za vaje / Data for the practicals\n\nHansen, C. C. R., Láruson, Á. J., Rasmussen, J. A., et al. (2023). Genomic diversity and differentiation between island and mainland populations of white-tailed eagles (Haliaeetus albicilla). Molecular Ecology, 32, 1925–1942. https://doi.org/10.1111/mec.16858 · PDF",
     "crumbs": [
       "Literatura / Literature"
     ]
