@@ -948,7 +948,7 @@
     "href": "literatura.html#temeljni-učbeniki-essential-textbooks",
     "title": "Literatura / Literature",
     "section": "",
-    "text": "Bioinformatika / BioinformaticsJones, N. C., & Pevzner, P. A. (2004). An Introduction to Bioinformatics Algorithms. MIT Press.\n\n\n\n\n\n\n\nPopulacijska genomika / Population genomicsHahn, M. W. (2018). Molecular Population Genetics. Sinauer / Oxford University Press.\n\n\n\n\n\n\n\nKlasična populacijska genetika / Classical population geneticsHartl, D. L., & Clark, A. G. (2007). Principles of Population Genetics (4th ed.). Sinauer.",
+    "text": "Bioinformatika / BioinformaticsPevsner, J. (2015). Bioinformatics and Functional Genomics (3rd ed.). Wiley-Blackwell.\n\n\n\n\n\n\n\nPopulacijska genomika / Population genomicsHahn, M. W. (2018). Molecular Population Genetics. Sinauer / Oxford University Press.\n\n\n\n\n\n\n\nKlasična populacijska genetika / Classical population geneticsHartl, D. L., & Clark, A. G. (2007). Principles of Population Genetics (4th ed.). Sinauer.",
     "crumbs": [
       "Literatura / Literature"
     ]
@@ -968,7 +968,7 @@
     "href": "literatura.html#učbeniki-textbooks",
     "title": "Literatura / Literature",
     "section": "Učbeniki / Textbooks",
-    "text": "Učbeniki / Textbooks\nPopulacijska genetika in varstvo / Population genetics and conservation\n\nAllendorf, F. W., Funk, W. C., Aitken, S. N., Byrne, M., & Luikart, G. (2022). Conservation and the Genomics of Populations (3rd ed.). Oxford University Press.\nHartl, D. L. (2020). A Primer of Population Genetics and Genomics (4th ed.). Oxford University Press.\nNielsen, R., & Slatkin, M. (2013). An Introduction to Population Genetics: Theory and Applications. Sinauer.\n\nBioinformatika in R / Bioinformatics and R\n\nPevsner, J. (2015). Bioinformatics and Functional Genomics (3rd ed.). Wiley-Blackwell.\nParadis, E. (2020). Population Genomics with R. Chapman & Hall/CRC.\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science (2nd ed.). O’Reilly. Prosto dostopno / free online: https://r4ds.hadley.nz",
+    "text": "Učbeniki / Textbooks\nPopulacijska genetika in varstvo / Population genetics and conservation\n\nAllendorf, F. W., Funk, W. C., Aitken, S. N., Byrne, M., & Luikart, G. (2022). Conservation and the Genomics of Populations (3rd ed.). Oxford University Press.\nHartl, D. L. (2020). A Primer of Population Genetics and Genomics (4th ed.). Oxford University Press.\nNielsen, R., & Slatkin, M. (2013). An Introduction to Population Genetics: Theory and Applications. Sinauer.\n\nBioinformatika in R / Bioinformatics and R\n\nParadis, E. (2020). Population Genomics with R. Chapman & Hall/CRC.\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science (2nd ed.). O’Reilly. Prosto dostopno / free online: https://r4ds.hadley.nz",
     "crumbs": [
       "Literatura / Literature"
     ]
