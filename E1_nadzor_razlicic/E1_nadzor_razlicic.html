@@ -1233,6 +1233,34 @@ data/
 <p>Če želite poročilo oddati na GitHub, izbrišite vrstico <code>*.html</code>. Pri Quarto dokumentih je pri tem priporočljivo v glavo dodati <code>embed-resources: true</code>, da je vse (tudi slike) v eni HTML datoteki in mape <code>*_files/</code> ne potrebujete.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>Za radovedne: objava poročila na spletu (GitHub Pages, neobvezno)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ta navodila so narejena prav tako: iz datotek <code>.qmd</code> Quarto naredi HTML, GitHub Pages pa ga objavi kot spletno stran.</p>
+<ul>
+<li><strong><code>.qmd</code> je izvorna datoteka</strong> (besedilo in koda), ki jo urejate in shranjujete v Git.</li>
+<li><strong><code>.html</code> je izdelek</strong> (<em>output</em>), ki ga Quarto naredi iz <code>.qmd</code>. Če spremenite <code>.qmd</code>, morate HTML ponovno izrisati (<em>Render</em>).</li>
+</ul>
+<p>Postopek:</p>
+<ol type="1">
+<li>Poročilo izrišite z <code>embed-resources: true</code> v glavi (vse slike so v eni datoteki) in ga poimenujte <code>index.html</code>.</li>
+<li>Datoteko dodajte v repozitorij (<code>*.html</code> v <code>.gitignore</code> za to datoteko izjemoma ne velja), naredite <code>commit</code> in <code>push</code>.</li>
+<li>Na GitHubu: <em>Settings</em> → <em>Pages</em> → <em>Build and deployment</em> → <em>Deploy from a branch</em> → <code>main</code>, mapa <code>/ (root)</code> → <em>Save</em>.</li>
+<li>Po minuti ali dveh je stran na naslovu <code>https://uporabniskoime.github.io/ime-repozitorija/</code>.</li>
+</ol>
+<p>GitHub Pages za <strong>zasebne</strong> repozitorije zahteva GitHub Pro (študenti ga dobijo brezplačno prek <a href="https://education.github.com">GitHub Education</a>). Sicer uporabite ločen <strong>javni</strong> repozitorij, v katerem so samo poročila, brez podatkov.</p>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1270,7 +1298,18 @@ data/
 <span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Podatki</span></span>
 <span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>Genotipi orlov belorepcev: Hansen et al. (2023), *Molecular Ecology* 32: 1925–1942,</span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. Podatki niso del repozitorija.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. Podatki niso del repozitorija.</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Programi</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>R 4.4.0, RStudio, Quarto; PLINK 1.9 (v1.90b7.1) in PLINK 2 (v2.0.0-a.6.1); paketi: tidyverse, adegenet, hierfstat, detectRUNS.</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kako ponoviti analize</span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Podatke za vsako vajo prenesite po navodilih vaje v mapo <span class="in">`data/`</span> (ni na GitHubu).</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Odprite <span class="in">`EPG-2026-priimek.Rproj`</span> v RStudiu.</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Izrišite (*Render*) <span class="in">`.qmd`</span> posamezne vaje.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Razdelka <strong>Programi</strong> in <strong>Kako ponoviti analize</strong> sproti dopolnjujte. Različico R vidite z <code>R.version.string</code>, programa PLINK pa z <code>--version</code>. Tako bo vsak (tudi vi čez eno leto) vedel, s katerimi programi so rezultati nastali.</p>
 </section>
 <section id="pravilo-za-vse-naslednje-vaje" class="level3">
 <h3 class="anchored" data-anchor-id="pravilo-za-vse-naslednje-vaje">Pravilo za vse naslednje vaje</h3>
@@ -1371,6 +1410,16 @@ plot(pca$x[, 1], pca$x[, 2], col = "red")
 </section>
 <section id="veje-branches" class="level2">
 <h2 class="anchored" data-anchor-id="veje-branches">Veje (branches)</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Veje, združevanje in konflikti <strong>niso nujni za oddajo</strong> vaj. Za vaje zadostujejo <code>clone</code>, <code>status</code>, <code>add</code>, <code>commit</code>, <code>push</code> in <code>pull</code>. Ta del je za samostojno branje in za skupinske projekte.</p>
+</div>
+</div>
+</div>
 <p>Veje omogočajo, da razvijate nove stvari ali preizkušate ideje, <strong>ne da bi pokvarili delujočo glavno različico</strong> (<code>main</code>). Pri vajah boste delali večinoma na <code>main</code>, veje pa so osnova vsakega skupinskega projekta.</p>
 <ul>
 <li><code>main</code> naj ostane čim bolj stabilna,</li>

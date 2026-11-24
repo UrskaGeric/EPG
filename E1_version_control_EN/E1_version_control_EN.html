@@ -1228,6 +1228,34 @@ data/
 <p>If you want to upload a report to GitHub, delete the <code>*.html</code> line. For Quarto documents it is then recommended to add <code>embed-resources: true</code> to the header, so that everything (including figures) is in a single HTML file and you do not need the <code>*_files/</code> folder.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nasvet</span>For the curious: publishing a report online (GitHub Pages, optional)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>These instructions are made the same way: Quarto turns <code>.qmd</code> files into HTML, and GitHub Pages publishes it as a website.</p>
+<ul>
+<li><strong><code>.qmd</code> is the source file</strong> (text and code) that you edit and keep in Git.</li>
+<li><strong><code>.html</code> is the output</strong> that Quarto produces from <code>.qmd</code>. If you change the <code>.qmd</code>, you have to render the HTML again (<em>Render</em>).</li>
+</ul>
+<p>Steps:</p>
+<ol type="1">
+<li>Render the report with <code>embed-resources: true</code> in the header (all figures in one file) and name it <code>index.html</code>.</li>
+<li>Add the file to the repository (the <code>*.html</code> rule in <code>.gitignore</code> does not apply to this one file), then <code>commit</code> and <code>push</code>.</li>
+<li>On GitHub: <em>Settings</em> → <em>Pages</em> → <em>Build and deployment</em> → <em>Deploy from a branch</em> → <code>main</code>, folder <code>/ (root)</code> → <em>Save</em>.</li>
+<li>After a minute or two the site is at <code>https://username.github.io/repository-name/</code>.</li>
+</ol>
+<p>GitHub Pages for <strong>private</strong> repositories requires GitHub Pro (students get it free through <a href="https://education.github.com">GitHub Education</a>). Otherwise use a separate <strong>public</strong> repository that contains only reports, no data.</p>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1265,7 +1293,18 @@ data/
 <span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data</span></span>
 <span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>White-tailed eagle genotypes: Hansen et al. (2023), *Molecular Ecology* 32: 1925–1942,</span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. The data are not part of this repository.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>doi: <span class="co">[</span><span class="ot">10.1111/mec.16858</span><span class="co">](https://doi.org/10.1111/mec.16858)</span>. The data are not part of this repository.</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Software</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>R 4.4.0, RStudio, Quarto; PLINK 1.9 (v1.90b7.1) and PLINK 2 (v2.0.0-a.6.1); packages: tidyverse, adegenet, hierfstat, detectRUNS.</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to reproduce the analyses</span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Download the data for each practical as described in the practical into the <span class="in">`data/`</span> folder (not on GitHub).</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Open <span class="in">`EPG-2026-surname.Rproj`</span> in RStudio.</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Render the <span class="in">`.qmd`</span> of each practical.</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Keep the <strong>Software</strong> and <strong>How to reproduce the analyses</strong> sections up to date. You can see your R version with <code>R.version.string</code> and the PLINK version with <code>--version</code>. This way anyone (including you in a year) will know which software produced the results.</p>
 </section>
 <section id="the-rule-for-all-following-practicals" class="level3">
 <h3 class="anchored" data-anchor-id="the-rule-for-all-following-practicals">The rule for all following practicals</h3>
@@ -1366,6 +1405,16 @@ plot(pca$x[, 1], pca$x[, 2], col = "red")
 </section>
 <section id="branches" class="level2">
 <h2 class="anchored" data-anchor-id="branches">Branches</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Branches, merging and conflicts are <strong>not required</strong> for submitting the practicals. For the practicals, <code>clone</code>, <code>status</code>, <code>add</code>, <code>commit</code>, <code>push</code> and <code>pull</code> are enough. This part is for self-study and for team projects.</p>
+</div>
+</div>
+</div>
 <p>Branches let you develop new things or try out ideas <strong>without breaking the working main version</strong> (<code>main</code>). In the practicals you will mostly work on <code>main</code>, but branches are the basis of every team project.</p>
 <ul>
 <li><code>main</code> should stay as stable as possible,</li>
