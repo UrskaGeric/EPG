@@ -306,10 +306,14 @@ window.Quarto = {
   <li><a href="#founder-effect" id="toc-founder-effect" class="nav-link" data-scroll-target="#founder-effect">Founder effect</a></li>
   </ul></li>
   <li><a href="#sec-e2-migration-en" id="toc-sec-e2-migration-en" class="nav-link" data-scroll-target="#sec-e2-migration-en">Migration and gene flow</a></li>
-  <li><a href="#sec-e2-mutations-en" id="toc-sec-e2-mutations-en" class="nav-link" data-scroll-target="#sec-e2-mutations-en">New mutations and fixation (at home)</a></li>
-  <li><a href="#sec-e2-selection-en" id="toc-sec-e2-selection-en" class="nav-link" data-scroll-target="#sec-e2-selection-en">Selection versus drift (at home, optional)</a></li>
   <li><a href="#summary-from-models-to-data" id="toc-summary-from-models-to-data" class="nav-link" data-scroll-target="#summary-from-models-to-data">Summary: from models to data</a></li>
   <li><a href="#sec-e2-exercises-en" id="toc-sec-e2-exercises-en" class="nav-link" data-scroll-target="#sec-e2-exercises-en">Exercises</a></li>
+  <li><a href="#sec-e2-home-en" id="toc-sec-e2-home-en" class="nav-link" data-scroll-target="#sec-e2-home-en">Extra material for home</a>
+  <ul class="collapse">
+  <li><a href="#sec-e2-mutations-en" id="toc-sec-e2-mutations-en" class="nav-link" data-scroll-target="#sec-e2-mutations-en">New mutations and fixation</a></li>
+  <li><a href="#sec-e2-selection-en" id="toc-sec-e2-selection-en" class="nav-link" data-scroll-target="#sec-e2-selection-en">Selection versus drift</a></li>
+  <li><a href="#sec-e2-success-sim-en" id="toc-sec-e2-success-sim-en" class="nav-link" data-scroll-target="#sec-e2-success-sim-en">Simulating reproductive success</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -830,52 +834,7 @@ Slika&nbsp;8.5: Mean H<sub>e</sub> of 500 loci (points) and the expectation (lin
 <p>Even with equal numbers of the sexes, N<sub>e</sub> is reduced when <strong>a few individuals produce most of the offspring</strong>. For a population of constant size, approximately:</p>
 <p><span class="math display">\[N_e \approx \frac{4N - 2}{V_k + 2}\]</span></p>
 <p>where V<sub>k</sub> is the variance in the number of offspring (gametes) an individual contributes to the next generation. With constant population size each individual has on average 2 offspring. In an ideal population V<sub>k</sub> ≈ 2 (Poisson distribution) and N<sub>e</sub> ≈ N. If a few individuals contribute many offspring and most contribute none, V<sub>k</sub> is large and N<sub>e</sub> much smaller than N: with N = 100 and V<sub>k</sub> = 18, N<sub>e</sub> ≈ 20.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nasvet</span>For the curious: simulating reproductive success
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This simulation is optional. Each new gene copy gets a parent chosen by weight (individuals with a larger weight have more offspring). We count how many gene copies (gametes) each parent contributes; the mean is 2, as the formula assumes.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>simulate_success <span class="ot">&lt;-</span> <span class="cf">function</span>(N, weights, <span class="at">generations =</span> <span class="dv">50</span>, <span class="at">loci =</span> <span class="dv">500</span>) {</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(loci <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> loci)   <span class="co"># loci × 2N copies; the copies of individual i are 2i-1 and 2i</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generations <span class="sc">+</span> <span class="dv">1</span>); Vk <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generations)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  He[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generations) {</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    parents <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> weights)   <span class="co"># each new copy has a parent chosen by weight</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, loci <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">nrow =</span> loci)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    copy <span class="ot">&lt;-</span> <span class="fu">sweep</span>(<span class="sc">-</span>b, <span class="dv">2</span>, <span class="dv">2</span> <span class="sc">*</span> parents, <span class="st">"+"</span>)                           <span class="co"># one of the parent's two copies, independently at each locus</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pop[<span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>loci, <span class="at">times =</span> <span class="dv">2</span> <span class="sc">*</span> N), <span class="fu">as.vector</span>(copy))], <span class="at">nrow =</span> loci)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    Vk[t] <span class="ot">&lt;-</span> <span class="fu">var</span>(<span class="fu">tabulate</span>(parents, <span class="at">nbins =</span> N))                       <span class="co"># variance in number of offspring (copies) per parent</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    He[t <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Vk =</span> <span class="fu">mean</span>(Vk), <span class="at">Ne_formula =</span> (<span class="dv">4</span> <span class="sc">*</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">mean</span>(Vk) <span class="sc">+</span> <span class="dv">2</span>),</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ne_simulation =</span> <span class="fu">estimate_ne</span>(He, <span class="dv">0</span><span class="sc">:</span>generations))</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">equal_success   =</span> <span class="fu">simulate_success</span>(N, <span class="at">weights =</span> <span class="fu">rep</span>(<span class="dv">1</span>, N)),</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">unequal_success =</span> <span class="fu">simulate_success</span>(N, <span class="at">weights =</span> <span class="fu">rgamma</span>(N, <span class="at">shape =</span> <span class="fl">0.3</span>)),   <span class="co"># a few individuals have many offspring, most few</span></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">"scenario"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-  scenario           Vk Ne_formula Ne_simulation
-  &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
-1 equal_success    1.95      101.          103. 
-2 unequal_success 12.9        26.7          22.6</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
+<p>The simulation of differences in reproductive success is in the section <strong>Extra material for home</strong> (<a href="#sec-e2-success-sim-en" class="quarto-xref"><span>Simulating reproductive success</span></a>).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -896,25 +855,25 @@ Slika&nbsp;8.5: Mean H<sub>e</sub> of 500 loci (points) and the expectation (lin
 <p><span class="math display">\[N_e \approx \frac{t}{\sum_{i=1}^{t} 1/N_i}\]</span></p>
 <p>The harmonic mean is very sensitive to small values, so even a <strong>short bottleneck</strong> strongly reduces the long-term N<sub>e</sub>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">20</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>))   <span class="co"># 10 generations of 500, 2 generations of 20, 10 of 500</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">arithmetic =</span> <span class="fu">mean</span>(sizes), <span class="at">harmonic =</span> <span class="fu">length</span>(sizes) <span class="sc">/</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> sizes))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">20</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>))   <span class="co"># 10 generations of 500, 2 generations of 20, 10 of 500</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">arithmetic =</span> <span class="fu">mean</span>(sizes), <span class="at">harmonic =</span> <span class="fu">length</span>(sizes) <span class="sc">/</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> sizes))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>arithmetic   harmonic 
   456.3636   157.1429 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>growth <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">27</span>,</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">N =</span> <span class="fu">round</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.1</span> <span class="sc">*</span> generation) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">28</span>, <span class="dv">0</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ne =</span> (generation <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">cumsum</span>(<span class="dv">1</span> <span class="sc">/</span> N))</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>growth <span class="sc">|&gt;</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(N, Ne), <span class="at">names_to =</span> <span class="st">"size"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generation, value, <span class="at">colour =</span> size)) <span class="sc">+</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"#B5542C"</span>, <span class="at">Ne =</span> <span class="st">"#1F5FA8"</span>),</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"actual size (N)"</span>, <span class="at">Ne =</span> <span class="st">"effective size (Ne)"</span>)) <span class="sc">+</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="st">"population size"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>growth <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">27</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">N =</span> <span class="fu">round</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.1</span> <span class="sc">*</span> generation) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">28</span>, <span class="dv">0</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ne =</span> (generation <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">cumsum</span>(<span class="dv">1</span> <span class="sc">/</span> N))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>growth <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(N, Ne), <span class="at">names_to =</span> <span class="st">"size"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generation, value, <span class="at">colour =</span> size)) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"#B5542C"</span>, <span class="at">Ne =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"actual size (N)"</span>, <span class="at">Ne =</span> <span class="st">"effective size (Ne)"</span>)) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="st">"population size"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-ne-growth-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -957,44 +916,44 @@ Slika&nbsp;8.6: A rapidly growing population (red) and its N<sub>e</sub> as the 
 </ul>
 <p>For both we need a locus with <strong>many alleles</strong> to see the loss of rare alleles. The frequencies of all alleles in the next generation are <strong>multinomially</strong> distributed (the generalisation of the binomial distribution to more than two alleles):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>drift_alleles <span class="ot">&lt;-</span> <span class="cf">function</span>(sizes, freq0, <span class="at">replicates =</span> <span class="dv">200</span>) {</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>replicates, \(r) {</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> freq0</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_dfr</span>(<span class="fu">seq_along</span>(sizes), \(t) {</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>      f <span class="ot">&lt;&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> sizes[t], <span class="at">prob =</span> f)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> sizes[t])</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tibble</span>(<span class="at">generation =</span> t, <span class="at">richness =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(generation) <span class="sc">|&gt;</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(richness, He), mean))</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 20 alleles: a few common and many rare</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>freq0 <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">^</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">19</span>); freq0 <span class="ot">&lt;-</span> freq0 <span class="sc">/</span> <span class="fu">sum</span>(freq0)</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(freq0, <span class="dv">3</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>drift_alleles <span class="ot">&lt;-</span> <span class="cf">function</span>(sizes, freq0, <span class="at">replicates =</span> <span class="dv">200</span>) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>replicates, \(r) {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> freq0</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_dfr</span>(<span class="fu">seq_along</span>(sizes), \(t) {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>      f <span class="ot">&lt;&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> sizes[t], <span class="at">prob =</span> f)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> sizes[t])</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tibble</span>(<span class="at">generation =</span> t, <span class="at">richness =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(generation) <span class="sc">|&gt;</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(richness, He), mean))</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 20 alleles: a few common and many rare</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>freq0 <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">^</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">19</span>); freq0 <span class="ot">&lt;-</span> freq0 <span class="sc">/</span> <span class="fu">sum</span>(freq0)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(freq0, <span class="dv">3</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 0.202 0.162 0.129 0.104 0.083 0.066 0.053 0.042 0.034 0.027 0.022 0.017
 [13] 0.014 0.011 0.009 0.007 0.006 0.005 0.004 0.003</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">richness =</span> <span class="fu">sum</span>(freq0 <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">richness =</span> <span class="fu">sum</span>(freq0 <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> richness        He 
 20.000000  0.886297 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>bottleneck <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">generation =</span> <span class="dv">0</span>, <span class="at">richness =</span> <span class="dv">20</span>, <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>)),   <span class="co"># starting state</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">drift_alleles</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">30</span>)), freq0))</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>bottleneck <span class="sc">|&gt;</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">richness =</span> richness <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> He <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>generation, <span class="at">names_to =</span> <span class="st">"measure"</span>, <span class="at">values_to =</span> <span class="st">"proportion"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generation, proportion, <span class="at">colour =</span> measure)) <span class="sc">+</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="fl">10.5</span>, <span class="at">xmax =</span> <span class="fl">15.5</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"allelic richness"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="st">"proportion of starting value"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>bottleneck <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">generation =</span> <span class="dv">0</span>, <span class="at">richness =</span> <span class="dv">20</span>, <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>)),   <span class="co"># starting state</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">drift_alleles</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">30</span>)), freq0))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>bottleneck <span class="sc">|&gt;</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">richness =</span> richness <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> He <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>generation, <span class="at">names_to =</span> <span class="st">"measure"</span>, <span class="at">values_to =</span> <span class="st">"proportion"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generation, proportion, <span class="at">colour =</span> measure)) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="fl">10.5</span>, <span class="at">xmax =</span> <span class="fl">15.5</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"allelic richness"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="st">"proportion of starting value"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-bottleneck-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1013,23 +972,23 @@ Slika&nbsp;8.7: Bottleneck: 10 generations with N = 2000, 5 generations with N =
 <h3 class="anchored" data-anchor-id="founder-effect">Founder effect</h3>
 <p>A new population is founded by k individuals (2k gene copies) drawn at random from a large population with frequencies <code>freq0</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>founders <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>), \(k) {</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(r) {</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> k, <span class="at">prob =</span> freq0)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> k)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">richness =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>)))</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean)) <span class="sc">|&gt;</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">k =</span> k)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>founders <span class="sc">|&gt;</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>k, <span class="at">names_to =</span> <span class="st">"measure"</span>, <span class="at">values_to =</span> <span class="st">"proportion"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(k, proportion, <span class="at">colour =</span> measure)) <span class="sc">+</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"allelic richness"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"number of founders (k)"</span>, <span class="at">y =</span> <span class="st">"proportion of source diversity"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>founders <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>), \(k) {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(r) {</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> k, <span class="at">prob =</span> freq0)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> k)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">richness =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq0<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean)) <span class="sc">|&gt;</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">k =</span> k)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>founders <span class="sc">|&gt;</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>k, <span class="at">names_to =</span> <span class="st">"measure"</span>, <span class="at">values_to =</span> <span class="st">"proportion"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(k, proportion, <span class="at">colour =</span> measure)) <span class="sc">+</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">richness =</span> <span class="st">"allelic richness"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"number of founders (k)"</span>, <span class="at">y =</span> <span class="st">"proportion of source diversity"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-founder-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1065,16 +1024,16 @@ Slika&nbsp;8.8: Proportion of the allelic richness and H<sub>e</sub> of the sour
 <p><span class="math display">\[p_1' = (1 - m)\,p_1 + m\,p_2\]</span></p>
 <p>Without drift (in a very large population) the difference between the two populations shrinks each generation by a factor of <span class="math inline">\((1 - 2m)\)</span>. Let’s start with two very different populations (p<sub>1</sub> = 0.9, p<sub>2</sub> = 0.1):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">m =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>), <span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">50</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> <span class="fl">0.8</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> m)<span class="sc">^</span>generation,      <span class="co"># p1 - p2</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">p1 =</span> <span class="fl">0.5</span> <span class="sc">+</span> difference <span class="sc">/</span> <span class="dv">2</span>, <span class="at">p2 =</span> <span class="fl">0.5</span> <span class="sc">-</span> difference <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(p1, p2), <span class="at">names_to =</span> <span class="st">"population"</span>, <span class="at">values_to =</span> <span class="st">"p"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generation, p, <span class="at">colour =</span> population)) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">paste</span>(<span class="st">"m ="</span>, m)) <span class="sc">+</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">p1 =</span> <span class="st">"#B5542C"</span>, <span class="at">p2 =</span> <span class="st">"#1F5FA8"</span>)) <span class="sc">+</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="st">"allele frequency"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">m =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>), <span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">50</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> <span class="fl">0.8</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> m)<span class="sc">^</span>generation,      <span class="co"># p1 - p2</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">p1 =</span> <span class="fl">0.5</span> <span class="sc">+</span> difference <span class="sc">/</span> <span class="dv">2</span>, <span class="at">p2 =</span> <span class="fl">0.5</span> <span class="sc">-</span> difference <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(p1, p2), <span class="at">names_to =</span> <span class="st">"population"</span>, <span class="at">values_to =</span> <span class="st">"p"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generation, p, <span class="at">colour =</span> population)) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">paste</span>(<span class="st">"m ="</span>, m)) <span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">p1 =</span> <span class="st">"#B5542C"</span>, <span class="at">p2 =</span> <span class="st">"#1F5FA8"</span>)) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="st">"allele frequency"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-migration-convergence-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1092,27 +1051,27 @@ Slika&nbsp;8.9: Allele frequencies in two populations exchanging a proportion m 
 <p>We measure differentiation with <strong>F<sub>ST</sub></strong>, which compares the heterozygosity within populations (H<sub>S</sub>) with the heterozygosity of the total (pooled) population (H<sub>T</sub>):</p>
 <p><span class="math display">\[F_{ST} = \frac{H_T - H_S}{H_T}\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>two_populations <span class="ot">&lt;-</span> <span class="cf">function</span>(N, m, <span class="at">generations =</span> <span class="dv">200</span>, <span class="at">loci =</span> <span class="dv">500</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>) {</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, loci); p2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, loci)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>generations, \(t) {</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    p1_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p1 <span class="sc">+</span> m <span class="sc">*</span> p2                       <span class="co"># migration</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    p2_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p2 <span class="sc">+</span> m <span class="sc">*</span> p1</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    p1 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(loci, <span class="dv">2</span> <span class="sc">*</span> N, p1_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)          <span class="co"># drift</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    p2 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(loci, <span class="dv">2</span> <span class="sc">*</span> N, p2_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    HS <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="dv">2</span> <span class="sc">*</span> p1 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p1) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> p2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p2)) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    pt <span class="ot">&lt;-</span> (p1 <span class="sc">+</span> p2) <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    HT <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> pt <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pt))</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">generation =</span> t, <span class="at">FST =</span> (HT <span class="sc">-</span> HS) <span class="sc">/</span> HT)</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>two_populations <span class="ot">&lt;-</span> <span class="cf">function</span>(N, m, <span class="at">generations =</span> <span class="dv">200</span>, <span class="at">loci =</span> <span class="dv">500</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>) {</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, loci); p2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, loci)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>generations, \(t) {</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    p1_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p1 <span class="sc">+</span> m <span class="sc">*</span> p2                       <span class="co"># migration</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    p2_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p2 <span class="sc">+</span> m <span class="sc">*</span> p1</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    p1 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(loci, <span class="dv">2</span> <span class="sc">*</span> N, p1_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)          <span class="co"># drift</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    p2 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(loci, <span class="dv">2</span> <span class="sc">*</span> N, p2_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    HS <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="dv">2</span> <span class="sc">*</span> p1 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p1) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> p2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p2)) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    pt <span class="ot">&lt;-</span> (p1 <span class="sc">+</span> p2) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    HT <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> pt <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pt))</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">generation =</span> t, <span class="at">FST =</span> (HT <span class="sc">-</span> HS) <span class="sc">/</span> HT)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>migration <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.002</span>, <span class="fl">0.02</span>, <span class="fl">0.1</span>), \(m)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">two_populations</span>(<span class="at">N =</span> <span class="dv">50</span>, <span class="at">m =</span> m) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">paste0</span>(<span class="st">"m = "</span>, m, <span class="st">" (Nm = "</span>, <span class="dv">50</span> <span class="sc">*</span> m, <span class="st">")"</span>)))</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(migration, <span class="fu">aes</span>(generation, FST, <span class="at">colour =</span> m)) <span class="sc">+</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="fu">expression</span>(F[ST]), <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>migration <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.002</span>, <span class="fl">0.02</span>, <span class="fl">0.1</span>), \(m)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">two_populations</span>(<span class="at">N =</span> <span class="dv">50</span>, <span class="at">m =</span> m) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">paste0</span>(<span class="st">"m = "</span>, m, <span class="st">" (Nm = "</span>, <span class="dv">50</span> <span class="sc">*</span> m, <span class="st">")"</span>)))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(migration, <span class="fu">aes</span>(generation, FST, <span class="at">colour =</span> m)) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generation"</span>, <span class="at">y =</span> <span class="fu">expression</span>(F[ST]), <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-migration-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1153,85 +1112,6 @@ Slika&nbsp;8.10: F<sub>ST</sub> between two populations of N = 50 for different 
 <p>There are no reports of migrants between Greenland, Iceland and the mainland (Hansen et al.&nbsp;2023), even though eagles can fly long distances. What F<sub>ST</sub> between Iceland and Norway would you expect if Iceland had been isolated for a long time with a small N<sub>e</sub>? You will check your answer in Practical 5.</p>
 </div>
 </div>
-</section>
-<section id="sec-e2-mutations-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-mutations-en">New mutations and fixation (at home)</h2>
-<p>Drift loses alleles; <strong>mutation</strong> creates them. A new mutation appears as a single copy, so its starting frequency is <span class="math inline">\(\frac{1}{2N}\)</span>, and this is also the probability that it becomes fixed. In a small population a new mutation is fixed more often and more quickly (on average in about 4N generations), while in a large one more mutations arise per generation (Figure 5.6 in Jobling et al.&nbsp;2013).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>new_mutation <span class="ot">&lt;-</span> <span class="cf">function</span>(N, <span class="at">replicates =</span> <span class="dv">20000</span>, <span class="at">max_gen =</span> <span class="dv">2000</span>) {</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), replicates)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  time <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_integer_</span>, replicates)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_gen) {</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    active <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(active)) <span class="cf">break</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    p[active] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(active), <span class="dv">2</span> <span class="sc">*</span> N, p[active]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    time[active <span class="sc">&amp;</span> p <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> t</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">N =</span> N, <span class="at">fixation_probability =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>), <span class="at">expected =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean_fixation_time =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">expected_4N =</span> <span class="dv">4</span> <span class="sc">*</span> N)</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">new_mutation</span>(<span class="dv">10</span>), <span class="fu">new_mutation</span>(<span class="dv">50</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-      N fixation_probability expected mean_fixation_time expected_4N
-  &lt;dbl&gt;                &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;       &lt;dbl&gt;
-1    10              0.0498      0.05               37.0          40
-2    50              0.00995     0.01              212.          200</code></pre>
-</div>
-</div>
-<p>The balance between mutation and drift is described by the <strong>population mutation parameter</strong></p>
-<p><span class="math display">\[\theta = 4 N_e \mu\]</span></p>
-<p>where μ is the mutation rate per site per generation. θ is the expected nucleotide diversity (π) at neutral equilibrium. For eagles, Hansen et al.&nbsp;(2023) used μ = 3.2 × 10<sup>−9</sup> per site per year and a generation time of 8 years:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">3.2e-9</span> <span class="sc">*</span> <span class="dv">8</span>                       <span class="co"># per site per generation</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">Ne =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">50000</span>)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="dv">4</span> <span class="sc">*</span> Ne <span class="sc">*</span> mu)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
-     Ne    theta
-  &lt;dbl&gt;    &lt;dbl&gt;
-1  1000 0.000102
-2  5000 0.000512
-3 10000 0.00102 
-4 50000 0.00512 </code></pre>
-</div>
-</div>
-<p>In Practical 4 we will measure π in eagles and use it to estimate the long-term N<sub>e</sub> (<span class="math inline">\(N_e = \pi / 4\mu\)</span>).</p>
-</section>
-<section id="sec-e2-selection-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-selection-en">Selection versus drift (at home, optional)</h2>
-<p>With <strong>selection</strong>, carriers of one allele have higher reproductive success (relative advantage s). Before sampling each generation, we shift the frequency towards the favoured allele:</p>
-<p><span class="math display">\[p' = \frac{p(1 + s)}{1 + ps}\]</span></p>
-<p>We simulate a new favourable mutation (a single copy, <span class="math inline">\(p_0 = \frac{1}{2N}\)</span>) and follow it until it is fixed or lost. We compare the result with the fixation probability of a neutral mutation (<span class="math inline">\(\frac{1}{2N}\)</span>) and with Kimura’s approximation <span class="math inline">\(u \approx \frac{1 - e^{-2s}}{1 - e^{-4Ns}}\)</span>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>selection <span class="ot">&lt;-</span> <span class="cf">function</span>(N, s, <span class="at">replicates =</span> <span class="dv">20000</span>) {</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), replicates)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    active <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(active)) <span class="cf">break</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    pa <span class="ot">&lt;-</span> p[active]</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    p[active] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(active), <span class="dv">2</span> <span class="sc">*</span> N, pa <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> s) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> pa <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">N =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">500</span>), <span class="at">s =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ns =</span> N <span class="sc">*</span> s,</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">neutral =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Kimura =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">4</span> <span class="sc">*</span> N <span class="sc">*</span> s)),</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">simulation =</span> <span class="fu">map2_dbl</span>(N, s, selection))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 6
-      N     s    Ns neutral Kimura simulation
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
-1    20  0.01   0.2   0.025 0.0360     0.0376
-2    20  0.05   1     0.025 0.0969     0.0976
-3   500  0.01   5     0.001 0.0198     0.0189
-4   500  0.05  25     0.001 0.0952     0.0938</code></pre>
-</div>
-</div>
-<p>Even a favourable mutation is usually <strong>lost</strong> by drift while it is still rare. In a large population (N = 500) with s = 0.01 the fixation probability is about 20 times higher than for a neutral mutation, in a small one (N = 20) only slightly higher.</p>
-<p>If <span class="math inline">\(N_e s\)</span> is much smaller than 1, a favourable allele behaves almost as if it were neutral and can be <strong>lost by drift</strong>. In small populations drift overrides weak selection, so beneficial alleles can be lost and harmful ones fixed.</p>
 </section>
 <section id="summary-from-models-to-data" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="summary-from-models-to-data">Summary: from models to data</h2>
@@ -1306,6 +1186,123 @@ Slika&nbsp;8.10: F<sub>ST</sub> between two populations of N = 50 for different 
 <li>In the function <code>two_populations()</code> set N = 500 and m = 0.002 (Nm = 1). Is F<sub>ST</sub> after 200 generations similar to N = 50 and m = 0.02 (also Nm = 1)?</li>
 <li>Save the <code>.qmd</code> in your EPG repository (folder <code>E2_simulations</code>), then <code>commit</code> and <code>push</code>.</li>
 </ol>
+</section>
+<section id="sec-e2-home-en" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-home-en">Extra material for home</h2>
+<p>This section is not part of the practical. It is for those who want more: how new mutations arise and become fixed, how selection competes with drift, and how differences in reproductive success reduce N<sub>e</sub>. The functions use the same ideas as in the practical (<code>rbinom</code>, the Wright-Fisher model).</p>
+<section id="sec-e2-mutations-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e2-mutations-en">New mutations and fixation</h3>
+<p>Drift loses alleles; <strong>mutation</strong> creates them. A new mutation appears as a single copy, so its starting frequency is <span class="math inline">\(\frac{1}{2N}\)</span>, and this is also the probability that it becomes fixed. In a small population a new mutation is fixed more often and more quickly (on average in about 4N generations), while in a large one more mutations arise per generation (Figure 5.6 in Jobling et al.&nbsp;2013).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>new_mutation <span class="ot">&lt;-</span> <span class="cf">function</span>(N, <span class="at">replicates =</span> <span class="dv">20000</span>, <span class="at">max_gen =</span> <span class="dv">2000</span>) {</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), replicates)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  time <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_integer_</span>, replicates)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_gen) {</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    active <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(active)) <span class="cf">break</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    p[active] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(active), <span class="dv">2</span> <span class="sc">*</span> N, p[active]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    time[active <span class="sc">&amp;</span> p <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> t</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">N =</span> N, <span class="at">fixation_probability =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>), <span class="at">expected =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean_fixation_time =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">expected_4N =</span> <span class="dv">4</span> <span class="sc">*</span> N)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">new_mutation</span>(<span class="dv">10</span>), <span class="fu">new_mutation</span>(<span class="dv">50</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+      N fixation_probability expected mean_fixation_time expected_4N
+  &lt;dbl&gt;                &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;       &lt;dbl&gt;
+1    10               0.0488     0.05               37.2          40
+2    50               0.0096     0.01              195.          200</code></pre>
+</div>
+</div>
+<p>The balance between mutation and drift is described by the <strong>population mutation parameter</strong></p>
+<p><span class="math display">\[\theta = 4 N_e \mu\]</span></p>
+<p>where μ is the mutation rate per site per generation. θ is the expected nucleotide diversity (π) at neutral equilibrium. For eagles, Hansen et al.&nbsp;(2023) used μ = 3.2 × 10<sup>−9</sup> per site per year and a generation time of 8 years:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">3.2e-9</span> <span class="sc">*</span> <span class="dv">8</span>                       <span class="co"># per site per generation</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">Ne =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">50000</span>)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="dv">4</span> <span class="sc">*</span> Ne <span class="sc">*</span> mu)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+     Ne    theta
+  &lt;dbl&gt;    &lt;dbl&gt;
+1  1000 0.000102
+2  5000 0.000512
+3 10000 0.00102 
+4 50000 0.00512 </code></pre>
+</div>
+</div>
+<p>In Practical 4 we will measure π in eagles and use it to estimate the long-term N<sub>e</sub> (<span class="math inline">\(N_e = \pi / 4\mu\)</span>).</p>
+</section>
+<section id="sec-e2-selection-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e2-selection-en">Selection versus drift</h3>
+<p>With <strong>selection</strong>, carriers of one allele have higher reproductive success (relative advantage s). Before sampling each generation, we shift the frequency towards the favoured allele:</p>
+<p><span class="math display">\[p' = \frac{p(1 + s)}{1 + ps}\]</span></p>
+<p>We simulate a new favourable mutation (a single copy, <span class="math inline">\(p_0 = \frac{1}{2N}\)</span>) and follow it until it is fixed or lost. We compare the result with the fixation probability of a neutral mutation (<span class="math inline">\(\frac{1}{2N}\)</span>) and with Kimura’s approximation <span class="math inline">\(u \approx \frac{1 - e^{-2s}}{1 - e^{-4Ns}}\)</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>selection <span class="ot">&lt;-</span> <span class="cf">function</span>(N, s, <span class="at">replicates =</span> <span class="dv">20000</span>) {</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), replicates)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">repeat</span> {</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    active <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(active)) <span class="cf">break</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    pa <span class="ot">&lt;-</span> p[active]</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    p[active] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(active), <span class="dv">2</span> <span class="sc">*</span> N, pa <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> s) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> pa <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">N =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">500</span>), <span class="at">s =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ns =</span> N <span class="sc">*</span> s,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">neutral =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Kimura =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">4</span> <span class="sc">*</span> N <span class="sc">*</span> s)),</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">simulation =</span> <span class="fu">map2_dbl</span>(N, s, selection))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+      N     s    Ns neutral Kimura simulation
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1    20  0.01   0.2   0.025 0.0360     0.0343
+2    20  0.05   1     0.025 0.0969     0.0959
+3   500  0.01   5     0.001 0.0198     0.0194
+4   500  0.05  25     0.001 0.0952     0.09  </code></pre>
+</div>
+</div>
+<p>Even a favourable mutation is usually <strong>lost</strong> by drift while it is still rare. In a large population (N = 500) with s = 0.01 the fixation probability is about 20 times higher than for a neutral mutation, in a small one (N = 20) only slightly higher.</p>
+<p>If <span class="math inline">\(N_e s\)</span> is much smaller than 1, a favourable allele behaves almost as if it were neutral and can be <strong>lost by drift</strong>. In small populations drift overrides weak selection, so beneficial alleles can be lost and harmful ones fixed.</p>
+</section>
+<section id="sec-e2-success-sim-en" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e2-success-sim-en">Simulating reproductive success</h3>
+<p>Continuation of <a href="#sec-e2-ne-en" class="quarto-xref"><span>Effective population size (Ne)</span></a>. Each new gene copy gets a parent chosen by weight (individuals with a larger weight have more offspring). We count how many gene copies (gametes) each parent contributes; the mean is 2, as the formula <span class="math inline">\(N_e \approx \frac{4N - 2}{V_k + 2}\)</span> assumes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>simulate_success <span class="ot">&lt;-</span> <span class="cf">function</span>(N, weights, <span class="at">generations =</span> <span class="dv">50</span>, <span class="at">loci =</span> <span class="dv">500</span>) {</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(loci <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> loci)   <span class="co"># loci × 2N copies; the copies of individual i are 2i-1 and 2i</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generations <span class="sc">+</span> <span class="dv">1</span>); Vk <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generations)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  He[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generations) {</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    parents <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> weights)   <span class="co"># each new copy has a parent chosen by weight</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, loci <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">nrow =</span> loci)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    copy <span class="ot">&lt;-</span> <span class="fu">sweep</span>(<span class="sc">-</span>b, <span class="dv">2</span>, <span class="dv">2</span> <span class="sc">*</span> parents, <span class="st">"+"</span>)                           <span class="co"># one of the parent's two copies, independently at each locus</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pop[<span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>loci, <span class="at">times =</span> <span class="dv">2</span> <span class="sc">*</span> N), <span class="fu">as.vector</span>(copy))], <span class="at">nrow =</span> loci)</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    Vk[t] <span class="ot">&lt;-</span> <span class="fu">var</span>(<span class="fu">tabulate</span>(parents, <span class="at">nbins =</span> N))                       <span class="co"># variance in number of offspring (copies) per parent</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    He[t <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Vk =</span> <span class="fu">mean</span>(Vk), <span class="at">Ne_formula =</span> (<span class="dv">4</span> <span class="sc">*</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">mean</span>(Vk) <span class="sc">+</span> <span class="dv">2</span>),</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ne_simulation =</span> <span class="fu">estimate_ne</span>(He, <span class="dv">0</span><span class="sc">:</span>generations))</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">equal_success   =</span> <span class="fu">simulate_success</span>(N, <span class="at">weights =</span> <span class="fu">rep</span>(<span class="dv">1</span>, N)),</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">unequal_success =</span> <span class="fu">simulate_success</span>(N, <span class="at">weights =</span> <span class="fu">rgamma</span>(N, <span class="at">shape =</span> <span class="fl">0.3</span>)),   <span class="co"># a few individuals have many offspring, most few</span></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">"scenario"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  scenario           Vk Ne_formula Ne_simulation
+  &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+1 equal_success    2.02       98.9          96.0
+2 unequal_success 11.1        30.5          29.2</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>

@@ -306,10 +306,14 @@ window.Quarto = {
   <li><a href="#učinek-ustanovitelja" id="toc-učinek-ustanovitelja" class="nav-link" data-scroll-target="#učinek-ustanovitelja">Učinek ustanovitelja</a></li>
   </ul></li>
   <li><a href="#sec-e2-migracije" id="toc-sec-e2-migracije" class="nav-link" data-scroll-target="#sec-e2-migracije">Migracije in pretok genov</a></li>
-  <li><a href="#sec-e2-mutacije" id="toc-sec-e2-mutacije" class="nav-link" data-scroll-target="#sec-e2-mutacije">Nove mutacije in fiksacija (doma)</a></li>
-  <li><a href="#sec-e2-selekcija" id="toc-sec-e2-selekcija" class="nav-link" data-scroll-target="#sec-e2-selekcija">Selekcija proti zdrsu (doma, dodatno)</a></li>
   <li><a href="#povzetek-od-modelov-do-podatkov" id="toc-povzetek-od-modelov-do-podatkov" class="nav-link" data-scroll-target="#povzetek-od-modelov-do-podatkov">Povzetek: od modelov do podatkov</a></li>
   <li><a href="#sec-e2-naloge" id="toc-sec-e2-naloge" class="nav-link" data-scroll-target="#sec-e2-naloge">Naloge</a></li>
+  <li><a href="#sec-e2-doma" id="toc-sec-e2-doma" class="nav-link" data-scroll-target="#sec-e2-doma">Dodatno za doma</a>
+  <ul class="collapse">
+  <li><a href="#sec-e2-mutacije" id="toc-sec-e2-mutacije" class="nav-link" data-scroll-target="#sec-e2-mutacije">Nove mutacije in fiksacija</a></li>
+  <li><a href="#sec-e2-selekcija" id="toc-sec-e2-selekcija" class="nav-link" data-scroll-target="#sec-e2-selekcija">Selekcija proti zdrsu</a></li>
+  <li><a href="#sec-e2-uspeh-sim" id="toc-sec-e2-uspeh-sim" class="nav-link" data-scroll-target="#sec-e2-uspeh-sim">Simulacija reproduktivnega uspeha</a></li>
+  </ul></li>
   <li><a href="#literatura" id="toc-literatura" class="nav-link" data-scroll-target="#literatura">Literatura</a></li>
   </ul>
 </nav>
@@ -830,52 +834,7 @@ Slika&nbsp;4.5: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
 <p>Tudi če je spolov enako, N<sub>e</sub> zmanjša to, da <strong>nekaj osebkov prispeva večino potomcev</strong>. Pri stalni velikosti populacije velja približno:</p>
 <p><span class="math display">\[N_e \approx \frac{4N - 2}{V_k + 2}\]</span></p>
 <p>kjer je V<sub>k</sub> varianca števila potomcev (gamet), ki jih osebek prispeva naslednji generaciji. Pri stalni velikosti populacije ima vsak osebek v povprečju 2 potomca. V idealni populaciji je V<sub>k</sub> ≈ 2 (Poissonova porazdelitev) in N<sub>e</sub> ≈ N. Če nekaj osebkov prispeva veliko potomcev, večina pa nobenega, je V<sub>k</sub> velik in N<sub>e</sub> precej manjša od N: pri N = 100 in V<sub>k</sub> = 18 je N<sub>e</sub> ≈ 20.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nasvet</span>Za radovedne: simulacija reproduktivnega uspeha
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Simulacija ni obvezna. Vsaka nova kopija gena dobi starša, izbranega z utežjo (osebki z večjo utežjo imajo več potomcev). Štejemo, koliko kopij gena (gamet) prispeva vsak starš; povprečje je 2, kot predpostavlja formula.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>simuliraj_uspeh <span class="ot">&lt;-</span> <span class="cf">function</span>(N, utezi, <span class="at">generacije =</span> <span class="dv">50</span>, <span class="at">lokusi =</span> <span class="dv">500</span>) {</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(lokusi <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> lokusi)   <span class="co"># lokusi × 2N kopij; kopiji osebka i sta 2i-1 in 2i</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generacije <span class="sc">+</span> <span class="dv">1</span>); Vk <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generacije)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  He[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    starsi <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> utezi)    <span class="co"># vsaka nova kopija ima starša, izbranega z utežjo</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, lokusi <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">nrow =</span> lokusi)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    kopija <span class="ot">&lt;-</span> <span class="fu">sweep</span>(<span class="sc">-</span>b, <span class="dv">2</span>, <span class="dv">2</span> <span class="sc">*</span> starsi, <span class="st">"+"</span>)                        <span class="co"># na vsakem lokusu neodvisno ena od dveh kopij starša</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pop[<span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>lokusi, <span class="at">times =</span> <span class="dv">2</span> <span class="sc">*</span> N), <span class="fu">as.vector</span>(kopija))], <span class="at">nrow =</span> lokusi)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    Vk[t] <span class="ot">&lt;-</span> <span class="fu">var</span>(<span class="fu">tabulate</span>(starsi, <span class="at">nbins =</span> N))                      <span class="co"># varianca števila potomcev (kopij) na starša</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    He[t <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Vk =</span> <span class="fu">mean</span>(Vk), <span class="at">Ne_formula =</span> (<span class="dv">4</span> <span class="sc">*</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">mean</span>(Vk) <span class="sc">+</span> <span class="dv">2</span>),</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ne_simulacija =</span> <span class="fu">ocena_ne</span>(He, <span class="dv">0</span><span class="sc">:</span>generacije))</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">enak_uspeh   =</span> <span class="fu">simuliraj_uspeh</span>(N, <span class="at">utezi =</span> <span class="fu">rep</span>(<span class="dv">1</span>, N)),</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">neenak_uspeh =</span> <span class="fu">simuliraj_uspeh</span>(N, <span class="at">utezi =</span> <span class="fu">rgamma</span>(N, <span class="at">shape =</span> <span class="fl">0.3</span>)),   <span class="co"># nekaj osebkov ima veliko potomcev, večina malo</span></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">"scenarij"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-  scenarij        Vk Ne_formula Ne_simulacija
-  &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
-1 enak_uspeh    1.95      101.          103. 
-2 neenak_uspeh 12.9        26.7          22.6</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
+<p>Simulacijo razlik v reproduktivnem uspehu najdete v razdelku <strong>Dodatno za doma</strong> (<a href="#sec-e2-uspeh-sim" class="quarto-xref"><span>Simulacija reproduktivnega uspeha</span></a>).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -896,25 +855,25 @@ Slika&nbsp;4.5: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
 <p><span class="math display">\[N_e \approx \frac{t}{\sum_{i=1}^{t} 1/N_i}\]</span></p>
 <p>Harmonična sredina je zelo občutljiva na majhne vrednosti, zato že <strong>kratko ozko grlo</strong> močno zmanjša dolgoročno N<sub>e</sub>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>velikosti <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">20</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>))   <span class="co"># 10 generacij po 500, 2 generaciji po 20, 10 po 500</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">aritmeticna =</span> <span class="fu">mean</span>(velikosti), <span class="at">harmonicna =</span> <span class="fu">length</span>(velikosti) <span class="sc">/</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> velikosti))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>velikosti <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">20</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>))   <span class="co"># 10 generacij po 500, 2 generaciji po 20, 10 po 500</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">aritmeticna =</span> <span class="fu">mean</span>(velikosti), <span class="at">harmonicna =</span> <span class="fu">length</span>(velikosti) <span class="sc">/</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> velikosti))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>aritmeticna  harmonicna 
    456.3636    157.1429 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>rast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">27</span>,</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">N =</span> <span class="fu">round</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.1</span> <span class="sc">*</span> generacija) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">28</span>, <span class="dv">0</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ne =</span> (generacija <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">cumsum</span>(<span class="dv">1</span> <span class="sc">/</span> N))</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>rast <span class="sc">|&gt;</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(N, Ne), <span class="at">names_to =</span> <span class="st">"velikost"</span>, <span class="at">values_to =</span> <span class="st">"vrednost"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, vrednost, <span class="at">colour =</span> velikost)) <span class="sc">+</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"#B5542C"</span>, <span class="at">Ne =</span> <span class="st">"#1F5FA8"</span>),</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"dejanska velikost (N)"</span>, <span class="at">Ne =</span> <span class="st">"efektivna velikost (Ne)"</span>)) <span class="sc">+</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"velikost populacije"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>rast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">27</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">N =</span> <span class="fu">round</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fl">0.1</span> <span class="sc">*</span> generacija) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">28</span>, <span class="dv">0</span>, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ne =</span> (generacija <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">cumsum</span>(<span class="dv">1</span> <span class="sc">/</span> N))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>rast <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(N, Ne), <span class="at">names_to =</span> <span class="st">"velikost"</span>, <span class="at">values_to =</span> <span class="st">"vrednost"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, vrednost, <span class="at">colour =</span> velikost)) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"#B5542C"</span>, <span class="at">Ne =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">N =</span> <span class="st">"dejanska velikost (N)"</span>, <span class="at">Ne =</span> <span class="st">"efektivna velikost (Ne)"</span>)) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"velikost populacije"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-ne-rast" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -957,44 +916,44 @@ Slika&nbsp;4.6: Populacija, ki hitro raste (rdeča), in njena N<sub>e</sub> kot 
 </ul>
 <p>Za oba potrebujemo lokus z <strong>več aleli</strong>, da vidimo izgubo redkih alelov. Frekvence vseh alelov v naslednji generaciji so <strong>multinomsko</strong> porazdeljene (posplošitev binomske porazdelitve na več alelov):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>zdrs_alelov <span class="ot">&lt;-</span> <span class="cf">function</span>(velikosti, frek0, <span class="at">ponovitve =</span> <span class="dv">200</span>) {</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>ponovitve, \(r) {</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> frek0</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_dfr</span>(<span class="fu">seq_along</span>(velikosti), \(t) {</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>      f <span class="ot">&lt;&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> velikosti[t], <span class="at">prob =</span> f)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> velikosti[t])</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tibble</span>(<span class="at">generacija =</span> t, <span class="at">bogastvo =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(generacija) <span class="sc">|&gt;</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(bogastvo, He), mean))</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 20 alelov: nekaj pogostih in veliko redkih</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>frek0 <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">^</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">19</span>); frek0 <span class="ot">&lt;-</span> frek0 <span class="sc">/</span> <span class="fu">sum</span>(frek0)</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(frek0, <span class="dv">3</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>zdrs_alelov <span class="ot">&lt;-</span> <span class="cf">function</span>(velikosti, frek0, <span class="at">ponovitve =</span> <span class="dv">200</span>) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>ponovitve, \(r) {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> frek0</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_dfr</span>(<span class="fu">seq_along</span>(velikosti), \(t) {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>      f <span class="ot">&lt;&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> velikosti[t], <span class="at">prob =</span> f)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> velikosti[t])</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tibble</span>(<span class="at">generacija =</span> t, <span class="at">bogastvo =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(generacija) <span class="sc">|&gt;</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(bogastvo, He), mean))</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 20 alelov: nekaj pogostih in veliko redkih</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>frek0 <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">^</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">19</span>); frek0 <span class="ot">&lt;-</span> frek0 <span class="sc">/</span> <span class="fu">sum</span>(frek0)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(frek0, <span class="dv">3</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 0.202 0.162 0.129 0.104 0.083 0.066 0.053 0.042 0.034 0.027 0.022 0.017
 [13] 0.014 0.011 0.009 0.007 0.006 0.005 0.004 0.003</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="fu">sum</span>(frek0 <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="fu">sum</span>(frek0 <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> bogastvo        He 
 20.000000  0.886297 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>grlo <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span>, <span class="at">bogastvo =</span> <span class="dv">20</span>, <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>)),        <span class="co"># začetno stanje</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">zdrs_alelov</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">30</span>)), frek0))</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>grlo <span class="sc">|&gt;</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bogastvo =</span> bogastvo <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> He <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>generacija, <span class="at">names_to =</span> <span class="st">"mera"</span>, <span class="at">values_to =</span> <span class="st">"delez"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, delez, <span class="at">colour =</span> mera)) <span class="sc">+</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="fl">10.5</span>, <span class="at">xmax =</span> <span class="fl">15.5</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"bogastvo alelov"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"delež začetne vrednosti"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>grlo <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span>, <span class="at">bogastvo =</span> <span class="dv">20</span>, <span class="at">He =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>)),        <span class="co"># začetno stanje</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">zdrs_alelov</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2000</span>, <span class="dv">30</span>)), frek0))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>grlo <span class="sc">|&gt;</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bogastvo =</span> bogastvo <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> He <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>generacija, <span class="at">names_to =</span> <span class="st">"mera"</span>, <span class="at">values_to =</span> <span class="st">"delez"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, delez, <span class="at">colour =</span> mera)) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="fl">10.5</span>, <span class="at">xmax =</span> <span class="fl">15.5</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"bogastvo alelov"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"delež začetne vrednosti"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-ozko-grlo" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1013,23 +972,23 @@ Slika&nbsp;4.7: Ozko grlo: 10 generacij z N = 2000, 5 generacij z N = 10, nato 3
 <h3 class="anchored" data-anchor-id="učinek-ustanovitelja">Učinek ustanovitelja</h3>
 <p>Novo populacijo ustanovi k osebkov (2k kopij gena), naključno izbranih iz velike populacije s frekvencami <code>frek0</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ustanovitelji <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>), \(k) {</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(r) {</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> k, <span class="at">prob =</span> frek0)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> k)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">bogastvo =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>)))</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean)) <span class="sc">|&gt;</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">k =</span> k)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>ustanovitelji <span class="sc">|&gt;</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>k, <span class="at">names_to =</span> <span class="st">"mera"</span>, <span class="at">values_to =</span> <span class="st">"delez"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(k, delez, <span class="at">colour =</span> mera)) <span class="sc">+</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"bogastvo alelov"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"število ustanoviteljev (k)"</span>, <span class="at">y =</span> <span class="st">"delež izvorne raznolikosti"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ustanovitelji <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>), \(k) {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(r) {</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> k, <span class="at">prob =</span> frek0)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> k)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">bogastvo =</span> <span class="fu">sum</span>(f <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">20</span>, <span class="at">He =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(f<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(frek0<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean)) <span class="sc">|&gt;</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">k =</span> k)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>ustanovitelji <span class="sc">|&gt;</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>k, <span class="at">names_to =</span> <span class="st">"mera"</span>, <span class="at">values_to =</span> <span class="st">"delez"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(k, delez, <span class="at">colour =</span> mera)) <span class="sc">+</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"#B5542C"</span>, <span class="at">He =</span> <span class="st">"#1F5FA8"</span>),</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">bogastvo =</span> <span class="st">"bogastvo alelov"</span>, <span class="at">He =</span> <span class="st">"He"</span>)) <span class="sc">+</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"število ustanoviteljev (k)"</span>, <span class="at">y =</span> <span class="st">"delež izvorne raznolikosti"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-ustanovitelj" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1065,16 +1024,16 @@ Slika&nbsp;4.8: Delež bogastva alelov in H<sub>e</sub> izvorne populacije, ki g
 <p><span class="math display">\[p_1' = (1 - m)\,p_1 + m\,p_2\]</span></p>
 <p>Brez zdrsa (v zelo veliki populaciji) se razlika med populacijama vsako generacijo zmanjša za faktor <span class="math inline">\((1 - 2m)\)</span>. Začnimo z zelo različnima populacijama (p<sub>1</sub> = 0,9, p<sub>2</sub> = 0,1):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">m =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>), <span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">50</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">razlika =</span> <span class="fl">0.8</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> m)<span class="sc">^</span>generacija,          <span class="co"># p1 - p2</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">p1 =</span> <span class="fl">0.5</span> <span class="sc">+</span> razlika <span class="sc">/</span> <span class="dv">2</span>, <span class="at">p2 =</span> <span class="fl">0.5</span> <span class="sc">-</span> razlika <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(p1, p2), <span class="at">names_to =</span> <span class="st">"populacija"</span>, <span class="at">values_to =</span> <span class="st">"p"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, p, <span class="at">colour =</span> populacija)) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">paste</span>(<span class="st">"m ="</span>, m)) <span class="sc">+</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">p1 =</span> <span class="st">"#B5542C"</span>, <span class="at">p2 =</span> <span class="st">"#1F5FA8"</span>)) <span class="sc">+</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"frekvenca alela"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">m =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>), <span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">50</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">razlika =</span> <span class="fl">0.8</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> m)<span class="sc">^</span>generacija,          <span class="co"># p1 - p2</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">p1 =</span> <span class="fl">0.5</span> <span class="sc">+</span> razlika <span class="sc">/</span> <span class="dv">2</span>, <span class="at">p2 =</span> <span class="fl">0.5</span> <span class="sc">-</span> razlika <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(p1, p2), <span class="at">names_to =</span> <span class="st">"populacija"</span>, <span class="at">values_to =</span> <span class="st">"p"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(generacija, p, <span class="at">colour =</span> populacija)) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">paste</span>(<span class="st">"m ="</span>, m)) <span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">p1 =</span> <span class="st">"#B5542C"</span>, <span class="at">p2 =</span> <span class="st">"#1F5FA8"</span>)) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"frekvenca alela"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-migracije-priblizevanje" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1092,27 +1051,27 @@ Slika&nbsp;4.9: Frekvenci alela v dveh populacijah, ki si izmenjujeta delež m o
 <p>Diferenciacijo merimo z <strong>F<sub>ST</sub></strong>, ki primerja heterozigotnost znotraj populacij (H<sub>S</sub>) s heterozigotnostjo celotne (združene) populacije (H<sub>T</sub>):</p>
 <p><span class="math display">\[F_{ST} = \frac{H_T - H_S}{H_T}\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dve_populaciji <span class="ot">&lt;-</span> <span class="cf">function</span>(N, m, <span class="at">generacije =</span> <span class="dv">200</span>, <span class="at">lokusi =</span> <span class="dv">500</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>) {</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi); p2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>generacije, \(t) {</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    p1_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p1 <span class="sc">+</span> m <span class="sc">*</span> p2                       <span class="co"># migracije</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    p2_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p2 <span class="sc">+</span> m <span class="sc">*</span> p1</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    p1 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N, p1_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)        <span class="co"># zdrs</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    p2 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N, p2_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    HS <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="dv">2</span> <span class="sc">*</span> p1 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p1) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> p2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p2)) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    pt <span class="ot">&lt;-</span> (p1 <span class="sc">+</span> p2) <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    HT <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> pt <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pt))</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">generacija =</span> t, <span class="at">FST =</span> (HT <span class="sc">-</span> HS) <span class="sc">/</span> HT)</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dve_populaciji <span class="ot">&lt;-</span> <span class="cf">function</span>(N, m, <span class="at">generacije =</span> <span class="dv">200</span>, <span class="at">lokusi =</span> <span class="dv">500</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>) {</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi); p2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(p0, lokusi)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>generacije, \(t) {</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    p1_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p1 <span class="sc">+</span> m <span class="sc">*</span> p2                       <span class="co"># migracije</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    p2_mig <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> m) <span class="sc">*</span> p2 <span class="sc">+</span> m <span class="sc">*</span> p1</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    p1 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N, p1_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)        <span class="co"># zdrs</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    p2 <span class="ot">&lt;&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N, p2_mig) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    HS <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="dv">2</span> <span class="sc">*</span> p1 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p1) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> p2 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p2)) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    pt <span class="ot">&lt;-</span> (p1 <span class="sc">+</span> p2) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    HT <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> pt <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pt))</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">generacija =</span> t, <span class="at">FST =</span> (HT <span class="sc">-</span> HS) <span class="sc">/</span> HT)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>migracije <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.002</span>, <span class="fl">0.02</span>, <span class="fl">0.1</span>), \(m)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dve_populaciji</span>(<span class="at">N =</span> <span class="dv">50</span>, <span class="at">m =</span> m) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">paste0</span>(<span class="st">"m = "</span>, m, <span class="st">" (Nm = "</span>, <span class="dv">50</span> <span class="sc">*</span> m, <span class="st">")"</span>)))</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(migracije, <span class="fu">aes</span>(generacija, FST, <span class="at">colour =</span> m)) <span class="sc">+</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="fu">expression</span>(F[ST]), <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>migracije <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.002</span>, <span class="fl">0.02</span>, <span class="fl">0.1</span>), \(m)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dve_populaciji</span>(<span class="at">N =</span> <span class="dv">50</span>, <span class="at">m =</span> m) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">paste0</span>(<span class="st">"m = "</span>, m, <span class="st">" (Nm = "</span>, <span class="dv">50</span> <span class="sc">*</span> m, <span class="st">")"</span>)))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(migracije, <span class="fu">aes</span>(generacija, FST, <span class="at">colour =</span> m)) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="fu">expression</span>(F[ST]), <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-migracije" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1153,85 +1112,6 @@ Slika&nbsp;4.10: F<sub>ST</sub> med dvema populacijama z N = 50 pri različnih d
 <p>Pri orlih ni poročil o migrantih med Grenlandijo, Islandijo in celino (Hansen et al.&nbsp;2023), čeprav orli lahko preletijo velike razdalje. Kakšen F<sub>ST</sub> med Islandijo in Norveško bi pričakovali, če bi bila Islandija dolgo izolirana z majhno N<sub>e</sub>? Svoj odgovor boste preverili v vaji 5.</p>
 </div>
 </div>
-</section>
-<section id="sec-e2-mutacije" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-mutacije">Nove mutacije in fiksacija (doma)</h2>
-<p>Zdrs izgublja alele, <strong>mutacije</strong> pa jih ustvarjajo. Nova mutacija se pojavi v eni kopiji, zato je njena začetna frekvenca <span class="math inline">\(\frac{1}{2N}\)</span> in to je tudi verjetnost, da se fiksira. V majhni populaciji se nova mutacija fiksira pogosteje in hitreje (v povprečju v približno 4N generacijah), v veliki pa nastane več mutacij na generacijo (slika 5.6 v Jobling et al.&nbsp;2013).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>nova_mutacija <span class="ot">&lt;-</span> <span class="cf">function</span>(N, <span class="at">ponovitve =</span> <span class="dv">20000</span>, <span class="at">max_gen =</span> <span class="dv">2000</span>) {</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), ponovitve)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  cas <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_integer_</span>, ponovitve)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_gen) {</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    aktivni <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(aktivni)) <span class="cf">break</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    p[aktivni] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(aktivni), <span class="dv">2</span> <span class="sc">*</span> N, p[aktivni]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    cas[aktivni <span class="sc">&amp;</span> p <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> t</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">N =</span> N, <span class="at">verjetnost_fiksacije =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>), <span class="at">pricakovano =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">povprecni_cas_fiksacije =</span> <span class="fu">mean</span>(cas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">pricakovano_4N =</span> <span class="dv">4</span> <span class="sc">*</span> N)</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">nova_mutacija</span>(<span class="dv">10</span>), <span class="fu">nova_mutacija</span>(<span class="dv">50</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-      N verjetnost_fiksacije pricakovano povprecni_cas_fiksacije pricakovano_4N
-  &lt;dbl&gt;                &lt;dbl&gt;       &lt;dbl&gt;                   &lt;dbl&gt;          &lt;dbl&gt;
-1    10              0.0498         0.05                    37.0             40
-2    50              0.00995        0.01                   212.             200</code></pre>
-</div>
-</div>
-<p>Ravnovesje med mutacijami in zdrsom opisuje <strong>populacijski mutacijski parameter</strong></p>
-<p><span class="math display">\[\theta = 4 N_e \mu\]</span></p>
-<p>kjer je μ stopnja mutacij na mesto na generacijo. θ je pričakovana raznolikost nukleotidov (π) v nevtralnem ravnovesju. Za orle so Hansen et al.&nbsp;(2023) uporabili μ = 3,2 × 10<sup>−9</sup> na mesto na leto in generacijski čas 8 let:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">3.2e-9</span> <span class="sc">*</span> <span class="dv">8</span>                       <span class="co"># na mesto na generacijo</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">Ne =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">50000</span>)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="dv">4</span> <span class="sc">*</span> Ne <span class="sc">*</span> mu)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
-     Ne    theta
-  &lt;dbl&gt;    &lt;dbl&gt;
-1  1000 0.000102
-2  5000 0.000512
-3 10000 0.00102 
-4 50000 0.00512 </code></pre>
-</div>
-</div>
-<p>V vaji 4 bomo izmerili π pri orlih in iz nje ocenili dolgoročno N<sub>e</sub> (<span class="math inline">\(N_e = \pi / 4\mu\)</span>).</p>
-</section>
-<section id="sec-e2-selekcija" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-selekcija">Selekcija proti zdrsu (doma, dodatno)</h2>
-<p>Pri <strong>selekciji</strong> imajo nosilci enega alela večji reproduktivni uspeh (relativna prednost s). Pred vzorčenjem vsake generacije frekvenco premaknemo v smeri ugodnega alela:</p>
-<p><span class="math display">\[p' = \frac{p(1 + s)}{1 + ps}\]</span></p>
-<p>Simuliramo novo ugodno mutacijo (ena kopija, <span class="math inline">\(p_0 = \frac{1}{2N}\)</span>) in jo spremljamo, dokler se ne fiksira ali izgubi. Rezultat primerjamo z verjetnostjo fiksacije nevtralne mutacije (<span class="math inline">\(\frac{1}{2N}\)</span>) in s Kimurovo približno formulo <span class="math inline">\(u \approx \frac{1 - e^{-2s}}{1 - e^{-4Ns}}\)</span>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>selekcija <span class="ot">&lt;-</span> <span class="cf">function</span>(N, s, <span class="at">ponovitve =</span> <span class="dv">20000</span>) {</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), ponovitve)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    aktivni <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(aktivni)) <span class="cf">break</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    pa <span class="ot">&lt;-</span> p[aktivni]</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    p[aktivni] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(aktivni), <span class="dv">2</span> <span class="sc">*</span> N, pa <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> s) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> pa <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">N =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">500</span>), <span class="at">s =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ns =</span> N <span class="sc">*</span> s,</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">nevtralno =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Kimura =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">4</span> <span class="sc">*</span> N <span class="sc">*</span> s)),</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">simulacija =</span> <span class="fu">map2_dbl</span>(N, s, selekcija))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 6
-      N     s    Ns nevtralno Kimura simulacija
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
-1    20  0.01   0.2     0.025 0.0360     0.0376
-2    20  0.05   1       0.025 0.0969     0.0976
-3   500  0.01   5       0.001 0.0198     0.0189
-4   500  0.05  25       0.001 0.0952     0.0938</code></pre>
-</div>
-</div>
-<p>Tudi ugodna mutacija se največkrat <strong>izgubi</strong> zaradi zdrsa, ko je še redka. V veliki populaciji (N = 500) je pri s = 0,01 verjetnost fiksacije približno 20-krat večja kot pri nevtralni mutaciji, v majhni (N = 20) pa le malo večja.</p>
-<p>Če je <span class="math inline">\(N_e s\)</span> veliko manj kot 1, se ugoden alel obnaša skoraj kot nevtralen in se lahko <strong>izgubi zaradi zdrsa</strong>. V majhnih populacijah zdrs prevlada nad šibko selekcijo, zato se lahko izgubijo tudi koristni aleli, škodljivi pa fiksirajo.</p>
 </section>
 <section id="povzetek-od-modelov-do-podatkov" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="povzetek-od-modelov-do-podatkov">Povzetek: od modelov do podatkov</h2>
@@ -1306,6 +1186,123 @@ Slika&nbsp;4.10: F<sub>ST</sub> med dvema populacijama z N = 50 pri različnih d
 <li>V funkciji <code>dve_populaciji()</code> nastavite N = 500 in m = 0,002 (Nm = 1). Ali je F<sub>ST</sub> po 200 generacijah podoben kot pri N = 50 in m = 0,02 (tudi Nm = 1)?</li>
 <li>Shranite <code>.qmd</code> v svoj repozitorij EPG (mapa <code>E2_simulacije</code>), naredite <code>commit</code> in <code>push</code>.</li>
 </ol>
+</section>
+<section id="sec-e2-doma" class="level2">
+<h2 class="anchored" data-anchor-id="sec-e2-doma">Dodatno za doma</h2>
+<p>Ta razdelek ni del vaje. Je za tiste, ki želijo več: kako nastanejo in se fiksirajo nove mutacije, kako se selekcija bori z zdrsom in kako razlike v reproduktivnem uspehu zmanjšajo N<sub>e</sub>. Funkcije uporabljajo iste ideje kot na vaji (<code>rbinom</code>, Wright-Fisherjev model).</p>
+<section id="sec-e2-mutacije" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e2-mutacije">Nove mutacije in fiksacija</h3>
+<p>Zdrs izgublja alele, <strong>mutacije</strong> pa jih ustvarjajo. Nova mutacija se pojavi v eni kopiji, zato je njena začetna frekvenca <span class="math inline">\(\frac{1}{2N}\)</span> in to je tudi verjetnost, da se fiksira. V majhni populaciji se nova mutacija fiksira pogosteje in hitreje (v povprečju v približno 4N generacijah), v veliki pa nastane več mutacij na generacijo (slika 5.6 v Jobling et al.&nbsp;2013).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>nova_mutacija <span class="ot">&lt;-</span> <span class="cf">function</span>(N, <span class="at">ponovitve =</span> <span class="dv">20000</span>, <span class="at">max_gen =</span> <span class="dv">2000</span>) {</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), ponovitve)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  cas <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_integer_</span>, ponovitve)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_gen) {</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    aktivni <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(aktivni)) <span class="cf">break</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    p[aktivni] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(aktivni), <span class="dv">2</span> <span class="sc">*</span> N, p[aktivni]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    cas[aktivni <span class="sc">&amp;</span> p <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> t</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">N =</span> N, <span class="at">verjetnost_fiksacije =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>), <span class="at">pricakovano =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">povprecni_cas_fiksacije =</span> <span class="fu">mean</span>(cas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">pricakovano_4N =</span> <span class="dv">4</span> <span class="sc">*</span> N)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">nova_mutacija</span>(<span class="dv">10</span>), <span class="fu">nova_mutacija</span>(<span class="dv">50</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+      N verjetnost_fiksacije pricakovano povprecni_cas_fiksacije pricakovano_4N
+  &lt;dbl&gt;                &lt;dbl&gt;       &lt;dbl&gt;                   &lt;dbl&gt;          &lt;dbl&gt;
+1    10               0.0488        0.05                    37.2             40
+2    50               0.0096        0.01                   195.             200</code></pre>
+</div>
+</div>
+<p>Ravnovesje med mutacijami in zdrsom opisuje <strong>populacijski mutacijski parameter</strong></p>
+<p><span class="math display">\[\theta = 4 N_e \mu\]</span></p>
+<p>kjer je μ stopnja mutacij na mesto na generacijo. θ je pričakovana raznolikost nukleotidov (π) v nevtralnem ravnovesju. Za orle so Hansen et al.&nbsp;(2023) uporabili μ = 3,2 × 10<sup>−9</sup> na mesto na leto in generacijski čas 8 let:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">3.2e-9</span> <span class="sc">*</span> <span class="dv">8</span>                       <span class="co"># na mesto na generacijo</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">Ne =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">50000</span>)) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="dv">4</span> <span class="sc">*</span> Ne <span class="sc">*</span> mu)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+     Ne    theta
+  &lt;dbl&gt;    &lt;dbl&gt;
+1  1000 0.000102
+2  5000 0.000512
+3 10000 0.00102 
+4 50000 0.00512 </code></pre>
+</div>
+</div>
+<p>V vaji 4 bomo izmerili π pri orlih in iz nje ocenili dolgoročno N<sub>e</sub> (<span class="math inline">\(N_e = \pi / 4\mu\)</span>).</p>
+</section>
+<section id="sec-e2-selekcija" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e2-selekcija">Selekcija proti zdrsu</h3>
+<p>Pri <strong>selekciji</strong> imajo nosilci enega alela večji reproduktivni uspeh (relativna prednost s). Pred vzorčenjem vsake generacije frekvenco premaknemo v smeri ugodnega alela:</p>
+<p><span class="math display">\[p' = \frac{p(1 + s)}{1 + ps}\]</span></p>
+<p>Simuliramo novo ugodno mutacijo (ena kopija, <span class="math inline">\(p_0 = \frac{1}{2N}\)</span>) in jo spremljamo, dokler se ne fiksira ali izgubi. Rezultat primerjamo z verjetnostjo fiksacije nevtralne mutacije (<span class="math inline">\(\frac{1}{2N}\)</span>) in s Kimurovo približno formulo <span class="math inline">\(u \approx \frac{1 - e^{-2s}}{1 - e^{-4Ns}}\)</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>selekcija <span class="ot">&lt;-</span> <span class="cf">function</span>(N, s, <span class="at">ponovitve =</span> <span class="dv">20000</span>) {</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N), ponovitve)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">repeat</span> {</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    aktivni <span class="ot">&lt;-</span> p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(aktivni)) <span class="cf">break</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    pa <span class="ot">&lt;-</span> p[aktivni]</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    p[aktivni] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="fu">sum</span>(aktivni), <span class="dv">2</span> <span class="sc">*</span> N, pa <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> s) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> pa <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_grid</span>(<span class="at">N =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">500</span>), <span class="at">s =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ns =</span> N <span class="sc">*</span> s,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">nevtralno =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N),</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Kimura =</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> s)) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">4</span> <span class="sc">*</span> N <span class="sc">*</span> s)),</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">simulacija =</span> <span class="fu">map2_dbl</span>(N, s, selekcija))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+      N     s    Ns nevtralno Kimura simulacija
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1    20  0.01   0.2     0.025 0.0360     0.0343
+2    20  0.05   1       0.025 0.0969     0.0959
+3   500  0.01   5       0.001 0.0198     0.0194
+4   500  0.05  25       0.001 0.0952     0.09  </code></pre>
+</div>
+</div>
+<p>Tudi ugodna mutacija se največkrat <strong>izgubi</strong> zaradi zdrsa, ko je še redka. V veliki populaciji (N = 500) je pri s = 0,01 verjetnost fiksacije približno 20-krat večja kot pri nevtralni mutaciji, v majhni (N = 20) pa le malo večja.</p>
+<p>Če je <span class="math inline">\(N_e s\)</span> veliko manj kot 1, se ugoden alel obnaša skoraj kot nevtralen in se lahko <strong>izgubi zaradi zdrsa</strong>. V majhnih populacijah zdrs prevlada nad šibko selekcijo, zato se lahko izgubijo tudi koristni aleli, škodljivi pa fiksirajo.</p>
+</section>
+<section id="sec-e2-uspeh-sim" class="level3">
+<h3 class="anchored" data-anchor-id="sec-e2-uspeh-sim">Simulacija reproduktivnega uspeha</h3>
+<p>Nadaljevanje <a href="#sec-e2-ne" class="quarto-xref"><span>Efektivna velikost populacije (Ne)</span></a>. Vsaka nova kopija gena dobi starša, izbranega z utežjo (osebki z večjo utežjo imajo več potomcev). Štejemo, koliko kopij gena (gamet) prispeva vsak starš; povprečje je 2, kot predpostavlja formula <span class="math inline">\(N_e \approx \frac{4N - 2}{V_k + 2}\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>simuliraj_uspeh <span class="ot">&lt;-</span> <span class="cf">function</span>(N, utezi, <span class="at">generacije =</span> <span class="dv">50</span>, <span class="at">lokusi =</span> <span class="dv">500</span>) {</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(lokusi <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> lokusi)   <span class="co"># lokusi × 2N kopij; kopiji osebka i sta 2i-1 in 2i</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generacije <span class="sc">+</span> <span class="dv">1</span>); Vk <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generacije)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  He[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    starsi <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> utezi)    <span class="co"># vsaka nova kopija ima starša, izbranega z utežjo</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, lokusi <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">nrow =</span> lokusi)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    kopija <span class="ot">&lt;-</span> <span class="fu">sweep</span>(<span class="sc">-</span>b, <span class="dv">2</span>, <span class="dv">2</span> <span class="sc">*</span> starsi, <span class="st">"+"</span>)                        <span class="co"># na vsakem lokusu neodvisno ena od dveh kopij starša</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    pop <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pop[<span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>lokusi, <span class="at">times =</span> <span class="dv">2</span> <span class="sc">*</span> N), <span class="fu">as.vector</span>(kopija))], <span class="at">nrow =</span> lokusi)</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    Vk[t] <span class="ot">&lt;-</span> <span class="fu">var</span>(<span class="fu">tabulate</span>(starsi, <span class="at">nbins =</span> N))                      <span class="co"># varianca števila potomcev (kopij) na starša</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    He[t <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">rowMeans</span>(pop) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">rowMeans</span>(pop)))</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Vk =</span> <span class="fu">mean</span>(Vk), <span class="at">Ne_formula =</span> (<span class="dv">4</span> <span class="sc">*</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">mean</span>(Vk) <span class="sc">+</span> <span class="dv">2</span>),</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ne_simulacija =</span> <span class="fu">ocena_ne</span>(He, <span class="dv">0</span><span class="sc">:</span>generacije))</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">enak_uspeh   =</span> <span class="fu">simuliraj_uspeh</span>(N, <span class="at">utezi =</span> <span class="fu">rep</span>(<span class="dv">1</span>, N)),</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">neenak_uspeh =</span> <span class="fu">simuliraj_uspeh</span>(N, <span class="at">utezi =</span> <span class="fu">rgamma</span>(N, <span class="at">shape =</span> <span class="fl">0.3</span>)),   <span class="co"># nekaj osebkov ima veliko potomcev, večina malo</span></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">"scenarij"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  scenarij        Vk Ne_formula Ne_simulacija
+  &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+1 enak_uspeh    2.02       98.9          96.0
+2 neenak_uspeh 11.1        30.5          29.2</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="literatura" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="literatura">Literatura</h2>
