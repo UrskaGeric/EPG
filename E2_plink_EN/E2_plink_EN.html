@@ -269,7 +269,7 @@ window.Quarto = {
   <li><a href="#genetic-diversity-the-foundation-of-evolution" id="toc-genetic-diversity-the-foundation-of-evolution" class="nav-link" data-scroll-target="#genetic-diversity-the-foundation-of-evolution">Genetic diversity: the foundation of evolution</a></li>
   <li><a href="#single-nucleotide-polymorphisms-snps" id="toc-single-nucleotide-polymorphisms-snps" class="nav-link" data-scroll-target="#single-nucleotide-polymorphisms-snps">Single nucleotide polymorphisms (SNPs)</a></li>
   </ul></li>
-  <li><a href="#sec-e2-pipeline-en" id="toc-sec-e2-pipeline-en" class="nav-link" data-scroll-target="#sec-e2-pipeline-en">Bioinformatic pipeline to get SNPs</a>
+  <li><a href="#sec-e2-pipeline-en" id="toc-sec-e2-pipeline-en" class="nav-link" data-scroll-target="#sec-e2-pipeline-en">Steps of SNP analysis</a>
   <ul class="collapse">
   <li><a href="#biallelic-variants-in-vcf-files-for-plink" id="toc-biallelic-variants-in-vcf-files-for-plink" class="nav-link" data-scroll-target="#biallelic-variants-in-vcf-files-for-plink">Biallelic variants in VCF files for PLINK</a></li>
   </ul></li>
@@ -297,7 +297,7 @@ window.Quarto = {
   <li><a href="#sec-e2-ld-en" id="toc-sec-e2-ld-en" class="nav-link" data-scroll-target="#sec-e2-ld-en">Linkage disequilibrium (LD)</a></li>
   <li><a href="#all-in-one-command" id="toc-all-in-one-command" class="nav-link" data-scroll-target="#all-in-one-command">All in one command</a></li>
   </ul></li>
-  <li><a href="#sec-e2-pca-en" id="toc-sec-e2-pca-en" class="nav-link" data-scroll-target="#sec-e2-pca-en">A first look at population structure: PCA</a></li>
+  <li><a href="#dataset-for-structure-analyses-maf-0.05" id="toc-dataset-for-structure-analyses-maf-0.05" class="nav-link" data-scroll-target="#dataset-for-structure-analyses-maf-0.05">Dataset for structure analyses (MAF ≥ 0.05)</a></li>
   <li><a href="#sec-e2-statistics-en" id="toc-sec-e2-statistics-en" class="nav-link" data-scroll-target="#sec-e2-statistics-en">Statistics in PLINK</a></li>
   <li><a href="#sec-e2-cascade-en" id="toc-sec-e2-cascade-en" class="nav-link" data-scroll-target="#sec-e2-cascade-en">Filtering cascade and final dataset</a></li>
   <li><a href="#sec-e2-tasks-en" id="toc-sec-e2-tasks-en" class="nav-link" data-scroll-target="#sec-e2-tasks-en">Tasks</a></li>
@@ -342,7 +342,7 @@ window.Quarto = {
 <p>After this practical you will be able to:</p>
 <ul>
 <li>explain what genetic diversity is and why SNPs (single nucleotide polymorphisms) are the main markers in population genetics,</li>
-<li>describe the bioinformatic pipeline from sequencing reads to the final SNP dataset,</li>
+<li>describe the steps of SNP analysis (<em>pipeline</em>) from sequencing reads to the final SNP dataset,</li>
 <li>read a <strong>VCF</strong> (Variant Call Format) file and prepare biallelic variants for <strong>PLINK</strong>,</li>
 <li>know the PLINK input files (<code>.ped</code>/<code>.map</code>, <code>.bed</code>/<code>.bim</code>/<code>.fam</code>) and run PLINK from R,</li>
 <li>perform <strong>quality control</strong> (QC) and filtering: missing data, MAF, HWE, relatedness (KING), LD,</li>
@@ -372,7 +372,7 @@ window.Quarto = {
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/snps_vs_mutations.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="A SNP and a mutation differ in the frequency of the minor allele in the population."><img src="images/snps_vs_mutations.png" class="img-fluid figure-img" style="width:80.0%" alt="A SNP and a mutation differ in the frequency of the minor allele in the population."></a></p>
+<p><a href="images/snps_vs_mutations_temna.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="A SNP and a mutation differ in the frequency of the minor allele in the population."><img src="images/snps_vs_mutations_temna.png" class="img-fluid figure-img" style="width:80.0%" alt="A SNP and a mutation differ in the frequency of the minor allele in the population."></a></p>
 <figcaption>A SNP and a mutation differ in the frequency of the minor allele in the population.</figcaption>
 </figure>
 </div>
@@ -464,18 +464,19 @@ window.Quarto = {
 </section>
 </section>
 <section id="sec-e2-pipeline-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-pipeline-en">Bioinformatic pipeline to get SNPs</h2>
-<p>The diagram shows the pipeline to the final merged and filtered VCF file. After basic QC and the relatedness check the pipeline splits into a dataset <strong>without LD pruning</strong> and a dataset <strong>after LD pruning</strong>, because different analyses need different datasets.</p>
+<h2 class="anchored" data-anchor-id="sec-e2-pipeline-en">Steps of SNP analysis</h2>
+<p>The diagram shows the steps from sequencing reads to the final merged and filtered VCF file. After basic QC and the relatedness check the pipeline splits into a dataset <strong>without LD pruning</strong> and a dataset <strong>after LD pruning</strong>, because different analyses need different datasets.</p>
 <div id="fig-e2-pipeline-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/snp_pipeline_EN.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning."><img src="images/snp_pipeline_EN.png" class="img-fluid figure-img"></a>
+<a href="images/snp_pipeline_EN.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it."><img src="images/snp_pipeline_EN.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-pipeline-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning.
+Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column 3: basic QC and relatedness; then the path splits into a dataset without and with LD pruning. Click the image to enlarge it.
 </figcaption>
 </figure>
 </div>
+<p><a href="images/snp_pipeline_EN.drawio.svg" target="_blank"><strong>Open the diagram in full size</strong></a> (a vector image you can zoom freely).</p>
 <p>From now on we will work in PLINK to do some analyses and prepare the data for R.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -707,19 +708,6 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runPLINK</span>(<span class="st">"--bfile results/eagle_0 --freq --out results/freq"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The function appears in the <strong>Environment</strong> pane. In the practicals we use a slightly improved version <code>plink2()</code> (<a href="#sec-e2-function-en" class="quarto-xref"><span>The plink2() function</span></a>), which prints the command, adds the settings for the eagle chromosomes, checks for errors and shows the most important lines of the log (<code>.log</code>).</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Opozorilo</span>Watch out: <code>plink</code> is not always PLINK
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On Windows, the command <code>plink</code> can also be <strong>PuTTY</strong> (a program for SSH connections). If <code>plink --version</code> prints <code>Release 0.81</code>, you have PuTTY. That is why we always call PLINK with the <strong>full path</strong> to <code>plink2.exe</code>.</p>
-</div>
-</div>
 </section>
 </section>
 <section id="sec-e2-data-en" class="level2">
@@ -894,16 +882,20 @@ Slika&nbsp;6.1: From sample to SNP dataset. In this practical we start in column
 [9] "##FORMAT=&lt;ID=PL,Number=G,Type=Integer,Description=\"PHRED-scaled genotype likelihoods.\"&gt;"                                                                                      </code></pre>
 </div>
 </div>
-<p>The line with column names starts with <code>#CHROM</code>. The first 9 columns describe the variant, followed by one column per individual.</p>
+<p>After the header comes the line with column names, which starts with <code>#CHROM</code>. The first 9 columns describe the variant (<code>CHROM</code>, <code>POS</code>, <code>ID</code>, <code>REF</code>, <code>ALT</code>, <code>QUAL</code>, <code>FILTER</code>, <code>INFO</code>, <code>FORMAT</code>), followed by one column per individual. We split the line into columns (separated by a tab, <code>\t</code>) and count the individuals:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>columns <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(vcf_start[<span class="fu">startsWith</span>(vcf_start, <span class="st">"#CHROM"</span>)], <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(columns) <span class="sc">-</span> <span class="dv">9</span>                  <span class="co"># number of individuals</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(columns) <span class="sc">-</span> <span class="dv">9</span>                  <span class="co"># all columns minus the 9 descriptive ones = number of individuals</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 92</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(vcf_start[<span class="fu">length</span>(header) <span class="sc">+</span> <span class="dv">2</span>], <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">column =</span> columns[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">13</span>)], <span class="at">value =</span> first[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">13</span>)]) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"First variant in the VCF: variant description and genotypes of the first four individuals."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Directly below the <code>#CHROM</code> line is the <strong>first variant</strong>. We split it into columns as well and show it as a table to see what each column means. We leave out column 8 (<code>INFO</code>) because it is very long, and show only the first four individuals (columns 10–13).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(vcf_start[<span class="fu">length</span>(header) <span class="sc">+</span> <span class="dv">2</span>], <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)[[<span class="dv">1</span>]]   <span class="co"># header + #CHROM line, then the first variant</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>chosen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">13</span>)                                        <span class="co"># without INFO, only the first 4 individuals</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">column =</span> columns[chosen], <span class="at">value =</span> first[chosen]) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"First variant in the VCF: variant description and genotypes of the first four individuals."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>First variant in the VCF: variant description and genotypes of the first four individuals.</caption>
@@ -1292,22 +1284,26 @@ Slika&nbsp;6.3: Proportion of missing genotypes per individual. Dashed lines are
 </div>
 </div>
 <p>Historical samples (museum specimens, toepads, ~1900) have <strong>much more missing data</strong>. Ancient DNA is degraded into short fragments, so there are fewer reads and at many sites the depth is too low for a reliable genotype.</p>
-<p>Let’s check whether our calculation agrees with the column <code>Frac._missing_SNPs</code> from Table S1 of the paper.</p>
+</section>
+<section id="comparison-with-the-paper" class="level4">
+<h4 class="anchored" data-anchor-id="comparison-with-the-paper">Comparison with the paper</h4>
+<p>The authors published the proportion of missing SNPs for each individual in Table S1 of the paper (column <code>Frac._missing_SNPs</code> in the metadata). We plot our calculation (<code>F_MISS</code> from PLINK) against their value: each point is one individual. If the values agreed perfectly, all points would lie on the grey diagonal (y = x).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(samples, <span class="fu">aes</span>(Frac._missing_SNPs, f_miss, <span class="at">colour =</span> CO, <span class="at">shape =</span> period)) <span class="sc">+</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> country_colours) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> period_shapes) <span class="sc">+</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Frac._missing_SNPs (Table S1)"</span>, <span class="at">y =</span> <span class="st">"F_MISS (PLINK)"</span>, <span class="at">colour =</span> <span class="st">"Country"</span>, <span class="at">shape =</span> <span class="st">"Period"</span>) <span class="sc">+</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(samples, <span class="fu">aes</span>(Frac._missing_SNPs <span class="sc">/</span> <span class="dv">1000</span>, f_miss, <span class="at">colour =</span> CO, <span class="at">shape =</span> period)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> country_colours) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> period_shapes) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Frac._missing_SNPs / 1000 (Table S1)"</span>, <span class="at">y =</span> <span class="st">"F_MISS (PLINK)"</span>, <span class="at">colour =</span> <span class="st">"Country"</span>, <span class="at">shape =</span> <span class="st">"Period"</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-miss-paper-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-miss-paper-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;6.4: Our proportion of missing genotypes against the value from Table S1."><img src="E2_plink_EN_files/figure-html/fig-e2-miss-paper-en-1.png" class="img-fluid figure-img" width="480"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-miss-paper-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;6.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x."><img src="E2_plink_EN_files/figure-html/fig-e2-miss-paper-en-1.png" class="img-fluid figure-img" width="480"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-paper-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.4: Our proportion of missing genotypes against the value from Table S1.
+Slika&nbsp;6.4: Proportion of missing genotypes per individual: Table S1 of the paper (x) against our PLINK calculation (y). The grey line is y = x.
 </figcaption>
 </figure>
 </div>
@@ -1323,7 +1319,7 @@ Slika&nbsp;6.4: Our proportion of missing genotypes against the value from Table
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>What is the unit of the column <code>Frac._missing_SNPs</code>? Why is it important to always check metadata against the data?</p>
+<p>The values in the column <code>Frac._missing_SNPs</code> range from 0 to 945, so we divided them by 1000. In which unit are they recorded? Do the points lie on the diagonal? What would it mean if an individual were far from it (e.g.&nbsp;swapped sample names)? Why is it important to always check metadata against the data?</p>
 </div>
 </div>
 </section>
@@ -1389,7 +1385,7 @@ Slika&nbsp;6.4: Our proportion of missing genotypes against the value from Table
 </table>
 </div>
 </div>
-<p>We choose <strong><code>--mind 0.8</code></strong>: we only remove individuals with more than 80% missing genotypes and keep most historical samples, which are essential for comparing historical and contemporary populations. In every later analysis we will check whether individuals with a lot of missing data behave differently (e.g.&nbsp;on the PCA, <a href="#sec-e2-pca-en" class="quarto-xref"><span>A first look at population structure: PCA</span></a>).</p>
+<p>We choose <strong><code>--mind 0.8</code></strong>: we only remove individuals with more than 80% missing genotypes and keep most historical samples, which are essential for comparing historical and contemporary populations. In every later analysis we will check whether individuals with a lot of missing data behave differently (e.g.&nbsp;on the PCA in Practical 4).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_0"</span>), <span class="st">"--mind"</span>, <span class="st">"0.8"</span>, <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"eagle_1_mind"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1404,7 +1400,17 @@ IDs written to results/eagle_1_mind.mindrem.id .
 </section>
 <section id="ancient-dna-tstv-and-heterozygosity" class="level4">
 <h4 class="anchored" data-anchor-id="ancient-dna-tstv-and-heterozygosity">Ancient DNA: Ts/Tv and heterozygosity</h4>
-<p>In ancient DNA, cytosine is deaminated to uracil over time, which the polymerase reads as thymine. This creates false <strong>C → T transitions</strong> (and G → A), so we expect a <strong>higher Ts/Tv ratio</strong> in historical samples if the damage was not removed.</p>
+<p>In ancient DNA, cytosine is <strong>deaminated</strong> over time: it loses its amino group and becomes uracil, which the polymerase reads as thymine. Methylated cytosine (5-methylcytosine) is deaminated directly to thymine. This creates false <strong>C → T transitions</strong> (G → A on the opposite strand), so we expect a <strong>higher Ts/Tv ratio</strong> in historical samples if the damage was not removed.</p>
+<div id="fig-e2-deamination-en" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;6.5: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-deamination-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;6.5: Deamination of cytosine to uracil (top) and of 5-methylcytosine to thymine (bottom). Source: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, chapter Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); figure by Christina Warinner, CC BY-SA 4.0.
+</figcaption>
+</figure>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>samples <span class="sc">|&gt;</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vcf_id, CO, period, f_miss, <span class="st">`</span><span class="at">Ts/Tv</span><span class="st">`</span> <span class="ot">=</span> ts_tv, <span class="at">Heterozygosity =</span> het) <span class="sc">|&gt;</span></span>
@@ -1420,10 +1426,10 @@ IDs written to results/eagle_1_mind.mindrem.id .
 <div id="fig-e2-tstv-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-tstv-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;6.5: Ts/Tv ratio and proportion of heterozygous sites per individual."><img src="E2_plink_EN_files/figure-html/fig-e2-tstv-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-tstv-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;6.6: Ts/Tv ratio and proportion of heterozygous sites per individual."><img src="E2_plink_EN_files/figure-html/fig-e2-tstv-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-tstv-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.5: Ts/Tv ratio and proportion of heterozygous sites per individual.
+Slika&nbsp;6.6: Ts/Tv ratio and proportion of heterozygous sites per individual.
 </figcaption>
 </figure>
 </div>
@@ -1469,10 +1475,10 @@ Slika&nbsp;6.5: Ts/Tv ratio and proportion of heterozygous sites per individual.
 <div id="fig-e2-het-miss-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-het-miss-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;6.6: Heterozygosity against the proportion of missing genotypes."><img src="E2_plink_EN_files/figure-html/fig-e2-het-miss-en-1.png" class="img-fluid figure-img" width="576"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-het-miss-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;6.7: Heterozygosity against the proportion of missing genotypes."><img src="E2_plink_EN_files/figure-html/fig-e2-het-miss-en-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-het-miss-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.6: Heterozygosity against the proportion of missing genotypes.
+Slika&nbsp;6.7: Heterozygosity against the proportion of missing genotypes.
 </figcaption>
 </figure>
 </div>
@@ -1529,10 +1535,10 @@ Slika&nbsp;6.6: Heterozygosity against the proportion of missing genotypes.
 <div id="fig-e2-miss-snp-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-miss-snp-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;6.7: Proportion of missing genotypes per SNP (after --mind 0.8)."><img src="E2_plink_EN_files/figure-html/fig-e2-miss-snp-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-miss-snp-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;6.8: Proportion of missing genotypes per SNP (after --mind 0.8)."><img src="E2_plink_EN_files/figure-html/fig-e2-miss-snp-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-snp-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.7: Proportion of missing genotypes per SNP (after <code>--mind 0.8</code>).
+Slika&nbsp;6.8: Proportion of missing genotypes per SNP (after <code>--mind 0.8</code>).
 </figcaption>
 </figure>
 </div>
@@ -1735,10 +1741,10 @@ Results written to results/eagle_2_geno.kin0 .</code></pre>
 <div id="fig-e2-king-heatmap-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-king-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-king-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;6.8: KING kinship heatmap. Individuals are ordered by group."><img src="E2_plink_EN_files/figure-html/fig-e2-king-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-king-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;6.9: KING kinship heatmap. Individuals are ordered by group."><img src="E2_plink_EN_files/figure-html/fig-e2-king-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.8: KING kinship heatmap. Individuals are ordered by group.
+Slika&nbsp;6.9: KING kinship heatmap. Individuals are ordered by group.
 </figcaption>
 </figure>
 </div>
@@ -1756,10 +1762,10 @@ Slika&nbsp;6.8: KING kinship heatmap. Individuals are ordered by group.
 <div id="fig-e2-ibs-heatmap-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-ibs-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-ibs-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;6.9: IBS0 heatmap. Low values (dark) indicate related individuals."><img src="E2_plink_EN_files/figure-html/fig-e2-ibs-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-ibs-heatmap-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;6.10: IBS0 heatmap. Low values (dark) indicate related individuals."><img src="E2_plink_EN_files/figure-html/fig-e2-ibs-heatmap-en-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ibs-heatmap-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.9: IBS0 heatmap. Low values (dark) indicate related individuals.
+Slika&nbsp;6.10: IBS0 heatmap. Low values (dark) indicate related individuals.
 </figcaption>
 </figure>
 </div>
@@ -1809,10 +1815,10 @@ Slika&nbsp;6.9: IBS0 heatmap. Low values (dark) indicate related individuals.
 <div id="fig-e2-king-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-king-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;6.10: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness."><img src="E2_plink_EN_files/figure-html/fig-e2-king-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-king-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;6.11: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness."><img src="E2_plink_EN_files/figure-html/fig-e2-king-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.10: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness.
+Slika&nbsp;6.11: KING kinship against IBS0 for all pairs of individuals. Dashed lines are the boundaries between degrees of relatedness.
 </figcaption>
 </figure>
 </div>
@@ -2331,10 +2337,10 @@ Slika&nbsp;6.10: KING kinship against IBS0 for all pairs of individuals. Dashed 
 <div id="fig-e2-maf-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-maf-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;6.11: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05."><img src="E2_plink_EN_files/figure-html/fig-e2-maf-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-maf-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;6.12: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05."><img src="E2_plink_EN_files/figure-html/fig-e2-maf-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-maf-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.11: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05.
+Slika&nbsp;6.12: Distribution of MAF. Dashed lines are the common thresholds 0.01 and 0.05.
 </figcaption>
 </figure>
 </div>
@@ -2482,10 +2488,10 @@ Slika&nbsp;6.11: Distribution of MAF. Dashed lines are the common thresholds 0.0
 <div id="fig-e2-ho-he-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-ho-he-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;6.12: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together."><img src="E2_plink_EN_files/figure-html/fig-e2-ho-he-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-ho-he-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;6.13: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together."><img src="E2_plink_EN_files/figure-html/fig-e2-ho-he-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ho-he-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.12: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together.
+Slika&nbsp;6.13: Mean observed (Ho) and expected (He) heterozygosity per chromosome, all eagles together.
 </figcaption>
 </figure>
 </div>
@@ -2526,10 +2532,10 @@ plink2 --bfile results/eagle_3_no_duplicates --keep-fam results/NO_Con.txt --har
 <div id="fig-e2-hwe-en" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-hwe-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;6.13: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect)."><img src="E2_plink_EN_files/figure-html/fig-e2-hwe-en-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_EN_files/figure-html/fig-e2-hwe-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;6.14: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect)."><img src="E2_plink_EN_files/figure-html/fig-e2-hwe-en-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-hwe-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.13: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect).
+Slika&nbsp;6.14: Heterozygote deficit F = 1 − Ho/He per SNP (only SNPs with He ≥ 0.1 in the group). For all eagles together the distribution is shifted to the right (Wahlund effect).
 </figcaption>
 </figure>
 </div>
@@ -2760,9 +2766,9 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 </div>
 </section>
 </section>
-<section id="sec-e2-pca-en" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-pca-en">A first look at population structure: PCA</h2>
-<p><strong>Principal component analysis</strong> (PCA) summarises the variation of thousands of SNPs in a few axes (components). Genetically similar individuals lie close together. We run PCA on the dataset with MAF ≥ 0.05. We will look at it in more detail in Practical 4.</p>
+<section id="dataset-for-structure-analyses-maf-0.05" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-for-structure-analyses-maf-0.05">Dataset for structure analyses (MAF ≥ 0.05)</h2>
+<p>For the population structure analyses in Practical 4 (PCA, DAPC, ADMIXTURE) we also prepare a dataset without rare alleles (MAF ≥ 0.05, <a href="#sec-e2-maf-en" class="quarto-xref"><span>Allele frequencies (MAF)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_3_no_duplicates"</span>), <span class="st">"--maf"</span>, <span class="st">"0.05"</span>,</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"eagle_4_maf05"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2772,71 +2778,6 @@ Variant lists written to results/ld_0.2.prune.in and results/ld_0.2.prune.out .<
 208578 variants loaded from results/eagle_3_no_duplicates.bim.
 24386 variants removed due to allele frequency threshold(s)
 184192 variants remaining after main filters.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"eagle_4_maf05"</span>), <span class="st">"--pca"</span>, <span class="st">"10"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"pca"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>plink2 --bfile results/eagle_4_maf05 --pca 10 --out results/pca 
-83 samples (0 females, 0 males, 83 ambiguous; 83 founders) loaded from
-184192 variants loaded from results/eagle_4_maf05.bim.
---pca: Eigenvectors written to results/pca.eigenvec , and eigenvalues written</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>pca_df <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">r</span>(<span class="st">"pca.eigenvec"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">vcf_id =</span> IID) <span class="sc">|&gt;</span></span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"vcf_id"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(samples <span class="sc">|&gt;</span> <span class="fu">select</span>(vcf_id, f_miss), <span class="at">by =</span> <span class="st">"vcf_id"</span>)</span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>eigenval <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">r</span>(<span class="st">"pca.eigenval"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>pct      <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> eigenval <span class="sc">/</span> <span class="fu">sum</span>(eigenval), <span class="dv">1</span>)    <span class="co"># share among the first 10 components</span></span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pca_df)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 36
-  `#FID` vcf_id    PC1    PC2      PC3       PC4       PC5       PC6       PC7
-  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 IS_Con A6512  0.102  0.126  -0.0104   0.00334  -0.00317   0.000448 -0.000823
-2 IS_Con A6517  0.0996 0.126  -0.00990 -0.000143  0.00167   0.000105 -0.00288 
-3 IS_Con A6533  0.0934 0.0976 -0.00966 -0.00412  -0.00198  -0.00219  -0.00120 
-4 IS_Con A6541  0.102  0.116  -0.00925  0.000383 -0.000913  0.000146  0.000636
-5 IS_Con A6551  0.1000 0.125  -0.00938  0.000362 -0.000972  0.000211 -0.00287 
-6 IS_Con A6552  0.103  0.119  -0.00970  0.00178   0.00215   0.000567 -0.000980
-# ℹ 27 more variables: PC8 &lt;dbl&gt;, PC9 &lt;dbl&gt;, PC10 &lt;dbl&gt;, Name &lt;chr&gt;, CO &lt;chr&gt;,
-#   drzava &lt;chr&gt;, otok_celina &lt;chr&gt;, Time &lt;chr&gt;, obdobje &lt;chr&gt;, skupina &lt;chr&gt;,
-#   Loc &lt;chr&gt;, Year &lt;chr&gt;, leto &lt;dbl&gt;, Sex &lt;chr&gt;, Maturity &lt;chr&gt;,
-#   sample_type &lt;chr&gt;, Seq &lt;chr&gt;, Mean_depth_all &lt;dbl&gt;, Mean_depth &lt;dbl&gt;,
-#   Frac._missing_SNPs &lt;dbl&gt;, lat &lt;dbl&gt;, lon &lt;dbl&gt;, natancnost &lt;chr&gt;,
-#   period &lt;chr&gt;, region &lt;chr&gt;, group &lt;chr&gt;, f_miss &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca_df, <span class="fu">aes</span>(PC1, PC2, <span class="at">colour =</span> CO, <span class="at">shape =</span> period)) <span class="sc">+</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> country_colours) <span class="sc">+</span></span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> period_shapes) <span class="sc">+</span></span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">"PC1 ("</span>, pct[<span class="dv">1</span>], <span class="st">" %)"</span>), <span class="at">y =</span> <span class="fu">paste0</span>(<span class="st">"PC2 ("</span>, pct[<span class="dv">2</span>], <span class="st">" %)"</span>),</span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Country"</span>, <span class="at">shape =</span> <span class="st">"Period"</span>) <span class="sc">+</span></span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-e2-pca-en" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-pca-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_EN_files/figure-html/fig-e2-pca-en-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;6.14: PCA of white-tailed eagles (PC1 and PC2). Colour is country, shape is period."><img src="E2_plink_EN_files/figure-html/fig-e2-pca-en-1.png" class="img-fluid figure-img" width="672"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-pca-en-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6.14: PCA of white-tailed eagles (PC1 and PC2). Colour is country, shape is period.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Opomba</span>Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Which groups separate along PC1 and which along PC2? Where are the historical samples with a lot of missing data (replace the colour with <code>f_miss</code>)? Could their position be an artefact?</p>
 </div>
 </div>
 </section>
@@ -2887,7 +2828,7 @@ Slika&nbsp;6.14: PCA of white-tailed eagles (PC1 and PC2). Colour is country, sh
 <td>PCA</td>
 <td><code>--pca 10</code></td>
 <td><code>.eigenvec</code>, <code>.eigenval</code></td>
-<td>Practicals 2 and 4</td>
+<td>Practical 4</td>
 </tr>
 <tr class="even">
 <td>relationship matrix (GRM)</td>
@@ -2920,29 +2861,29 @@ Slika&nbsp;6.14: PCA of white-tailed eagles (PC1 and PC2). Colour is country, sh
 <h2 class="anchored" data-anchor-id="sec-e2-cascade-en">Filtering cascade and final dataset</h2>
 <p>Finally we make a table: how many SNPs and individuals are left after each step. Such a table always goes into the methods or supplementary material.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>count_files <span class="ot">&lt;-</span> <span class="cf">function</span>(path) <span class="fu">c</span>(<span class="at">snp =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(path, <span class="st">".bim"</span>))),</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ind =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(path, <span class="st">".fam"</span>))))</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>step,                                 <span class="sc">~</span>command,                                <span class="sc">~</span>file,</span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1 Biallelic SNPs (no indels)"</span>,        <span class="st">"`--snps-only just-acgt --max-alleles 2`"</span>, <span class="st">"eagle_0"</span>,</span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2 Individuals with ≤ 80% missing"</span>,    <span class="st">"`--mind 0.8`"</span>,                          <span class="st">"eagle_1_mind"</span>,</span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3 SNPs with ≤ 20% missing"</span>,           <span class="st">"`--geno 0.2`"</span>,                          <span class="st">"eagle_2_geno"</span>,</span>
-<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 No duplicated samples"</span>,             <span class="st">"`--remove` (KING &gt; 0.354)"</span>,             <span class="st">"eagle_3_no_duplicates"</span>,</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0.05 (only for PCA, P4)"</span>,     <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"eagle_4_maf05"</span></span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>cascade <span class="ot">&lt;-</span> steps <span class="sc">|&gt;</span></span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">map</span>(file, \(f) <span class="fu">count_files</span>(<span class="fu">r</span>(f))),</span>
-<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">SNPs =</span> <span class="fu">map_int</span>(n, <span class="st">"snp"</span>),</span>
-<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">individuals =</span> <span class="fu">map_int</span>(n, <span class="st">"ind"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n)</span>
-<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">step =</span> <span class="st">"0 VCF (Dryad)"</span>, <span class="at">command =</span> <span class="st">""</span>, <span class="at">file =</span> <span class="st">"eagle.vcf.gz"</span>,</span>
-<span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">SNPs =</span> vcf_snp, <span class="at">individuals =</span> <span class="fu">length</span>(columns) <span class="sc">-</span> <span class="dv">9</span>L),</span>
-<span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a>          cascade) <span class="sc">|&gt;</span></span>
-<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">","</span>),</span>
-<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Filtering cascade: number of SNPs and individuals after each step."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>count_files <span class="ot">&lt;-</span> <span class="cf">function</span>(path) <span class="fu">c</span>(<span class="at">snp =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(path, <span class="st">".bim"</span>))),</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ind =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(path, <span class="st">".fam"</span>))))</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>step,                                 <span class="sc">~</span>command,                                <span class="sc">~</span>file,</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1 Biallelic SNPs (no indels)"</span>,        <span class="st">"`--snps-only just-acgt --max-alleles 2`"</span>, <span class="st">"eagle_0"</span>,</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2 Individuals with ≤ 80% missing"</span>,    <span class="st">"`--mind 0.8`"</span>,                          <span class="st">"eagle_1_mind"</span>,</span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3 SNPs with ≤ 20% missing"</span>,           <span class="st">"`--geno 0.2`"</span>,                          <span class="st">"eagle_2_geno"</span>,</span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 No duplicated samples"</span>,             <span class="st">"`--remove` (KING &gt; 0.354)"</span>,             <span class="st">"eagle_3_no_duplicates"</span>,</span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0.05 (for Practical 4)"</span>,     <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"eagle_4_maf05"</span></span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>cascade <span class="ot">&lt;-</span> steps <span class="sc">|&gt;</span></span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">map</span>(file, \(f) <span class="fu">count_files</span>(<span class="fu">r</span>(f))),</span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">SNPs =</span> <span class="fu">map_int</span>(n, <span class="st">"snp"</span>),</span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">individuals =</span> <span class="fu">map_int</span>(n, <span class="st">"ind"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n)</span>
+<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">step =</span> <span class="st">"0 VCF (Dryad)"</span>, <span class="at">command =</span> <span class="st">""</span>, <span class="at">file =</span> <span class="st">"eagle.vcf.gz"</span>,</span>
+<span id="cb88-20"><a href="#cb88-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">SNPs =</span> vcf_snp, <span class="at">individuals =</span> <span class="fu">length</span>(columns) <span class="sc">-</span> <span class="dv">9</span>L),</span>
+<span id="cb88-21"><a href="#cb88-21" aria-hidden="true" tabindex="-1"></a>          cascade) <span class="sc">|&gt;</span></span>
+<span id="cb88-22"><a href="#cb88-22" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">","</span>),</span>
+<span id="cb88-23"><a href="#cb88-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Filtering cascade: number of SNPs and individuals after each step."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Filtering cascade: number of SNPs and individuals after each step.</caption>
@@ -2999,7 +2940,7 @@ Slika&nbsp;6.14: PCA of white-tailed eagles (PC1 and PC2). Colour is country, sh
 <td style="text-align: right;">83</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">5 MAF ≥ 0.05 (only for PCA, P4)</td>
+<td style="text-align: left;">5 MAF ≥ 0.05 (for Practical 4)</td>
 <td style="text-align: left;"><code>--maf 0.05</code></td>
 <td style="text-align: left;">eagle_4_maf05</td>
 <td style="text-align: right;">184,192</td>
@@ -3010,13 +2951,13 @@ Slika&nbsp;6.14: PCA of white-tailed eagles (PC1 and PC2). Colour is country, sh
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_3_no_duplicates"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_qc"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_3_no_duplicates"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_qc"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE TRUE TRUE</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_4_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_qc_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_4_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"eagle_qc_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE TRUE TRUE</code></pre>
 </div>

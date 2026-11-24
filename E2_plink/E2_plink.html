@@ -269,7 +269,7 @@ window.Quarto = {
   <li><a href="#genetska-raznolikost-temelj-evolucije" id="toc-genetska-raznolikost-temelj-evolucije" class="nav-link" data-scroll-target="#genetska-raznolikost-temelj-evolucije">Genetska raznolikost: temelj evolucije</a></li>
   <li><a href="#polimorfizmi-posameznih-nukleotidov-snp-ji" id="toc-polimorfizmi-posameznih-nukleotidov-snp-ji" class="nav-link" data-scroll-target="#polimorfizmi-posameznih-nukleotidov-snp-ji">Polimorfizmi posameznih nukleotidov (SNP-ji)</a></li>
   </ul></li>
-  <li><a href="#sec-e2-cevovod" id="toc-sec-e2-cevovod" class="nav-link" data-scroll-target="#sec-e2-cevovod">Bioinformatski cevovod do SNP-jev</a>
+  <li><a href="#sec-e2-cevovod" id="toc-sec-e2-cevovod" class="nav-link" data-scroll-target="#sec-e2-cevovod">Koraki analize SNP-jev</a>
   <ul class="collapse">
   <li><a href="#dvoalelne-variante-v-datotekah-vcf-za-plink" id="toc-dvoalelne-variante-v-datotekah-vcf-za-plink" class="nav-link" data-scroll-target="#dvoalelne-variante-v-datotekah-vcf-za-plink">Dvoalelne variante v datotekah VCF za PLINK</a></li>
   </ul></li>
@@ -297,7 +297,7 @@ window.Quarto = {
   <li><a href="#sec-e2-ld" id="toc-sec-e2-ld" class="nav-link" data-scroll-target="#sec-e2-ld">Vezavno neravnovesje (LD)</a></li>
   <li><a href="#vse-v-enem-ukazu" id="toc-vse-v-enem-ukazu" class="nav-link" data-scroll-target="#vse-v-enem-ukazu">Vse v enem ukazu</a></li>
   </ul></li>
-  <li><a href="#sec-e2-pca" id="toc-sec-e2-pca" class="nav-link" data-scroll-target="#sec-e2-pca">Prvi pogled na populacijsko strukturo: PCA</a></li>
+  <li><a href="#nabor-za-analize-strukture-maf-005" id="toc-nabor-za-analize-strukture-maf-005" class="nav-link" data-scroll-target="#nabor-za-analize-strukture-maf-005">Nabor za analize strukture (MAF ≥ 0,05)</a></li>
   <li><a href="#sec-e2-statistike" id="toc-sec-e2-statistike" class="nav-link" data-scroll-target="#sec-e2-statistike">Statistike v PLINK-u</a></li>
   <li><a href="#sec-e2-kaskada" id="toc-sec-e2-kaskada" class="nav-link" data-scroll-target="#sec-e2-kaskada">Kaskada filtriranja in končni nabor</a></li>
   <li><a href="#sec-e2-naloga" id="toc-sec-e2-naloga" class="nav-link" data-scroll-target="#sec-e2-naloga">Naloge</a></li>
@@ -342,12 +342,12 @@ window.Quarto = {
 <p>Po tej vaji boste znali:</p>
 <ul>
 <li>razložiti, kaj je genetska raznolikost in zakaj so SNP-ji (<em>single nucleotide polymorphisms</em>) glavni označevalci v populacijski genetiki,</li>
-<li>opisati bioinformatski cevovod (<em>pipeline</em>) od odčitkov (<em>reads</em>) do končnega nabora SNP-jev,</li>
+<li>opisati korake analize SNP-jev (<em>pipeline</em>) od odčitkov (<em>reads</em>) do končnega nabora,</li>
 <li>prebrati datoteko <strong>VCF</strong> (<em>Variant Call Format</em>) in pripraviti dvoalelne variante za <strong>PLINK</strong>,</li>
 <li>poznati vhodne datoteke PLINK (<code>.ped</code>/<code>.map</code>, <code>.bed</code>/<code>.bim</code>/<code>.fam</code>) in poganjati PLINK iz R-a,</li>
 <li>izvesti <strong>kontrolo kakovosti</strong> (<em>quality control, QC</em>) in filtriranje: manjkajoči podatki, MAF, HWE, sorodnost (KING), LD,</li>
 <li>rezultate PLINK uvoziti v R in jih prikazati z grafi,</li>
-<li>utemeljiti izbiro pragov za filtriranje in prepoznati posebnosti <strong>historičnih vzorcev</strong> (stara DNA).</li>
+<li>utemeljiti izbiro mej za filtriranje in prepoznati posebnosti <strong>historičnih vzorcev</strong> (stara DNA).</li>
 </ul>
 <p><strong>Biološko vprašanje vaje:</strong> ali so podatki orlov belorepcev (<em>Haliaeetus albicilla</em>) dovolj kakovostni, da lahko primerjamo otoške in celinske ter historične in sodobne populacije? Katere osebke in SNP-je moramo izločiti in zakaj?</p>
 </section>
@@ -372,7 +372,7 @@ window.Quarto = {
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/snps_vs_mutations.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="SNP in mutacija se razlikujeta po frekvenci redkejšega alela v populaciji."><img src="images/snps_vs_mutations.png" class="img-fluid figure-img" style="width:80.0%" alt="SNP in mutacija se razlikujeta po frekvenci redkejšega alela v populaciji."></a></p>
+<p><a href="images/snps_vs_mutations_temna.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="SNP in mutacija se razlikujeta po frekvenci redkejšega alela v populaciji."><img src="images/snps_vs_mutations_temna.png" class="img-fluid figure-img" style="width:80.0%" alt="SNP in mutacija se razlikujeta po frekvenci redkejšega alela v populaciji."></a></p>
 <figcaption>SNP in mutacija se razlikujeta po frekvenci redkejšega alela v populaciji.</figcaption>
 </figure>
 </div>
@@ -464,18 +464,19 @@ window.Quarto = {
 </section>
 </section>
 <section id="sec-e2-cevovod" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-cevovod">Bioinformatski cevovod do SNP-jev</h2>
-<p>Shema prikazuje cevovod do končnega, združenega in filtriranega VCF. Po osnovnem QC in preverjanju sorodnosti se pot razcepi na nabor <strong>brez LD čiščenja</strong> in nabor <strong>po LD čiščenju</strong>, ker različne analize potrebujejo različne nabore.</p>
+<h2 class="anchored" data-anchor-id="sec-e2-cevovod">Koraki analize SNP-jev</h2>
+<p>Shema prikazuje korake od odčitkov do končnega, združenega in filtriranega VCF. Po osnovnem QC in preverjanju sorodnosti se pot razcepi na nabor <strong>brez LD čiščenja</strong> in nabor <strong>po LD čiščenju</strong>, ker različne analize potrebujejo različne nabore.</p>
 <div id="fig-e2-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/snp_pipeline_SL.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;3.1: Od vzorca do nabora SNP-jev. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju."><img src="images/snp_pipeline_SL.png" class="img-fluid figure-img"></a>
+<a href="images/snp_pipeline_SL.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo."><img src="images/snp_pipeline_SL.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.1: Od vzorca do nabora SNP-jev. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju.
+Slika&nbsp;3.1: Koraki analize SNP-jev od odčitkov do končnega nabora. Pri tej vaji začnemo v stolpcu 3: osnovni QC in sorodnost, nato se pot razcepi na nabor brez LD čiščenja in nabor po LD čiščenju. Kliknite na sliko za povečavo.
 </figcaption>
 </figure>
 </div>
+<p><a href="images/snp_pipeline_SL.drawio.svg" target="_blank"><strong>Odpri shemo v polni velikosti</strong></a> (vektorska slika, ki jo lahko poljubno povečate).</p>
 <p>Od tu naprej delamo s programom PLINK, da analiziramo podatke in jih pripravimo za R.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -707,19 +708,6 @@ Slika&nbsp;3.1: Od vzorca do nabora SNP-jev. Pri tej vaji začnemo v stolpcu 3: 
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runPLINK</span>(<span class="st">"--bfile rezultati/orel_0 --freq --out rezultati/frekvence"</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Funkcija se pojavi v zavihku <strong>Environment</strong>. Pri vajah uporabljamo malo izboljšano različico <code>plink2()</code> (<a href="#sec-e2-funkcija" class="quarto-xref"><span>Funkcija plink2()</span></a>), ki ukaz izpiše, doda nastavitve za kromosome orla, preveri napake in pokaže najpomembnejše vrstice iz dnevnika (<code>.log</code>).</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Opozorilo</span>Pozor: <code>plink</code> ni vedno PLINK
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Na Windowsih je ukaz <code>plink</code> lahko tudi <strong>PuTTY</strong> (program za SSH povezave). Če <code>plink --version</code> izpiše <code>Release 0.81</code>, imate PuTTY. Zato PLINK vedno kličemo s <strong>polno potjo</strong> do datoteke <code>plink2.exe</code>.</p>
-</div>
-</div>
 </section>
 </section>
 <section id="sec-e2-podatki" class="level2">
@@ -890,16 +878,20 @@ Slika&nbsp;3.1: Od vzorca do nabora SNP-jev. Pri tej vaji začnemo v stolpcu 3: 
 [9] "##FORMAT=&lt;ID=PL,Number=G,Type=Integer,Description=\"PHRED-scaled genotype likelihoods.\"&gt;"                                                                                      </code></pre>
 </div>
 </div>
-<p>Vrstica z imeni stolpcev se začne z <code>#CHROM</code>. Prvih 9 stolpcev opisuje varianto, nato sledi en stolpec za vsak osebek.</p>
+<p>Za glavo pride vrstica z imeni stolpcev, ki se začne z <code>#CHROM</code>. Prvih 9 stolpcev opisuje varianto (<code>CHROM</code>, <code>POS</code>, <code>ID</code>, <code>REF</code>, <code>ALT</code>, <code>QUAL</code>, <code>FILTER</code>, <code>INFO</code>, <code>FORMAT</code>), nato sledi en stolpec za vsak osebek. Vrstico razrežemo na stolpce (ločeni so s tabulatorjem, <code>\t</code>) in preštejemo osebke:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>stolpci <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(zacetek[<span class="fu">startsWith</span>(zacetek, <span class="st">"#CHROM"</span>)], <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(stolpci) <span class="sc">-</span> <span class="dv">9</span>                 <span class="co"># število osebkov</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(stolpci) <span class="sc">-</span> <span class="dv">9</span>                 <span class="co"># vsi stolpci minus 9 opisnih = število osebkov</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 92</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prva <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(zacetek[<span class="fu">length</span>(glava) <span class="sc">+</span> <span class="dv">2</span>], <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">stolpec =</span> stolpci[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">13</span>)], <span class="at">vrednost =</span> prva[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">13</span>)]) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Prva varianta v VCF: opis variante in genotipi prvih štirih osebkov."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Takoj pod vrstico <code>#CHROM</code> je <strong>prva varianta</strong>. Tudi njo razrežemo na stolpce in jo prikažemo kot tabelo, da vidimo, kaj pomeni posamezen stolpec. Stolpec 8 (<code>INFO</code>) izpustimo, ker je zelo dolg, od osebkov pa pokažemo samo prve štiri (stolpci 10–13).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prva <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(zacetek[<span class="fu">length</span>(glava) <span class="sc">+</span> <span class="dv">2</span>], <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)[[<span class="dv">1</span>]]   <span class="co"># glava + vrstica #CHROM, nato prva varianta</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>izbrani <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">13</span>)                                     <span class="co"># brez INFO, samo prvi 4 osebki</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">stolpec =</span> stolpci[izbrani], <span class="at">vrednost =</span> prva[izbrani]) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Prva varianta v VCF: opis variante in genotipi prvih štirih osebkov."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Prva varianta v VCF: opis variante in genotipi prvih štirih osebkov.</caption>
@@ -1145,7 +1137,7 @@ Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP
 </section>
 <section id="sec-e2-filtriranje" class="level2">
 <h2 class="anchored" data-anchor-id="sec-e2-filtriranje">Kontrola kakovosti in filtriranje</h2>
-<p>Pri filtriranju z ukazi PLINK odstranimo osebke in SNP-je slabe kakovosti. Pri vsakem filtru najprej <strong>pogledamo porazdelitev</strong>, nato izberemo prag in ga utemeljimo. Pregled filtrov:</p>
+<p>Pri filtriranju z ukazi PLINK odstranimo osebke in SNP-je slabe kakovosti. Pri vsakem filtru najprej <strong>pogledamo porazdelitev</strong>, nato izberemo mejo in jo utemeljimo. Pregled filtrov:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1235,10 +1227,10 @@ Slika&nbsp;3.2: Število SNP-jev po kromosomih. Daljši kromosomi imajo več SNP
 <div id="fig-e2-miss-osebki" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-miss-osebki-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možni pragovi za --mind."><img src="E2_plink_files/figure-html/fig-e2-miss-osebki-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_files/figure-html/fig-e2-miss-osebki-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za --mind."><img src="E2_plink_files/figure-html/fig-e2-miss-osebki-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-osebki-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možni pragovi za <code>--mind</code>.
+Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so možne meje za <code>--mind</code>.
 </figcaption>
 </figure>
 </div>
@@ -1288,22 +1280,26 @@ Slika&nbsp;3.3: Delež manjkajočih genotipov po osebkih. Črtkane črte so mož
 </div>
 </div>
 <p>Historični vzorci (muzejski primerki, prsti nog <em>toepad</em>, ~1900) imajo <strong>veliko več manjkajočih podatkov</strong>. Stara DNA je razgrajena na kratke fragmente, zato je odčitkov manj in na več mestih ni dovolj globine za zanesljiv genotip.</p>
-<p>Preverimo še, ali se naš izračun ujema s stolpcem <code>Frac._missing_SNPs</code> iz tabele S1 članka.</p>
+</section>
+<section id="primerjava-s-člankom" class="level4">
+<h4 class="anchored" data-anchor-id="primerjava-s-člankom">Primerjava s člankom</h4>
+<p>Avtorji so delež manjkajočih SNP-jev za vsak osebek objavili v tabeli S1 članka (stolpec <code>Frac._missing_SNPs</code> v metapodatkih). Naš izračun (<code>F_MISS</code> iz PLINK-a) in njihovo vrednost narišemo drugo proti drugi: vsaka točka je en osebek. Če bi se vrednosti popolnoma ujemale, bi vse točke ležale na sivi diagonali (y = x).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(osebki, <span class="fu">aes</span>(Frac._missing_SNPs, f_miss, <span class="at">colour =</span> CO, <span class="at">shape =</span> obdobje)) <span class="sc">+</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> barve_drzav) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> oblike_obdobja) <span class="sc">+</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Frac._missing_SNPs (tabela S1)"</span>, <span class="at">y =</span> <span class="st">"F_MISS (PLINK)"</span>, <span class="at">colour =</span> <span class="st">"Država"</span>, <span class="at">shape =</span> <span class="st">"Obdobje"</span>) <span class="sc">+</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(osebki, <span class="fu">aes</span>(Frac._missing_SNPs <span class="sc">/</span> <span class="dv">1000</span>, f_miss, <span class="at">colour =</span> CO, <span class="at">shape =</span> obdobje)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> barve_drzav) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> oblike_obdobja) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Frac._missing_SNPs / 1000 (tabela S1)"</span>, <span class="at">y =</span> <span class="st">"F_MISS (PLINK)"</span>, <span class="at">colour =</span> <span class="st">"Država"</span>, <span class="at">shape =</span> <span class="st">"Obdobje"</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-miss-clanek" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-miss-clanek-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;3.4: Naš delež manjkajočih genotipov proti vrednosti iz tabele S1."><img src="E2_plink_files/figure-html/fig-e2-miss-clanek-1.png" class="img-fluid figure-img" width="480"></a>
+<a href="E2_plink_files/figure-html/fig-e2-miss-clanek-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Slika&nbsp;3.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x."><img src="E2_plink_files/figure-html/fig-e2-miss-clanek-1.png" class="img-fluid figure-img" width="480"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-clanek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.4: Naš delež manjkajočih genotipov proti vrednosti iz tabele S1.
+Slika&nbsp;3.4: Delež manjkajočih genotipov po osebkih: tabela S1 članka (x) proti našemu izračunu v PLINK-u (y). Siva črta je y = x.
 </figcaption>
 </figure>
 </div>
@@ -1319,26 +1315,26 @@ Slika&nbsp;3.4: Naš delež manjkajočih genotipov proti vrednosti iz tabele S1.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Kakšna je enota v stolpcu <code>Frac._missing_SNPs</code>? Zakaj je pomembno, da metapodatke vedno preverimo s podatki?</p>
+<p>Vrednosti v stolpcu <code>Frac._missing_SNPs</code> gredo od 0 do 945, zato smo jih delili s 1000. V kateri enoti so torej zapisane? Ali točke ležijo na diagonali? Kaj bi pomenilo, če bi bil kak osebek daleč od nje (npr. zamenjana imena vzorcev)? Zakaj je pomembno, da metapodatke vedno preverimo s podatki?</p>
 </div>
 </div>
 </section>
-<section id="izbira-praga---mind" class="level4">
-<h4 class="anchored" data-anchor-id="izbira-praga---mind">Izbira praga <code>--mind</code></h4>
-<p>Prag za osebke je kompromis: strog prag odstrani slabe vzorce, a hkrati lahko izgubimo cele skupine.</p>
+<section id="izbira-meje---mind" class="level4">
+<h4 class="anchored" data-anchor-id="izbira-meje---mind">Izbira meje <code>--mind</code></h4>
+<p>Meja za osebke je kompromis: stroga meja odstrani slabe vzorce, a hkrati lahko izgubimo cele skupine.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">prag =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">odstranjeni =</span> <span class="fu">map_int</span>(prag, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&gt;</span> p)),</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">od tega historičnih</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(prag, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&gt;</span> p <span class="sc">&amp;</span> osebki<span class="sc">$</span>obdobje <span class="sc">==</span> <span class="st">"historični"</span>)),</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">ostane IS_His</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(prag, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&lt;=</span> p <span class="sc">&amp;</span> osebki<span class="sc">$</span>skupina <span class="sc">==</span> <span class="st">"IS_His"</span>)),</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">ostane GL_His</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(prag, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&lt;=</span> p <span class="sc">&amp;</span> osebki<span class="sc">$</span>skupina <span class="sc">==</span> <span class="st">"GL_His"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Koliko osebkov odstranimo pri različnih pragovih `--mind`."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">meja =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">odstranjeni =</span> <span class="fu">map_int</span>(meja, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&gt;</span> p)),</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">od tega historičnih</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(meja, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&gt;</span> p <span class="sc">&amp;</span> osebki<span class="sc">$</span>obdobje <span class="sc">==</span> <span class="st">"historični"</span>)),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">ostane IS_His</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(meja, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&lt;=</span> p <span class="sc">&amp;</span> osebki<span class="sc">$</span>skupina <span class="sc">==</span> <span class="st">"IS_His"</span>)),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">ostane GL_His</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(meja, \(p) <span class="fu">sum</span>(osebki<span class="sc">$</span>f_miss <span class="sc">&lt;=</span> p <span class="sc">&amp;</span> osebki<span class="sc">$</span>skupina <span class="sc">==</span> <span class="st">"GL_His"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Koliko osebkov odstranimo pri različnih mejah `--mind`."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Koliko osebkov odstranimo pri različnih pragovih <code>--mind</code>.</caption>
+<caption>Koliko osebkov odstranimo pri različnih mejah <code>--mind</code>.</caption>
 <thead>
 <tr class="header">
-<th style="text-align: right;">prag</th>
+<th style="text-align: right;">meja</th>
 <th style="text-align: right;">odstranjeni</th>
 <th style="text-align: right;">od tega historičnih</th>
 <th style="text-align: right;">ostane IS_His</th>
@@ -1385,7 +1381,7 @@ Slika&nbsp;3.4: Naš delež manjkajočih genotipov proti vrednosti iz tabele S1.
 </table>
 </div>
 </div>
-<p>Izberemo <strong><code>--mind 0.8</code></strong>: odstranimo samo osebke, ki imajo več kot 80 % manjkajočih genotipov, in ohranimo večino historičnih vzorcev, ki so ključni za primerjavo historičnih in sodobnih populacij. Pri vsaki nadaljnji analizi pa bomo preverili, ali se osebki z veliko manjkajočimi podatki obnašajo drugače (npr. na PCA, <a href="#sec-e2-pca" class="quarto-xref"><span>Prvi pogled na populacijsko strukturo: PCA</span></a>).</p>
+<p>Izberemo <strong><code>--mind 0.8</code></strong>: odstranimo samo osebke, ki imajo več kot 80 % manjkajočih genotipov, in ohranimo večino historičnih vzorcev, ki so ključni za primerjavo historičnih in sodobnih populacij. Pri vsaki nadaljnji analizi pa bomo preverili, ali se osebki z veliko manjkajočimi podatki obnašajo drugače (npr. na PCA v vaji 4).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_0"</span>), <span class="st">"--mind"</span>, <span class="st">"0.8"</span>, <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"orel_1_mind"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1400,7 +1396,17 @@ IDs written to rezultati/orel_1_mind.mindrem.id .
 </section>
 <section id="stara-dna-tstv-in-heterozigotnost" class="level4">
 <h4 class="anchored" data-anchor-id="stara-dna-tstv-in-heterozigotnost">Stara DNA: Ts/Tv in heterozigotnost</h4>
-<p>V stari DNA se citozin s časom deaminira v uracil, ki ga polimeraza prebere kot timin. Posledica so lažne <strong>tranzicije C → T</strong> (in G → A), zato pričakujemo <strong>višje razmerje Ts/Tv</strong> pri historičnih vzorcih, če poškodb nismo odstranili.</p>
+<p>V stari DNA se citozin s časom <strong>deaminira</strong> (<em>deamination</em>): izgubi aminsko skupino in postane uracil, ki ga polimeraza prebere kot timin. Metilirani citozin (5-metilcitozin) se z deaminacijo spremeni neposredno v timin. Posledica so lažne <strong>tranzicije C → T</strong> (na nasprotni verigi G → A), zato pričakujemo <strong>višje razmerje Ts/Tv</strong> pri historičnih vzorcih, če poškodb nismo odstranili.</p>
+<div id="fig-e2-deaminacija" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-e2-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/deaminacija.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;3.5: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0."><img src="images/deaminacija.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-deaminacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3.5: Deaminacija citozina v uracil (zgoraj) in 5-metilcitozina v timin (spodaj). Vir: <a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/introduction-to-ancient-dna.html">Introduction to Ancient Metagenomics, poglavje Introduction to ancient DNA</a> (Fellows Yates et al.&nbsp;2025, SPAAM); avtorica slike Christina Warinner, CC BY-SA 4.0.
+</figcaption>
+</figure>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>osebki <span class="sc">|&gt;</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vcf_id, CO, obdobje, f_miss, <span class="st">`</span><span class="at">Ts/Tv</span><span class="st">`</span> <span class="ot">=</span> ts_tv, <span class="st">`</span><span class="at">Heterozigotnost</span><span class="st">`</span> <span class="ot">=</span> het) <span class="sc">|&gt;</span></span>
@@ -1416,10 +1422,10 @@ IDs written to rezultati/orel_1_mind.mindrem.id .
 <div id="fig-e2-tstv" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-tstv-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Slika&nbsp;3.5: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih."><img src="E2_plink_files/figure-html/fig-e2-tstv-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_files/figure-html/fig-e2-tstv-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;3.6: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih."><img src="E2_plink_files/figure-html/fig-e2-tstv-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-tstv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.5: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih.
+Slika&nbsp;3.6: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih.
 </figcaption>
 </figure>
 </div>
@@ -1465,10 +1471,10 @@ Slika&nbsp;3.5: Razmerje Ts/Tv in delež heterozigotnih mest po osebkih.
 <div id="fig-e2-het-miss" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-het-miss-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Slika&nbsp;3.6: Heterozigotnost proti deležu manjkajočih genotipov."><img src="E2_plink_files/figure-html/fig-e2-het-miss-1.png" class="img-fluid figure-img" width="576"></a>
+<a href="E2_plink_files/figure-html/fig-e2-het-miss-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;3.7: Heterozigotnost proti deležu manjkajočih genotipov."><img src="E2_plink_files/figure-html/fig-e2-het-miss-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-het-miss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.6: Heterozigotnost proti deležu manjkajočih genotipov.
+Slika&nbsp;3.7: Heterozigotnost proti deležu manjkajočih genotipov.
 </figcaption>
 </figure>
 </div>
@@ -1525,25 +1531,25 @@ Slika&nbsp;3.6: Heterozigotnost proti deležu manjkajočih genotipov.
 <div id="fig-e2-miss-snp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-miss-snp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Slika&nbsp;3.7: Delež manjkajočih genotipov po SNP-jih (po --mind 0.8)."><img src="E2_plink_files/figure-html/fig-e2-miss-snp-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_files/figure-html/fig-e2-miss-snp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;3.8: Delež manjkajočih genotipov po SNP-jih (po --mind 0.8)."><img src="E2_plink_files/figure-html/fig-e2-miss-snp-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-miss-snp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.7: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</code>).
+Slika&nbsp;3.8: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</code>).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">prag =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.2</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">ostane SNP-jev</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(prag, \(p) <span class="fu">sum</span>(snp_miss<span class="sc">$</span>F_MISS <span class="sc">&lt;=</span> p))) <span class="sc">|&gt;</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Koliko SNP-jev ostane pri različnih pragovih `--geno`."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">meja =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.2</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">ostane SNP-jev</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(meja, \(p) <span class="fu">sum</span>(snp_miss<span class="sc">$</span>F_MISS <span class="sc">&lt;=</span> p))) <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Koliko SNP-jev ostane pri različnih mejah `--geno`."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Koliko SNP-jev ostane pri različnih pragovih <code>--geno</code>.</caption>
+<caption>Koliko SNP-jev ostane pri različnih mejah <code>--geno</code>.</caption>
 <thead>
 <tr class="header">
-<th style="text-align: right;">prag</th>
+<th style="text-align: right;">meja</th>
 <th style="text-align: right;">ostane SNP-jev</th>
 </tr>
 </thead>
@@ -1578,7 +1584,7 @@ Slika&nbsp;3.7: Delež manjkajočih genotipov po SNP-jih (po <code>--mind 0.8</c
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Zakaj noben SNP nima več kot 25 % manjkajočih genotipov? (Namig: ime datoteke VCF vsebuje <code>miss0.75</code>.) Kaj bi se zgodilo s privzetim pragom <code>--geno 0.05</code>?</p>
+<p>Zakaj noben SNP nima več kot 25 % manjkajočih genotipov? (Namig: ime datoteke VCF vsebuje <code>miss0.75</code>.) Kaj bi se zgodilo s privzeto mejo <code>--geno 0.05</code>?</p>
 </div>
 </div>
 <div class="cell">
@@ -1731,10 +1737,10 @@ Results written to rezultati/orel_2_geno.kin0 .</code></pre>
 <div id="fig-e2-king-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-king-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-king-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Slika&nbsp;3.8: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah."><img src="E2_plink_files/figure-html/fig-e2-king-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="E2_plink_files/figure-html/fig-e2-king-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;3.9: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah."><img src="E2_plink_files/figure-html/fig-e2-king-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.8: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah.
+Slika&nbsp;3.9: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah.
 </figcaption>
 </figure>
 </div>
@@ -1752,10 +1758,10 @@ Slika&nbsp;3.8: Toplotna karta sorodnosti KING. Osebki so urejeni po skupinah.
 <div id="fig-e2-ibs-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-ibs-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-ibs-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Slika&nbsp;3.9: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke."><img src="E2_plink_files/figure-html/fig-e2-ibs-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="E2_plink_files/figure-html/fig-e2-ibs-heatmap-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;3.10: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke."><img src="E2_plink_files/figure-html/fig-e2-ibs-heatmap-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ibs-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.9: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke.
+Slika&nbsp;3.10: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne osebke.
 </figcaption>
 </figure>
 </div>
@@ -1805,10 +1811,10 @@ Slika&nbsp;3.9: Toplotna karta IBS0. Nizke vrednosti (temne) pomenijo sorodne os
 <div id="fig-e2-king" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-king-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Slika&nbsp;3.10: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti."><img src="E2_plink_files/figure-html/fig-e2-king-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_files/figure-html/fig-e2-king-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;3.11: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti."><img src="E2_plink_files/figure-html/fig-e2-king-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-king-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.10: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti.
+Slika&nbsp;3.11: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte so meje stopenj sorodnosti.
 </figcaption>
 </figure>
 </div>
@@ -2327,24 +2333,24 @@ Slika&nbsp;3.10: Sorodnost KING proti IBS0 za vse pare osebkov. Črtkane črte s
 <div id="fig-e2-maf" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-maf-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Slika&nbsp;3.11: Porazdelitev MAF. Črtkani črti sta pogosta pragova 0,01 in 0,05."><img src="E2_plink_files/figure-html/fig-e2-maf-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_files/figure-html/fig-e2-maf-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;3.12: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05."><img src="E2_plink_files/figure-html/fig-e2-maf-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.11: Porazdelitev MAF. Črtkani črti sta pogosta pragova 0,01 in 0,05.
+Slika&nbsp;3.12: Porazdelitev MAF. Črtkani črti sta pogosti meji 0,01 in 0,05.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">prag =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">odstranjenih SNP-jev</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(prag, \(p) <span class="fu">sum</span>(frek<span class="sc">$</span>maf <span class="sc">&lt;</span> p))) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">meja =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">odstranjenih SNP-jev</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(meja, \(p) <span class="fu">sum</span>(frek<span class="sc">$</span>maf <span class="sc">&lt;</span> p))) <span class="sc">|&gt;</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">prag</th>
+<th style="text-align: right;">meja</th>
 <th style="text-align: right;">odstranjenih SNP-jev</th>
 </tr>
 </thead>
@@ -2478,10 +2484,10 @@ Slika&nbsp;3.11: Porazdelitev MAF. Črtkani črti sta pogosta pragova 0,01 in 0,
 <div id="fig-e2-ho-he" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-ho-he-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Slika&nbsp;3.12: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj."><img src="E2_plink_files/figure-html/fig-e2-ho-he-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_files/figure-html/fig-e2-ho-he-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;3.13: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj."><img src="E2_plink_files/figure-html/fig-e2-ho-he-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-ho-he-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.12: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj.
+Slika&nbsp;3.13: Povprečna opažena (Ho) in pričakovana (He) heterozigotnost po kromosomih, vsi orli skupaj.
 </figcaption>
 </figure>
 </div>
@@ -2522,10 +2528,10 @@ plink2 --bfile rezultati/orel_3_brez_duplikatov --keep-fam rezultati/NO_Con.txt 
 <div id="fig-e2-hwe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-hwe-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Slika&nbsp;3.13: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek)."><img src="E2_plink_files/figure-html/fig-e2-hwe-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_plink_files/figure-html/fig-e2-hwe-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;3.14: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek)."><img src="E2_plink_files/figure-html/fig-e2-hwe-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.13: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek).
+Slika&nbsp;3.14: Primanjkljaj heterozigotov F = 1 − Ho/He po SNP-jih (samo SNP-ji s He ≥ 0,1 v skupini). Pri vseh orlih skupaj je porazdelitev premaknjena v desno (Wahlundov učinek).
 </figcaption>
 </figure>
 </div>
@@ -2751,14 +2757,14 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Pragov si ne izmislimo. Poiščemo jih v člankih s podobnimi podatki in jih citiramo. Avtorji članka o orlih so uporabili: <code>QUAL ≥ 1000</code>, <code>GQ ≥ 20</code>, <code>DP ≥ 8</code>, samo avtosomi, največ 25 % manjkajočih genotipov na SNP, <code>MQ ≥ 30</code>, LD pruning r² 0,5 (okno 134). Za PLINK QC pri živalih so pogosti <code>--geno 0.1–0.2</code>, <code>--mind 0.1–0.2</code> (pri stari DNA precej blažje), <code>--maf 0.01–0.05</code>, <code>--hwe 1e-6</code> znotraj populacij. Vse izbrane pragove zapišemo v metode.</p>
+<p>Mej si ne izmislimo. Poiščemo jih v člankih s podobnimi podatki in jih citiramo. Avtorji članka o orlih so uporabili: <code>QUAL ≥ 1000</code>, <code>GQ ≥ 20</code>, <code>DP ≥ 8</code>, samo avtosomi, največ 25 % manjkajočih genotipov na SNP, <code>MQ ≥ 30</code>, LD pruning r² 0,5 (okno 134). Za PLINK QC pri živalih so pogosti <code>--geno 0.1–0.2</code>, <code>--mind 0.1–0.2</code> (pri stari DNA precej blažje), <code>--maf 0.01–0.05</code>, <code>--hwe 1e-6</code> znotraj populacij. Vse izbrane meje zapišemo v metode.</p>
 </div>
 </div>
 </section>
 </section>
-<section id="sec-e2-pca" class="level2">
-<h2 class="anchored" data-anchor-id="sec-e2-pca">Prvi pogled na populacijsko strukturo: PCA</h2>
-<p><strong>Analiza glavnih komponent</strong> (<em>principal component analysis</em>, PCA) povzame variabilnost tisočih SNP-jev v nekaj osi (komponent). Osebki, ki so si genetsko podobni, ležijo blizu skupaj. PCA naredimo na naboru z MAF ≥ 0,05. Podrobneje jo bomo obravnavali v vaji 4.</p>
+<section id="nabor-za-analize-strukture-maf-005" class="level2">
+<h2 class="anchored" data-anchor-id="nabor-za-analize-strukture-maf-005">Nabor za analize strukture (MAF ≥ 0,05)</h2>
+<p>Za analize populacijske strukture v vaji 4 (PCA, DAPC, ADMIXTURE) pripravimo še nabor brez redkih alelov (MAF ≥ 0,05, <a href="#sec-e2-maf" class="quarto-xref"><span>Frekvence alelov (MAF)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_3_brez_duplikatov"</span>), <span class="st">"--maf"</span>, <span class="st">"0.05"</span>,</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"--make-bed"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"orel_4_maf05"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2768,71 +2774,6 @@ Variant lists written to rezultati/ld_0.2.prune.in and</code></pre>
 208578 variants loaded from rezultati/orel_3_brez_duplikatov.bim.
 24386 variants removed due to allele frequency threshold(s)
 184192 variants remaining after main filters.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plink2</span>(<span class="st">"--bfile"</span>, <span class="fu">r</span>(<span class="st">"orel_4_maf05"</span>), <span class="st">"--pca"</span>, <span class="st">"10"</span>, <span class="st">"--out"</span>, <span class="fu">r</span>(<span class="st">"pca"</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>plink2 --bfile rezultati/orel_4_maf05 --pca 10 --out rezultati/pca 
-83 samples (0 females, 0 males, 83 ambiguous; 83 founders) loaded from
-184192 variants loaded from rezultati/orel_4_maf05.bim.
---pca: Eigenvectors written to rezultati/pca.eigenvec , and eigenvalues written</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>pca_df <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">r</span>(<span class="st">"pca.eigenvec"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">vcf_id =</span> IID) <span class="sc">|&gt;</span></span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"vcf_id"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(osebki <span class="sc">|&gt;</span> <span class="fu">select</span>(vcf_id, f_miss), <span class="at">by =</span> <span class="st">"vcf_id"</span>)</span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>lastne <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">r</span>(<span class="st">"pca.eigenval"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>delez  <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> lastne <span class="sc">/</span> <span class="fu">sum</span>(lastne), <span class="dv">1</span>)    <span class="co"># delež med prvimi 10 komponentami</span></span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pca_df)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 33
-  `#FID` vcf_id    PC1    PC2      PC3       PC4       PC5       PC6       PC7
-  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 IS_Con A6512  0.102  0.126  -0.0104   0.00334  -0.00317   0.000448 -0.000823
-2 IS_Con A6517  0.0996 0.126  -0.00990 -0.000143  0.00167   0.000105 -0.00288 
-3 IS_Con A6533  0.0934 0.0976 -0.00966 -0.00412  -0.00198  -0.00219  -0.00120 
-4 IS_Con A6541  0.102  0.116  -0.00925  0.000383 -0.000913  0.000146  0.000636
-5 IS_Con A6551  0.1000 0.125  -0.00938  0.000362 -0.000972  0.000211 -0.00287 
-6 IS_Con A6552  0.103  0.119  -0.00970  0.00178   0.00215   0.000567 -0.000980
-# ℹ 24 more variables: PC8 &lt;dbl&gt;, PC9 &lt;dbl&gt;, PC10 &lt;dbl&gt;, Name &lt;chr&gt;, CO &lt;chr&gt;,
-#   drzava &lt;chr&gt;, otok_celina &lt;chr&gt;, Time &lt;chr&gt;, obdobje &lt;chr&gt;, skupina &lt;chr&gt;,
-#   Loc &lt;chr&gt;, Year &lt;chr&gt;, leto &lt;dbl&gt;, Sex &lt;chr&gt;, Maturity &lt;chr&gt;,
-#   sample_type &lt;chr&gt;, Seq &lt;chr&gt;, Mean_depth_all &lt;dbl&gt;, Mean_depth &lt;dbl&gt;,
-#   Frac._missing_SNPs &lt;dbl&gt;, lat &lt;dbl&gt;, lon &lt;dbl&gt;, natancnost &lt;chr&gt;,
-#   f_miss &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca_df, <span class="fu">aes</span>(PC1, PC2, <span class="at">colour =</span> CO, <span class="at">shape =</span> obdobje)) <span class="sc">+</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> barve_drzav) <span class="sc">+</span></span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> oblike_obdobja) <span class="sc">+</span></span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">"PC1 ("</span>, delez[<span class="dv">1</span>], <span class="st">" %)"</span>), <span class="at">y =</span> <span class="fu">paste0</span>(<span class="st">"PC2 ("</span>, delez[<span class="dv">2</span>], <span class="st">" %)"</span>),</span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Država"</span>, <span class="at">shape =</span> <span class="st">"Obdobje"</span>) <span class="sc">+</span></span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-e2-pca" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-e2-pca-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_plink_files/figure-html/fig-e2-pca-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Slika&nbsp;3.14: PCA orlov belorepcev (PC1 in PC2). Barva je država, oblika obdobje."><img src="E2_plink_files/figure-html/fig-e2-pca-1.png" class="img-fluid figure-img" width="672"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-pca-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3.14: PCA orlov belorepcev (PC1 in PC2). Barva je država, oblika obdobje.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Opomba</span>Vprašanje
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Katere skupine se ločijo na PC1 in katere na PC2? Kje ležijo historični vzorci z veliko manjkajočimi podatki (barvo zamenjajte s <code>f_miss</code>)? Ali je njihov položaj lahko artefakt?</p>
 </div>
 </div>
 </section>
@@ -2877,7 +2818,7 @@ Slika&nbsp;3.14: PCA orlov belorepcev (PC1 in PC2). Barva je država, oblika obd
 <td>PCA</td>
 <td><code>--pca 10</code></td>
 <td><code>.eigenvec</code>, <code>.eigenval</code></td>
-<td>vaji 2 in 4</td>
+<td>vaja 4</td>
 </tr>
 <tr class="even">
 <td>matrika sorodnosti (GRM)</td>
@@ -2910,29 +2851,29 @@ Slika&nbsp;3.14: PCA orlov belorepcev (PC1 in PC2). Barva je država, oblika obd
 <h2 class="anchored" data-anchor-id="sec-e2-kaskada">Kaskada filtriranja in končni nabor</h2>
 <p>Na koncu naredimo tabelo: koliko SNP-jev in osebkov ostane po vsakem koraku. Tako tabelo vedno dodamo v metode ali dodatno gradivo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>stevilo <span class="ot">&lt;-</span> <span class="cf">function</span>(pot) <span class="fu">c</span>(<span class="at">snp =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(pot, <span class="st">".bim"</span>))),</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">osebki =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(pot, <span class="st">".fam"</span>))))</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>koraki <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>korak,                               <span class="sc">~</span>ukaz,                                   <span class="sc">~</span>datoteka,</span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1 Dvoalelni SNP-ji (brez indelov)"</span>,  <span class="st">"`--snps-only just-acgt --max-alleles 2`"</span>, <span class="st">"orel_0"</span>,</span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2 Osebki z ≤ 80 % manjkajočih"</span>,      <span class="st">"`--mind 0.8`"</span>,                          <span class="st">"orel_1_mind"</span>,</span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3 SNP-ji z ≤ 20 % manjkajočih"</span>,      <span class="st">"`--geno 0.2`"</span>,                          <span class="st">"orel_2_geno"</span>,</span>
-<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 Brez podvojenih vzorcev"</span>,          <span class="st">"`--remove` (KING &gt; 0,354)"</span>,             <span class="st">"orel_3_brez_duplikatov"</span>,</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0,05 (samo za PCA, vaja 4)"</span>, <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"orel_4_maf05"</span></span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>kaskada <span class="ot">&lt;-</span> koraki <span class="sc">|&gt;</span></span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">st =</span> <span class="fu">map</span>(datoteka, \(d) <span class="fu">stevilo</span>(<span class="fu">r</span>(d))),</span>
-<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">SNP-jev</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(st, <span class="st">"snp"</span>),</span>
-<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">osebkov =</span> <span class="fu">map_int</span>(st, <span class="st">"osebki"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>st)</span>
-<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">korak =</span> <span class="st">"0 VCF (Dryad)"</span>, <span class="at">ukaz =</span> <span class="st">""</span>, <span class="at">datoteka =</span> <span class="st">"eagle.vcf.gz"</span>,</span>
-<span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">SNP-jev</span><span class="st">`</span> <span class="ot">=</span> vcf_snp, <span class="at">osebkov =</span> <span class="fu">length</span>(stolpci) <span class="sc">-</span> <span class="dv">9</span>L),</span>
-<span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a>          kaskada) <span class="sc">|&gt;</span></span>
-<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">" "</span>),</span>
-<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Kaskada filtriranja: število SNP-jev in osebkov po vsakem koraku."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>stevilo <span class="ot">&lt;-</span> <span class="cf">function</span>(pot) <span class="fu">c</span>(<span class="at">snp =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(pot, <span class="st">".bim"</span>))),</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">osebki =</span> <span class="fu">length</span>(<span class="fu">readLines</span>(<span class="fu">paste0</span>(pot, <span class="st">".fam"</span>))))</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>koraki <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>korak,                               <span class="sc">~</span>ukaz,                                   <span class="sc">~</span>datoteka,</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1 Dvoalelni SNP-ji (brez indelov)"</span>,  <span class="st">"`--snps-only just-acgt --max-alleles 2`"</span>, <span class="st">"orel_0"</span>,</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2 Osebki z ≤ 80 % manjkajočih"</span>,      <span class="st">"`--mind 0.8`"</span>,                          <span class="st">"orel_1_mind"</span>,</span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3 SNP-ji z ≤ 20 % manjkajočih"</span>,      <span class="st">"`--geno 0.2`"</span>,                          <span class="st">"orel_2_geno"</span>,</span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 Brez podvojenih vzorcev"</span>,          <span class="st">"`--remove` (KING &gt; 0,354)"</span>,             <span class="st">"orel_3_brez_duplikatov"</span>,</span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5 MAF ≥ 0,05 (za vajo 4)"</span>        , <span class="st">"`--maf 0.05`"</span>,                          <span class="st">"orel_4_maf05"</span></span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>kaskada <span class="ot">&lt;-</span> koraki <span class="sc">|&gt;</span></span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">st =</span> <span class="fu">map</span>(datoteka, \(d) <span class="fu">stevilo</span>(<span class="fu">r</span>(d))),</span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">SNP-jev</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">map_int</span>(st, <span class="st">"snp"</span>),</span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">osebkov =</span> <span class="fu">map_int</span>(st, <span class="st">"osebki"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>st)</span>
+<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">korak =</span> <span class="st">"0 VCF (Dryad)"</span>, <span class="at">ukaz =</span> <span class="st">""</span>, <span class="at">datoteka =</span> <span class="st">"eagle.vcf.gz"</span>,</span>
+<span id="cb88-20"><a href="#cb88-20" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">SNP-jev</span><span class="st">`</span> <span class="ot">=</span> vcf_snp, <span class="at">osebkov =</span> <span class="fu">length</span>(stolpci) <span class="sc">-</span> <span class="dv">9</span>L),</span>
+<span id="cb88-21"><a href="#cb88-21" aria-hidden="true" tabindex="-1"></a>          kaskada) <span class="sc">|&gt;</span></span>
+<span id="cb88-22"><a href="#cb88-22" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">" "</span>),</span>
+<span id="cb88-23"><a href="#cb88-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Kaskada filtriranja: število SNP-jev in osebkov po vsakem koraku."</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Kaskada filtriranja: število SNP-jev in osebkov po vsakem koraku.</caption>
@@ -2989,7 +2930,7 @@ Slika&nbsp;3.14: PCA orlov belorepcev (PC1 in PC2). Barva je država, oblika obd
 <td style="text-align: right;">83</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">5 MAF ≥ 0,05 (samo za PCA, vaja 4)</td>
+<td style="text-align: left;">5 MAF ≥ 0,05 (za vajo 4)</td>
 <td style="text-align: left;"><code>--maf 0.05</code></td>
 <td style="text-align: left;">orel_4_maf05</td>
 <td style="text-align: right;">184 192</td>
@@ -3000,13 +2941,13 @@ Slika&nbsp;3.14: PCA orlov belorepcev (PC1 in PC2). Barva je država, oblika obd
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_3_brez_duplikatov"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_qc"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_3_brez_duplikatov"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_qc"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE TRUE TRUE</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_4_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_qc_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_4_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)),</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(<span class="fu">r</span>(<span class="st">"orel_qc_maf05"</span>), <span class="fu">c</span>(<span class="st">".bed"</span>, <span class="st">".bim"</span>, <span class="st">".fam"</span>)), <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE TRUE TRUE</code></pre>
 </div>
@@ -3054,7 +2995,7 @@ Slika&nbsp;3.14: PCA orlov belorepcev (PC1 in PC2). Barva je država, oblika obd
 <h2 class="anchored" data-anchor-id="sec-e2-naloga">Naloge</h2>
 <ol type="1">
 <li>Odgovorite na vprašanja v okvirjih (kratko, v svoji <code>.qmd</code> datoteki), tudi na tabelo v <a href="#sec-e2-razmislite-ld" class="quarto-xref"><span>Razmislite: kje se pozna LD pruning?</span></a>.</li>
-<li>Ponovite kaskado s strožjim pragom <code>--mind 0.5</code>. Koliko osebkov in katere skupine izgubite? Ali bi s tem naborom še lahko odgovorili na vprašanje o historičnih in sodobnih populacijah?</li>
+<li>Ponovite kaskado s strožjo mejo <code>--mind 0.5</code>. Koliko osebkov in katere skupine izgubite? Ali bi s tem naborom še lahko odgovorili na vprašanje o historičnih in sodobnih populacijah?</li>
 <li>Izračunajte HWE še za <code>GL_Con</code> in <code>DK_Con</code>. Ali so rezultati podobni kot pri <code>IS_Con</code> in <code>NO_Con</code>? Zakaj je pri manjših skupinah odstopanj manj? (Namig: moč testa.)</li>
 <li>V članku Hansen et al.&nbsp;(2023) poiščite, ali so preverjali sorodnost. Ali se naš rezultat ujema z njihovim?</li>
 <li>Shranite svojo <code>.qmd</code> datoteko v svoj repozitorij EPG (vaja 1), naredite <code>commit</code> in <code>push</code>. Map <code>podatki</code> in <code>rezultati</code> ne nalagajte.</li>
