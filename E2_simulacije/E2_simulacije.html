@@ -587,43 +587,51 @@ Slika&nbsp;4.2: De Finettijev diagram. Razdalje točke do stranic (x, y, z) so f
 <p><strong>Wright-Fisherjev model</strong> je najpreprostejši model zdrsa: populacija ima N diploidnih osebkov (2N kopij gena), generacije se ne prekrivajo, parjenje je naključno, ni mutacij, migracij in selekcije. Naslednja generacija dobi 2N kopij, vsako naključno izbrano iz genskega sklada prejšnje generacije. Število kopij alela A je zato <strong>binomsko porazdeljeno</strong>:</p>
 <p><span class="math display">\[k_{t+1} \sim \text{Binom}(2N, p_t), \qquad p_{t+1} = k_{t+1} / 2N\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>wright_fisher <span class="ot">&lt;-</span> <span class="cf">function</span>(N, p0, generacije, <span class="at">ponovitve =</span> <span class="dv">1</span>) {</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA_real_</span>, <span class="at">nrow =</span> generacije <span class="sc">+</span> <span class="dv">1</span>, <span class="at">ncol =</span> ponovitve)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  p[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> p0</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>zdrs <span class="ot">&lt;-</span> <span class="cf">function</span>(N, p0, generacije) {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">numeric</span>(generacije <span class="sc">+</span> <span class="dv">1</span>)          <span class="co"># prazen vektor za frekvence</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  p[<span class="dv">1</span>] <span class="ot">&lt;-</span> p0                            <span class="co"># začetna frekvenca alela A</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    p[t <span class="sc">+</span> <span class="dv">1</span>, ] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(ponovitve, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">prob =</span> p[t, ]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span>generacije, <span class="at">times =</span> ponovitve),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">ponovitev  =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>ponovitve, <span class="at">each =</span> generacije <span class="sc">+</span> <span class="dv">1</span>),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">p          =</span> <span class="fu">as.vector</span>(p))</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    kopije_A <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span> <span class="sc">*</span> N, <span class="at">prob =</span> p[t])   <span class="co"># koliko od 2N kopij v novi generaciji je A</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    p[t <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> kopije_A <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  p</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">zdrs</span>(<span class="at">N =</span> <span class="dv">20</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">10</span>)  <span class="co"># primer: frekvenca alela v prvih 10 generacijah</span></span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.500 0.650 0.700 0.625 0.625 0.525 0.700 0.725 0.750 0.675 0.650</code></pre>
 </div>
-<p>Funkcija vrne tabelo s frekvenco alela v vsaki generaciji in vsaki ponovitvi. Ponovitve so neodvisne populacije z enakimi parametri (ali neodvisni lokusi v isti populaciji).</p>
+</div>
+<p>Funkcija <code>zdrs()</code> simulira <strong>eno populacijo</strong>: v vsaki generaciji izbere 2N kopij gena z verjetnostjo, ki je enaka sedanji frekvenci alela, in vrne frekvenco alela A po generacijah. Vsak klic funkcije je nova, neodvisna populacija.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>zdrs <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">20</span>,   <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">100</span>, <span class="at">ponovitve =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">N =</span> <span class="st">"N = 20"</span>),</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">1000</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">100</span>, <span class="at">ponovitve =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">N =</span> <span class="st">"N = 1000"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(zdrs, <span class="fu">aes</span>(generacija, p, <span class="at">colour =</span> N, <span class="at">group =</span> <span class="fu">interaction</span>(N, ponovitev))) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"N = 20"</span> <span class="ot">=</span> <span class="st">"#B5542C"</span>, <span class="st">"N = 1000"</span> <span class="ot">=</span> <span class="st">"#1F5FA8"</span>)) <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"frekvenca alela"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">24</span>)   <span class="co"># seme, pri katerem se v eni majhni populaciji A fiksira, v drugi izgubi (poskusite tudi druga semena)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>generacije <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>populacije <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">generacija =</span> <span class="fu">rep</span>(generacije, <span class="dv">4</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">p =</span> <span class="fu">c</span>(<span class="fu">zdrs</span>(<span class="dv">20</span>, <span class="fl">0.5</span>, <span class="dv">100</span>), <span class="fu">zdrs</span>(<span class="dv">20</span>, <span class="fl">0.5</span>, <span class="dv">100</span>), <span class="fu">zdrs</span>(<span class="dv">1000</span>, <span class="fl">0.5</span>, <span class="dv">100</span>), <span class="fu">zdrs</span>(<span class="dv">1000</span>, <span class="fl">0.5</span>, <span class="dv">100</span>)),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">populacija =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"N = 20 (1)"</span>, <span class="st">"N = 20 (2)"</span>, <span class="st">"N = 1000 (1)"</span>, <span class="st">"N = 1000 (2)"</span>), <span class="at">each =</span> <span class="dv">101</span>),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"N = 20"</span>, <span class="st">"N = 1000"</span>), <span class="at">each =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">101</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(populacije, <span class="fu">aes</span>(generacija, p, <span class="at">colour =</span> N, <span class="at">group =</span> populacija)) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"N = 20"</span> <span class="ot">=</span> <span class="st">"#B5542C"</span>, <span class="st">"N = 1000"</span> <span class="ot">=</span> <span class="st">"#1F5FA8"</span>)) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"generacija"</span>, <span class="at">y =</span> <span class="st">"frekvenca alela A"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-e2-zdrs" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-e2-zdrs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="E2_simulacije_files/figure-html/fig-e2-zdrs-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;4.3: Zdrs v populacijah z N = 20 in N = 1000 osebki (po dve ponovitvi, začetna frekvenca 0,5). Po zgledu slike 5.5 v Jobling et al.&nbsp;(2013)."><img src="E2_simulacije_files/figure-html/fig-e2-zdrs-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="E2_simulacije_files/figure-html/fig-e2-zdrs-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;4.3: Zdrs v dveh populacijah z N = 20 in dveh z N = 1000 osebki (začetna frekvenca 0,5). Vsaka črta je frekvenca alela A v eni populaciji. Po zgledu slike 5.5 v Jobling et al.&nbsp;(2013)."><img src="E2_simulacije_files/figure-html/fig-e2-zdrs-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-e2-zdrs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;4.3: Zdrs v populacijah z N = 20 in N = 1000 osebki (po dve ponovitvi, začetna frekvenca 0,5). Po zgledu slike 5.5 v Jobling et al.&nbsp;(2013).
+Slika&nbsp;4.3: Zdrs v dveh populacijah z N = 20 in dveh z N = 1000 osebki (začetna frekvenca 0,5). Vsaka črta je frekvenca alela A v eni populaciji. Po zgledu slike 5.5 v Jobling et al.&nbsp;(2013).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>V majhni populaciji se alel hitro <strong>fiksira</strong> (p = 1) ali <strong>izgubi</strong> (p = 0). V veliki se frekvenca spreminja počasneje, a se <strong>tudi spreminja</strong>.</p>
+<p>V majhni populaciji se alel hitro <strong>fiksira</strong> (p = 1) ali <strong>izgubi</strong> (p = 0). Ker ima lokus samo dva alela, pomeni p = 1, da je alel A fiksiran in alel a <strong>hkrati</strong> izgubljen, p = 0 pa obratno. Ali se v dveh populacijah fiksira isti alel, je naključje: verjetnost, da se A fiksira, je pri p<sub>0</sub> = 0,5 ravno 1/2. Na grafu smo izbrali seme, pri katerem se A v eni majhni populaciji fiksira, v drugi pa izgubi; z drugim semenom boste videli tudi druge možnosti. V veliki populaciji se frekvenca spreminja počasneje, a se <strong>tudi spreminja</strong>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -650,9 +658,9 @@ Slika&nbsp;4.3: Zdrs v populacijah z N = 20 in N = 1000 osebki (po dve ponovitvi
 <pre><code># A tibble: 3 × 2
   izid              n
   &lt;chr&gt;         &lt;int&gt;
-1 fiksiran         11
-2 izgubljen        18
-3 še polimorfen     1</code></pre>
+1 fiksiran         14
+2 izgubljen        13
+3 še polimorfen     3</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-e2-sprehod" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -689,21 +697,19 @@ Slika&nbsp;4.5: Porazdelitev frekvence alela v 1000 populacijah z N = 16 (začet
 <h3 class="anchored" data-anchor-id="fiksacija-in-izguba">Fiksacija in izguba</h3>
 <p>Ker je zdrs naključen, ne moremo napovedati, kateri alel bo preživel. Lahko pa izračunamo <strong>verjetnost</strong>: pri nevtralnem alelu je verjetnost fiksacije enaka njegovi začetni frekvenci.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fiksacija <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">20</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">300</span>, <span class="at">ponovitve =</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p0 =</span> <span class="fl">0.5</span>),</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wright_fisher</span>(<span class="at">N =</span> <span class="dv">20</span>, <span class="at">p0 =</span> <span class="fl">0.1</span>, <span class="at">generacije =</span> <span class="dv">300</span>, <span class="at">ponovitve =</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p0 =</span> <span class="fl">0.1</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(generacija <span class="sc">==</span> <span class="dv">300</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>fiksacija <span class="sc">|&gt;</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(p0) <span class="sc">|&gt;</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">fiksiran =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">1</span>), <span class="at">izgubljen =</span> <span class="fu">mean</span>(p <span class="sc">==</span> <span class="dv">0</span>), <span class="at">se_polimorfen =</span> <span class="fu">mean</span>(p <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> p <span class="sc">&lt;</span> <span class="dv">1</span>))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000 populacij z N = 20; za vsako shranimo frekvenco alela po 300 generacijah</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>konec_05 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">last</span>(<span class="fu">zdrs</span>(<span class="at">N =</span> <span class="dv">20</span>, <span class="at">p0 =</span> <span class="fl">0.5</span>, <span class="at">generacije =</span> <span class="dv">300</span>)))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>konec_01 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">last</span>(<span class="fu">zdrs</span>(<span class="at">N =</span> <span class="dv">20</span>, <span class="at">p0 =</span> <span class="fl">0.1</span>, <span class="at">generacije =</span> <span class="dv">300</span>)))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">p0        =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">fiksiran  =</span> <span class="fu">c</span>(<span class="fu">mean</span>(konec_05 <span class="sc">==</span> <span class="dv">1</span>), <span class="fu">mean</span>(konec_01 <span class="sc">==</span> <span class="dv">1</span>)),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">izgubljen =</span> <span class="fu">c</span>(<span class="fu">mean</span>(konec_05 <span class="sc">==</span> <span class="dv">0</span>), <span class="fu">mean</span>(konec_01 <span class="sc">==</span> <span class="dv">0</span>)))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-     p0 fiksiran izgubljen se_polimorfen
-  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
-1   0.1    0.092     0.908             0
-2   0.5    0.518     0.482             0</code></pre>
+<pre><code># A tibble: 2 × 3
+     p0 fiksiran izgubljen
+  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1   0.5    0.504     0.495
+2   0.1    0.112     0.888</code></pre>
 </div>
 </div>
 </section>
@@ -752,63 +758,46 @@ Slika&nbsp;4.6: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
 <p>Pri idealni populaciji je N<sub>e</sub> = N<sub>c</sub> (cenzusna velikost, število odraslih). V naravi je N<sub>e</sub> skoraj vedno <strong>precej manjša</strong>: pogosto okoli 10 % N<sub>c</sub> (Frankham 1995), pri orlih na Norveškem in Islandiji 2,5–5 % (Hansen et al.&nbsp;2023). Glavni vzroki so neenako razmerje med spoloma, razlike v reproduktivnem uspehu in nihanje velikosti populacije.</p>
 <p><strong>Kako N<sub>e</sub> izmerimo v simulaciji.</strong> N<sub>e</sub> ne moremo prešteti, lahko pa jo izmerimo po njenem učinku: po tem, kako hitro populacija izgublja raznolikost. V simulaciji spremljamo povprečno H<sub>e</sub> čez generacije. Ker H<sub>e</sub> vsako generacijo pade s faktorjem <span class="math inline">\((1 - \frac{1}{2N_e})\)</span>, je log(H<sub>e</sub>) v odvisnosti od generacije premica z naklonom log(1 − 1/2N<sub>e</sub>). Funkcija <code>ocena_ne()</code> s premico (<code>lm</code>) izmeri ta naklon in iz njega izračuna N<sub>e</sub>. Na isti način, iz hitrosti izgube raznolikosti, bomo N<sub>e</sub> v vaji 6 ocenili tudi iz pravih podatkov (historični proti sodobnim orlom).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iz povprečne He po generacijah oceni Ne: He_t = He_0 (1 - 1/2Ne)^t</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ocena_ne <span class="ot">&lt;-</span> <span class="cf">function</span>(He, generacija) {</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  naklon <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">log</span>(He) <span class="sc">~</span> generacija))[[<span class="st">"generacija"</span>]]   <span class="co"># log(1 - 1/2Ne) na generacijo</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(naklon)))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iz povprečne He po generacijah oceni Ne: He_t = He_0 (1 - 1/2Ne)^t</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ocena_ne <span class="ot">&lt;-</span> <span class="cf">function</span>(He, generacija) {</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  naklon <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">log</span>(He) <span class="sc">~</span> generacija))[[<span class="st">"generacija"</span>]]   <span class="co"># log(1 - 1/2Ne) na generacijo</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(naklon)))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="razmerje-med-spoloma" class="level3">
 <h3 class="anchored" data-anchor-id="razmerje-med-spoloma">Razmerje med spoloma</h3>
 <p>Če se razmnožuje N<sub>m</sub> samcev in N<sub>f</sub> samic, vsak potomec pa dobi en alel od očeta in enega od matere:</p>
 <p><span class="math display">\[N_e = \frac{4 N_m N_f}{N_m + N_f}\]</span></p>
-<p><strong>Kaj simuliramo.</strong> Populacija ima vedno 100 odraslih, spreminjamo pa razmerje med spoloma: 50 samcev in 50 samic, 20 in 80 ter 5 in 95. Vsak osebek ima genotip na 500 neodvisnih lokusih (v R sta to matriki <code>A1</code> in <code>A2</code>, lokusi × osebki, s prvim in drugim alelom, ki je 0 ali 1). V vsaki generaciji nastane 100 potomcev: vsak dobi naključen alel naključno izbranega očeta in naključen alel naključno izbrane matere. Po vsaki generaciji izmerimo povprečno H<sub>e</sub>, po 50 generacijah pa z <code>ocena_ne()</code> izračunamo N<sub>e</sub>.</p>
+<p><strong>Kaj simuliramo.</strong> Populacija ima vedno 100 odraslih, spreminjamo pa razmerje med spoloma: 50 samcev in 50 samic, 20 in 80 ter 5 in 95. V vsaki generaciji naključno izberemo gene samcev in gene samic, ki se razmnožujejo; potomci dobijo polovico genov od očetov in polovico od mater. Simuliramo 1000 neodvisnih lokusov hkrati (vektor <code>p</code>). Po vsaki generaciji izmerimo povprečno H<sub>e</sub>, po 50 generacijah pa z <code>ocena_ne()</code> izračunamo N<sub>e</sub>.</p>
 <p><strong>Kako beremo rezultat.</strong> V tabeli je za vsak scenarij N<sub>e</sub> po formuli (stolpec <code>formula</code>) in N<sub>e</sub>, izmerjena v simulaciji (stolpec <code>simulacija</code>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>he_povprecje <span class="ot">&lt;-</span> <span class="cf">function</span>(A1, A2) {</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> (<span class="fu">rowMeans</span>(A1) <span class="sc">+</span> <span class="fu">rowMeans</span>(A2)) <span class="sc">/</span> <span class="dv">2</span>          <span class="co"># frekvenca alela na vsakem lokusu</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>gameta <span class="ot">&lt;-</span> <span class="cf">function</span>(A1, A2, starsi) {</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># od vsakega starša na vsakem lokusu neodvisno eno od dveh kopij (lokusi niso vezani)</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  drugi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="fu">nrow</span>(A1) <span class="sc">*</span> <span class="fu">length</span>(starsi)) <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(A1))</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(drugi, A2[, starsi], A1[, starsi])</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>simuliraj_spola <span class="ot">&lt;-</span> <span class="cf">function</span>(N_m, N_f, <span class="at">generacije =</span> <span class="dv">50</span>, <span class="at">lokusi =</span> <span class="dv">500</span>) {</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> N_m <span class="sc">+</span> N_f</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  A1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(lokusi <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> lokusi)   <span class="co"># začetek: p = 0,5, HWE</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  A2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rbinom</span>(lokusi <span class="sc">*</span> N, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">nrow =</span> lokusi)</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">he_povprecje</span>(A1, A2)</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    oce  <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N_m, N, <span class="at">replace =</span> <span class="cn">TRUE</span>)               <span class="co"># prvih N_m osebkov so samci</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    mati <span class="ot">&lt;-</span> <span class="fu">sample</span>((N_m <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>N, N, <span class="at">replace =</span> <span class="cn">TRUE</span>)         <span class="co"># ostali so samice</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    A1_novi <span class="ot">&lt;-</span> <span class="fu">gameta</span>(A1, A2, oce)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    A2 <span class="ot">&lt;-</span> <span class="fu">gameta</span>(A1, A2, mati)</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    A1 <span class="ot">&lt;-</span> A1_novi</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    He <span class="ot">&lt;-</span> <span class="fu">c</span>(He, <span class="fu">he_povprecje</span>(A1, A2))</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span>generacije, <span class="at">He =</span> He)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>spola <span class="ot">&lt;-</span> <span class="fu">tribble</span>(<span class="sc">~</span>N_m, <span class="sc">~</span>N_f,</span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">50</span>,   <span class="dv">50</span>,</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">20</span>,   <span class="dv">80</span>,</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">5</span>,   <span class="dv">95</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">formula =</span> <span class="dv">4</span> <span class="sc">*</span> N_m <span class="sc">*</span> N_f <span class="sc">/</span> (N_m <span class="sc">+</span> N_f),</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">simulacija =</span> <span class="fu">map2_dbl</span>(N_m, N_f, \(m, f) {</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>           s <span class="ot">&lt;-</span> <span class="fu">simuliraj_spola</span>(m, f)</span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ocena_ne</span>(s<span class="sc">$</span>He, s<span class="sc">$</span>generacija)</span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>         }))</span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>spola</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>simuliraj_spola <span class="ot">&lt;-</span> <span class="cf">function</span>(N_m, N_f, <span class="at">generacije =</span> <span class="dv">50</span>, <span class="at">lokusi =</span> <span class="dv">1000</span>) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  p  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">0.5</span>, lokusi)                       <span class="co"># frekvenca alela na vsakem lokusu</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  He <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>generacije) {</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    p_samci  <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N_m, p) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N_m)   <span class="co"># geni N_m samcev, ki se razmnožujejo</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    p_samice <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(lokusi, <span class="dv">2</span> <span class="sc">*</span> N_f, p) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> N_f)   <span class="co"># geni N_f samic</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> (p_samci <span class="sc">+</span> p_samice) <span class="sc">/</span> <span class="dv">2</span>              <span class="co"># potomci: polovica genov od očetov, polovica od mater</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    He <span class="ot">&lt;-</span> <span class="fu">c</span>(He, <span class="fu">mean</span>(<span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">generacija =</span> <span class="dv">0</span><span class="sc">:</span>generacije, <span class="at">He =</span> He)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">simuliraj_spola</span>(<span class="dv">50</span>, <span class="dv">50</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">simuliraj_spola</span>(<span class="dv">20</span>, <span class="dv">80</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">simuliraj_spola</span>(<span class="dv">5</span>, <span class="dv">95</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">samci      =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">20</span>, <span class="dv">5</span>),</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">samice     =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">80</span>, <span class="dv">95</span>),</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">formula    =</span> <span class="dv">4</span> <span class="sc">*</span> samci <span class="sc">*</span> samice <span class="sc">/</span> (samci <span class="sc">+</span> samice),</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">simulacija =</span> <span class="fu">c</span>(<span class="fu">ocena_ne</span>(s1<span class="sc">$</span>He, s1<span class="sc">$</span>generacija), <span class="fu">ocena_ne</span>(s2<span class="sc">$</span>He, s2<span class="sc">$</span>generacija), <span class="fu">ocena_ne</span>(s3<span class="sc">$</span>He, s3<span class="sc">$</span>generacija)))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
-    N_m   N_f formula simulacija
-  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-1    50    50     100      115. 
-2    20    80      64       61.4
-3     5    95      19       20.1</code></pre>
+  samci samice formula simulacija
+  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+1    50     50     100      102. 
+2    20     80      64       60.9
+3     5     95      19       17.9</code></pre>
 </div>
 </div>
 <p>Vse tri populacije imajo 100 odraslih, a pri petih samcih izgublja raznolikost tako hitro kot idealna populacija z le okoli 19 osebki. Polovico genov vsake generacije prispeva samo pet samcev, zato so ti ozko grlo. Ocene iz simulacije so blizu formule, a ne enake: simulacija je naključna.</p>
@@ -838,8 +827,8 @@ Slika&nbsp;4.6: Povprečna H<sub>e</sub> 500 lokusov (točke) in pričakovanje (
 <p><span class="math display">\[N_e \approx \frac{t}{\sum_{i=1}^{t} 1/N_i}\]</span></p>
 <p>Harmonična sredina je zelo občutljiva na majhne vrednosti, zato že <strong>kratko ozko grlo</strong> močno zmanjša dolgoročno N<sub>e</sub>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>velikosti <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">20</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>))   <span class="co"># 10 generacij po 500, 2 generaciji po 20, 10 po 500</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">aritmeticna =</span> <span class="fu">mean</span>(velikosti), <span class="at">harmonicna =</span> <span class="fu">length</span>(velikosti) <span class="sc">/</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> velikosti))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>velikosti <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">20</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">500</span>, <span class="dv">10</span>))   <span class="co"># 10 generacij po 500, 2 generaciji po 20, 10 po 500</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">aritmeticna =</span> <span class="fu">mean</span>(velikosti), <span class="at">harmonicna =</span> <span class="fu">length</span>(velikosti) <span class="sc">/</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> velikosti))</span></code></pre></div><button title="Kopiraj v odložišče" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>aritmeticna  harmonicna 
    456.3636    157.1429 </code></pre>
