@@ -1,0 +1,214 @@
+---
+title: "E2 - simulacije"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+library(tidyverse)
+```
+
+# Naslov 1
+
+## Naslov 2
+
+### Naslov 3
+
+```{r}
+genotipi <- c(AA = 30, AG = 15, GG = 5)        # število osebkov z vsakim genotipom
+n <- sum(genotipi)                              # vseh osebkov
+
+frek_genotipov <- genotipi / n                  # frekvence genotipov
+p <- (2 * genotipi[["AA"]] + genotipi[["AG"]]) / (2 * n)   # AA nosi 2 alela A, AG enega; vseh alelov je 2n
+q <- 1 - p                                      # frekvenca alela G
+
+frek_genotipov
+```
+```{r}
+c(p = p, q = q)
+```
+```{r}
+populacije <- tibble(
+  alel = 1:5,
+  POP1 = c(0.2, 0.2, 0.2, 0.2, 0.2),
+  POP2 = c(0.01, 0.01, 0.01, 0.01, 0.96),
+  POP3 = c(0.6, 0.4, 0, 0, 0)
+)
+
+populacije_long <- populacije |>
+  pivot_longer(-alel, names_to = "populacija", values_to = "p")
+
+populacije |>
+  pivot_longer(-alel, names_to = "populacija", values_to = "p") |>   # ena vrstica = en alel v eni populaciji
+  group_by(populacija) |>
+  summarise(bogastvo_alelov      = sum(p > 0),        # število alelov
+            He            = 1 - sum(p^2),      # pričakovana heterozigotnost
+            raznovrstnost = 1 / sum(p^2))      # efektivno število alelov
+
+```
+
+
+
+```{r}
+hwe <- tibble(p = seq(0, 1, by = 0.01)) |>    # frekvence alela A od 0 do 1
+  mutate(AA = p^2,                              # pričakovane frekvence genotipov
+         Aa = 2 * p * (1 - p),
+         aa = (1 - p)^2)
+
+head(hwe)
+
+hwe |>
+  pivot_longer(-p, names_to = "genotip", values_to = "frekvenca") |>
+  ggplot(aes(p, frekvenca, colour = genotip)) +
+  geom_line(linewidth = 1.2) +
+  scale_colour_manual(values = c(AA = "#D62728", Aa = "#2CA02C", aa = "#1F77B4")) +
+  labs(x = "frekvenca alela A (p)", y = "frekvenca genotipa", colour = NULL)
+```
+
+```{r}
+starsi <- c(AA = 50, Aa = 0, aa = 50)
+p_starsi <- (2 * starsi[["AA"]] + starsi[["Aa"]]) / (2 * sum(starsi))   # frekvenca alela A v genskem skladu
+
+alel_1 <- rbinom(1000, 1, p_starsi)     # prvi alel vsakega potomca (1 = A, 0 = a)
+alel_2 <- rbinom(1000, 1, p_starsi)     # drugi alel, neodvisno od prvega
+stevilo_A <- alel_1 + alel_2            # 2 = AA, 1 = Aa, 0 = aa
+
+potomci <- c(AA = sum(stevilo_A == 2), Aa = sum(stevilo_A == 1), aa = sum(stevilo_A == 0))
+rbind(starsi = starsi / sum(starsi), potomci = potomci / sum(potomci), HWE = c(0.25, 0.5, 0.25))
+```
+
+```{r}
+test_hwe <- function(genotipi) {
+  n <- sum(genotipi)
+  p <- (2 * genotipi[[1]] + genotipi[[2]]) / (2 * n)                 # frekvenca alela
+  pricakovani <- n * c(p^2, 2 * p * (1 - p), (1 - p)^2)              # pričakovano število osebkov
+  chi2 <- sum((genotipi - pricakovani)^2 / pricakovani)              # razlika med opaženim in pričakovanim
+  tibble(p = p, Ho = genotipi[[2]] / n, He = 2 * p * (1 - p),
+         F = 1 - Ho / He, chi2 = chi2, p_vrednost = pchisq(chi2, df = 1, lower.tail = FALSE))
+}
+
+bind_rows(primer = test_hwe(genotipi), starsi = test_hwe(starsi), potomci = test_hwe(potomci), .id = "populacija")
+```
+
+```{r}
+zdrs <- function(N, p0, generacije) {
+  p <- numeric(generacije + 1)          # prazen vektor za frekvence
+  p[1] <- p0                            # začetna frekvenca alela A
+  for (t in 1:generacije) {
+    kopije_A <- rbinom(1, size = 2 * N, prob = p[t])   # koliko od 2N kopij v novi generaciji je A
+    p[t + 1] <- kopije_A / (2 * N)                     # nova frekvenca alela A
+  }
+  p                                     # vrne frekvence za vse generacije
+}
+
+zdrs(N = 20, p0 = 0.5, generacije = 10)  # primer: frekvenca alela v prvih 10 generacijah
+```
+
+```{r}
+#set.seed(24)   # seme, pri katerem se v eni majhni populaciji A fiksira, v drugi izgubi (poskusite tudi druga)
+populacije <- tibble(
+  generacija = rep(0:100, 4),
+  p = c(zdrs(20, 0.5, 100), zdrs(20, 0.5, 100), zdrs(1000, 0.5, 100), zdrs(1000, 0.5, 100)),
+  populacija = rep(c("N = 20 (1)", "N = 20 (2)", "N = 1000 (1)", "N = 1000 (2)"), each = 101),
+  N = rep(c("N = 20", "N = 1000"), each = 2 * 101)
+)
+
+ggplot(populacije, aes(generacija, p, colour = N, group = populacija)) +
+  geom_line(linewidth = 0.9) +
+  scale_colour_manual(values = c("N = 20" = "#B5542C", "N = 1000" = "#1F5FA8")) +
+  ylim(0, 1) +
+  labs(x = "generacija", y = "frekvenca alela A", colour = NULL)
+```
+```{r}
+frekvence <- replicate(30, zdrs(N = 20, p0 = 0.5, generacije = 100))   # matrika: vrstice = generacije, stolpci = populacije
+
+sprehod <- tibble(generacija = rep(0:100, 30),
+                  populacija = rep(1:30, each = 101),
+                  p          = as.vector(frekvence)) |>
+  group_by(populacija) |>
+  mutate(izid = case_when(last(p) == 1 ~ "A fiksiran",
+                          last(p) == 0 ~ "A izgubljen",
+                          TRUE         ~ "še polimorfen"))
+
+ggplot(sprehod, aes(generacija, p, group = populacija, colour = izid)) +
+  geom_line(alpha = 0.8) +
+  scale_colour_manual(values = c(`A fiksiran` = "#B5542C", `A izgubljen` = "#1F5FA8", `še polimorfen` = "grey60")) +
+  labs(x = "generacija", y = "frekvenca alela A", colour = NULL)
+```
+
+```{r}
+ocena_ne <- function(He, generacija) {
+  naklon <- coef(lm(log(He) ~ generacija))[["generacija"]]   # naklon premice log(He) ~ generacija
+  1 / (2 * (1 - exp(naklon)))                               # iz naklona izračunamo Ne
+}
+```
+
+
+
+```{r}
+simuliraj_spola <- function(N_m, N_f, generacije = 50, lokusi = 1000) {
+  p  <- rep(0.5, lokusi)                       # frekvenca alela na vsakem lokusu
+  He <- mean(2 * p * (1 - p))
+  for (t in 1:generacije) {
+    p_samci  <- rbinom(lokusi, 2 * N_m, p) / (2 * N_m)   # geni N_m samcev, ki se razmnožujejo
+    p_samice <- rbinom(lokusi, 2 * N_f, p) / (2 * N_f)   # geni N_f samic
+    p <- (p_samci + p_samice) / 2              # potomci: polovica genov od očetov, polovica od mater
+    He <- c(He, mean(2 * p * (1 - p)))         # shranimo povprečno He
+  }
+  tibble(generacija = 0:generacije, He = He)
+}
+
+s1 <- simuliraj_spola(50, 50)
+s2 <- simuliraj_spola(20, 80)
+s3 <- simuliraj_spola(5, 95)
+
+tibble(samci      = c(50, 20, 5),
+       samice     = c(50, 80, 95),
+       formula    = 4 * samci * samice / (samci + samice),
+       simulacija = c(ocena_ne(s1$He, s1$generacija), ocena_ne(s2$He, s2$generacija), ocena_ne(s3$He, s3$generacija)))
+```
+
+```{r}
+rast <- tibble(generacija = 0:27,
+               N = round(20 * exp(0.1 * generacija))) |>     # eksponentna rast z 20 na ~300
+  mutate(Ne = (generacija + 1) / cumsum(1 / N))              # harmonična sredina do vsake generacije
+
+rast |>
+  pivot_longer(c(N, Ne), names_to = "velikost", values_to = "vrednost") |>
+  ggplot(aes(generacija, vrednost, colour = velikost)) +
+  geom_line(linewidth = 1.2) +
+  scale_colour_manual(values = c(N = "#B5542C", Ne = "#1F5FA8"),
+                      labels = c(N = "dejanska velikost (N)", Ne = "efektivna velikost (Ne)")) +
+  labs(x = "generacija", y = "velikost populacije", colour = NULL)
+```
+
+```{r}
+frek0 <- 0.8^(0:19)                   # 20 alelov z vse manjšo frekvenco
+frek0 <- frek0 / sum(frek0)           # frekvence morajo skupaj dati 1
+round(frek0, 3)
+```
+```{r}
+c(bogastvo = 20, He = 1 - sum(frek0^2))
+```
+
