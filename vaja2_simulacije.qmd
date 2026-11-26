@@ -209,6 +209,26 @@ frek0 <- frek0 / sum(frek0)           # frekvence morajo skupaj dati 1
 round(frek0, 3)
 ```
 ```{r}
-c(bogastvo = 20, He = 1 - sum(frek0^2))
+fst_skozi_cas <- function(m, N = 50, generacije = 200, lokusi = 500) {
+  p1 <- rep(0.5, lokusi); p2 <- rep(0.5, lokusi)        # frekvence na vseh lokusih v obeh populacijah
+  FST <- numeric(generacije)
+  for (t in 1:generacije) {
+    p1_m <- (1 - m) * p1 + m * p2                       # 1. migracije
+    p2_m <- (1 - m) * p2 + m * p1
+    p1 <- rbinom(lokusi, 2 * N, p1_m) / (2 * N)         # 2. zdrs v vsaki populaciji posebej
+    p2 <- rbinom(lokusi, 2 * N, p2_m) / (2 * N)
+    HS <- mean((2 * p1 * (1 - p1) + 2 * p2 * (1 - p2)) / 2)   # povprečna He znotraj populacij
+    p_skupna <- (p1 + p2) / 2
+    HT <- mean(2 * p_skupna * (1 - p_skupna))                 # He združene populacije
+    FST[t] <- (HT - HS) / HT
+  }
+  tibble(m = m, generacija = 1:generacije, FST = FST)
+}
+
+bind_rows(fst_skozi_cas(0), fst_skozi_cas(0.002), fst_skozi_cas(0.02), fst_skozi_cas(0.1)) |>
+  mutate(m = paste0("m = ", m, " (Nm = ", 50 * m, ")")) |>
+  ggplot(aes(generacija, FST, colour = m)) +
+  geom_line(linewidth = 1) +
+  labs(x = "generacija", y = expression(F[ST]), colour = NULL)
 ```
 
